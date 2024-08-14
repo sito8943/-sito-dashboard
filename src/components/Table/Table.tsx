@@ -6,10 +6,10 @@ import { useTranslation } from "react-i18next";
 import { Loading } from "../Loading";
 
 // table components
-import { Empty } from "./Empty";
-import { Columns } from "./Columns";
-import { PageSize } from "./PageSize";
-import { Navigation } from "./Navigation";
+import { Empty } from "./components/Empty";
+import { Columns } from "./components/Columns";
+import { PageSize } from "./components/PageSize";
+import { Navigation } from "./components/Navigation";
 
 // types
 import { TablePropsType } from "./types";
@@ -56,12 +56,12 @@ export function Table(props: TablePropsType) {
             />
             {!isLoading && Boolean(rows?.length) && (
               <tbody>
-                {parsedRows.map((row) => (
+                {parsedRows?.map((row) => (
                   <tr
                     key={row.id}
                     className={`border-b ${row.deleted.value ? "bg-secondary/10" : "bg-white"}`}
                   >
-                    {columns.map((column, i) => (
+                    {columns?.map((column, i) => (
                       <td
                         key={column}
                         className={`px-6 py-4 font-medium ${i === 0 ? "text-gray-900 whitespace-nowrap" : ""} ${columnsOptions?.columnClassNames ? columnsOptions?.columnClassNames[column] : ""}`}
@@ -76,7 +76,7 @@ export function Table(props: TablePropsType) {
                             .filter(
                               (action) => !action.hidden || !action.hidden(row)
                             )
-                            .map((action) => (
+                            ?.map((action) => (
                               <Tippy key={action.id} content={action.tooltip}>
                                 <button onClick={() => action.onClick(row)}>
                                   {action.icon}
