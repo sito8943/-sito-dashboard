@@ -1,0 +1,30 @@
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+
+  /* Posiciona el tooltip */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Cambia esta propiedad según la posición que desees */
+  left: 50%;
+  transform: translateX(-50%);
+
+  /* Flecha del tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
