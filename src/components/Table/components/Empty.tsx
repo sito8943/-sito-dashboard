@@ -1,4 +1,5 @@
-import { useTranslation } from "react-i18next";
+// providers
+import { useTranslation } from "providers";
 
 /**
  * Empty component

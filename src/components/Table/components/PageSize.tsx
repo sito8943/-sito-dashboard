@@ -1,5 +1,6 @@
 import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
+// providers
+import { useTranslation } from "providers";
 
 // components
 import { SelectInput, Option } from "../../Form";

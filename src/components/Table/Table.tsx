@@ -1,9 +1,11 @@
 import { useMemo } from "react";
-import Tippy from "@tippyjs/react";
-import { useTranslation } from "react-i18next";
+
+// providers
+import { useTranslation } from "../../providers";
 
 // components
-import { Loading } from "../Loading";
+import { Tooltip } from "components/Tooltip/Tooltip";
+import { Loading } from "components/Loading";
 
 // table components
 import { Empty } from "./components/Empty";
@@ -77,11 +79,11 @@ export function Table(props: TablePropsType) {
                               (action) => !action.hidden || !action.hidden(row)
                             )
                             ?.map((action) => (
-                              <Tippy key={action.id} content={action.tooltip}>
+                              <Tooltip key={action.id} content={action.tooltip}>
                                 <button onClick={() => action.onClick(row)}>
                                   {action.icon}
                                 </button>
-                              </Tippy>
+                              </Tooltip>
                             ))}
                         </div>
                       </td>

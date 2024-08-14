@@ -1,5 +1,7 @@
 import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
+
+// providers
+import { useTranslation } from "providers";
 
 // hooks
 import { useTableOptions } from "../hooks/TableOptionsProvider";
