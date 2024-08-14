@@ -2,10 +2,10 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 // components
-import { SelectInput, Option } from "../Form";
+import { SelectInput, Option } from "../../Form";
 
 // hooks
-import { useTableOptions } from "./hooks/TableOptionsProvider";
+import { useTableOptions } from "../hooks/TableOptionsProvider";
 
 /**
  * Page size component
@@ -17,7 +17,7 @@ export function PageSize() {
   const { pageSizes, pageSize, setPageSize } = useTableOptions();
 
   const optionPageSize = useMemo(
-    () => pageSizes.map((size) => ({ id: size, value: size })),
+    () => pageSizes?.map((size) => ({ id: size, value: size })),
     [pageSizes]
   );
 

@@ -2,13 +2,13 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 // hooks
-import { useTableOptions } from "./hooks/TableOptionsProvider";
+import { useTableOptions } from "../hooks/TableOptionsProvider";
 
 // models
-import { SortOrder } from "../../lib/models/query";
+import { SortOrder } from "../../../lib/models/query";
 
 // types
-import { ColumnPropTypes } from "./types";
+import { ColumnPropTypes } from "../types";
 
 /**
  * Columns component
@@ -25,7 +25,7 @@ export function Columns(props: ColumnPropTypes) {
   const parsedColumns = useMemo(() => {
     const { noSortableColumns = {}, columnClassNames = {} } =
       columnsOptions ?? {};
-    return columns.map((key) => ({
+    return columns?.map((key) => ({
       id: key,
       label: t(`_entities:${entity}.${key}.label`),
       className: columnClassNames[key] ?? "",

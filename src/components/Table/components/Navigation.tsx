@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 // hooks
-import { useTableOptions } from "./hooks/TableOptionsProvider";
+import { useTableOptions } from "../hooks/TableOptionsProvider";
 
 /**
  * Navigation component
