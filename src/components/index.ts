@@ -1,5 +1,4 @@
-import * as Table from "./Table";
-import * as Form from "./Form";
+import { Table, TableOptionsProvider, useTableOptions } from "./Table";
 import { Loading } from "./Loading";
 
-export { Loading, Table, Form };
+export { Loading, TableOptionsProvider, useTableOptions, Table };
