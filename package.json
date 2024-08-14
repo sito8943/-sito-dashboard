@@ -48,9 +48,5 @@
     "vite": "^4.2.0",
     "vite-plugin-dts": "^4.0.2",
     "vite-plugin-lib-inject-css": "1.3.0"
-  },
-  "peerDependencies": {
-    "@tippyjs/react": "^4.2.6",
-    "react-i18next": "^15.0.1"
   }
 }
