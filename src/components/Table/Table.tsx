@@ -65,10 +65,10 @@ export function Table(props: TablePropsType) {
                   >
                     {columns?.map((column, i) => (
                       <td
-                        key={column}
-                        className={`px-6 py-4 font-medium ${i === 0 ? "text-gray-900 whitespace-nowrap" : ""} ${columnsOptions?.columnClassNames ? columnsOptions?.columnClassNames[column] : ""}`}
+                        key={column.key}
+                        className={`px-6 py-4 font-medium ${i === 0 ? "text-gray-900 whitespace-nowrap" : ""} ${columnsOptions?.columnClassNames ? columnsOptions?.columnClassNames[column.key] : ""}`}
                       >
-                        {row[column]?.render ?? row[column]}
+                        {row[column.key]?.render ?? row[column.key]}
                       </td>
                     ))}
                     {Boolean(actions.length) && (

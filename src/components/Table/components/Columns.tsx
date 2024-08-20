@@ -30,11 +30,11 @@ export function Columns(props: ColumnPropTypes) {
   const parsedColumns = useMemo(() => {
     const { noSortableColumns = {}, columnClassNames = {} } =
       columnsOptions ?? {};
-    return columns?.map((key) => ({
-      id: key,
-      label: t(`_entities:${entity}.${key}.label`),
-      className: columnClassNames[key] ?? "",
-      sortable: !noSortableColumns[key],
+    return columns?.map((column) => ({
+      id: column.key,
+      label: column.label,
+      className: columnClassNames[column.key] ?? "",
+      sortable: !noSortableColumns[column.key],
     }));
   }, [columns, columnsOptions, entity, t]);
 
@@ -58,8 +58,16 @@ export function Columns(props: ColumnPropTypes) {
                   className={`${sortingBy === column.id ? "opacity-100" : "opacity-0"}`}
                 >
                   {sortingOrder === SortOrder.ASC
-                    ? (columnsOptions?.icons?.asc ?? "^")
-                    : (columnsOptions?.icons?.asc ?? "v")}
+                    ? (columnsOptions?.icons?.asc ?? (
+                        <ChevronUp
+                          className={columnsOptions?.icons.className ?? ""}
+                        />
+                      ))
+                    : (columnsOptions?.icons?.desc ?? (
+                        <ChevronDown
+                          className={columnsOptions?.icons.className ?? ""}
+                        />
+                      ))}
                 </span>
               )}
             </button>

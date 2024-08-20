@@ -20,9 +20,14 @@ export type ColumnsOptionsType = {
   };
 };
 
+export type ColumnType = {
+  key: string;
+  label: string;
+};
+
 export type ColumnPropTypes = {
   entity: string;
-  columns: string[];
+  columns: ColumnType[];
   columnsOptions?: ColumnsOptionsType;
   hasAction: boolean;
 };
@@ -35,7 +40,7 @@ export type TablePropsType = {
   parseRows?: any;
   isLoading?: boolean;
   actions?: Action[];
-  columns?: string[];
+  columns?: ColumnType[];
   columnsOptions?: ColumnsOptionsType;
   contentClassName?: string;
   className?: string;
