@@ -9,6 +9,9 @@ import { useTableOptions } from "../hooks/TableOptionsProvider";
 // models
 import { SortOrder } from "../../../lib/models/query";
 
+// components
+import { ChevronDown, ChevronUp } from "components/Chevron";
+
 // types
 import { ColumnPropTypes } from "../types";
 

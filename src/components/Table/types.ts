@@ -14,6 +14,7 @@ export type ColumnsOptionsType = {
     [key: string]: string;
   };
   icons: {
+    className: string;
     asc: string;
     desc: string;
   };
