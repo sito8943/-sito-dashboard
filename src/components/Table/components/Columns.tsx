@@ -60,12 +60,12 @@ export function Columns(props: ColumnPropTypes) {
                   {sortingOrder === SortOrder.ASC
                     ? (columnsOptions?.icons?.asc ?? (
                         <ChevronUp
-                          className={columnsOptions?.icons.className ?? ""}
+                          className={columnsOptions?.icons.className ?? "w-3"}
                         />
                       ))
                     : (columnsOptions?.icons?.desc ?? (
                         <ChevronDown
-                          className={columnsOptions?.icons.className ?? ""}
+                          className={columnsOptions?.icons.className ?? "w-3"}
                         />
                       ))}
                 </span>
