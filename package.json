@@ -1,7 +1,7 @@
 {
   "name": "@sito/dashboard",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "description": "UI library with custom components for dashboards",
   "main": "dist/dashboard.cjs",
@@ -17,7 +17,8 @@
   "exports": {
     ".": {
       "import": "./dist/dashboard.js",
-      "require": "./dist/dashboard.cjs"
+      "require": "./dist/dashboard.cjs",
+      "types": "./dist/index.d.ts"
     }
   },
   "sideEffects": [
