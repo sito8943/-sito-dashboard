@@ -42,7 +42,7 @@ export function Table(props: TablePropsType) {
       <div className="mb-5 flex w-full items-center justify-between">
         <div>
           <h1 className="text-2xl md:text-3xl font-bold">{title}</h1>
-          {rows?.length && !isLoading && <PageSize />}
+          {rows?.length && !isLoading ? <PageSize /> : null}
         </div>
       </div>
       {!isLoading ? (
