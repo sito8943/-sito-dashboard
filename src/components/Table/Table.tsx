@@ -47,9 +47,7 @@ export function Table(props: TablePropsType) {
       </div>
       {!isLoading ? (
         <div className={`${contentClassName} overflow-auto`}>
-          {!rows?.length ? (
-            <Empty />
-          ) : (
+          {rows?.length ? (
             <table className="w-full text-sm text-left text-gray-500">
               <Columns
                 entity={entity}
@@ -57,47 +55,43 @@ export function Table(props: TablePropsType) {
                 columnsOptions={columnsOptions}
                 hasAction={actions?.length > 0}
               />
-              {!isLoading && Boolean(rows?.length) && (
-                <tbody>
-                  {parsedRows?.map((row) => (
-                    <tr
-                      key={row.id}
-                      className={`border-b ${row.deleted.value ? "bg-secondary/10" : "bg-white"}`}
-                    >
-                      {columns?.map((column, i) => (
-                        <td
-                          key={column.key}
-                          className={`px-6 py-4 font-medium ${i === 0 ? "text-gray-900 whitespace-nowrap" : ""} ${columnsOptions?.columnClassNames ? columnsOptions?.columnClassNames[column.key] : ""}`}
-                        >
-                          {row[column.key]?.render ?? row[column.key]}
-                        </td>
-                      ))}
-                      {Boolean(actions.length) && (
-                        <td>
-                          <div className="flex items-center gap-3 w-full justify-center">
-                            {actions
-                              .filter(
-                                (action) =>
-                                  !action.hidden || !action.hidden(row)
-                              )
-                              ?.map((action) => (
-                                <Tooltip
-                                  key={action.id}
-                                  content={action.tooltip}
-                                >
-                                  <button onClick={() => action.onClick(row)}>
-                                    {action.icon}
-                                  </button>
-                                </Tooltip>
-                              ))}
-                          </div>
-                        </td>
-                      )}
-                    </tr>
-                  ))}
-                </tbody>
-              )}
+              <tbody>
+                {parsedRows?.map((row) => (
+                  <tr
+                    key={row.id}
+                    className={`border-b ${row.deleted.value ? "bg-secondary/10" : "bg-white"}`}
+                  >
+                    {columns?.map((column, i) => (
+                      <td
+                        key={column.key}
+                        className={`px-6 py-4 font-medium ${i === 0 ? "text-gray-900 whitespace-nowrap" : ""} ${columnsOptions?.columnClassNames ? columnsOptions?.columnClassNames[column.key] : ""}`}
+                      >
+                        {row[column.key]?.render ?? row[column.key]}
+                      </td>
+                    ))}
+                    {Boolean(actions.length) && (
+                      <td>
+                        <div className="flex items-center gap-3 w-full justify-center">
+                          {actions
+                            .filter(
+                              (action) => !action.hidden || !action.hidden(row)
+                            )
+                            ?.map((action) => (
+                              <Tooltip key={action.id} content={action.tooltip}>
+                                <button onClick={() => action.onClick(row)}>
+                                  {action.icon}
+                                </button>
+                              </Tooltip>
+                            ))}
+                        </div>
+                      </td>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
             </table>
+          ) : (
+            <Empty />
           )}
         </div>
       ) : (
