@@ -44,4 +44,5 @@ export type TablePropsType = {
   columnsOptions?: ColumnsOptionsType;
   contentClassName?: string;
   className?: string;
+  softDeleteProperty?: string;
 };

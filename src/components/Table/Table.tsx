@@ -30,6 +30,7 @@ export function Table(props: TablePropsType) {
     contentClassName = "h-[calc(100vh-280px)]",
     className = "bg-gray-50",
     columnsOptions,
+    softDeleteProperty = "deleted",
   } = props;
 
   const parsedRows = useMemo(
@@ -60,7 +61,7 @@ export function Table(props: TablePropsType) {
                   {parsedRows?.map((row) => (
                     <tr
                       key={row.id}
-                      className={`border-b ${row.deleted.value ? "bg-secondary/10" : "bg-white"}`}
+                      className={`border-b ${row.softDeleteProperty?.value ? "bg-secondary/10" : "bg-white"}`}
                     >
                       {columns?.map((column, i) => (
                         <td
