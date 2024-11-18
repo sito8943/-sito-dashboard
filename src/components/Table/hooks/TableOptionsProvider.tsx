@@ -3,24 +3,13 @@ import { createContext, useCallback, useContext, useState } from "react";
 // utils
 import { SortOrder } from "../../../lib/models/query";
 
+// types
+import {
+  TableOptionsContextType,
+  TableOptionsProviderPropsType,
+} from "./types";
+
 const pageSizes = [20, 50, 100];
-
-type TableOptionsContextType = {
-  onSort: (column: string) => void;
-  total: number;
-  setTotal: (total: number) => void;
-  sortingBy: string;
-  sortingOrder: SortOrder;
-  pageSize: number;
-  pageSizes: number[];
-  setPageSize: (pageSize: number) => void;
-  currentPage: number;
-  setCurrentPage: (currentPage: number) => void;
-};
-
-type TableOptionsProviderPropsType = {
-  children: React.ReactNode;
-};
 
 const TableOptionsContext = createContext({} as TableOptionsContextType);
 
