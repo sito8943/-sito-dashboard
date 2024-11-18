@@ -23,7 +23,7 @@ export function PageSize() {
   );
 
   return (
-    <div className="flex gap-2 items-center justify-start">
+    <div className="flex gap-2 items-center justify-start px-5">
       <p>{t("_accessibility:components.table.pageSizes")}</p>
       <SelectInput
         value={pageSize}
