@@ -42,7 +42,7 @@ export function Table(props: TablePropsType) {
     <div className={`${className} relative overflow-x-auto w-full h-full`}>
       <div className="mb-5 flex w-full items-center justify-between">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold">{title}</h1>
+          <h1 className="text-2xl md:text-3xl font-bold mx-5">{title}</h1>
           {rows?.length && !isLoading ? <PageSize /> : null}
         </div>
       </div>
