@@ -18,7 +18,7 @@ export function Navigation() {
     (currentPage + 1) * pageSize > total ? total : (currentPage + 1) * pageSize;
 
   return (
-    <div className="flex w-full items-center justify-between mt-5">
+    <div className="flex w-full items-center justify-between mt-5 px-5">
       <div className="flex w-full items-center justify-start gap-1">
         <p>{t("_accessibility:components.table.pageSizes")}</p>
         {pageSizes[0] < total && (
