@@ -61,7 +61,7 @@ export function Table(props: TablePropsType) {
                   {parsedRows?.map((row) => (
                     <tr
                       key={row.id}
-                      className={`border-b ${row.softDeleteProperty?.value ? "bg-secondary/10" : "bg-white"}`}
+                      className={`border-b ${row[softDeleteProperty]?.value ? "bg-secondary/10" : "bg-white"}`}
                     >
                       {columns?.map((column, i) => (
                         <td
