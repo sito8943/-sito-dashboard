@@ -39,7 +39,7 @@ export type TablePropsType = {
   rows: object[];
   parseRows?: any;
   isLoading?: boolean;
-  actions?: Action[];
+  actions?: (row: object) => Action[];
   columns?: ColumnType[];
   columnsOptions?: ColumnsOptionsType;
   contentClassName?: string;

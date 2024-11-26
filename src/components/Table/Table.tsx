@@ -25,7 +25,7 @@ export function Table(props: TablePropsType) {
     parseRows,
     entity = "",
     isLoading = false,
-    actions = [],
+    actions,
     columns = [],
     contentClassName = "h-[calc(100vh-280px)]",
     className = "bg-gray-50",
@@ -55,7 +55,7 @@ export function Table(props: TablePropsType) {
                   entity={entity}
                   columns={columns}
                   columnsOptions={columnsOptions}
-                  hasAction={actions?.length > 0}
+                  hasAction={!!actions}
                 />
                 <tbody>
                   {parsedRows?.map((row) => (
@@ -71,20 +71,17 @@ export function Table(props: TablePropsType) {
                           {row[column.key]?.render ?? row[column.key]}
                         </td>
                       ))}
-                      {!!actions.length ? (
+                      {!!actions ? (
                         <td>
                           <div className="flex items-center gap-3 w-full justify-center">
-                            {actions
-                              .filter(
-                                (action) =>
-                                  !action.hidden || !action.hidden(row)
-                              )
+                            {actions(row)
+                              .filter((action) => !action.hidden)
                               ?.map((action) => (
                                 <Tooltip
                                   key={action.id}
                                   content={action.tooltip}
                                 >
-                                  <button onClick={() => action.onClick(row)}>
+                                  <button onClick={action.onClick}>
                                     {action.icon}
                                   </button>
                                 </Tooltip>
