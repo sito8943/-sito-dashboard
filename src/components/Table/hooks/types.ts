@@ -5,7 +5,9 @@ export type TableOptionsContextType = {
   total: number;
   setTotal: (total: number) => void;
   sortingBy: string;
+  setSortingBy: (property: string) => void;
   sortingOrder: SortOrder;
+  setSortingOrder: (sortOrder: SortOrder) => void;
   pageSize: number;
   pageSizes: number[];
   setPageSize: (pageSize: number) => void;
