@@ -15,11 +15,7 @@
     "url": "https://github.com/sito8943/-sito-dashboard.git"
   },
   "exports": {
-    ".": {
-      "import": "./dist/dashboard.js",
-      "require": "./dist/dashboard.cjs",
-      "types": "./dist/index.d.ts"
-    }
+    ".": {}
   },
   "sideEffects": [
     "**/*.css"
