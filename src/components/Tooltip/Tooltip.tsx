@@ -12,7 +12,7 @@ export function Tooltip(props: TooltipPropsType) {
   return (
     <div className="group relative inline-block cursor-pointer">
       {children}
-      <div className="invisible opacity-0 group-hover:visible group-hover:opacity-1 bg-black text-gray-50 text-center px-1 py-2 rounded-1 absolute z-1 bottom-[125%] left-[50%] -translate-x-[50%]">{content}</div>
+      <div className="transition invisible opacity-0 group-hover:visible group-hover:opacity-100 bg-black text-gray-50 text-center px-2 py-2 rounded-sm absolute z-10 bottom-[125%] left-[50%] -translate-x-[50%]">{content}</div>
     </div>
   );
 }
