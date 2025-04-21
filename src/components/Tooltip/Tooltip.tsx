@@ -1,8 +1,5 @@
 import { HTMLAttributes } from "react";
 
-// styles
-import "./styles.css";
-
 // types
 interface TooltipPropsType extends HTMLAttributes<HTMLDivElement> {
   content: string;
