@@ -21,7 +21,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
   const [currentPage, setCurrentPage] = useState(0);
 
   const [sortingBy, setSortingBy] = useState("id");
-  const [sortingOrder, setSortingOrder] = useState(SortOrder.ASC);
+  const [sortingOrder, setSortingOrder] = useState(SortOrder.DESC);
 
   const onSort = useCallback(
     (attribute: string) => {
