@@ -1,0 +1,59 @@
+.page-size {
+  @apply flex gap-2 items-center justify-start px-5;
+}
+
+.page-size input {
+  @apply !py-0 !pl-2 !pr-7 !border-none font-bold;
+}
+
+.table-headers-row {
+  @apply text-xs text-gray-700 bg-gray-50;
+}
+
+.table-headers-column {
+  @apply px-6 py-3;
+}
+
+.table-headers-cell {
+  @apply flex items-center gap-2;
+}
+
+.table-headers-label {
+  @apply whitespace-nowrap;
+}
+
+.table-headers-sort {
+  @apply opacity-0;
+}
+
+.table-headers-sort-on {
+  @apply opacity-100;
+}
+
+.table-headers-sort-indicator {
+  @apply w-3;
+}
+
+.table-headers-action {
+  @apply px-6 py-3 text-center;
+}
+
+.table-empty {
+  @apply w-full flex items-center justify-center py-2 border-t-[1px];
+}
+
+.table-navigation {
+  @apply flex w-full items-center justify-between mt-5 px-5;
+}
+
+.table-navigation-sizes {
+  @apply flex w-full items-center justify-start gap-1;
+}
+
+.table-navigation-pages {
+  @apply flex gap-5 items-center justify-end;
+}
+
+.table-navigation-buttons:disabled {
+  @apply text-gray-300/40;
+}

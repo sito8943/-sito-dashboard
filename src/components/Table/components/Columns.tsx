@@ -7,7 +7,7 @@ import { useTranslation } from "providers";
 import { useTableOptions } from "../hooks/TableOptionsProvider";
 
 // models
-import { SortOrder } from "../../../lib/models/query";
+import { SortOrder } from "lib/models/query";
 
 // components
 import { ChevronDown, ChevronUp } from "components/Chevron";
@@ -39,33 +39,39 @@ export function Columns(props: ColumnPropTypes) {
   }, [columns, columnsOptions, entity, t]);
 
   return (
-    <thead className="text-xs text-gray-700 bg-gray-50">
+    <thead className="table-headers-row">
       <tr>
         {parsedColumns.map((column) => (
           <th
             key={column.id}
             scope="col"
-            className={`px-6 py-3 ${column.className}`}
+            className={`table-headers-column ${column.className}`}
           >
             <button
               disabled={!column.sortable}
               onClick={() => onSort(column.id)}
-              className="flex items-center gap-2"
+              className="table-headers-cell"
             >
-              <span className="whitespace-nowrap">{column.label}</span>
+              <span className="table-headers-label">{column.label}</span>
               {column.sortable && (
                 <span
-                  className={`${sortingBy === column.id ? "opacity-100" : "opacity-0"}`}
+                  className={`${sortingBy === column.id ? "table-headers-sort-on" : "table-headers-sort"}`}
                 >
                   {sortingOrder === SortOrder.ASC
                     ? (columnsOptions?.icons?.asc ?? (
                         <ChevronUp
-                          className={columnsOptions?.icons?.className ?? "w-3"}
+                          className={
+                            columnsOptions?.icons?.className ??
+                            "table-headers-sort-indicator"
+                          }
                         />
                       ))
                     : (columnsOptions?.icons?.desc ?? (
                         <ChevronDown
-                          className={columnsOptions?.icons?.className ?? "w-3"}
+                          className={
+                            columnsOptions?.icons?.className ??
+                            "table-headers-sort-indicator"
+                          }
                         />
                       ))}
                 </span>
@@ -74,7 +80,7 @@ export function Columns(props: ColumnPropTypes) {
           </th>
         ))}
         {hasAction && (
-          <th scope="col" className="px-6 py-3 text-center">
+          <th scope="col" className="table-headers-action">
             {t("_accessibility:labels.actions")}
           </th>
         )}

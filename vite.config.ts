@@ -12,6 +12,7 @@ export default defineConfig({
       components: resolve(srcPath, "components"),
       providers: resolve(srcPath, "providers"),
       lib: resolve(srcPath, "lib"),
+      hooks: resolve(srcPath,"hooks")
     },
   },
   plugins: [react(), dts({ insertTypesEntry: true }), libInjectCss()],

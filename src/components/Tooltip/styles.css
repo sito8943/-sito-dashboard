@@ -12,14 +12,12 @@
   padding: 5px 10px;
   border-radius: 5px;
 
-  /* Posiciona el tooltip */
   position: absolute;
   z-index: 1;
-  bottom: 125%; /* Cambia esta propiedad según la posición que desees */
+  bottom: 125%;
   left: 50%;
   transform: translateX(-50%);
 
-  /* Flecha del tooltip */
   opacity: 0;
   transition: opacity 0.3s;
 }

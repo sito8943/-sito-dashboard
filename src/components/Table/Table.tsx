@@ -16,6 +16,10 @@ import { Navigation } from "./components/Navigation";
 // types
 import { TablePropsType } from "./types";
 
+// styles
+import "./styles.css";
+import "./components/styles.css";
+
 export function Table(props: TablePropsType) {
   const { t } = useTranslation();
 
@@ -27,8 +31,8 @@ export function Table(props: TablePropsType) {
     isLoading = false,
     actions,
     columns = [],
-    contentClassName = "h-[calc(100vh-280px)]",
-    className = "bg-gray-50",
+    contentClassName = "",
+    className = "",
     columnsOptions,
     softDeleteProperty = "deleted",
   } = props;
@@ -39,18 +43,18 @@ export function Table(props: TablePropsType) {
   );
 
   return (
-    <div className={`${className} relative overflow-x-auto w-full h-full`}>
-      <div className="mb-5 flex w-full items-center justify-between">
+    <div className={`${className} table`}>
+      <div className="table-header">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold mx-5">{title}</h1>
+          <h1 className="table-header-title">{title}</h1>
           {rows?.length && !isLoading ? <PageSize /> : null}
         </div>
       </div>
       {!isLoading ? (
-        <div className={`${contentClassName} overflow-auto`}>
+        <div className={`${contentClassName} table-body`}>
           {rows?.length ? (
             <>
-              <table className="w-full text-sm text-left text-gray-500">
+              <table className="table-content">
                 <Columns
                   entity={entity}
                   columns={columns}
@@ -61,19 +65,19 @@ export function Table(props: TablePropsType) {
                   {parsedRows?.map((row) => (
                     <tr
                       key={row.id}
-                      className={`border-b ${row[softDeleteProperty]?.value ? "deleted-class" : "bg-white"}`}
+                      className={`table-row ${row[softDeleteProperty]?.value ? "deleted-class" : ""}`}
                     >
                       {columns?.map((column, i) => (
                         <td
                           key={column.key}
-                          className={`px-6 py-4 font-medium ${i === 0 ? "text-gray-900 whitespace-nowrap" : ""} ${columnsOptions?.columnClassNames ? columnsOptions?.columnClassNames[column.key] : ""}`}
+                          className={`table-row-cell ${i === 0 ? "basic" : ""} ${columnsOptions?.columnClassNames ? columnsOptions?.columnClassNames[column.key] : ""}`}
                         >
                           {row[column.key]?.render ?? row[column.key]}
                         </td>
                       ))}
                       {!!actions ? (
                         <td>
-                          <div className="flex items-center gap-3 w-full justify-center">
+                          <div className="table-row-cell-action">
                             {actions(row)
                               .filter((action) => !action.hidden)
                               ?.map((action) => (
@@ -100,7 +104,7 @@ export function Table(props: TablePropsType) {
           )}
         </div>
       ) : (
-        <Loading className="bg-white top-0 left-0 w-full h-full" />
+        <Loading className="table-loading" />
       )}
     </div>
   );

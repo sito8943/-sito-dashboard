@@ -18,8 +18,8 @@ export function Navigation() {
     (currentPage + 1) * pageSize > total ? total : (currentPage + 1) * pageSize;
 
   return (
-    <div className="flex w-full items-center justify-between mt-5 px-5">
-      <div className="flex w-full items-center justify-start gap-1">
+    <div className="table-navigation">
+      <div className="table-navigation-sizes">
         <p>{t("_accessibility:components.table.pageSizes")}</p>
         {pageSizes[0] < total && (
           <>
@@ -35,9 +35,9 @@ export function Navigation() {
           {total} {t("_accessibility:components.table.results")}
         </p>
       </div>
-      <div className="flex gap-5 items-center justify-end">
+      <div className="table-navigation-pages">
         <button
-          className="disabled:text-light-primary/40"
+          className="table-navigation-buttons"
           disabled={currentPage === 0}
           onClick={() => setCurrentPage(currentPage - 1)}
         >
@@ -45,7 +45,7 @@ export function Navigation() {
         </button>
         <button
           disabled={Math.floor(total / ((currentPage + 1) * pageSize)) === 0}
-          className="disabled:text-light-primary/40"
+          className="table-navigation-buttons"
           onClick={() => setCurrentPage(currentPage + 1)}
         >
           {t("_accessibility:buttons.next")}

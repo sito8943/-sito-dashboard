@@ -23,12 +23,11 @@ export function PageSize() {
   );
 
   return (
-    <div className="flex gap-2 items-center justify-start px-5">
+    <div className="page-size">
       <p>{t("_accessibility:components.table.pageSizes")}</p>
       <SelectInput
         value={pageSize}
         options={optionPageSize as Option[]}
-        inputClassName="!py-0 !pl-2 !pr-7 !border-none font-bold"
         containerClassName="!w-auto !mb-0 !border-none"
         helperTextClassName="hidden"
         onChange={(e) => setPageSize(e.target.value)}
