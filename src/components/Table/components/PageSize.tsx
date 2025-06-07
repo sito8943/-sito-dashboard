@@ -28,7 +28,8 @@ export function PageSize() {
       <SelectInput
         value={pageSize}
         options={optionPageSize as Option[]}
-        containerClassName="!w-auto !mb-0 !border-none"
+        inputClassName="page-size-input"
+        containerClassName="page-size-input-container"
         helperTextClassName="hidden"
         onChange={(e) => setPageSize(e.target.value)}
       />
