@@ -43,7 +43,7 @@ export function Table(props: TablePropsType) {
   );
 
   return (
-    <div className={`${className} table`}>
+    <div className={`${className} table-main`}>
       <div className="table-header">
         <div>
           <h1 className="table-header-title">{title}</h1>
@@ -51,58 +51,61 @@ export function Table(props: TablePropsType) {
         </div>
       </div>
       {!isLoading ? (
-        <div className={`${contentClassName} table-body`}>
+        <>
           {rows?.length ? (
             <>
-              <table className="table-content">
-                <Columns
-                  entity={entity}
-                  columns={columns}
-                  columnsOptions={columnsOptions}
-                  hasAction={!!actions}
-                />
-                <tbody>
-                  {parsedRows?.map((row) => (
-                    <tr
-                      key={row.id}
-                      className={`table-row ${row[softDeleteProperty]?.value ? "deleted-class" : ""}`}
-                    >
-                      {columns?.map((column, i) => (
-                        <td
-                          key={column.key}
-                          className={`table-row-cell ${i === 0 ? "basic" : ""} ${columnsOptions?.columnClassNames ? columnsOptions?.columnClassNames[column.key] : ""}`}
-                        >
-                          {row[column.key]?.render ?? row[column.key]}
-                        </td>
-                      ))}
-                      {!!actions ? (
-                        <td>
-                          <div className="table-row-cell-action">
-                            {actions(row)
-                              .filter((action) => !action.hidden)
-                              ?.map((action) => (
-                                <Tooltip
-                                  key={action.id}
-                                  content={action.tooltip}
-                                >
-                                  <button onClick={action.onClick}>
-                                    {action.icon}
-                                  </button>
-                                </Tooltip>
-                              ))}
-                          </div>
-                        </td>
-                      ) : null}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <div className={`${contentClassName} table-body`}>
+                <table className="table-content">
+                  <Columns
+                    entity={entity}
+                    columns={columns}
+                    columnsOptions={columnsOptions}
+                    hasAction={!!actions}
+                  />
+                  <tbody>
+                    {parsedRows?.map((row) => (
+                      <tr
+                        key={row.id}
+                        className={`table-row ${row[softDeleteProperty]?.value ? "deleted-class" : ""}`}
+                      >
+                        {columns?.map((column, i) => (
+                          <td
+                            key={column.key}
+                            className={`table-row-cell ${i === 0 ? "basic" : ""} ${columnsOptions?.columnClassNames ? columnsOptions?.columnClassNames[column.key] : ""}`}
+                          >
+                            {row[column.key]?.render ?? row[column.key]}
+                          </td>
+                        ))}
+                        {!!actions ? (
+                          <td>
+                            <div className="table-row-cell-action">
+                              {actions(row)
+                                .filter((action) => !action.hidden)
+                                ?.map((action) => (
+                                  <Tooltip
+                                    key={action.id}
+                                    content={action.tooltip}
+                                  >
+                                    <button onClick={action.onClick}>
+                                      {action.icon}
+                                    </button>
+                                  </Tooltip>
+                                ))}
+                            </div>
+                          </td>
+                        ) : null}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
               <Navigation />
             </>
           ) : (
             <Empty />
           )}
-        </div>
+        </>
       ) : (
         <Loading className="table-loading" />
       )}
