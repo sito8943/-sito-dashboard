@@ -8,7 +8,13 @@ import { Tooltip } from "components/Tooltip/Tooltip";
 import { Loading } from "components/Loading";
 
 // table components
-import { Empty, Columns, PageSize, Navigation } from "./components/";
+import {
+  Empty,
+  Columns,
+  PageSize,
+  Navigation,
+  FilterPopup,
+} from "./components/";
 
 // types
 import { TablePropsType } from "./types";
@@ -42,9 +48,10 @@ export function Table(props: TablePropsType) {
   return (
     <div className={`${className} table-main`}>
       <div className="table-header">
-        <div>
-          <h1 className="table-header-title">{title}</h1>
+        <h1 className="table-header-title">{title}</h1>
+        <div className="table-header-right">
           {rows?.length && !isLoading ? <PageSize /> : null}
+          <FilterPopup />
         </div>
       </div>
       {!isLoading ? (

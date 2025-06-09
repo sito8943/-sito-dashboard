@@ -6,6 +6,10 @@
   @apply mb-5 flex w-full items-center justify-between;
 }
 
+.table-header-right {
+  @apply flex gap-2;
+}
+
 .table-header-title {
   @apply text-2xl md:text-3xl font-bold mx-5;
 }
