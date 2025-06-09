@@ -1,17 +1,14 @@
 import { useMemo } from "react";
 
 // providers
-import { useTranslation } from "../../providers";
+import { useTranslation } from "providers";
 
 // components
 import { Tooltip } from "components/Tooltip/Tooltip";
 import { Loading } from "components/Loading";
 
 // table components
-import { Empty } from "./components/Empty";
-import { Columns } from "./components/Columns";
-import { PageSize } from "./components/PageSize";
-import { Navigation } from "./components/Navigation";
+import { Empty, Columns, PageSize, Navigation } from "./components/";
 
 // types
 import { TablePropsType } from "./types";

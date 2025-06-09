@@ -1,6 +1,6 @@
 import { IconProps } from "./types";
 
-function ChevronUp(props: IconProps) {
+export function ChevronUp(props: IconProps) {
   const { className } = props;
 
   return (
@@ -13,5 +13,3 @@ function ChevronUp(props: IconProps) {
     </svg>
   );
 }
-
-export default ChevronUp;

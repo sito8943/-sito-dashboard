@@ -1,2 +1,2 @@
 export * from "./SelectInput";
-export * from "./utils";
+export * from "./types";

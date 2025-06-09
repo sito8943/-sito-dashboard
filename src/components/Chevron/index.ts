@@ -1,4 +1,3 @@
-import ChevronUp from "./ChevronUp";
-import ChevronDown from "./ChevronDown";
-
-export { ChevronDown, ChevronUp };
+export * from "./ChevronDown";
+export * from "./ChevronUp";
+export * from "./types";

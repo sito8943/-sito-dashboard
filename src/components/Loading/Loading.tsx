@@ -1,13 +1,8 @@
-import { HTMLProps } from "react";
-
 // styles
 import "./styles.css";
 
-interface LoadingPropsType extends HTMLProps<HTMLDivElement> {
-  color?: string;
-  loaderClass?: string;
-  strokeWidth?: string;
-}
+// types
+import { LoadingPropsType } from "./types";
 
 /**
  * Loading

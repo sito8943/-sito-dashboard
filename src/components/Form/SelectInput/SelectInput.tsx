@@ -19,7 +19,7 @@ import "./styles.css";
  * @param {object} props
  * @returns
  */
-const SelectInput = forwardRef(function (
+export const SelectInput = forwardRef(function (
   props: SelectInputPropsType,
   ref: ForwardedRef<HTMLSelectElement> | ForwardedRef<HTMLSelectElement>
 ) {
@@ -77,5 +77,3 @@ const SelectInput = forwardRef(function (
     </div>
   );
 });
-
-export default SelectInput;

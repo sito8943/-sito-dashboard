@@ -1,10 +1,4 @@
-export {
-  useTableOptions,
-  TableOptionsProvider,
-} from "./hooks/TableOptionsProvider";
-export { Table } from "./Table";
-export type { Action as TableAction } from "./types";
-export type {
-  TableOptionsContextType,
-  TableOptionsProviderPropsType,
-} from "./hooks/types";
+export * from "./Table";
+export * from "./components";
+export * from "./hooks";
+export * from "./types";
