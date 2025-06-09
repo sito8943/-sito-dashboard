@@ -12,11 +12,11 @@ export enum State {
 export const inputStateClassName = (state: State) => {
   switch (state) {
     case State.error:
-      return "border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500";
+      return "input-error";
     case State.good:
-      return "border-green-500 text-green-900 placeholder-green-700 focus:ring-green-500 focus:border-green-500";
+      return "input-good";
     default:
-      return "text-gray-900 border-gray-300 focus:border-blue-600";
+      return "input-normal";
   }
 };
 
@@ -28,11 +28,11 @@ export const inputStateClassName = (state: State) => {
 export const labelStateClassName = (state: State) => {
   switch (state) {
     case State.error:
-      return "peer-focus:text-red-700 text-red-700";
+      return "input-label-error";
     case State.good:
-      return "peer-focus:text-green-700 text-green-700";
+      return "input-label-good";
     default:
-      return "peer-focus:text-blue-600 text-gray-500";
+      return "input-label-normal";
   }
 };
 
@@ -44,10 +44,10 @@ export const labelStateClassName = (state: State) => {
 export const helperTextStateClassName = (state: State) => {
   switch (state) {
     case State.error:
-      return "text-red-600";
+      return "input-helper-text-error";
     case State.good:
-      return "text-green-600";
+      return "input-helper-text-good";
     default:
-      return "text-gray-500";
+      return "input-helper-text-normal";
   }
 };
