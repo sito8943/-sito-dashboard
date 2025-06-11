@@ -4,7 +4,7 @@ import { createContext, useCallback, useContext, useState } from "react";
 import { SortOrder } from "lib";
 
 // main
-import { FiltersProvider } from "main";
+import { FiltersProvider } from "../index";
 
 // types
 import {
