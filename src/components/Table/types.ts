@@ -1,3 +1,5 @@
+import { FilterType } from "lib";
+
 export type Action = {
   id: string;
   onClick: (entity: object) => void;
@@ -41,6 +43,7 @@ export type TablePropsType = {
   isLoading?: boolean;
   actions?: (row: object) => Action[];
   columns?: ColumnType[];
+  filters?: FilterType[];
   columnsOptions?: ColumnsOptionsType;
   contentClassName?: string;
   className?: string;

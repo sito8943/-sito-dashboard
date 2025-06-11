@@ -33,6 +33,7 @@ export function Table(props: TablePropsType) {
     isLoading = false,
     actions,
     columns = [],
+    filters = [],
     contentClassName = "",
     className = "",
     columnsOptions,
@@ -50,7 +51,7 @@ export function Table(props: TablePropsType) {
         <h1 className="table-header-title">{title}</h1>
         <div className="table-header-right">
           {rows?.length && !isLoading ? <PageSize /> : null}
-          <FilterPopup />
+          <FilterPopup filters={filters} />
         </div>
       </div>
       {!isLoading ? (
