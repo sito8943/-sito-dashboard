@@ -8,7 +8,7 @@ import { FiltersActions, useFilters } from "providers";
 import TextInput from "components/Form/TextInput/TextInput";
 
 export const TextWidget = (props: TextWidgetPropsType) => {
-  const { propertyName } = props;
+  const { propertyName, label } = props;
 
   const { currentFilters, setCurrentFilters } = useFilters();
 
@@ -16,14 +16,19 @@ export const TextWidget = (props: TextWidgetPropsType) => {
     return currentFilters[propertyName];
   }, [currentFilters]);
 
-  console.log(value, currentFilters);
-
   const onChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     setCurrentFilters({
       type: FiltersActions.update,
-      toUpdate: { [propertyName]: e.target.value },
+      toUpdate: { [propertyName]: { value: e.target.value } },
     });
   }, []);
 
-  return <TextInput value={value} onChange={onChange} helperTextClassName="" />;
+  return (
+    <TextInput
+      value={value?.value}
+      label={label}
+      onChange={onChange}
+      helperTextClassName=""
+    />
+  );
 };

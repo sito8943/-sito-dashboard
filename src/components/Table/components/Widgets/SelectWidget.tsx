@@ -21,7 +21,7 @@ export function SelectWidget(props: SelectWidgetPropsType) {
   const onChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     setCurrentFilters({
       type: FiltersActions.update,
-      toUpdate: { [propertyName]: e.target.value },
+      toUpdate: { [propertyName]: { value: e.target.value } },
     });
   }, []);
 

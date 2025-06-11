@@ -8,7 +8,8 @@ export enum FilterTypes {
 export type FilterType = {
   type: FilterTypes;
   propertyName: string;
-  defaultValue: any;
+  label?: string;
+  defaultValue?: any;
 };
 
 export interface TextFilterType extends Omit<FilterType, "type"> {
@@ -35,5 +36,5 @@ export type WidgetFilterProps =
   | TextFilterType;
 
 export type FiltersValue = {
-  [key: string]: string | number | any;
+  [key: string]: { value: string | number | any };
 };

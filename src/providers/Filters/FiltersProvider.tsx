@@ -49,7 +49,7 @@ const FiltersProvider = (props: FiltersProviderPropsType) => {
 
 /**
  *
- * @returns {Filters} - options
+ * @returns options
  */
 const useFilters = () => {
   const context = useContext(FiltersContext);
