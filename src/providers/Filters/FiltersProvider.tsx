@@ -34,7 +34,7 @@ export function filtersReducer(state: FiltersValue, action: FiltersActionType) {
 }
 
 const FiltersProvider = (props: FiltersProviderPropsType) => {
-  const { children, filters = [] } = props;
+  const { children } = props;
 
   const [currentFilters, setCurrentFilters] = useReducer(filtersReducer, {});
 

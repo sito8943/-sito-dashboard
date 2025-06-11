@@ -4,7 +4,6 @@ import { Dispatch, ReactNode } from "react";
 import { FilterType, FiltersValue } from "lib";
 
 export enum FiltersActions {
-  initialize,
   update,
   reset,
 }
@@ -22,5 +21,4 @@ export type FiltersContextType = {
 
 export type FiltersProviderPropsType = {
   children: ReactNode;
-  filters: FilterType[];
 };

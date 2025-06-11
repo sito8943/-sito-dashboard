@@ -7,7 +7,7 @@ import { FilterPopupPropsType } from "./types";
 import { WidgetFilterProps } from "lib";
 
 // providers
-import { useTranslation, useFilters } from "providers";
+import { useTranslation, useFilters, FiltersActions } from "providers";
 
 // utils
 import { renderFilterComponent } from "./utils";
@@ -20,6 +20,10 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const { setCurrentFilters } = useFilters();
+
+  useEffect(() => {
+    setCurrentFilters({ type: FiltersActions.reset, filters });
+  }, [filters]);
 
   const { t } = useTranslation();
 
