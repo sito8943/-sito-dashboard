@@ -3,14 +3,20 @@ import { useState, useRef, useEffect } from "react";
 // types
 import { FilterPopupPropsType } from "./types";
 
+// lib
+import { WidgetFilterProps } from "lib";
+
 // providers
 import { useTranslation } from "providers";
+
+// utils
+import { renderFilterComponent } from "./utils";
 
 // styles
 import "./styles.css";
 
 export const FilterPopup = (props: FilterPopupPropsType) => {
-  const { align = "right", icon } = props;
+  const { align = "right", filters = [], icon } = props;
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const { t } = useTranslation();
@@ -71,6 +77,11 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
             {t("_accessibility:buttons.filters")}
           </div>
           <ul className="mb-4">
+            {filters.map((filter) => (
+              <li key={filter.propertyName}>
+                {renderFilterComponent(filter as WidgetFilterProps)}
+              </li>
+            ))}
             <li className="py-1 px-3">
               <label className="flex items-center">
                 <input type="checkbox" className="form-checkbox" />
