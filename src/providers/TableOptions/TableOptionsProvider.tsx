@@ -3,6 +3,9 @@ import { createContext, useCallback, useContext, useState } from "react";
 // utils
 import { SortOrder } from "lib";
 
+// main
+import { FiltersProvider } from "main";
+
 // types
 import {
   TableOptionsContextType,
@@ -56,9 +59,11 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
     setCurrentPage,
   };
   return (
-    <TableOptionsContext.Provider value={value}>
-      {children}
-    </TableOptionsContext.Provider>
+    <FiltersProvider>
+      <TableOptionsContext.Provider value={value}>
+        {children}
+      </TableOptionsContext.Provider>
+    </FiltersProvider>
   );
 };
 
