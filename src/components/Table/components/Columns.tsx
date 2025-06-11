@@ -7,7 +7,7 @@ import { useTranslation } from "providers";
 import { useTableOptions } from "../hooks/TableOptionsProvider";
 
 // models
-import { SortOrder } from "lib/models/query";
+import { SortOrder } from "lib";
 
 // components
 import { ChevronDown, ChevronUp } from "components/Chevron";

@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useState } from "react";
 
 // utils
-import { SortOrder } from "../../../lib/models/query";
+import { SortOrder } from "lib";
 
 // types
 import {
