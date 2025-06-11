@@ -1,12 +1,9 @@
 import { useMemo } from "react";
 // providers
-import { useTranslation } from "providers";
+import { useTranslation, useTableOptions } from "providers";
 
 // components
-import { SelectInput, Option } from "../../Form";
-
-// hooks
-import { useTableOptions } from "../hooks/TableOptionsProvider";
+import { SelectInput, Option } from "components";
 
 /**
  * Page size component

@@ -4,8 +4,7 @@ import { useMemo } from "react";
 import { useTranslation } from "providers";
 
 // components
-import { Tooltip } from "components/Tooltip/Tooltip";
-import { Loading } from "components/Loading";
+import { Tooltip, Loading } from "components";
 
 // table components
 import {

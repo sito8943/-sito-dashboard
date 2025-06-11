@@ -7,7 +7,7 @@ import { FilterPopupPropsType } from "./types";
 import { WidgetFilterProps } from "lib";
 
 // providers
-import { useTranslation } from "providers";
+import { useTranslation, useFilters } from "providers";
 
 // utils
 import { renderFilterComponent } from "./utils";
@@ -18,6 +18,8 @@ import "./styles.css";
 export const FilterPopup = (props: FilterPopupPropsType) => {
   const { align = "right", filters = [], icon } = props;
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const { setCurrentFilters } = useFilters();
 
   const { t } = useTranslation();
 

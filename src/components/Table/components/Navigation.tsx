@@ -1,8 +1,5 @@
 // providers
-import { useTranslation } from "providers";
-
-// hooks
-import { useTableOptions } from "../hooks/TableOptionsProvider";
+import { useTranslation, useTableOptions } from "providers";
 
 /**
  * Navigation component

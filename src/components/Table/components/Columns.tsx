@@ -1,10 +1,7 @@
 import { useMemo } from "react";
 
 // providers
-import { useTranslation } from "providers";
-
-// hooks
-import { useTableOptions } from "../hooks/TableOptionsProvider";
+import { useTranslation, useTableOptions } from "providers";
 
 // models
 import { SortOrder } from "lib";

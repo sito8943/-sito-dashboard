@@ -1,6 +1,10 @@
 import { ChangeEvent, useCallback, useMemo } from "react";
+
+// providers
+import { useFilters, FiltersActions } from "providers";
+
 // components
-import { FiltersActions, SelectInput, useFilters } from "components";
+import { SelectInput } from "components";
 
 // types
 import { SelectWidgetPropsType } from "./types";

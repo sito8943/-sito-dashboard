@@ -1,7 +1,7 @@
-import { Dispatch, ReactNode } from "react";
+import { ReactNode } from "react";
 
 // lib
-import { SortOrder, FilterType, FiltersValue } from "lib";
+import { SortOrder } from "lib";
 
 export type TableOptionsContextType = {
   onSort: (column: string) => void;
@@ -20,26 +20,4 @@ export type TableOptionsContextType = {
 
 export type TableOptionsProviderPropsType = {
   children: ReactNode;
-};
-
-export enum FiltersActions {
-  initialize,
-  update,
-  reset,
-}
-
-export type FiltersActionType = {
-  type: FiltersActions;
-  filters?: FilterType[];
-  toUpdate?: FiltersValue;
-};
-
-export type FiltersContextType = {
-  currentFilters: FiltersValue;
-  setCurrentFilters: Dispatch<FiltersActionType>;
-};
-
-export type FiltersProviderPropsType = {
-  children: ReactNode;
-  filters: FilterType[];
 };
