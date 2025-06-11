@@ -56,6 +56,8 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
     return () => document.removeEventListener("keydown", keyHandler);
   });
 
+  console.log(filters);
+
   return (
     <div className="filter-dropdown-main">
       <button

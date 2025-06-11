@@ -4,11 +4,17 @@ import { ReactNode } from "react";
 import { FilterTypes, WidgetFilterProps } from "lib";
 
 // widgets
-import { SelectWidget, SelectWidgetPropsType } from "../Widgets";
+import {
+  SelectWidget,
+  TextWidget,
+  SelectWidgetPropsType,
+  TextWidgetPropsType,
+} from "../Widgets";
 
 export const renderFilterComponent = (filter: WidgetFilterProps): ReactNode => {
   switch (filter.type) {
     case FilterTypes.text:
+      return <TextWidget {...(filter as TextWidgetPropsType)} />;
       break;
     case FilterTypes.number:
       break;

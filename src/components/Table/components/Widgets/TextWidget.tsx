@@ -1,22 +1,22 @@
 import { ChangeEvent, useCallback, useMemo } from "react";
 
-// providers
-import { useFilters, FiltersActions } from "providers";
-
-// components
-import { SelectInput } from "components";
-
 // types
-import { SelectWidgetPropsType } from "./types";
+import { TextWidgetPropsType } from "./types";
 
-export function SelectWidget(props: SelectWidgetPropsType) {
-  const { propertyName, options } = props;
+// providers
+import { FiltersActions, useFilters } from "providers";
+import TextInput from "components/Form/TextInput/TextInput";
+
+export const TextWidget = (props: TextWidgetPropsType) => {
+  const { propertyName } = props;
 
   const { currentFilters, setCurrentFilters } = useFilters();
 
   const value = useMemo(() => {
     return currentFilters[propertyName];
   }, [currentFilters]);
+
+  console.log(value, currentFilters);
 
   const onChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     setCurrentFilters({
@@ -25,12 +25,5 @@ export function SelectWidget(props: SelectWidgetPropsType) {
     });
   }, []);
 
-  return (
-    <SelectInput
-      value={value}
-      options={options}
-      helperTextClassName="hidden"
-      onChange={onChange}
-    />
-  );
-}
+  return <TextInput value={value} onChange={onChange} helperTextClassName="" />;
+};
