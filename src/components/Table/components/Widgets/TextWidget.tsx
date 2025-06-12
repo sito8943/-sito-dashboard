@@ -5,7 +5,9 @@ import { TextWidgetPropsType } from "./types";
 
 // providers
 import { FiltersActions, useFilters } from "providers";
-import TextInput from "components/Form/TextInput/TextInput";
+
+// components
+import { TextInput } from "components";
 
 export const TextWidget = (props: TextWidgetPropsType) => {
   const { propertyName, label } = props;

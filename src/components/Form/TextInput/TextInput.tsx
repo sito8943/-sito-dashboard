@@ -19,7 +19,7 @@ import "./styles.css";
  * @param {object} props
  * @returns TextInput Component
  */
-const TextInput = forwardRef(function (
+export const TextInput = forwardRef(function (
   props: TextInputPropsType,
   ref: ForwardedRef<HTMLInputElement>
 ) {
@@ -72,5 +72,3 @@ const TextInput = forwardRef(function (
     </div>
   );
 });
-
-export default TextInput;
