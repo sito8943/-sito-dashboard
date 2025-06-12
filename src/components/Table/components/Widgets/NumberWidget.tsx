@@ -17,27 +17,15 @@ export const NumberWidget = (props: NumberWidgetPropsType) => {
   const { currentFilters, setCurrentFilters } = useFilters();
 
   const value = useMemo(() => {
-    return currentFilters[propertyName] ?? { min: "", max: "" };
+    return currentFilters[propertyName] ?? "";
   }, [currentFilters]);
 
-  const onMinChange = useCallback(
+  const onChange = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {
       setCurrentFilters({
         type: FiltersActions.update,
         toUpdate: {
-          [propertyName]: { value: { ...value, min: e.target.value } },
-        },
-      });
-    },
-    [value]
-  );
-
-  const onMaxChange = useCallback(
-    (e: ChangeEvent<HTMLSelectElement>) => {
-      setCurrentFilters({
-        type: FiltersActions.update,
-        toUpdate: {
-          [propertyName]: { value: { ...value, max: e.target.value } },
+          [propertyName]: { value: e.target.value },
         },
       });
     },
@@ -45,28 +33,14 @@ export const NumberWidget = (props: NumberWidgetPropsType) => {
   );
 
   return (
-    <div className="flex flex-col gap-1">
-      <label>{label}</label>
-      <div className="flex gap-2 items-center">
-        <TextInput
-          value={value?.value?.min ?? ""}
-          min={min}
-          max={max}
-          type="number"
-          label={t("_accessibility:labels.min")}
-          onChange={onMinChange}
-          helperTextClassName=""
-        />
-        <TextInput
-          value={value?.value?.max ?? ""}
-          min={min}
-          max={max}
-          type="number"
-          label={t("_accessibility:labels.max")}
-          onChange={onMaxChange}
-          helperTextClassName=""
-        />
-      </div>
-    </div>
+    <TextInput
+      value={value?.value?.min ?? ""}
+      min={min}
+      max={max}
+      type="number"
+      label={label}
+      onChange={onChange}
+      helperTextClassName=""
+    />
   );
 };
