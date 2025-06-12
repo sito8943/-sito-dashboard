@@ -88,12 +88,6 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
                 {renderFilterComponent(filter as WidgetFilterProps)}
               </li>
             ))}
-            <li className="py-1 px-3">
-              <label className="flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="text-sm font-medium ml-2">Total Spent</span>
-              </label>
-            </li>
           </ul>
           <div className="py-2 px-3 border-t border-slate-200 bg-slate-50">
             <ul className="flex items-center justify-between">

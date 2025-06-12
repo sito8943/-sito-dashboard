@@ -1,0 +1,11 @@
+.input-check-container {
+  @apply flex items-center;
+}
+
+.input-check {
+  @apply rounded bg-white border focus:ring-0 focus:ring-offset-0 border-slate-300;
+}
+
+.input-check-label {
+  @apply text-sm font-medium ml-2;
+}
