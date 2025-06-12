@@ -82,7 +82,7 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
           <div className="text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-3">
             {t("_accessibility:buttons.filters")}
           </div>
-          <ul className="mb-4">
+          <ul className="mb-4 grid grid-cols-3">
             {filters.map((filter) => (
               <li key={filter.propertyName} className="py-1 px-3">
                 {renderFilterComponent(filter as WidgetFilterProps)}

@@ -31,7 +31,7 @@
 }
 
 .filter-dropdown-transition {
-  @apply transition ease-out duration-200 transform origin-top-right z-10 absolute top-full left-0 right-auto min-w-56 bg-white border border-slate-200 pt-1.5 rounded shadow-lg overflow-hidden mt-1;
+  @apply transition ease-out duration-200 transform origin-top-right z-10 absolute top-full left-0 right-auto min-w-144 bg-white border border-slate-200 pt-1.5 rounded shadow-lg overflow-hidden mt-1;
 }
 
 .filter-dropdown-transition.opened {
