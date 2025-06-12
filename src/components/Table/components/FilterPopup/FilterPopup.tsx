@@ -56,8 +56,6 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
     return () => document.removeEventListener("keydown", keyHandler);
   });
 
-  console.log(filters);
-
   return (
     <div className="filter-dropdown-main">
       <button
@@ -86,46 +84,10 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
           </div>
           <ul className="mb-4">
             {filters.map((filter) => (
-              <li key={filter.propertyName}>
+              <li key={filter.propertyName} className="py-1 px-3">
                 {renderFilterComponent(filter as WidgetFilterProps)}
               </li>
             ))}
-            <li className="py-1 px-3">
-              <label className="flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="text-sm font-medium ml-2">
-                  Direct VS Indirect
-                </span>
-              </label>
-            </li>
-            <li className="py-1 px-3">
-              <label className="flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="text-sm font-medium ml-2">
-                  Real Time Value
-                </span>
-              </label>
-            </li>
-            <li className="py-1 px-3">
-              <label className="flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="text-sm font-medium ml-2">Top Channels</span>
-              </label>
-            </li>
-            <li className="py-1 px-3">
-              <label className="flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="text-sm font-medium ml-2">
-                  Sales VS Refunds
-                </span>
-              </label>
-            </li>
-            <li className="py-1 px-3">
-              <label className="flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="text-sm font-medium ml-2">Last Order</span>
-              </label>
-            </li>
             <li className="py-1 px-3">
               <label className="flex items-center">
                 <input type="checkbox" className="form-checkbox" />

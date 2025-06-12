@@ -1,4 +1,4 @@
-import { FilterType } from "lib";
+import { FilterType, FilterTypes } from "lib";
 
 export type Action = {
   id: string;
@@ -25,6 +25,13 @@ export type ColumnsOptionsType = {
 export type ColumnType = {
   key: string;
   label: string;
+  filterOptions?: ColumnFilterOptions;
+};
+
+export type ColumnFilterOptions = {
+  type: FilterTypes;
+  defaultValue: any;
+  label?: string;
 };
 
 export type ColumnPropTypes = {
@@ -43,7 +50,6 @@ export type TablePropsType = {
   isLoading?: boolean;
   actions?: (row: object) => Action[];
   columns?: ColumnType[];
-  filters?: FilterType[];
   columnsOptions?: ColumnsOptionsType;
   contentClassName?: string;
   className?: string;

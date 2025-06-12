@@ -18,6 +18,9 @@ import {
 // types
 import { TablePropsType } from "./types";
 
+// lib
+import { FilterType } from "lib";
+
 // styles
 import "./styles.css";
 import "./components/styles.css";
@@ -33,7 +36,6 @@ export function Table(props: TablePropsType) {
     isLoading = false,
     actions,
     columns = [],
-    filters = [],
     contentClassName = "",
     className = "",
     columnsOptions,
@@ -45,13 +47,25 @@ export function Table(props: TablePropsType) {
     [parseRows, rows, t]
   );
 
+  const parsedFilters = useMemo(() => {
+    if (columns)
+      return columns
+        .filter((column) => !!column.filterOptions)
+        .map((column) => ({
+          ...column.filterOptions,
+          label: column.filterOptions?.label ?? column.label,
+          propertyName: column.key,
+        }));
+    return [];
+  }, []);
+
   return (
     <div className={`${className} table-main`}>
       <div className="table-header">
         <h1 className="table-header-title">{title}</h1>
         <div className="table-header-right">
           {rows?.length && !isLoading ? <PageSize /> : null}
-          <FilterPopup filters={filters} />
+          <FilterPopup filters={parsedFilters as FilterType[]} />
         </div>
       </div>
       {!isLoading ? (
