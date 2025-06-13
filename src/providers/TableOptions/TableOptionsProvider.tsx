@@ -1,16 +1,22 @@
-import { createContext, useCallback, useContext, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useReducer,
+  useState,
+} from "react";
 
 // utils
 import { SortOrder } from "lib";
-
-// main
-import { FiltersProvider } from "../index";
 
 // types
 import {
   TableOptionsContextType,
   TableOptionsProviderPropsType,
 } from "./types";
+
+// utils
+import { filtersReducer } from "./utils";
 
 const pageSizes = [20, 50, 100];
 
@@ -25,6 +31,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
 
   const [sortingBy, setSortingBy] = useState("id");
   const [sortingOrder, setSortingOrder] = useState(SortOrder.DESC);
+  const [currentFilters, setCurrentFilters] = useReducer(filtersReducer, {});
 
   const onSort = useCallback(
     (
@@ -61,13 +68,14 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
     setPageSize,
     currentPage,
     setCurrentPage,
+    currentFilters,
+    setCurrentFilters,
   };
+
   return (
-    <FiltersProvider>
-      <TableOptionsContext.Provider value={value}>
-        {children}
-      </TableOptionsContext.Provider>
-    </FiltersProvider>
+    <TableOptionsContext.Provider value={value}>
+      {children}
+    </TableOptionsContext.Provider>
   );
 };
 

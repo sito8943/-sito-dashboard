@@ -4,7 +4,7 @@ import { ChangeEvent, useCallback, useMemo } from "react";
 import { TextWidgetPropsType } from "./types";
 
 // providers
-import { FiltersActions, useFilters } from "providers";
+import { FiltersActions, useTableOptions } from "providers";
 
 // components
 import { TextInput } from "components";
@@ -12,7 +12,7 @@ import { TextInput } from "components";
 export const TextWidget = (props: TextWidgetPropsType) => {
   const { propertyName, label } = props;
 
-  const { currentFilters, setCurrentFilters } = useFilters();
+  const { currentFilters, setCurrentFilters } = useTableOptions();
 
   const value = useMemo(() => {
     return currentFilters[propertyName] ?? "";
