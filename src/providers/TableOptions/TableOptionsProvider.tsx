@@ -7,16 +7,17 @@ import {
 } from "react";
 
 // utils
-import { SortOrder } from "lib";
+import { FiltersValue, SortOrder } from "lib";
 
 // types
 import {
+  TableFilters,
   TableOptionsContextType,
   TableOptionsProviderPropsType,
 } from "./types";
 
 // utils
-import { filtersReducer } from "./utils";
+import { filtersReducer } from "../FiltersProvider/utils";
 
 const pageSizes = [20, 50, 100];
 
@@ -32,6 +33,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
   const [sortingBy, setSortingBy] = useState("id");
   const [sortingOrder, setSortingOrder] = useState(SortOrder.DESC);
   const [currentFilters, setCurrentFilters] = useReducer(filtersReducer, {});
+  const [filters, setFilters] = useState<TableFilters>({});
 
   const onSort = useCallback(
     (
@@ -55,6 +57,20 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
     [sortingBy, sortingOrder]
   );
 
+  const onFilterApply = useCallback((filters: FiltersValue) => {
+    const parsedFilters: TableFilters = Object.entries(filters).reduce(
+      (acc, [key, filter]) => {
+        if (filter && typeof filter.value !== "undefined") {
+          acc[key] = filter.value;
+        }
+        return acc;
+      },
+      {} as TableFilters
+    );
+
+    setFilters(parsedFilters);
+  }, []);
+
   const value = {
     onSort,
     total,
@@ -70,6 +86,8 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
     setCurrentPage,
     currentFilters,
     setCurrentFilters,
+    filters,
+    onFilterApply,
   };
 
   return (
@@ -81,7 +99,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
 
 /**
  *
- * @returns {TableOptions} - options
+ * @returns - options
  */
 const useTableOptions = () => {
   const context = useContext(TableOptionsContext);
