@@ -4,7 +4,10 @@ import { ReactNode } from "react";
 import { SortOrder } from "lib";
 
 export type TableOptionsContextType = {
-  onSort: (column: string) => void;
+  onSort: (
+    column: string,
+    onSortCallback: (prop: string, sortOrder: SortOrder) => void
+  ) => void;
   total: number;
   setTotal: (total: number) => void;
   sortingBy: string;

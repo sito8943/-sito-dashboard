@@ -20,7 +20,13 @@ import { ColumnPropTypes } from "../types";
 export function Columns(props: ColumnPropTypes) {
   const { t } = useTranslation();
 
-  const { entity = "", columns = [], hasAction = true, columnsOptions } = props;
+  const {
+    entity = "",
+    columns = [],
+    hasAction = true,
+    columnsOptions,
+    onSortCallback,
+  } = props;
 
   const { onSort, sortingOrder, sortingBy } = useTableOptions();
 
@@ -46,7 +52,7 @@ export function Columns(props: ColumnPropTypes) {
           >
             <button
               disabled={!column.sortable}
-              onClick={() => onSort(column.id)}
+              onClick={() => onSort(column.id, onSortCallback)}
               className="table-headers-cell"
             >
               <span className="table-headers-label">{column.label}</span>

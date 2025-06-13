@@ -1,4 +1,4 @@
-import { FilterType, FilterTypes } from "lib";
+import { FilterTypes, SortOrder } from "lib";
 
 export type Action = {
   id: string;
@@ -39,6 +39,7 @@ export type ColumnPropTypes = {
   columns: ColumnType[];
   columnsOptions?: ColumnsOptionsType;
   hasAction: boolean;
+  onSortCallback: (prop: string, sortOrder: SortOrder) => void;
 };
 
 export type TablePropsType = {
@@ -54,4 +55,5 @@ export type TablePropsType = {
   contentClassName?: string;
   className?: string;
   softDeleteProperty?: string;
+  onSort: (prop: string, sortOrder: SortOrder) => void;
 };

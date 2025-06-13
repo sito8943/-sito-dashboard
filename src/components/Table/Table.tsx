@@ -32,6 +32,7 @@ export function Table(props: TablePropsType) {
     title = "",
     rows,
     parseRows,
+    onSort,
     entity = "",
     isLoading = false,
     actions,
@@ -78,6 +79,7 @@ export function Table(props: TablePropsType) {
                     entity={entity}
                     columns={columns}
                     columnsOptions={columnsOptions}
+                    onSortCallback={onSort}
                     hasAction={!!actions}
                   />
                   <tbody>
