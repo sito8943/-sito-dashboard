@@ -60,18 +60,22 @@ export function Table(props: TablePropsType) {
     return [];
   }, []);
 
+  const empty = useMemo(() => !rows?.length, [rows]);
+
   return (
     <div className={`${className} table-main`}>
       <div className="table-header">
         <h1 className="table-header-title">{title}</h1>
-        <div className="table-header-right">
-          {rows?.length && !isLoading ? <PageSize /> : null}
-          <FilterPopup filters={parsedFilters as FilterType[]} />
-        </div>
+        {!empty && !isLoading ? (
+          <div className="table-header-right">
+            <PageSize />
+            <FilterPopup filters={parsedFilters as FilterType[]} />
+          </div>
+        ) : null}
       </div>
       {!isLoading ? (
         <>
-          {rows?.length ? (
+          {!empty ? (
             <>
               <div className={`${contentClassName} table-body`}>
                 <table className="table-content">
