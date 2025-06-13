@@ -32,7 +32,7 @@ export const NumberWidget = (props: NumberWidgetPropsType) => {
 
   return (
     <TextInput
-      value={value?.value?.min ?? ""}
+      value={value?.value ?? ""}
       min={min}
       max={max}
       type="number"

@@ -7,7 +7,12 @@ import { FilterPopupPropsType } from "./types";
 import { WidgetFilterProps } from "lib";
 
 // providers
-import { useTranslation, FiltersActions, useFilters } from "providers";
+import {
+  useTranslation,
+  FiltersActions,
+  useFilters,
+  useTableOptions,
+} from "providers";
 
 // utils
 import { renderFilterComponent } from "./utils";
@@ -19,6 +24,7 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
   const { align = "right", filters = [], icon } = props;
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  const { onFilterApply } = useTableOptions();
   const { currentFilters, setCurrentFilters } = useFilters();
 
   useEffect(() => {
@@ -101,6 +107,7 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
                   className="filter-dropdown-button small filter-dropdown-submit bg-primary hover:bg-light-primary"
                   onClick={() => {
                     setDropdownOpen(false);
+                    onFilterApply(currentFilters);
                   }}
                   onBlur={() => setDropdownOpen(false)}
                 >
