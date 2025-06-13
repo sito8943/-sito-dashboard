@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 
-// utils
+// lib
 import { FiltersValue, SortOrder } from "lib";
 
 // types
@@ -16,8 +16,8 @@ import {
   TableOptionsProviderPropsType,
 } from "./types";
 
-// utils
-import { filtersReducer } from "../FiltersProvider/utils";
+// providers
+import { FiltersProvider, filtersReducer } from "providers";
 
 const pageSizes = [20, 50, 100];
 
@@ -92,7 +92,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
 
   return (
     <TableOptionsContext.Provider value={value}>
-      {children}
+      <FiltersProvider>{children}</FiltersProvider>
     </TableOptionsContext.Provider>
   );
 };

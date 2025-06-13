@@ -1,10 +1,7 @@
-import { Dispatch, ReactNode } from "react";
+import { ReactNode } from "react";
 
 // lib
 import { FiltersValue, SortOrder } from "lib";
-
-// providers
-import { FiltersActionType } from "providers";
 
 export type TableOptionsContextType = {
   onSort: (
