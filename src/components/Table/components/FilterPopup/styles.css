@@ -39,7 +39,7 @@
 }
 
 .filter-dropdown-transition.closed {
-  @apply opacity-0 -translate-y-2;
+  @apply opacity-0 -translate-y-2 pointer-events-none;
 }
 
 .filter-dropdown-transition.right {
