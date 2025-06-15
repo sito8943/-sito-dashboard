@@ -10,36 +10,29 @@ import { SortOrder } from "lib";
 import { ChevronDown, ChevronUp } from "components/Chevron";
 
 // types
-import { ColumnPropTypes } from "../types";
+import { ColumnPropsType } from "./types";
 
 /**
  * Columns component
  * @param {object} props properties for the columns
  * @returns Row of columns
  */
-export function Columns(props: ColumnPropTypes) {
+export function Columns(props: ColumnPropsType) {
   const { t } = useTranslation();
 
-  const {
-    entity = "",
-    columns = [],
-    hasAction = true,
-    columnsOptions,
-    onSortCallback,
-  } = props;
+  const { entity = "", columns = [], hasAction = true, onSortCallback } = props;
 
   const { onSort, sortingOrder, sortingBy } = useTableOptions();
 
   const parsedColumns = useMemo(() => {
-    const { noSortableColumns = {}, columnClassNames = {} } =
-      columnsOptions ?? {};
     return columns?.map((column) => ({
       id: column.key,
       label: column.label,
-      className: columnClassNames[column.key] ?? "",
-      sortable: !noSortableColumns[column.key],
+      className: column.className ?? "",
+      sortable: column.sortable ?? true,
+      sortOptions: column.sortOptions,
     }));
-  }, [columns, columnsOptions, entity, t]);
+  }, [columns, entity, t]);
 
   return (
     <thead className="table-headers-row">
@@ -61,18 +54,18 @@ export function Columns(props: ColumnPropTypes) {
                   className={`${sortingBy === column.id ? "table-headers-sort-on" : "table-headers-sort"}`}
                 >
                   {sortingOrder === SortOrder.ASC
-                    ? (columnsOptions?.icons?.asc ?? (
+                    ? (column.sortOptions?.icons?.asc ?? (
                         <ChevronUp
                           className={
-                            columnsOptions?.icons?.className ??
+                            column.sortOptions?.icons?.className ??
                             "table-headers-sort-indicator"
                           }
                         />
                       ))
-                    : (columnsOptions?.icons?.desc ?? (
+                    : (column.sortOptions?.icons?.desc ?? (
                         <ChevronDown
                           className={
-                            columnsOptions?.icons?.className ??
+                            column.sortOptions?.icons?.className ??
                             "table-headers-sort-indicator"
                           }
                         />

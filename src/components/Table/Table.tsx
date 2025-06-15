@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { useTranslation } from "providers";
 
 // components
-import { Tooltip, Loading } from "components";
+import { Loading } from "components";
 
 // table components
 import {
@@ -13,6 +13,7 @@ import {
   PageSize,
   Navigation,
   FilterPopup,
+  Rows,
 } from "./components/";
 
 // types
@@ -30,8 +31,7 @@ export function Table(props: TablePropsType) {
 
   const {
     title = "",
-    rows,
-    parseRows,
+    data,
     onSort,
     entity = "",
     isLoading = false,
@@ -39,14 +39,8 @@ export function Table(props: TablePropsType) {
     columns = [],
     contentClassName = "",
     className = "",
-    columnsOptions,
     softDeleteProperty = "deleted",
   } = props;
-
-  const parsedRows = useMemo(
-    () => rows?.map((row) => parseRows(row)) ?? [],
-    [parseRows, rows, t]
-  );
 
   const parsedFilters = useMemo(() => {
     if (columns)
@@ -60,13 +54,13 @@ export function Table(props: TablePropsType) {
     return [];
   }, []);
 
-  const empty = useMemo(() => !rows?.length, [rows]);
+  const isEmpty = useMemo(() => !data?.length, [data]);
 
   return (
     <div className={`${className} table-main`}>
       <div className="table-header">
         <h1 className="table-header-title">{title}</h1>
-        {!empty && !isLoading ? (
+        {!isEmpty && !isLoading ? (
           <div className="table-header-right">
             <PageSize />
             <FilterPopup filters={parsedFilters as FilterType[]} />
@@ -75,51 +69,23 @@ export function Table(props: TablePropsType) {
       </div>
       {!isLoading ? (
         <>
-          {!empty ? (
+          {!isEmpty ? (
             <>
               <div className={`${contentClassName} table-body`}>
                 <table className="table-content">
                   <Columns
                     entity={entity}
                     columns={columns}
-                    columnsOptions={columnsOptions}
                     onSortCallback={onSort}
                     hasAction={!!actions}
                   />
                   <tbody>
-                    {parsedRows?.map((row) => (
-                      <tr
-                        key={row.id}
-                        className={`table-row ${row[softDeleteProperty]?.value ? "deleted-class" : ""}`}
-                      >
-                        {columns?.map((column, i) => (
-                          <td
-                            key={column.key}
-                            className={`table-row-cell ${i === 0 ? "basic" : ""} ${columnsOptions?.columnClassNames ? columnsOptions?.columnClassNames[column.key] : ""}`}
-                          >
-                            {row[column.key]?.render ?? row[column.key]}
-                          </td>
-                        ))}
-                        {!!actions ? (
-                          <td>
-                            <div className="table-row-cell-action">
-                              {actions(row)
-                                .filter((action) => !action.hidden)
-                                ?.map((action) => (
-                                  <Tooltip
-                                    key={action.id}
-                                    content={action.tooltip}
-                                  >
-                                    <button onClick={action.onClick}>
-                                      {action.icon}
-                                    </button>
-                                  </Tooltip>
-                                ))}
-                            </div>
-                          </td>
-                        ) : null}
-                      </tr>
-                    ))}
+                    <Rows
+                      data={data}
+                      actions={actions}
+                      columns={columns}
+                      softDeleteProperty={softDeleteProperty}
+                    />
                   </tbody>
                 </table>
               </div>
