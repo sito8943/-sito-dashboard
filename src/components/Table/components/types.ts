@@ -13,6 +13,7 @@ export type ColumnType = {
     };
   };
   className?: string;
+  display?: "visible" | "none";
   renderBody?: (value: any, row: any) => React.ReactNode;
   renderHead?: () => void;
   filterOptions?: ColumnFilterOptions;

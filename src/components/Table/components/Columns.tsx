@@ -25,13 +25,15 @@ export function Columns(props: ColumnPropsType) {
   const { onSort, sortingOrder, sortingBy } = useTableOptions();
 
   const parsedColumns = useMemo(() => {
-    return columns?.map((column) => ({
-      id: column.key,
-      label: column.label,
-      className: column.className ?? "",
-      sortable: column.sortable ?? true,
-      sortOptions: column.sortOptions,
-    }));
+    return columns
+      .filter((column) => column.display !== "none")
+      ?.map((column) => ({
+        id: column.key,
+        label: column.label,
+        className: column.className ?? "",
+        sortable: column.sortable ?? true,
+        sortOptions: column.sortOptions,
+      }));
   }, [columns, entity, t]);
 
   return (
