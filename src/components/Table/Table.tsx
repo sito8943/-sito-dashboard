@@ -52,7 +52,7 @@ export function Table(props: TablePropsType) {
           propertyName: column.key,
         }));
     return [];
-  }, []);
+  }, [columns]);
 
   const isEmpty = useMemo(() => !data?.length, [data]);
 
