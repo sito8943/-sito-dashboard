@@ -7,7 +7,7 @@ import { useTranslation, useTableOptions } from "providers";
 import { SortOrder } from "lib";
 
 // components
-import { ChevronDown, ChevronUp } from "components/Chevron";
+import { ChevronDown, ChevronUp } from "components/SvgIcons";
 
 // types
 import { ColumnPropsType } from "./types";
