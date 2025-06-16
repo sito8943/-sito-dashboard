@@ -1,0 +1,23 @@
+.autocomplete-input-container {
+  @apply relative w-full mb-5;
+}
+
+.autocomplete-text-input {
+  @apply !mb-0;
+}
+
+.autocomplete-delete-button {
+  @apply absolute right-0 top-[9px];
+}
+
+.autocomplete-suggestions-container {
+  @apply m-0 p-0 z-10 bg-white absolute w-full max-h-44 overflow-auto;
+}
+
+.autocomplete-suggestion-item {
+  @apply p-2;
+}
+
+.autocomplete-value-container {
+  @apply flex items-center justify-start flex-wrap my-4 gap-2;
+}
