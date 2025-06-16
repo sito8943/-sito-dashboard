@@ -26,6 +26,9 @@ export function Columns(props: ColumnPropsType) {
 
   const parsedColumns = useMemo(() => {
     return columns
+      .sort((colA, colB) => {
+        return (colB.pos ?? 0) - (colA.pos ?? 0);
+      })
       .filter((column) => column.display !== "none")
       ?.map((column) => ({
         id: column.key,

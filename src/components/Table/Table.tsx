@@ -40,6 +40,9 @@ export function Table(props: TablePropsType) {
   const parsedFilters = useMemo(() => {
     if (columns)
       return columns
+        .sort((colA, colB) => {
+          return (colB.pos ?? 0) - (colA.pos ?? 0);
+        })
         .filter((column) => !!column.filterOptions)
         .map((column) => ({
           ...column.filterOptions,

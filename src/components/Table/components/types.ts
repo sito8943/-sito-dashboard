@@ -14,6 +14,7 @@ export type ColumnType = {
   };
   className?: string;
   display?: "visible" | "none";
+  pos?: number;
   renderBody?: (value: any, row: any) => React.ReactNode;
   renderHead?: () => void;
   filterOptions?: ColumnFilterOptions;

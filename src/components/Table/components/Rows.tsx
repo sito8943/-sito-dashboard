@@ -11,7 +11,12 @@ export const Rows = (props: RowsPropsType) => {
   const { columns, softDeleteProperty, data, actions } = props;
 
   const visibleColumns = useMemo(
-    () => columns.filter((column) => column.display !== "none"),
+    () =>
+      columns
+        .sort((colA, colB) => {
+          return (colB.pos ?? 0) - (colA.pos ?? 0);
+        })
+        .filter((column) => column.display !== "none"),
     [columns]
   );
 
