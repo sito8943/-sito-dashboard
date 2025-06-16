@@ -85,18 +85,18 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
         }`}
       >
         <div ref={dropdown}>
-          <div className="text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-3">
+          <div className="filters-title">
             {t("_accessibility:buttons.filters")}
           </div>
-          <ul className="mb-4 grid grid-cols-3">
+          <ul className="filters-container">
             {filters.map((filter) => (
-              <li key={filter.propertyName} className="py-1 px-3">
+              <li key={filter.propertyName} className="filters-container-item">
                 {renderFilterComponent(filter as WidgetFilterProps)}
               </li>
             ))}
           </ul>
-          <div className="py-2 px-3 border-t border-slate-200 bg-slate-50">
-            <ul className="flex items-center justify-between">
+          <div className="filter-footer">
+            <ul className="filter-buttons-row">
               <li>
                 <button
                   onClick={() =>

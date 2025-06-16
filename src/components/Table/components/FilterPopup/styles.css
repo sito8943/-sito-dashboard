@@ -49,3 +49,23 @@
 .filter-dropdown-transition.left {
   @apply md:left-0 md:right-auto;
 }
+
+.filter-title {
+  @apply text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-3;
+}
+
+.filter-container {
+  @apply mb-4 grid grid-cols-3;
+}
+
+.filter-container-item {
+  @apply py-1 px-3;
+}
+
+.filter-footer {
+  @apply py-2 px-3 border-t border-slate-200 bg-slate-50;
+}
+
+.filter-buttons-row {
+  @apply flex items-center justify-between
+}
