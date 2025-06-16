@@ -98,7 +98,12 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
           <div className="py-2 px-3 border-t border-slate-200 bg-slate-50">
             <ul className="flex items-center justify-between">
               <li>
-                <button className="filter-dropdown-button small filter-dropdown-cancel">
+                <button
+                  onClick={() =>
+                    setCurrentFilters({ type: FiltersActions.reset })
+                  }
+                  className="filter-dropdown-button small filter-dropdown-cancel"
+                >
                   {t("_accessibility:buttons.clear")}
                 </button>
               </li>
