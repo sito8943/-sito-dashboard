@@ -8,7 +8,7 @@ import { useMemo } from "react";
 const baseRender = (value: any) => value;
 
 export const Rows = (props: RowsPropsType) => {
-  const { columns, softDeleteProperty, data, actions } = props;
+  const { columns, softDeleteProperty = "deleted", data, actions } = props;
 
   const visibleColumns = useMemo(
     () =>
@@ -23,7 +23,7 @@ export const Rows = (props: RowsPropsType) => {
   return data?.map((row) => (
     <tr
       key={row.id}
-      className={`table-row ${row[softDeleteProperty]?.value ? "deleted-class" : ""}`}
+      className={`table-row ${row[softDeleteProperty] ? "deleted-class" : ""}`}
     >
       {visibleColumns?.map((column, i) => (
         <td
