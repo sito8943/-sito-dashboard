@@ -52,7 +52,8 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
         }
       setSortingBy(attribute);
       setSortingOrder(localSortingOrder);
-      onSortCallback(attribute, localSortingOrder);
+
+      if (onSortCallback) onSortCallback(attribute, localSortingOrder);
     },
     [sortingBy, sortingOrder]
   );
