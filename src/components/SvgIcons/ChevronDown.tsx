@@ -1,7 +1,7 @@
 import { IconProps } from "./types";
 
 export function ChevronDown(props: IconProps) {
-  const { className } = props;
+  const { className = "" } = props;
 
   return (
     <svg
