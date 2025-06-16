@@ -13,7 +13,9 @@ import {
   TextWidgetPropsType,
   NumberWidgetPropsType,
   CheckWidgetPropsType,
+  AutocompleteWidgetPropsType,
 } from "../Widgets";
+import { AutocompleteWidget } from "../Widgets/AutocompleteWidget";
 
 export const renderFilterComponent = (filter: WidgetFilterProps): ReactNode => {
   switch (filter.type) {
@@ -24,7 +26,9 @@ export const renderFilterComponent = (filter: WidgetFilterProps): ReactNode => {
     case FilterTypes.select:
       return <SelectWidget {...(filter as SelectWidgetPropsType)} />;
     case FilterTypes.autocomplete:
-      break;
+      return (
+        <AutocompleteWidget {...(filter as AutocompleteWidgetPropsType)} />
+      );
     case FilterTypes.date:
       break;
     case FilterTypes.check:

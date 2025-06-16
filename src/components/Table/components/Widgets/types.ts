@@ -11,7 +11,9 @@ export interface SelectWidgetPropsType extends SelectFilterType {}
 
 export interface DateWidgetPropsType extends DateFilterType {}
 
-export interface AutocompleteWidgetPropsType extends AutocompleteFilterType {}
+export interface AutocompleteWidgetPropsType extends AutocompleteFilterType {
+  multiple?: boolean;
+}
 
 export interface CheckWidgetPropsType extends CheckFilterType {}
 

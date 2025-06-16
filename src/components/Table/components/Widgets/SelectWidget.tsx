@@ -10,7 +10,7 @@ import { SelectInput } from "components";
 import { SelectWidgetPropsType } from "./types";
 
 export function SelectWidget(props: SelectWidgetPropsType) {
-  const { propertyName, options } = props;
+  const { propertyName, options, label } = props;
 
   const { currentFilters, setCurrentFilters } = useFilters();
 
@@ -28,6 +28,7 @@ export function SelectWidget(props: SelectWidgetPropsType) {
   return (
     <SelectInput
       value={value}
+      label={label}
       options={options}
       helperTextClassName="hidden"
       onChange={onChange}
