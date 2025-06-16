@@ -1,8 +1,5 @@
 import { useMemo } from "react";
 
-// providers
-import { useTranslation } from "providers";
-
 // components
 import { Loading } from "components";
 
@@ -27,8 +24,6 @@ import "./styles.css";
 import "./components/styles.css";
 
 export function Table(props: TablePropsType) {
-  const { t } = useTranslation();
-
   const {
     title = "",
     data,
