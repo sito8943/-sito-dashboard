@@ -2,8 +2,6 @@ import {
   ChangeEvent,
   ForwardedRef,
   forwardRef,
-  LegacyRef,
-  RefObject,
   useCallback,
   useEffect,
   useRef,
@@ -12,14 +10,19 @@ import {
 
 // components
 import { Close, TextInput, Chip, Option } from "components";
+
+// types
 import { AutocompleteInputPropsType } from "./types";
+
+// styles
+import "./styles.css";
 
 /**
  *
  * @param {object} props
  * @returns
  */
-const AutocompleteInput = forwardRef(function (
+export const AutocompleteInput = forwardRef(function (
   props: AutocompleteInputPropsType,
   ref: ForwardedRef<HTMLInputElement>
 ) {
@@ -134,7 +137,7 @@ const AutocompleteInput = forwardRef(function (
         <ul className="autocomplete-suggestions-container">
           {suggestions.map((suggestion) => (
             <li
-              className="hover:bg-primary/20"
+              className="autocomplete-suggestion-item hover:bg-primary/20"
               onClick={() => handleSuggestionClick(suggestion)}
               key={suggestion.id}
             >
@@ -158,5 +161,3 @@ const AutocompleteInput = forwardRef(function (
     </div>
   );
 });
-
-export default AutocompleteInput;
