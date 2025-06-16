@@ -85,12 +85,12 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
         }`}
       >
         <div ref={dropdown}>
-          <div className="filters-title">
+          <div className="filter-title">
             {t("_accessibility:buttons.filters")}
           </div>
-          <ul className="filters-container">
+          <ul className="filter-container">
             {filters.map((filter) => (
-              <li key={filter.propertyName} className="filters-container-item">
+              <li key={filter.propertyName} className="filter-container-item">
                 {renderFilterComponent(filter as WidgetFilterProps)}
               </li>
             ))}
