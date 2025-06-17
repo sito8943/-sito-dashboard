@@ -146,7 +146,7 @@ export const AutocompleteInput = forwardRef(function (
           ))}
         </ul>
       )}
-      {multiple && value && value.length ? (
+      {multiple && Array.isArray(value) && value.length ? (
         <ul className="autocomplete-value-container">
           {value.map((selected: Option, i: number) => (
             <li key={selected.value}>
