@@ -3,5 +3,13 @@
 }
 
 .chip-delete-button {
-  @apply ml-2 text-red-500;
+  @apply ml-2;
+}
+
+.chip-delete-button-svg {
+  @apply text-red-500 w-3;
+}
+
+.filled-chip-delete-button-svg {
+  @apply text-gray-200 w-3;
 }

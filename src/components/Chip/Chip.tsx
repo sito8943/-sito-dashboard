@@ -35,12 +35,23 @@ export function Chip(props: ChipPropsType) {
     }
   }, [variant]);
 
+  const svgStyle = useMemo(() => {
+    switch (variant) {
+      case ChipVariant.empty:
+      case ChipVariant.outlined:
+        return "chip-delete-button-svg";
+      case ChipVariant.default:
+      default:
+        return "filled-chip-delete-button-svg";
+    }
+  }, [variant]);
+
   return (
     <div className={`chip-main ${localVariant} ${className}`}>
       <span className={spanClassName}>{label}</span>
       {onDelete ? (
         <button type="button" className="chip-delete-button" onClick={onDelete}>
-          <Close />
+          <Close className={svgStyle} />
         </button>
       ) : null}
     </div>
