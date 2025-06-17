@@ -1,8 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
 
-// lib
-import { FiltersValue } from "lib";
-
 // types
 import { FiltersContextType, FiltersProviderPropsType } from "./types";
 

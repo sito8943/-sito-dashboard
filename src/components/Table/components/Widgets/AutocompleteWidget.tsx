@@ -34,7 +34,7 @@ export function AutocompleteWidget(props: AutocompleteWidgetPropsType) {
 
   return (
     <AutocompleteInput
-      value={value}
+      value={value?.value}
       label={label}
       options={options}
       multiple={multiple}

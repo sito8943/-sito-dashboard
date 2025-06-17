@@ -27,7 +27,7 @@ export function SelectWidget(props: SelectWidgetPropsType) {
 
   return (
     <SelectInput
-      value={value}
+      value={value?.value}
       label={label}
       options={options}
       helperTextClassName="hidden"
