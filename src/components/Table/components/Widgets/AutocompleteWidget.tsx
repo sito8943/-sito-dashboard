@@ -4,7 +4,7 @@ import { ChangeEvent, useCallback, useMemo } from "react";
 import { FiltersActions, useFilters } from "providers";
 
 // components
-import { AutocompleteInput } from "components";
+import { AutocompleteInput, Option } from "components";
 
 // types
 import { AutocompleteWidgetPropsType } from "./types";
@@ -19,12 +19,12 @@ export function AutocompleteWidget(props: AutocompleteWidgetPropsType) {
   }, [currentFilters]);
 
   const onChange = useCallback(
-    (e: ChangeEvent<HTMLSelectElement>) => {
+    (value: Option | Option[]) => {
       setCurrentFilters({
         type: FiltersActions.update,
         toUpdate: {
           [propertyName]: {
-            value: multiple ? [e.target.value] : e.target.value,
+            value,
           },
         },
       });
