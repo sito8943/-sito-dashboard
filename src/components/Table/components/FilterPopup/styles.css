@@ -59,7 +59,7 @@
 }
 
 .filter-container-item {
-  @apply py-1 px-3 flex items-center;
+  @apply py-2 px-3 flex items-center;
 }
 
 .filter-footer {
