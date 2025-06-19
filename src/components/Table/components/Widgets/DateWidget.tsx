@@ -15,7 +15,11 @@ export const DateWidget = (props: DateWidgetPropsType) => {
   const { currentFilters, setCurrentFilters } = useFilters();
 
   const value = useMemo(() => {
-    return currentFilters[propertyName] ?? "";
+    return currentFilters[propertyName]?.value
+      ? new Date(String(currentFilters[propertyName]?.value))
+          .toISOString()
+          .slice(0, 10)
+      : "";
   }, [currentFilters]);
 
   const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +31,7 @@ export const DateWidget = (props: DateWidgetPropsType) => {
 
   return (
     <TextInput
-      value={value?.value ?? ""}
+      value={value ?? ""}
       label={label}
       type="date"
       onChange={onChange}
