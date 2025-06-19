@@ -28,6 +28,7 @@ export function Table(props: TablePropsType) {
     columns = [],
     contentClassName = "",
     className = "",
+    toolbar = <></>,
     softDeleteProperty = "deleted",
   } = props;
 
@@ -54,6 +55,7 @@ export function Table(props: TablePropsType) {
         <h1 className="table-header-title">{title}</h1>
         {!isEmpty && !isLoading ? (
           <div className="table-header-right">
+            {toolbar}
             <FilterPopup filters={parsedFilters as FilterType[]} />
           </div>
         ) : null}

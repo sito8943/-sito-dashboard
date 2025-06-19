@@ -1,5 +1,6 @@
 import { SortOrder } from "lib";
 import { ColumnType } from "./components";
+import { ReactNode } from "react";
 
 export type Action = {
   id: string;
@@ -20,5 +21,6 @@ export type TablePropsType = {
   contentClassName?: string;
   className?: string;
   softDeleteProperty?: string;
+  toolbar?: ReactNode;
   onSort: (prop: string, sortOrder: SortOrder) => void;
 };
