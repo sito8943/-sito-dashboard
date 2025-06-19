@@ -31,7 +31,7 @@ export const DateWidget = (props: DateWidgetPropsType) => {
       label={label}
       type="date"
       onChange={onChange}
-      containerClassName="mb-0"
+      containerClassName="input-widget-container"
       helperTextClassName=""
     />
   );

@@ -30,7 +30,7 @@ export const TextWidget = (props: TextWidgetPropsType) => {
       value={value?.value ?? ""}
       label={label}
       onChange={onChange}
-      containerClassName="mb-0"
+      containerClassName="input-widget-container"
       helperTextClassName=""
     />
   );

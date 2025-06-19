@@ -15,6 +15,7 @@ import { FilterType } from "lib";
 // styles
 import "./styles.css";
 import "./components/styles.css";
+import "./components/Widgets/styles.css";
 
 export function Table(props: TablePropsType) {
   const {

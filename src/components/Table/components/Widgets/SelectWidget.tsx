@@ -31,7 +31,7 @@ export function SelectWidget(props: SelectWidgetPropsType) {
       label={label}
       options={options}
       helperTextClassName="hidden"
-      containerClassName="mb-0"
+      containerClassName="options-widget-container"
       onChange={onChange}
     />
   );

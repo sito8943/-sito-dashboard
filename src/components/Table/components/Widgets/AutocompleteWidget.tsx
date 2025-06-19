@@ -39,7 +39,7 @@ export function AutocompleteWidget(props: AutocompleteWidgetPropsType) {
       options={options}
       multiple={multiple}
       helperTextClassName="hidden"
-      containerClassName="mb-0"
+      containerClassName="options-widget-container"
       onChange={onChange}
     />
   );

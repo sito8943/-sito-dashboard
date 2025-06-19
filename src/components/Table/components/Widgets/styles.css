@@ -1,0 +1,7 @@
+.options-widget-container {
+  @apply mb-0 pb-2;
+}
+
+.input-widget-container {
+  @apply mb-0;
+}
