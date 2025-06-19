@@ -53,7 +53,7 @@ export function Table(props: TablePropsType) {
     <div className={`${className} table-main`}>
       <div className="table-header">
         <h1 className="table-header-title">{title}</h1>
-        {!isEmpty && !isLoading ? (
+        {!isLoading ? (
           <div className="table-header-right">
             {toolbar}
             <FilterPopup filters={parsedFilters as FilterType[]} />
