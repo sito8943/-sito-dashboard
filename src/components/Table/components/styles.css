@@ -1,11 +1,14 @@
+.jump-to-page,
 .page-size {
   @apply flex gap-2 items-center justify-start;
 }
 
+.jump-to-page-input,
 .page-size-input {
   @apply !py-0 !pl-2 !pr-7 !border-none font-bold;
 }
 
+.jump-to-page-input-container,
 .page-size-input-container {
   @apply !w-auto !mb-0 !border-none;
 }

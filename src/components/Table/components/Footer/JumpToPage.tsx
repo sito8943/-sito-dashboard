@@ -24,13 +24,13 @@ export function JumpToPage() {
   }, [total, pageSize]);
 
   return (
-    <div className="page-size">
+    <div className="jump-to-page">
       <p>{t("_accessibility:components.table.jumpToPage")}</p>
       <SelectInput
         value={currentPage}
         options={pages}
-        inputClassName="page-size-input"
-        containerClassName="page-size-input-container"
+        inputClassName="jump-to-page-input"
+        containerClassName="jump-to-page-input-container"
         helperTextClassName="hidden"
         onChange={(e) => setCurrentPage(Number(e.target.value))}
       />
