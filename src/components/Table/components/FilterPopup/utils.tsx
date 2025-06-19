@@ -8,14 +8,16 @@ import {
   SelectWidget,
   TextWidget,
   NumberWidget,
+  DateWidget,
+  AutocompleteWidget,
   CheckWidget,
   SelectWidgetPropsType,
   TextWidgetPropsType,
   NumberWidgetPropsType,
   CheckWidgetPropsType,
   AutocompleteWidgetPropsType,
+  DateWidgetPropsType,
 } from "../Widgets";
-import { AutocompleteWidget } from "../Widgets/AutocompleteWidget";
 
 export const renderFilterComponent = (filter: WidgetFilterProps): ReactNode => {
   switch (filter.type) {
@@ -30,7 +32,7 @@ export const renderFilterComponent = (filter: WidgetFilterProps): ReactNode => {
         <AutocompleteWidget {...(filter as AutocompleteWidgetPropsType)} />
       );
     case FilterTypes.date:
-      break;
+      return <DateWidget {...(filter as DateWidgetPropsType)} />;
     case FilterTypes.check:
       return <CheckWidget {...(filter as CheckWidgetPropsType)} />;
   }
