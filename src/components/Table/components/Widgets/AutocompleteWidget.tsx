@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 // providers
 import { FiltersActions, useFilters } from "providers";
