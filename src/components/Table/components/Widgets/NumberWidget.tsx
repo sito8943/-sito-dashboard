@@ -37,6 +37,7 @@ export const NumberWidget = (props: NumberWidgetPropsType) => {
       max={max}
       type="number"
       label={label}
+      containerClassName="mb-0"
       onChange={onChange}
       helperTextClassName=""
     />

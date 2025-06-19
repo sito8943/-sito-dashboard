@@ -18,7 +18,7 @@ export const TextWidget = (props: TextWidgetPropsType) => {
     return currentFilters[propertyName] ?? "";
   }, [currentFilters]);
 
-  const onChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
+  const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setCurrentFilters({
       type: FiltersActions.update,
       toUpdate: { [propertyName]: { value: e.target.value } },
@@ -30,6 +30,7 @@ export const TextWidget = (props: TextWidgetPropsType) => {
       value={value?.value ?? ""}
       label={label}
       onChange={onChange}
+      containerClassName="mb-0"
       helperTextClassName=""
     />
   );

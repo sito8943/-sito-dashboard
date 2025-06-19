@@ -35,6 +35,7 @@ export const AutocompleteInput = forwardRef(function (
     id = "",
     label = "",
     containerClassName = "",
+    inputContainerClassName = "",
     helperText = "",
     placeholder = "",
     multiple = false,
@@ -117,9 +118,9 @@ export const AutocompleteInput = forwardRef(function (
         onChange={handleChange}
         placeholder={placeholder}
         helperText={helperText}
-        onFocus={(e) => setShowSuggestions(true)}
+        onFocus={() => setShowSuggestions(true)}
         label={label}
-        containerClassName="autocomplete-text-input"
+        containerClassName={`autocomplete-text-input ${inputContainerClassName}`}
         ref={ref}
         {...rest}
       >
