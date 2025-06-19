@@ -1,5 +1,5 @@
 .page-size {
-  @apply flex gap-2 items-center justify-start px-5;
+  @apply flex gap-2 items-center justify-start;
 }
 
 .page-size-input {
@@ -46,12 +46,12 @@
   @apply w-full flex items-center justify-center py-2 border-t-[1px];
 }
 
-.table-navigation {
-  @apply flex w-full items-center justify-between mt-5 px-5;
+.table-footer {
+  @apply flex w-full items-center justify-end gap-5 mt-5 px-5;
 }
 
 .table-navigation-sizes {
-  @apply flex w-full items-center justify-start gap-1;
+  @apply flex items-center justify-start gap-1;
 }
 
 .table-navigation-pages {

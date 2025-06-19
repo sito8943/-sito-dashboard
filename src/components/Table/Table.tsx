@@ -4,14 +4,7 @@ import { useMemo } from "react";
 import { Loading } from "components";
 
 // table components
-import {
-  Empty,
-  Columns,
-  PageSize,
-  Navigation,
-  FilterPopup,
-  Rows,
-} from "./components/";
+import { Empty, Columns, Footer, FilterPopup, Rows } from "./components/";
 
 // types
 import { TablePropsType } from "./types";
@@ -60,7 +53,6 @@ export function Table(props: TablePropsType) {
         <h1 className="table-header-title">{title}</h1>
         {!isEmpty && !isLoading ? (
           <div className="table-header-right">
-            <PageSize />
             <FilterPopup filters={parsedFilters as FilterType[]} />
           </div>
         ) : null}
@@ -88,7 +80,7 @@ export function Table(props: TablePropsType) {
                 </table>
               </div>
 
-              <Navigation />
+              <Footer />
             </>
           ) : (
             <Empty />
