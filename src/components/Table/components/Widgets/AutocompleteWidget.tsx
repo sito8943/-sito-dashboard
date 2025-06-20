@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "react";
 
 // providers
-import { FiltersActions, useTableOptions } from "providers";
+import { FiltersActions, useFilters } from "providers";
 
 // components
 import { AutocompleteInput, Option } from "components";
@@ -12,7 +12,7 @@ import { AutocompleteWidgetPropsType } from "./types";
 export function AutocompleteWidget(props: AutocompleteWidgetPropsType) {
   const { propertyName, label, options, multiple = true } = props;
 
-  const { currentFilters, setCurrentFilters } = useTableOptions();
+  const { currentFilters, setCurrentFilters } = useFilters();
 
   const value = useMemo(() => {
     return currentFilters[propertyName] ?? options[0];

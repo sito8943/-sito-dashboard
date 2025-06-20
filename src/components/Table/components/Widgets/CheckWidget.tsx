@@ -4,7 +4,7 @@ import { useMemo, useCallback, ChangeEvent } from "react";
 import { CheckInput } from "components";
 
 // providers
-import { FiltersActions, useTableOptions } from "providers";
+import { FiltersActions, useFilters } from "providers";
 
 // types
 import { CheckWidgetPropsType } from "./types";
@@ -12,7 +12,7 @@ import { CheckWidgetPropsType } from "./types";
 export const CheckWidget = (props: CheckWidgetPropsType) => {
   const { propertyName, label } = props;
 
-  const { currentFilters, setCurrentFilters } = useTableOptions();
+  const { currentFilters, setCurrentFilters } = useFilters();
 
   const value = useMemo(() => {
     return currentFilters[propertyName] ?? "";

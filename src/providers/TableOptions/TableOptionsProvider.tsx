@@ -17,7 +17,7 @@ import {
 } from "./types";
 
 // providers
-import { filtersReducer } from "./utils";
+import { FiltersProvider, filtersReducer } from "providers";
 
 const pageSizes = [20, 50, 100];
 
@@ -93,7 +93,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
 
   return (
     <TableOptionsContext.Provider value={value}>
-      {children}
+      <FiltersProvider>{children}</FiltersProvider>
     </TableOptionsContext.Provider>
   );
 };
