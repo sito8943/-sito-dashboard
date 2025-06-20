@@ -15,7 +15,7 @@ export const CheckWidget = (props: CheckWidgetPropsType) => {
   const { currentFilters, setCurrentFilters } = useFilters();
 
   const value = useMemo(() => {
-    return currentFilters[propertyName] ?? "";
+    return currentFilters[propertyName]?.value ?? "";
   }, [currentFilters]);
 
   const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -26,10 +26,6 @@ export const CheckWidget = (props: CheckWidgetPropsType) => {
   }, []);
 
   return (
-    <CheckInput
-      label={label}
-      checked={value?.value ?? false}
-      onChange={onChange}
-    />
+    <CheckInput label={label} checked={value ?? false} onChange={onChange} />
   );
 };
