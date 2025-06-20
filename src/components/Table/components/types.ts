@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 // types
 import { Action } from "../types";
 
@@ -7,7 +9,9 @@ import { FilterTypes, SortOrder } from "lib";
 export type ColumnType = {
   key: string;
   label: string;
+  /** if the column can be sorted */
   sortable?: boolean;
+  /** only works if sortable has value true */
   sortOptions: {
     icons: {
       className: string;
@@ -17,9 +21,13 @@ export type ColumnType = {
   };
   className?: string;
   display?: "visible" | "none";
+  /** column position from 0 */
   pos?: number;
-  renderBody?: (value: any, row: any) => React.ReactNode;
+  /** custom body of the cell */
+  renderBody?: (value: any, row: any) => ReactNode;
+  /** custom head of the cell */
   renderHead?: () => void;
+  /** filter options */
   filterOptions?: ColumnFilterOptions;
 };
 

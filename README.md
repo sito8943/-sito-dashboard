@@ -35,12 +35,6 @@ const App = () => {
     { id: 2, name: "Jane Smith", age: 25 },
   ];
 
-  const parseRows = (row) => ({
-    id: row.id,
-    name: row.name,
-    age: row.age,
-  });
-
   const columns = [
     { key: "name", label: "Name" },
     { key: "age", label: "Age" },
@@ -91,17 +85,19 @@ export default App;
 The Table component is a flexible and feature-rich table for displaying data.
 
 #### Props
-- `title` (string): The title of the table.
-- `subtitle` (string): The subtitle of the table.
-- `data` (array): The data to display in the table.
-- `columns` (array): Column definitions, including keys and labels, etc.
-- `isLoading` (boolean): Whether the table is in a loading state.
-- `actions` (function): A function to render actions for each row.
-- `className` (string): Custom class for the table container.
-- `contentClassName` (string): Custom class for the table content
-- `softDeleteProperty` (string): Property for the softDelete logic
-- `toolbar` (ReactNode): component for toolbar
-- `onSort` (function): callback to call after sort change
+| Propiedad             | Tipo         | Valor por defecto      | Descripción                                                         |
+|-----------------------|--------------|-------------------------|---------------------------------------------------------------------|
+| `title`              | `string`     | `""`                    | El título de la tabla.                                              |
+| `data`               | `array`      | —                       | Los datos a mostrar en la tabla.                                   |
+| `columns`            | `array`      | `[]`                    | Definiciones de columnas, incluyendo claves (`key`) y etiquetas.   |
+| `isLoading`          | `boolean`    | `false`                 | Indica si la tabla está en estado de carga.                        |
+| `actions`            | `Action[]`   | —                       | Función para renderizar acciones por fila.                         |
+| `className`          | `string`     | `""`                    | Clase personalizada para el contenedor de la tabla.                |
+| `contentClassName`   | `string`     | `""`                    | Clase personalizada para el contenido de la tabla.                 |
+| `softDeleteProperty` | `string`     | `"deleted"`             | Propiedad usada para lógica de borrado suave.                      |
+| `toolbar`            | `ReactNode`  | `<></>`                 | Componente personalizado para la barra de herramientas.            |
+| `onSort`             | `function`   | —                       | Callback que se llama cuando se cambia el orden de la tabla.       |
+
 
 ### TranslationProvider
 
@@ -109,6 +105,124 @@ Provides translation support for your application.
 
 #### Props
 - `t` (function): A translation function that takes a key and returns the translated string.
+
+### Examples
+
+#### Columns definition
+
+```
+  key: string;
+  label: string;
+  sortable?: boolean;
+  sortOptions: {
+    icons: {
+      className: string;
+      asc: string;
+      desc: string;
+    };
+  };
+  className?: string;
+  display?: "visible" | "none";
+  pos?: number;
+  renderBody?: (value: any, row: any) => ReactNode;
+  renderHead?: () => void;
+  filterOptions?: ColumnFilterOptions;
+```
+
+ColumnFilterOptions
+
+```
+{
+  type: FilterTypes;
+  defaultValue: any;
+  label?: string;
+}
+```
+
+FilterTypes enum
+
+```
+text,
+number,
+select,
+autocomplete,
+date,
+check,
+```
+
+```
+import { Table } from "@sito/dashboard";
+
+const columns = [
+  {
+    key: "tagIds",
+    label: t("_entities:news.tags.label"),
+    filterOptions: {
+      type: FilterTypes.autocomplete,
+      options: tagsList,
+      defaultValue: [],
+    },
+    sortable: false,
+    renderBody: (_, news) =>
+      (
+        <div className="flex flex-wrap gap-3">
+          {news.tags?.map(({ name, id }) => (
+            <Chip key={id} label={name} spanClassName="text-xs" />
+          ))}
+        </div>
+      ) ?? " - ",
+  },
+]
+
+<Table data={...} columns={columns} />
+```
+
+#### Actions definition
+
+```
+{
+  id: string;
+  onClick: (entity: object) => void;
+  icon: any;
+  tooltip: string;
+  hidden: (entity: object) => boolean;
+}
+```
+
+```
+import { Table } from "@sito/dashboard";
+
+const addAction = {
+  id: "add",
+  hidden: false,
+  onClick: async () => {
+    // do some stuff here
+  },
+  icon: (
+    <FontAwesomeIcon
+      icon={isLoading ? faSpinner : faAdd}
+      className={`text-success ${isLoading ? "rotate" : ""}`}
+    />
+  ),
+  tooltip: t("_accessibility:buttons.add"),
+}
+
+<Table data={...} columns={...} actions={[addAction]} />
+```
+
+#### Your custom toolbar
+
+```
+import { Table } from "@sito/dashboard";
+
+const Toolbar = () => {
+  return <div>
+    <h1>My custom toolbar</h1>
+  </div>
+}
+
+<Table data={...} columns={...} toolbar={<Toolbar />} />
+```
 
 ## Development
 
