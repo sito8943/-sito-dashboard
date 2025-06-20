@@ -1,7 +1,7 @@
 import { ChangeEvent, useCallback, useMemo } from "react";
 
 // providers
-import { FiltersActions, useFilters } from "providers";
+import { FiltersActions, useTableOptions } from "providers";
 
 // types
 import { DateWidgetPropsType } from "./types";
@@ -12,7 +12,7 @@ import { TextInput } from "components";
 export const DateWidget = (props: DateWidgetPropsType) => {
   const { propertyName, label } = props;
 
-  const { currentFilters, setCurrentFilters } = useFilters();
+  const { currentFilters, setCurrentFilters } = useTableOptions();
 
   const value = useMemo(() => {
     return currentFilters[propertyName]?.value

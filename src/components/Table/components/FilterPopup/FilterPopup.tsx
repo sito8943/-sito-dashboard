@@ -7,12 +7,7 @@ import { FilterPopupPropsType } from "./types";
 import { WidgetFilterProps } from "lib";
 
 // providers
-import {
-  useTranslation,
-  FiltersActions,
-  useFilters,
-  useTableOptions,
-} from "providers";
+import { useTranslation, FiltersActions, useTableOptions } from "providers";
 
 // utils
 import { renderFilterComponent } from "./utils";
@@ -27,12 +22,8 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
   const { align = "right", filters = [], icon } = props;
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const { onFilterApply } = useTableOptions();
-  const { currentFilters, setCurrentFilters } = useFilters();
-
-  useEffect(() => {
-    setCurrentFilters({ type: FiltersActions.reset, filters });
-  }, [filters]);
+  const { onFilterApply, currentFilters, setCurrentFilters } =
+    useTableOptions();
 
   const { t } = useTranslation();
 
@@ -53,7 +44,7 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
     };
     document.addEventListener("click", clickHandler);
     return () => document.removeEventListener("click", clickHandler);
-  });
+  }, [dropdownOpen]);
 
   // close if the esc key is pressed
   useEffect(() => {
@@ -63,7 +54,7 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
     };
     document.addEventListener("keydown", keyHandler);
     return () => document.removeEventListener("keydown", keyHandler);
-  });
+  }, [setDropdownOpen, dropdownOpen]);
 
   return (
     <div className="filter-dropdown-main">
@@ -99,7 +90,7 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
               <li>
                 <button
                   onClick={() =>
-                    setCurrentFilters({ type: FiltersActions.reset })
+                    setCurrentFilters({ type: FiltersActions.reset, filters })
                   }
                   className="filter-dropdown-button small filter-dropdown-cancel"
                 >

@@ -1,7 +1,27 @@
-import { ReactNode } from "react";
+import { Dispatch, ReactNode } from "react";
 
 // lib
-import { FiltersValue, SortOrder } from "lib";
+import { FiltersValue, FilterType, SortOrder } from "lib";
+
+export enum FiltersActions {
+  update,
+  reset,
+}
+
+export type FiltersActionType = {
+  type: FiltersActions;
+  filters?: FilterType[];
+  toUpdate?: FiltersValue;
+};
+
+export type FiltersContextType = {
+  currentFilters: FiltersValue;
+  setCurrentFilters: Dispatch<FiltersActionType>;
+};
+
+export type FiltersProviderPropsType = {
+  children: ReactNode;
+};
 
 export type TableOptionsContextType = {
   onSort: (
@@ -18,6 +38,8 @@ export type TableOptionsContextType = {
   pageSizes: number[];
   setPageSize: (pageSize: number) => void;
   currentPage: number;
+  currentFilters: FiltersValue;
+  setCurrentFilters: Dispatch<FiltersActionType>;
   setCurrentPage: (currentPage: number) => void;
   onFilterApply: (filters: FiltersValue) => void;
   filters: TableFilters;

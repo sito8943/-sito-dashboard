@@ -4,7 +4,7 @@ import { ChangeEvent, useCallback, useMemo } from "react";
 import { NumberWidgetPropsType } from "./types";
 
 // providers
-import { FiltersActions, useFilters } from "providers";
+import { FiltersActions, useTableOptions } from "providers";
 
 // components
 import { TextInput } from "components";
@@ -12,7 +12,7 @@ import { TextInput } from "components";
 export const NumberWidget = (props: NumberWidgetPropsType) => {
   const { propertyName, label, min, max } = props;
 
-  const { currentFilters, setCurrentFilters } = useFilters();
+  const { currentFilters, setCurrentFilters } = useTableOptions();
 
   const value = useMemo(() => {
     return currentFilters[propertyName] ?? "";
