@@ -17,7 +17,6 @@ export type Action = {
 export type TablePropsType = {
   entity: string;
   title?: string;
-  subtitle?: string;
   data: object[];
   isLoading?: boolean;
   actions?: (row: object) => Action[];
