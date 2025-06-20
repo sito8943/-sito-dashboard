@@ -15,7 +15,7 @@ export const TextWidget = (props: TextWidgetPropsType) => {
   const { currentFilters, setCurrentFilters } = useFilters();
 
   const value = useMemo(() => {
-    return currentFilters[propertyName] ?? "";
+    return currentFilters[propertyName]?.value ?? "";
   }, [currentFilters]);
 
   const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +27,7 @@ export const TextWidget = (props: TextWidgetPropsType) => {
 
   return (
     <TextInput
-      value={value?.value ?? ""}
+      value={value ?? ""}
       label={label}
       onChange={onChange}
       containerClassName="input-widget-container"

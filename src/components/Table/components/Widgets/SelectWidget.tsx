@@ -15,7 +15,7 @@ export function SelectWidget(props: SelectWidgetPropsType) {
   const { currentFilters, setCurrentFilters } = useFilters();
 
   const value = useMemo(() => {
-    return currentFilters[propertyName] ?? options[0];
+    return currentFilters[propertyName]?.value ?? options[0];
   }, [currentFilters]);
 
   const onChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
@@ -27,7 +27,7 @@ export function SelectWidget(props: SelectWidgetPropsType) {
 
   return (
     <SelectInput
-      value={value?.value}
+      value={value}
       label={label}
       options={options}
       helperTextClassName="hidden"

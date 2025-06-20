@@ -15,7 +15,7 @@ export const NumberWidget = (props: NumberWidgetPropsType) => {
   const { currentFilters, setCurrentFilters } = useFilters();
 
   const value = useMemo(() => {
-    return currentFilters[propertyName] ?? "";
+    return currentFilters[propertyName]?.value ?? "";
   }, [currentFilters]);
 
   const onChange = useCallback(
@@ -32,7 +32,7 @@ export const NumberWidget = (props: NumberWidgetPropsType) => {
 
   return (
     <TextInput
-      value={value?.value ?? ""}
+      value={value ?? ""}
       min={min}
       max={max}
       type="number"
