@@ -1,5 +1,8 @@
-import { FilterTypes, SortOrder } from "lib";
+// types
 import { Action } from "../types";
+
+// lib
+import { FilterTypes, SortOrder } from "lib";
 
 export type ColumnType = {
   key: string;

@@ -1,6 +1,10 @@
-import { SortOrder } from "lib";
-import { ColumnType } from "./components";
 import { ReactNode } from "react";
+
+// lib
+import { SortOrder } from "lib";
+
+// component
+import { ColumnType } from "./components";
 
 export type Action = {
   id: string;

@@ -1,9 +1,10 @@
+import { useMemo } from "react";
+
 // components
 import { Tooltip } from "components";
 
 // types
 import { RowsPropsType } from "./types";
-import { useMemo } from "react";
 
 const baseRender = (value: any) => value;
 
