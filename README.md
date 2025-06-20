@@ -49,8 +49,7 @@ const App = () => {
   return (
     <Table
       title="User Table"
-      rows={rows}
-      parseRows={parseRows}
+      data={rows}
       columns={columns}
     />
   );
@@ -93,12 +92,16 @@ The Table component is a flexible and feature-rich table for displaying data.
 
 #### Props
 - `title` (string): The title of the table.
-- `rows` (array): The data to display in the table.
-- `parseRows` (function): A function to parse rows for rendering.
-- `columns` (array): Column definitions, including keys and labels.
+- `subtitle` (string): The subtitle of the table.
+- `data` (array): The data to display in the table.
+- `columns` (array): Column definitions, including keys and labels, etc.
 - `isLoading` (boolean): Whether the table is in a loading state.
 - `actions` (function): A function to render actions for each row.
 - `className` (string): Custom class for the table container.
+- `contentClassName` (string): Custom class for the table content
+- `softDeleteProperty` (string): Property for the softDelete logic
+- `toolbar` (ReactNode): component for toolbar
+- `onSort` (function): callback to call after sort change
 
 ### TranslationProvider
 
