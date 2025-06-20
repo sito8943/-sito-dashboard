@@ -3,15 +3,22 @@ import { createContext, useContext, useReducer } from "react";
 // types
 import { FiltersContextType, FiltersProviderPropsType } from "./types";
 
+// providers
+import { useTableOptions } from "providers";
+
 // utils
-import { filtersReducer } from "./utils";
+import { filtersReducer, initializer } from "./utils";
 
 const FiltersContext = createContext({} as FiltersContextType);
 
 const FiltersProvider = (props: FiltersProviderPropsType) => {
   const { children } = props;
+  const { filters } = useTableOptions();
 
-  const [currentFilters, setCurrentFilters] = useReducer(filtersReducer, {});
+  const [currentFilters, setCurrentFilters] = useReducer(
+    filtersReducer,
+    initializer(filters)
+  );
 
   const value = {
     currentFilters,

@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useReducer,
-  useState,
-} from "react";
+import { createContext, useCallback, useContext, useState } from "react";
 
 // lib
 import { FiltersValue, SortOrder } from "lib";
@@ -15,9 +9,6 @@ import {
   TableOptionsContextType,
   TableOptionsProviderPropsType,
 } from "./types";
-
-// providers
-import { FiltersProvider, filtersReducer } from "providers";
 
 const pageSizes = [20, 50, 100];
 
