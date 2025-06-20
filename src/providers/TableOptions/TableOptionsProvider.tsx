@@ -32,7 +32,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
 
   const [sortingBy, setSortingBy] = useState("id");
   const [sortingOrder, setSortingOrder] = useState(SortOrder.DESC);
-  const [currentFilters, setCurrentFilters] = useReducer(filtersReducer, {});
+
   const [filters, setFilters] = useState<TableFilters>({});
 
   const onSort = useCallback(
@@ -85,15 +85,13 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
     setPageSize,
     currentPage,
     setCurrentPage,
-    currentFilters,
-    setCurrentFilters,
     filters,
     onFilterApply,
   };
 
   return (
     <TableOptionsContext.Provider value={value}>
-      <FiltersProvider>{children}</FiltersProvider>
+      {children}
     </TableOptionsContext.Provider>
   );
 };

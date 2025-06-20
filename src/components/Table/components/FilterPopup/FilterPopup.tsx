@@ -27,12 +27,8 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
   const { align = "right", filters = [], icon } = props;
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const { onFilterApply } = useTableOptions();
+  const { onFilterApply, filters: tableFilters } = useTableOptions();
   const { currentFilters, setCurrentFilters } = useFilters();
-
-  useEffect(() => {
-    setCurrentFilters({ type: FiltersActions.reset, filters });
-  }, [filters]);
 
   const { t } = useTranslation();
 

@@ -6,6 +6,9 @@ import { Loading } from "components";
 // table components
 import { Empty, Columns, Footer, FilterPopup, Rows } from "./components/";
 
+// providers
+import { FiltersProvider } from "providers";
+
 // types
 import { TablePropsType } from "./types";
 
@@ -50,48 +53,50 @@ export function Table(props: TablePropsType) {
   const isEmpty = useMemo(() => !data?.length, [data]);
 
   return (
-    <div className={`${className} table-main`}>
-      <div className="table-header">
-        <h1 className="table-header-title">{title}</h1>
+    <FiltersProvider>
+      <div className={`${className} table-main`}>
+        <div className="table-header">
+          <h1 className="table-header-title">{title}</h1>
+          {!isLoading ? (
+            <div className="table-header-right">
+              {toolbar}
+              <FilterPopup filters={parsedFilters as FilterType[]} />
+            </div>
+          ) : null}
+        </div>
         {!isLoading ? (
-          <div className="table-header-right">
-            {toolbar}
-            <FilterPopup filters={parsedFilters as FilterType[]} />
-          </div>
-        ) : null}
-      </div>
-      {!isLoading ? (
-        <>
-          {!isEmpty ? (
-            <>
-              <div className={`${contentClassName} table-body`}>
-                <table className="table-content">
-                  <Columns
-                    entity={entity}
-                    columns={columns}
-                    onSortCallback={onSort}
-                    hasAction={!!actions}
-                  />
-                  <tbody>
-                    <Rows
-                      data={data}
-                      actions={actions}
+          <>
+            {!isEmpty ? (
+              <>
+                <div className={`${contentClassName} table-body`}>
+                  <table className="table-content">
+                    <Columns
+                      entity={entity}
                       columns={columns}
-                      softDeleteProperty={softDeleteProperty}
+                      onSortCallback={onSort}
+                      hasAction={!!actions}
                     />
-                  </tbody>
-                </table>
-              </div>
+                    <tbody>
+                      <Rows
+                        data={data}
+                        actions={actions}
+                        columns={columns}
+                        softDeleteProperty={softDeleteProperty}
+                      />
+                    </tbody>
+                  </table>
+                </div>
 
-              <Footer />
-            </>
-          ) : (
-            <Empty />
-          )}
-        </>
-      ) : (
-        <Loading className="table-loading" />
-      )}
-    </div>
+                <Footer />
+              </>
+            ) : (
+              <Empty />
+            )}
+          </>
+        ) : (
+          <Loading className="table-loading" />
+        )}
+      </div>
+    </FiltersProvider>
   );
 }
