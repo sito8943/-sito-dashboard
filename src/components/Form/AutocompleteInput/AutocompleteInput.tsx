@@ -60,21 +60,25 @@ export const AutocompleteInput = forwardRef(function (
   const autocompleteRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const handleClick = (event: MouseEvent) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (
         autocompleteRef.current &&
-        !(autocompleteRef.current as any).contains(event.target)
-      )
+        !autocompleteRef.current.contains(event.target as Node)
+      ) {
         setShowSuggestions(false);
+      }
     };
-    const escapePressed = (e: KeyboardEvent) => {
+
+    const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") setShowSuggestions(false);
     };
-    document.addEventListener("click", handleClick);
-    document.addEventListener("keydown", escapePressed);
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+
     return () => {
-      document.removeEventListener("click", handleClick);
-      document.removeEventListener("keydown", escapePressed);
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
     };
   }, []);
 
