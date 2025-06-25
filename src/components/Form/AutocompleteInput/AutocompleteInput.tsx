@@ -139,17 +139,21 @@ export const AutocompleteInput = forwardRef(function (
         )}
       </TextInput>
       {showSuggestions && (
-        <ul className="autocomplete-suggestions-container">
+        <datalist /* className="autocomplete-suggestions-container" */>
           {suggestions.map((suggestion) => (
-            <li
+            <option
               className="autocomplete-suggestion-item hover:bg-primary/20"
-              onClick={() => handleSuggestionClick(suggestion)}
+              onClick={(e) => {
+                handleSuggestionClick(suggestion);
+                e.stopPropagation();
+              }}
               key={suggestion.id}
+              value={suggestion.value}
             >
               {suggestion.value}
-            </li>
+            </option>
           ))}
-        </ul>
+        </datalist>
       )}
       {multiple && Array.isArray(value) && value.length ? (
         <ul className="autocomplete-value-container">
