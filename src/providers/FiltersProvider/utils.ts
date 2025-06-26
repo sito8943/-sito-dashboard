@@ -25,6 +25,7 @@ export function filtersReducer(state: FiltersValue, action: FiltersActionType) {
       filters?.forEach(({ propertyName, defaultValue }) => {
         parsed[propertyName] = { value: defaultValue };
       });
+
       return { ...state, ...parsed };
     }
     case FiltersActions.update: {

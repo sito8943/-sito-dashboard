@@ -95,7 +95,7 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
               <li>
                 <button
                   onClick={() =>
-                    setCurrentFilters({ type: FiltersActions.reset })
+                    setCurrentFilters({ type: FiltersActions.reset, filters })
                   }
                   className="filter-dropdown-button small filter-dropdown-cancel"
                 >

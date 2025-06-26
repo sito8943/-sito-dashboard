@@ -42,12 +42,12 @@ export const AutocompleteInput = forwardRef(function (
     ...rest
   } = props;
 
-  const [localValue, setLocalValue] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const suggestions = options.filter((option) => {
     const isIncluded = String(option.value)
       .toLowerCase()
-      .includes(localValue?.toLowerCase());
+      .includes(inputValue?.toLowerCase());
     if (value && value.length) {
       const toShow = value?.some
         ? !value?.some((v: Option) => v.id === option.id)
@@ -83,16 +83,18 @@ export const AutocompleteInput = forwardRef(function (
   }, []);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setLocalValue(event.target.value);
+    setInputValue(event.target.value);
   };
 
   const handleSuggestionClick = useCallback(
     (suggestion?: Option) => {
-      setLocalValue("");
+      setInputValue("");
       if (!suggestion) onChange(null);
       else {
         if (multiple)
-          value ? onChange([...value, suggestion]) : onChange([suggestion]);
+          Array.isArray(value) && !!value.length
+            ? onChange([...value, suggestion])
+            : onChange([suggestion]);
         else onChange(suggestion);
       }
       setShowSuggestions(false);
@@ -118,7 +120,7 @@ export const AutocompleteInput = forwardRef(function (
         state={state}
         name={name}
         id={id}
-        value={!multiple && value ? value.value : localValue}
+        value={!multiple && value ? value : inputValue}
         onChange={handleChange}
         placeholder={placeholder}
         helperText={helperText}
@@ -132,7 +134,10 @@ export const AutocompleteInput = forwardRef(function (
           <button
             type="button"
             className="autocomplete-delete-button"
-            onClick={() => handleSuggestionClick()}
+            onClick={(e) => {
+              handleSuggestionClick();
+              e.stopPropagation();
+            }}
           >
             <Close />
           </button>
@@ -141,17 +146,16 @@ export const AutocompleteInput = forwardRef(function (
       {showSuggestions && (
         <ul className="autocomplete-suggestions-container">
           {suggestions.map((suggestion) => (
-            <option
+            <li
               className="autocomplete-suggestion-item hover:bg-primary/20"
               onClick={(e) => {
                 handleSuggestionClick(suggestion);
                 e.stopPropagation();
               }}
               key={suggestion.id}
-              value={suggestion.value}
             >
               {suggestion.value}
-            </option>
+            </li>
           ))}
         </ul>
       )}
@@ -161,7 +165,10 @@ export const AutocompleteInput = forwardRef(function (
             <li key={selected.value}>
               <Chip
                 label={String(selected.value)}
-                onDelete={() => handleDeleteChip(i)}
+                onDelete={(e) => {
+                  handleDeleteChip(i);
+                  e.stopPropagation();
+                }}
               />
             </li>
           ))}
