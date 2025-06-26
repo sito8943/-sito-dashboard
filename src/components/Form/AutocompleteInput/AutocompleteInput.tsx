@@ -139,7 +139,7 @@ export const AutocompleteInput = forwardRef(function (
         )}
       </TextInput>
       {showSuggestions && (
-        <datalist /* className="autocomplete-suggestions-container" */>
+        <ul className="autocomplete-suggestions-container">
           {suggestions.map((suggestion) => (
             <option
               className="autocomplete-suggestion-item hover:bg-primary/20"
@@ -153,7 +153,7 @@ export const AutocompleteInput = forwardRef(function (
               {suggestion.value}
             </option>
           ))}
-        </datalist>
+        </ul>
       )}
       {multiple && Array.isArray(value) && value.length ? (
         <ul className="autocomplete-value-container">
