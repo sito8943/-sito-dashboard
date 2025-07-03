@@ -6,3 +6,6 @@ export * from "./components";
 
 // providers
 export * from "./providers";
+
+// lib
+export * from "./lib";
