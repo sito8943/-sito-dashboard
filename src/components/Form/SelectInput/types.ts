@@ -5,7 +5,8 @@ import { BaseInputPropsType } from "../types";
 
 export type Option = {
   id: number | string;
-  value: number | string;
+  value?: number | string;
+  name?: string;
 };
 
 export interface SelectInputPropsType

@@ -59,7 +59,7 @@ export const SelectInput = forwardRef(function (
       >
         {options?.map((option) => (
           <option key={option.id} value={option.id}>
-            {option.value}
+            {option.value ?? option.name ?? option.id}
           </option>
         ))}
       </select>
