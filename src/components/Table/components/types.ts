@@ -38,7 +38,7 @@ export type ColumnPropsType<TRow extends BaseDto> = {
   entity: string;
   columns: ColumnType<TRow>[];
   hasAction: boolean;
-  onSortCallback: (prop: string, sortOrder: SortOrder) => void;
+  onSortCallback?: (prop: string, sortOrder: SortOrder) => void;
 };
 
 export type ColumnFilterOptions = {
