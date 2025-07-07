@@ -6,7 +6,7 @@ import { FiltersValue, SortOrder } from "lib";
 export type TableOptionsContextType = {
   onSort: (
     column: string,
-    onSortCallback: (prop: string, sortOrder: SortOrder) => void
+    onSortCallback?: (prop: string, sortOrder: SortOrder) => void
   ) => void;
   total: number;
   setTotal: (total: number) => void;

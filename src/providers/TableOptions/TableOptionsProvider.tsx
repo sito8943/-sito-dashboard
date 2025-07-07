@@ -29,7 +29,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
   const onSort = useCallback(
     (
       attribute: string,
-      onSortCallback: (prop: string, sortOrder: SortOrder) => void
+      onSortCallback?: (prop: string, sortOrder: SortOrder) => void
     ) => {
       let localSortingOrder = sortingOrder;
       if (sortingBy === attribute)
