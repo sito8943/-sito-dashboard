@@ -43,7 +43,7 @@ export type ColumnPropsType<TRow extends BaseDto> = {
 
 export type ColumnFilterOptions = {
   type: FilterTypes;
-  defaultValue: any;
+  defaultValue?: any;
   label?: string;
   options?: Option[];
 };
