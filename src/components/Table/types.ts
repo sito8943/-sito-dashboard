@@ -1,29 +1,29 @@
 import { ReactNode } from "react";
 
 // lib
-import { SortOrder } from "lib";
+import { BaseDto, SortOrder } from "lib";
 
 // component
 import { ColumnType } from "./components";
 
-export type Action = {
+export type Action<TRow extends BaseDto> = {
   id: string;
-  onClick: (entity: object) => void;
+  onClick: (entity: TRow) => void;
   icon: any;
   tooltip: string;
-  hidden: (entity: object) => boolean;
+  hidden: (entity: TRow) => boolean;
 };
 
-export type TablePropsType = {
+export type TablePropsType<TRow extends BaseDto> = {
   entity: string;
   title?: string;
-  data: object[];
+  data: TRow[];
   isLoading?: boolean;
-  actions?: (row: object) => Action[];
-  columns?: ColumnType[];
+  actions?: (row: TRow) => Action<TRow>[];
+  columns?: ColumnType<TRow>[];
   contentClassName?: string;
   className?: string;
-  softDeleteProperty?: string;
+  softDeleteProperty?: keyof TRow;
   toolbar?: ReactNode;
   onSort: (prop: string, sortOrder: SortOrder) => void;
 };

@@ -4,15 +4,15 @@ import { ReactNode } from "react";
 import { Action } from "../types";
 
 // lib
-import { FilterTypes, SortOrder } from "lib";
+import { BaseDto, FilterTypes, SortOrder } from "lib";
 
-export type ColumnType = {
-  key: string;
-  label: string;
+export type ColumnType<TRow extends BaseDto> = {
+  key: keyof TRow;
+  label?: string;
   /** if the column can be sorted */
   sortable?: boolean;
   /** only works if sortable has value true */
-  sortOptions: {
+  sortOptions?: {
     icons: {
       className: string;
       asc: string;
@@ -31,9 +31,9 @@ export type ColumnType = {
   filterOptions?: ColumnFilterOptions;
 };
 
-export type ColumnPropsType = {
+export type ColumnPropsType<TRow extends BaseDto> = {
   entity: string;
-  columns: ColumnType[];
+  columns: ColumnType<TRow>[];
   hasAction: boolean;
   onSortCallback: (prop: string, sortOrder: SortOrder) => void;
 };
@@ -44,9 +44,9 @@ export type ColumnFilterOptions = {
   label?: string;
 };
 
-export type RowsPropsType = {
-  data: any[];
-  columns: ColumnType[];
-  softDeleteProperty: string;
-  actions: ((row: any) => Action[]) | undefined;
+export type RowsPropsType<TRow extends BaseDto> = {
+  data: TRow[];
+  columns: ColumnType<TRow>[];
+  softDeleteProperty: keyof TRow;
+  actions: ((row: TRow) => Action<TRow>[]) | undefined;
 };

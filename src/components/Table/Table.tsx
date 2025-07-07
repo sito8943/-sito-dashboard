@@ -13,14 +13,14 @@ import { FiltersProvider } from "providers";
 import { TablePropsType } from "./types";
 
 // lib
-import { FilterType } from "lib";
+import { BaseDto, FilterType } from "lib";
 
 // styles
 import "./styles.css";
 import "./components/styles.css";
 import "./components/Widgets/styles.css";
 
-export function Table(props: TablePropsType) {
+export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
   const {
     title = "",
     data,

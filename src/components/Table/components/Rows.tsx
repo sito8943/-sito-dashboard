@@ -6,9 +6,12 @@ import { Tooltip } from "components";
 // types
 import { RowsPropsType } from "./types";
 
+// lib
+import { BaseDto } from "lib";
+
 const baseRender = (value: any) => value;
 
-export const Rows = (props: RowsPropsType) => {
+export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
   const { columns, softDeleteProperty = "deleted", data, actions } = props;
 
   const visibleColumns = useMemo(
@@ -28,7 +31,7 @@ export const Rows = (props: RowsPropsType) => {
     >
       {visibleColumns?.map((column, i) => (
         <td
-          key={column.key}
+          key={column.key as string}
           className={`table-row-cell ${i === 0 ? "basic" : ""} ${column.className ?? ""}`}
         >
           {column.renderBody
@@ -43,7 +46,9 @@ export const Rows = (props: RowsPropsType) => {
               .filter((action) => !action.hidden)
               ?.map((action) => (
                 <Tooltip key={action.id} content={action.tooltip}>
-                  <button onClick={action.onClick}>{action.icon}</button>
+                  <button onClick={() => action.onClick(row)}>
+                    {action.icon}
+                  </button>
                 </Tooltip>
               ))}
           </div>

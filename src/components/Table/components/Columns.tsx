@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { useTranslation, useTableOptions } from "providers";
 
 // models
-import { SortOrder } from "lib";
+import { BaseDto, SortOrder } from "lib";
 
 // components
 import { ChevronDown, ChevronUp } from "components/SvgIcons";
@@ -17,7 +17,7 @@ import { ColumnPropsType } from "./types";
  * @param {object} props properties for the columns
  * @returns Row of columns
  */
-export function Columns(props: ColumnPropsType) {
+export function Columns<TRow extends BaseDto>(props: ColumnPropsType<TRow>) {
   const { t } = useTranslation();
 
   const { entity = "", columns = [], hasAction = true, onSortCallback } = props;
@@ -44,13 +44,13 @@ export function Columns(props: ColumnPropsType) {
       <tr>
         {parsedColumns.map((column) => (
           <th
-            key={column.id}
+            key={column.id as string}
             scope="col"
             className={`table-headers-column ${column.className}`}
           >
             <button
               disabled={!column.sortable}
-              onClick={() => onSort(column.id, onSortCallback)}
+              onClick={() => onSort(column.id as string, onSortCallback)}
               className="table-headers-cell"
             >
               <span className="table-headers-label">{column.label}</span>
