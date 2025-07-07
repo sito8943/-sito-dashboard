@@ -6,6 +6,9 @@ import { Action } from "../types";
 // lib
 import { BaseDto, FilterTypes, SortOrder } from "lib";
 
+// form
+import { Option } from "../../Form/";
+
 export type ColumnType<TRow extends BaseDto> = {
   key: keyof TRow;
   label?: string;
@@ -42,6 +45,7 @@ export type ColumnFilterOptions = {
   type: FilterTypes;
   defaultValue: any;
   label?: string;
+  options?: Option[];
 };
 
 export type RowsPropsType<TRow extends BaseDto> = {

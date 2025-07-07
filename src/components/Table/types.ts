@@ -11,7 +11,8 @@ export type Action<TRow extends BaseDto> = {
   onClick: (entity: TRow) => void;
   icon: any;
   tooltip: string;
-  hidden: (entity: TRow) => boolean;
+  disabled?: boolean;
+  hidden?: boolean;
 };
 
 export type TablePropsType<TRow extends BaseDto> = {
@@ -25,5 +26,5 @@ export type TablePropsType<TRow extends BaseDto> = {
   className?: string;
   softDeleteProperty?: keyof TRow;
   toolbar?: ReactNode;
-  onSort: (prop: string, sortOrder: SortOrder) => void;
+  onSort?: (prop: string, sortOrder: SortOrder) => void;
 };
