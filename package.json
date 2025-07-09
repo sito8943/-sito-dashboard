@@ -10,9 +10,13 @@
   "files": [
     "dist/"
   ],
+  "homepage": "https://github.com/sito8943/-sito-dashboard#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/sito8943/-sito-dashboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sito8943/-sito-dashboard/issues"
   },
   "exports": {
     ".": {
