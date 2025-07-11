@@ -60,7 +60,9 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
           {!isLoading ? (
             <div className="table-header-right">
               {toolbar}
-              <FilterPopup filters={parsedFilters as FilterType[]} />
+              {!!parsedFilters && !!parsedFilters.length && (
+                <FilterPopup filters={parsedFilters as FilterType[]} />
+              )}
             </div>
           ) : null}
         </div>
