@@ -37,6 +37,7 @@ export const SelectInput = forwardRef(function (
     name = "",
     id = "",
     state = State.default,
+    children,
     ...rest
   } = props;
 
@@ -69,6 +70,7 @@ export const SelectInput = forwardRef(function (
       >
         {label}
       </label>
+      {children}
       <p
         className={`select-input-helper-text ${helperTextStateClassName(state)} ${helperTextClassName}`}
       >
