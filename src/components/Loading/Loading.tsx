@@ -12,13 +12,14 @@ import { LoadingPropsType } from "./types";
 export function Loading(props: LoadingPropsType) {
   const {
     color = "stroke-blue-800",
-    loaderClass,
+    className = "",
+    loaderClass = "",
     strokeWidth = "4",
     ...rest
   } = props;
 
   return (
-    <div {...rest} className={`loading ${rest.className}`}>
+    <div {...rest} className={`loading ${className}`}>
       <div className="loader-container">
         <div className={`loader ${loaderClass}`}>
           <svg className="circular" viewBox="25 25 50 50">
