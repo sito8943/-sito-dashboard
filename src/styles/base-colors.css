@@ -1,109 +1,77 @@
-/* Base Colors for components */
-
-/* chip */
-.chip-delete-button-svg {
-  @apply text-red-500 w-3;
-}
-
-.filled-chip-delete-button-svg {
-  @apply text-gray-200 w-3;
-}
-
-/* inputs */
-
-.autocomplete-suggestions-container {
-  @apply bg-white shadow-black/60;
-}
-
-.input-check {
-  @apply bg-white border-slate-300;
-}
-
-.select-input {
-  @apply disabled:text-[#6b7280];
-}
-
-.input-error {
-  @apply border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500;
-}
-
-.input-good {
-  @apply border-green-500 text-green-900 placeholder-green-700 focus:ring-green-500 focus:border-green-500;
-}
+/* INPUTS */
 
 .input-normal {
-  @apply text-gray-900 border-gray-300 focus:border-blue-600;
+  @apply text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 focus:border-blue-600 dark:focus:border-blue-400;
 }
 
 .input-label-error {
-  @apply peer-focus:text-red-700 text-red-700;
+  @apply peer-focus:text-red-700 dark:peer-focus:text-red-400 text-red-700 dark:text-red-400;
 }
 
 .input-label-good {
-  @apply peer-focus:text-green-700 text-green-700;
+  @apply peer-focus:text-green-700 dark:peer-focus:text-green-400 text-green-700 dark:text-green-400;
 }
 
 .input-label-normal {
-  @apply peer-focus:text-blue-600 text-gray-500;
+  @apply peer-focus:text-blue-600 dark:peer-focus:text-blue-400 text-gray-500 dark:text-gray-400;
 }
 
 .input-helper-text-error {
-  @apply text-red-600;
+  @apply text-red-600 dark:text-red-400;
 }
 
 .input-helper-text-good {
-  @apply text-green-600;
+  @apply text-green-600 dark:text-green-400;
 }
 
 .input-helper-text-normal {
-  @apply text-gray-500;
+  @apply text-gray-500 dark:text-gray-400;
 }
 
-
-/* table */
+/* TABLE */
 
 .table-loading {
-  @apply bg-white;
+  @apply bg-white dark:bg-gray-800;
 }
 
 .table-row {
-  @apply bg-white border-b-gray-100;
+  @apply bg-white dark:bg-gray-800 border-b-gray-100 dark:border-b-gray-700;
 }
 
 .table-headers-row {
-  @apply text-gray-700 bg-gray-50;
-}
-
-.table-navigation-buttons:disabled {
-  @apply text-gray-400;
+  @apply text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-700;
 }
 
 .table-content {
-  @apply text-gray-500;
+  @apply text-gray-500 dark:text-gray-400;
 }
 
 .table-row-cell.basic {
-  @apply text-gray-900;
+  @apply text-gray-900 dark:text-gray-100;
 }
 
-/* filter */
+.table-navigation-buttons:disabled {
+  @apply text-gray-400 dark:text-gray-600;
+}
+
+/* FILTER */
 
 .filter-dropdown-cancel {
-  @apply bg-white border-slate-200 hover:border-slate-300 text-slate-500 hover:text-slate-600;
-}
-
-.filter-dropdown-submit {
-  @apply text-white;
+  @apply bg-white dark:bg-gray-800 border-slate-200 dark:border-gray-600 hover:border-slate-300 dark:hover:border-gray-500 text-slate-500 dark:text-slate-300 hover:text-slate-600 dark:hover:text-slate-200;
 }
 
 .filter-dropdown-trigger {
-  @apply bg-white border-slate-200 hover:border-slate-300 text-slate-500 hover:text-slate-600;
+  @apply bg-white dark:bg-gray-800 border-slate-200 dark:border-gray-600 hover:border-slate-300 dark:hover:border-gray-500 text-slate-500 dark:text-slate-300 hover:text-slate-600 dark:hover:text-slate-200;
+}
+
+.filter-dropdown-submit {
+  @apply text-white dark:text-gray-900;
 }
 
 .filter-title {
-  @apply text-slate-400;
+  @apply text-slate-400 dark:text-slate-300;
 }
 
 .filter-footer {
-  @apply border-slate-200 bg-slate-50;
+  @apply border-slate-200 dark:border-gray-600 bg-slate-50 dark:bg-gray-700;
 }
