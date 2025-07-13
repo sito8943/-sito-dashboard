@@ -42,10 +42,10 @@ export const SelectInput = forwardRef(function (
   } = props;
 
   // setting default value
-  useEffect(() => {
+  /* useEffect(() => {
     if ((!value || value === "") && options?.length)
       onChange({ target: { value: options[0]?.id } });
-  }, [onChange, options, value]);
+  }, [onChange, options, value]); */
 
   return (
     <div className={`select-input-container ${containerClassName}`}>

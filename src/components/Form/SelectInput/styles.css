@@ -3,7 +3,7 @@
 }
 
 .select-input {
-  @apply block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 disabled:text-[#6b7280];
+  @apply block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0;
 }
 
 .select-input-label {

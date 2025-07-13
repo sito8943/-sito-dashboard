@@ -1,0 +1,109 @@
+/* Base Colors for components */
+
+/* chip */
+.chip-delete-button-svg {
+  @apply text-red-500 w-3;
+}
+
+.filled-chip-delete-button-svg {
+  @apply text-gray-200 w-3;
+}
+
+/* inputs */
+
+.autocomplete-suggestions-container {
+  @apply bg-white shadow-black/60;
+}
+
+.input-check {
+  @apply bg-white border-slate-300;
+}
+
+.select-input {
+  @apply disabled:text-[#6b7280];
+}
+
+.input-error {
+  @apply border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500;
+}
+
+.input-good {
+  @apply border-green-500 text-green-900 placeholder-green-700 focus:ring-green-500 focus:border-green-500;
+}
+
+.input-normal {
+  @apply text-gray-900 border-gray-300 focus:border-blue-600;
+}
+
+.input-label-error {
+  @apply peer-focus:text-red-700 text-red-700;
+}
+
+.input-label-good {
+  @apply peer-focus:text-green-700 text-green-700;
+}
+
+.input-label-normal {
+  @apply peer-focus:text-blue-600 text-gray-500;
+}
+
+.input-helper-text-error {
+  @apply text-red-600;
+}
+
+.input-helper-text-good {
+  @apply text-green-600;
+}
+
+.input-helper-text-normal {
+  @apply text-gray-500;
+}
+
+
+/* table */
+
+.table-loading {
+  @apply bg-white;
+}
+
+.table-row {
+  @apply bg-white border-b-gray-100;
+}
+
+.table-headers-row {
+  @apply text-gray-700 bg-gray-50;
+}
+
+.table-navigation-buttons:disabled {
+  @apply text-gray-400;
+}
+
+.table-content {
+  @apply text-gray-500;
+}
+
+.table-row-cell.basic {
+  @apply text-gray-900;
+}
+
+/* filter */
+
+.filter-dropdown-cancel {
+  @apply bg-white border-slate-200 hover:border-slate-300 text-slate-500 hover:text-slate-600;
+}
+
+.filter-dropdown-submit {
+  @apply text-white;
+}
+
+.filter-dropdown-trigger {
+  @apply bg-white border-slate-200 hover:border-slate-300 text-slate-500 hover:text-slate-600;
+}
+
+.filter-title {
+  @apply text-slate-400;
+}
+
+.filter-footer {
+  @apply border-slate-200 bg-slate-50;
+}

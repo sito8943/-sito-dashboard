@@ -3,7 +3,7 @@
 }
 
 .input-check {
-  @apply rounded bg-white border focus:ring-0 focus:ring-offset-0 border-slate-300;
+  @apply rounded border focus:ring-0 focus:ring-offset-0;
 }
 
 .input-check-label {

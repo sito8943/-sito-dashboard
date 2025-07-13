@@ -19,15 +19,11 @@
 }
 
 .table-content {
-  @apply w-full text-sm text-left text-gray-500;
+  @apply w-full text-sm text-left;
 }
 
 .table-loading {
-  @apply bg-white top-0 left-0 w-full h-full;
-}
-
-.table-row {
-  @apply border-b bg-white;
+  @apply top-0 left-0 w-full h-full;
 }
 
 .table-row-cell {
@@ -35,7 +31,7 @@
 }
 
 .table-row-cell.basic {
-  @apply text-gray-900 whitespace-nowrap;
+  @apply whitespace-nowrap;
 }
 
 .table-row-cell-action {
