@@ -9,7 +9,7 @@ import { RangeWidgetPropsType } from "./types";
 // components
 import { TextInput } from "components";
 
-export const RangeWidget = (props: RangeWidgetPropsType) => {
+export const RangeWidget = <T extends any>(props: RangeWidgetPropsType<T>) => {
   const { propertyName, label, inputType } = props;
 
   const { currentFilters, setCurrentFilters } = useFilters();

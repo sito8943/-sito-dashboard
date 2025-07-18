@@ -13,12 +13,22 @@ import {
   TextWidgetPropsType,
   CheckWidgetPropsType,
   AutocompleteWidgetPropsType,
+  RangeWidgetPropsType,
 } from "../Widgets";
+import { RangeWidget } from "../Widgets/RangeWidget";
 
 export const renderFilterComponent = (filter: WidgetFilterProps): ReactNode => {
   switch (filter.type) {
     case FilterTypes.text:
       return <TextWidget {...(filter as TextWidgetPropsType)} />;
+    case FilterTypes.number:
+      return (
+        <RangeWidget {...(filter as unknown as RangeWidgetPropsType<number>)} />
+      );
+    case FilterTypes.date:
+      return (
+        <RangeWidget {...(filter as unknown as RangeWidgetPropsType<Date>)} />
+      );
     case FilterTypes.select:
       return <SelectWidget {...(filter as SelectWidgetPropsType)} />;
     case FilterTypes.autocomplete:

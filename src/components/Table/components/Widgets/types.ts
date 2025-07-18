@@ -4,14 +4,14 @@ import { HTMLInputTypeAttribute } from "react";
 import {
   AutocompleteFilterType,
   CheckFilterType,
-  DateFilterType,
+  RangeFilterType,
   SelectFilterType,
   TextFilterType,
 } from "lib";
 
 export interface SelectWidgetPropsType extends SelectFilterType {}
 
-export interface RangeWidgetPropsType extends DateFilterType {
+export interface RangeWidgetPropsType<T> extends RangeFilterType<T> {
   inputType: HTMLInputTypeAttribute;
 }
 

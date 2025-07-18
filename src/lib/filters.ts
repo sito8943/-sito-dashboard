@@ -20,10 +20,10 @@ export interface TextFilterType extends Omit<FilterType, "type"> {
   type: FilterTypes.text;
 }
 
-export interface NumberFilterType extends Omit<FilterType, "type"> {
-  type: FilterTypes.number;
-  min: number;
-  max: number;
+export interface RangeFilterType<T> extends Omit<FilterType, "type"> {
+  type: FilterTypes.number | FilterTypes.date;
+  min: T;
+  max: T;
 }
 
 export interface AutocompleteFilterType extends Omit<FilterType, "type"> {
@@ -36,12 +36,6 @@ export interface SelectFilterType extends Omit<FilterType, "type"> {
   options: Option[];
 }
 
-export interface DateFilterType extends Omit<FilterType, "type"> {
-  type: FilterTypes.date;
-  min: string;
-  max: string;
-}
-
 export interface CheckFilterType extends Omit<FilterType, "type"> {
   type: FilterTypes.check;
 }
@@ -49,9 +43,8 @@ export interface CheckFilterType extends Omit<FilterType, "type"> {
 export type WidgetFilterProps =
   | SelectFilterType
   | AutocompleteFilterType
-  | NumberFilterType
+  | RangeFilterType<undefined>
   | TextFilterType
-  | DateFilterType
   | CheckFilterType;
 
 export type FiltersValue = {
