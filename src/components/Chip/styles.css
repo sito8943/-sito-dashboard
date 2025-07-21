@@ -3,5 +3,5 @@
 }
 
 .chip-delete-button {
-  @apply ml-2;
+  @apply ml-2 w-2.5 h-2.5 cursor-pointer;
 }

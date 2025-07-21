@@ -38,13 +38,12 @@
 
 /* CHIP */
 
-.default-chip {
+.chip-main {
+  @apply text-gray-800 bg-gray-300 dark:text-white dark:bg-gray-800;
 }
 
-.outlined-chip {
-}
-
-.empty-chip {
+.chip-delete-button:hover {
+  @apply text-red-700 dark:text-red-400
 }
 
 /* TABLE */
