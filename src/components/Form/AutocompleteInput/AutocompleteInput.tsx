@@ -152,9 +152,9 @@ export const AutocompleteInput = forwardRef(function (
                 handleSuggestionClick(suggestion);
                 e.stopPropagation();
               }}
-              key={suggestion.id}
+              key={suggestion.id ?? suggestion.value ?? suggestion.name}
             >
-              {suggestion.value}
+              {suggestion.value ?? suggestion.name}
             </li>
           ))}
         </ul>
@@ -162,9 +162,9 @@ export const AutocompleteInput = forwardRef(function (
       {multiple && Array.isArray(value) && value.length ? (
         <ul className="autocomplete-value-container">
           {value.map((selected: Option, i: number) => (
-            <li key={selected.value}>
+            <li key={selected.id ?? selected.value ?? selected.name}>
               <Chip
-                label={String(selected.value)}
+                label={String(selected.value ?? selected.name)}
                 onDelete={(e) => {
                   handleDeleteChip(i);
                   e.stopPropagation();
