@@ -19,7 +19,7 @@ export function AutocompleteWidget(props: AutocompleteWidgetPropsType) {
   }, [currentFilters]);
 
   const onChange = useCallback(
-    (value: Option | Option[]) => {
+    (value: Option | Option[] | null) => {
       setCurrentFilters({
         type: FiltersActions.update,
         toUpdate: {

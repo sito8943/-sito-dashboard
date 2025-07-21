@@ -10,7 +10,7 @@ export type Option = {
 };
 
 export interface SelectInputPropsType
-  extends Omit<HTMLProps<HTMLSelectElement>, "value" | "onChange">,
+  extends Omit<HTMLProps<HTMLSelectElement>, "value">,
     BaseInputPropsType {
   options: Option[];
 }

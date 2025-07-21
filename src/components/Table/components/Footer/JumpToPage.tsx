@@ -32,7 +32,7 @@ export function JumpToPage() {
         inputClassName="jump-to-page-input"
         containerClassName="jump-to-page-input-container"
         helperTextClassName="hidden"
-        onChange={(e) => setCurrentPage(Number(e.target.value))}
+        onChange={(e) => setCurrentPage(Number((e.target as HTMLInputElement).value))}
       />
     </div>
   );
