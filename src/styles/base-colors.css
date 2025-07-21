@@ -32,6 +32,21 @@
   @apply bg-white dark:bg-gray-800;
 }
 
+.autocomplete-suggestion-item:hover {
+  @apply bg-gray-300;
+}
+
+/* CHIP */
+
+.default-chip {
+}
+
+.outlined-chip {
+}
+
+.empty-chip {
+}
+
 /* TABLE */
 
 .table-loading {
