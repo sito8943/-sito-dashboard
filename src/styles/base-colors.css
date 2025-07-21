@@ -28,6 +28,10 @@
   @apply text-gray-500 dark:text-gray-400;
 }
 
+.autocomplete-suggestions-container {
+  @apply bg-white dark:bg-gray-800;
+}
+
 /* TABLE */
 
 .table-loading {
