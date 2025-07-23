@@ -19,24 +19,6 @@ export const RangeWidget = <T extends any>(props: RangeWidgetPropsType<T>) => {
   const startRef = useRef<HTMLInputElement>(null);
   const endRef = useRef<HTMLInputElement>(null);
 
-  const startValue = useMemo(() => {
-    const start = currentFilters[propertyName]?.value?.start;
-    return start
-      ? inputType === "date"
-        ? new Date(String(start)).toISOString().slice(0, 10)
-        : currentFilters[propertyName]?.value
-      : "";
-  }, [currentFilters]);
-
-  const endValue = useMemo(() => {
-    const end = currentFilters[propertyName]?.value?.end;
-    return end
-      ? inputType === "date"
-        ? new Date(String(end)).toISOString().slice(0, 10)
-        : currentFilters[propertyName]?.value
-      : "";
-  }, [currentFilters]);
-
   const onStartChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setCurrentFilters({
       type: FiltersActions.update,
@@ -64,10 +46,12 @@ export const RangeWidget = <T extends any>(props: RangeWidgetPropsType<T>) => {
 
   return (
     <div className="relative">
-      <p className="text-input-label input-widget-label input-label-normal">{label}</p>
-      <div className="flex gap-2 items-center">
+      <p className="text-input-label input-widget-label input-label-normal">
+        {label}
+      </p>
+      <div className="range-widget-row">
         <TextInput
-          value={startValue ?? ""}
+          value={currentFilters[propertyName]?.value?.start ?? ""}
           placeholder={t("_accessibility:components.table.filters.range.start")}
           type={inputType}
           ref={startRef}
@@ -76,7 +60,7 @@ export const RangeWidget = <T extends any>(props: RangeWidgetPropsType<T>) => {
           helperTextClassName=""
         />
         <TextInput
-          value={endValue ?? ""}
+          value={currentFilters[propertyName]?.value?.end ?? ""}
           placeholder={t("_accessibility:components.table.filters.range.end")}
           type={inputType}
           ref={endRef}
