@@ -3,9 +3,13 @@
 }
 
 .input-widget-container {
-  @apply mb-0;
+  @apply mb-0 w-40;
 }
 
 .input-widget-label {
-  @apply top-0 -translate-y-4 scale-75
+  @apply top-0 -translate-y-4 scale-75;
+}
+
+.range-widget-row {
+  @apply flex gap-6 items-center;
 }
