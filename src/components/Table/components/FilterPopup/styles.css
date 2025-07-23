@@ -39,7 +39,7 @@
 }
 
 .filter-title {
-  @apply text-xs font-semibold uppercase pt-1.5 pb-2 px-3;
+  @apply text-xs font-semibold uppercase pt-1.5 pb-2 px-3 mb-3;
 }
 
 .filter-container {

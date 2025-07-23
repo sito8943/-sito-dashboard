@@ -63,7 +63,7 @@ export const RangeWidget = <T extends any>(props: RangeWidgetPropsType<T>) => {
   }, []);
 
   return (
-    <div>
+    <div className="relative">
       <p className="text-input-label input-widget-label input-label-normal">{label}</p>
       <div className="flex gap-2 items-center">
         <TextInput

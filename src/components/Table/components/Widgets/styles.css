@@ -7,6 +7,5 @@
 }
 
 .input-widget-label {
-  top: 1.80rem;
-  @apply translate-y-0 scale-75
+  @apply top-0 -translate-y-4 scale-75
 }
