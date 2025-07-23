@@ -1,7 +1,7 @@
 import { ChangeEvent, useCallback, useMemo, useRef } from "react";
 
 // providers
-import { FiltersActions, useFilters } from "providers";
+import { FiltersActions, useFilters, useTranslation } from "providers";
 
 // types
 import { RangeWidgetPropsType } from "./types";
@@ -11,6 +11,8 @@ import { TextInput } from "components";
 
 export const RangeWidget = <T extends any>(props: RangeWidgetPropsType<T>) => {
   const { propertyName, label, inputType } = props;
+
+  const { t } = useTranslation();
 
   const { currentFilters, setCurrentFilters } = useFilters();
 
@@ -61,25 +63,28 @@ export const RangeWidget = <T extends any>(props: RangeWidgetPropsType<T>) => {
   }, []);
 
   return (
-    <div className="flex gap-2 items-center">
-      <TextInput
-        value={startValue ?? ""}
-        label={label}
-        type={inputType}
-        ref={startRef}
-        onChange={onStartChange}
-        containerClassName="input-widget-container"
-        helperTextClassName=""
-      />
-      <TextInput
-        value={endValue ?? ""}
-        label={label}
-        type={inputType}
-        ref={endRef}
-        onChange={onEndChange}
-        containerClassName="input-widget-container"
-        helperTextClassName=""
-      />
+    <div>
+      <p className="text-input-label input-widget-label input-label-normal">{label}</p>
+      <div className="flex gap-2 items-center">
+        <TextInput
+          value={startValue ?? ""}
+          placeholder={t("_accessibility:components.table.filters.range.start")}
+          type={inputType}
+          ref={startRef}
+          onChange={onStartChange}
+          containerClassName="input-widget-container"
+          helperTextClassName=""
+        />
+        <TextInput
+          value={endValue ?? ""}
+          placeholder={t("_accessibility:components.table.filters.range.end")}
+          type={inputType}
+          ref={endRef}
+          onChange={onEndChange}
+          containerClassName="input-widget-container"
+          helperTextClassName=""
+        />
+      </div>
     </div>
   );
 };
