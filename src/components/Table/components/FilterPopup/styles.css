@@ -31,11 +31,11 @@
 }
 
 .filter-dropdown-transition.right {
-  @apply md:left-auto md:right-0;
+  @apply left-auto right-0;
 }
 
 .filter-dropdown-transition.left {
-  @apply md:left-0 md:right-auto;
+  @apply left-0 right-auto;
 }
 
 .filter-title {
@@ -43,11 +43,11 @@
 }
 
 .filter-container {
-  @apply mb-4 grid grid-cols-3;
+  @apply mb-4 flex flex-wrap gap-x-6 gap-y-8 p-3;
 }
 
 .filter-container-item {
-  @apply py-2 px-3 flex items-center;
+  @apply flex items-center;
 }
 
 .filter-footer {
