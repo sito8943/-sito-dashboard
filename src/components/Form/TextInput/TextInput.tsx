@@ -25,20 +25,14 @@ export const TextInput = forwardRef(function (
 ) {
   const {
     children,
-    value,
-    onChange,
     state = State.default,
-    name = "",
-    id = "",
-    type = "text",
     label = "",
-    required = false,
-    placeholder = "",
     containerClassName = "",
     inputClassName = "",
     labelClassName = "",
     helperText = "",
     helperTextClassName = "",
+    value = "",
     ...rest
   } = props;
 
@@ -46,29 +40,27 @@ export const TextInput = forwardRef(function (
     <div className={`text-input-container ${containerClassName}`}>
       <input
         ref={ref}
-        type={type}
-        name={name}
-        id={id}
-        className={`text-input ${inputStateClassName(state)} peer ${inputClassName}`}
-        placeholder=""
-        required={required}
         value={value}
-        onChange={onChange}
+        className={`text-input ${inputStateClassName(state)} peer ${inputClassName} ${!!value ? "has-value" : ""} ${rest.placeholder ? "has-placeholder" : ""}`}
         {...rest}
       />
-      <label
-        htmlFor={name}
-        className={`text-input-label ${labelStateClassName(state)} ${labelClassName}`}
-      >
-        {label}
-        {required ? " *" : ""}
-      </label>
+      {!!label && (
+        <label
+          htmlFor={rest.name}
+          className={`text-input-label ${labelStateClassName(state)} ${labelClassName}`}
+        >
+          {label}
+          {rest.required ? " *" : ""}
+        </label>
+      )}
       {children}
-      <p
-        className={`text-input-helper-text ${helperTextStateClassName(state)} ${helperTextClassName}`}
-      >
-        {state !== "error" && state !== "good" ? placeholder : helperText}
-      </p>
+      {!!helperText && (
+        <p
+          className={`text-input-helper-text ${helperTextStateClassName(state)} ${helperTextClassName}`}
+        >
+          {helperText}
+        </p>
+      )}
     </div>
   );
 });
