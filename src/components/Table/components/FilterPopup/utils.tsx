@@ -23,11 +23,17 @@ export const renderFilterComponent = (filter: WidgetFilterProps): ReactNode => {
       return <TextWidget {...(filter as TextWidgetPropsType)} />;
     case FilterTypes.number:
       return (
-        <RangeWidget {...(filter as unknown as RangeWidgetPropsType<number>)} />
+        <RangeWidget
+          {...(filter as unknown as RangeWidgetPropsType<number>)}
+          inputType="number"
+        />
       );
     case FilterTypes.date:
       return (
-        <RangeWidget {...(filter as unknown as RangeWidgetPropsType<Date>)} />
+        <RangeWidget
+          {...(filter as unknown as RangeWidgetPropsType<Date>)}
+          inputType="date"
+        />
       );
     case FilterTypes.select:
       return <SelectWidget {...(filter as SelectWidgetPropsType)} />;
