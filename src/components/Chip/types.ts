@@ -1,4 +1,4 @@
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, ReactNode } from "react";
 
 export enum ChipVariant {
   empty = "empty",
@@ -8,7 +8,7 @@ export enum ChipVariant {
 
 export type ChipPropsType = {
   variant?: ChipVariant;
-  label?: string;
+  label?: string | ReactNode;
   onDelete?: MouseEventHandler<HTMLElement>;
   className?: string;
   spanClassName?: string;
