@@ -45,7 +45,7 @@ export const RangeWidget = <T extends any>(props: RangeWidgetPropsType<T>) => {
   }, []);
 
   return (
-    <div className="relative">
+    <div className="range-widget-container">
       <p className="text-input-label input-widget-label input-label-normal">
         {label}
       </p>

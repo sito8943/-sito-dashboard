@@ -3,7 +3,7 @@
 }
 
 .input-widget-container {
-  @apply mb-0 w-40;
+  @apply mb-0 w-full;
 }
 
 .input-widget-label {
@@ -12,4 +12,8 @@
 
 .range-widget-row {
   @apply flex gap-6 items-center;
+}
+
+.range-widget-container {
+  @apply relative w-full;
 }
