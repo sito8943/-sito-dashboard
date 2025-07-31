@@ -43,7 +43,7 @@
 }
 
 .chip-delete-button:hover {
-  @apply text-red-700 dark:text-red-400
+  @apply text-red-700 dark:text-red-400;
 }
 
 /* TABLE */
@@ -73,6 +73,10 @@
 }
 
 /* FILTER */
+
+.filter-popup {
+  @apply bg-white dark:bg-gray-800;
+}
 
 .filter-dropdown-cancel {
   @apply bg-white dark:bg-gray-800 border-slate-200 dark:border-gray-600 hover:border-slate-300 dark:hover:border-gray-500 text-slate-500 dark:text-slate-300 hover:text-slate-600 dark:hover:text-slate-200;

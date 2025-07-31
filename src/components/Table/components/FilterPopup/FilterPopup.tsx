@@ -24,7 +24,7 @@ import { Filters } from "components";
 import "./styles.css";
 
 export const FilterPopup = (props: FilterPopupPropsType) => {
-  const { align = "right", filters = [], icon } = props;
+  const { filters = [], options } = props;
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const { onFilterApply, filters: tableFilters } = useTableOptions();
@@ -63,23 +63,30 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
 
   return (
     <div className="filter-dropdown-main">
-      <button
-        ref={trigger}
-        className="filter-dropdown-button normal filter-dropdown-trigger"
-        aria-haspopup="true"
-        onClick={() => setDropdownOpen(!dropdownOpen)}
-        aria-expanded={dropdownOpen}
-      >
-        <span className="sr-only">{t("_accessibility:buttons.filters")}</span>
-        <wbr />
-        {icon ?? <Filters className="filter-dropdown-trigger-icon" />}
-      </button>
+      {options?.button?.hide !== true && (
+        <button
+          ref={trigger}
+          className="filter-dropdown-button normal filter-dropdown-trigger"
+          aria-haspopup="true"
+          onClick={() =>
+            options?.dropdown?.setOpened?.(!options?.dropdown?.opened) ??
+            setDropdownOpen(!dropdownOpen)
+          }
+          aria-expanded={options?.dropdown?.opened ?? dropdownOpen}
+        >
+          <span className="sr-only">{t("_accessibility:buttons.filters")}</span>
+          <wbr />
+          {options?.button?.icon ?? (
+            <Filters className="filter-dropdown-trigger-icon" />
+          )}
+        </button>
+      )}
       <div
-        className={`filter-dropdown-transition ${dropdownOpen ? "opened" : "closed"} ${
-          align === "right" ? "right" : "left"
+        className={`filter-dropdown-backdrop ${
+          options?.dropdown?.opened || dropdownOpen ? "opened" : "closed"
         }`}
       >
-        <div ref={dropdown}>
+        <div className="filter-popup">
           <div className="filter-title">
             {t("_accessibility:buttons.filters")}
           </div>
@@ -95,7 +102,10 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
               <li>
                 <button
                   onClick={() =>
-                    setCurrentFilters({ type: FiltersActions.reset, filters })
+                    setCurrentFilters({
+                      type: FiltersActions.reset,
+                      filters,
+                    })
                   }
                   className="filter-dropdown-button small filter-dropdown-cancel"
                 >
@@ -106,10 +116,14 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
                 <button
                   className="filter-dropdown-button small filter-dropdown-submit bg-primary hover:bg-light-primary"
                   onClick={() => {
-                    setDropdownOpen(false);
+                    options?.dropdown?.setOpened?.(false) ??
+                      setDropdownOpen(false);
                     onFilterApply(currentFilters);
                   }}
-                  onBlur={() => setDropdownOpen(false)}
+                  onBlur={() =>
+                    options?.dropdown?.setOpened?.(false) ??
+                    setDropdownOpen(false)
+                  }
                 >
                   {t("_accessibility:buttons.applyFilters")}
                 </button>

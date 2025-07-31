@@ -4,7 +4,17 @@ import { ReactNode } from "react";
 import { FilterType } from "lib";
 
 export type FilterPopupPropsType = {
-  align?: "right" | "left";
-  icon?: ReactNode | string;
   filters?: FilterType[];
+  options?: FilterOptions;
+};
+
+export type FilterOptions = {
+  button: {
+    icon?: ReactNode | string;
+    hide?: boolean;
+  };
+  dropdown?: {
+    opened: boolean;
+    setOpened: (value: boolean) => void;
+  };
 };

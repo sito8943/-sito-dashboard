@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import { BaseDto, SortOrder } from "lib";
 
 // component
-import { ColumnType } from "./components";
+import { ColumnType, TableHeaderPropsType } from "./components";
 
 export type Action<TRow extends BaseDto> = {
   id: string;
@@ -15,16 +15,13 @@ export type Action<TRow extends BaseDto> = {
   hidden?: boolean;
 };
 
-export type TablePropsType<TRow extends BaseDto> = {
+export interface TablePropsType<TRow extends BaseDto>
+  extends TableHeaderPropsType<TRow> {
   entity: string;
-  title?: string;
   data: TRow[];
-  isLoading?: boolean;
   actions?: (row: TRow) => Action<TRow>[];
-  columns?: ColumnType<TRow>[];
   contentClassName?: string;
   className?: string;
   softDeleteProperty?: keyof TRow;
-  toolbar?: ReactNode;
   onSort?: (prop: string, sortOrder: SortOrder) => void;
-};
+}
