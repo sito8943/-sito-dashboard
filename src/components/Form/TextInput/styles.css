@@ -7,7 +7,7 @@
 }
 
 .text-input-label {
-  @apply peer-focus:font-medium absolute text-sm duration-300 transform scale-100 translate-y-0 top-3 -z-10 origin-[0];
+  @apply peer-focus:font-medium absolute text-sm duration-300 transform scale-100 translate-y-0 top-3 origin-[0];
 
   @apply peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto;
 
