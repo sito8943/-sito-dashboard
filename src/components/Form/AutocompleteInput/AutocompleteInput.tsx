@@ -147,7 +147,7 @@ export const AutocompleteInput = forwardRef(function (
         <ul className="autocomplete-suggestions-container">
           {suggestions.map((suggestion) => (
             <li
-              className="autocomplete-suggestion-item hover:bg-primary/20"
+              className="autocomplete-suggestion-item"
               onClick={(e) => {
                 handleSuggestionClick(suggestion);
                 e.stopPropagation();

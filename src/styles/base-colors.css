@@ -78,16 +78,13 @@
   @apply bg-white dark:bg-gray-800;
 }
 
+.filter-dropdown-submit,
 .filter-dropdown-cancel {
   @apply bg-white dark:bg-gray-800 border-slate-200 dark:border-gray-600 hover:border-slate-300 dark:hover:border-gray-500 text-slate-500 dark:text-slate-300 hover:text-slate-600 dark:hover:text-slate-200;
 }
 
 .filter-dropdown-trigger {
   @apply bg-white dark:bg-gray-800 border-slate-200 dark:border-gray-600 hover:border-slate-300 dark:hover:border-gray-500 text-slate-500 dark:text-slate-300 hover:text-slate-600 dark:hover:text-slate-200;
-}
-
-.filter-dropdown-submit {
-  @apply text-white dark:text-gray-900;
 }
 
 .filter-title {

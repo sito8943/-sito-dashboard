@@ -114,7 +114,7 @@ export const FilterPopup = (props: FilterPopupPropsType) => {
               </li>
               <li>
                 <button
-                  className="filter-dropdown-button small filter-dropdown-submit bg-primary hover:bg-light-primary"
+                  className="filter-dropdown-button small filter-dropdown-submit"
                   onClick={() => {
                     options?.dropdown?.setOpened?.(false) ??
                       setDropdownOpen(false);
