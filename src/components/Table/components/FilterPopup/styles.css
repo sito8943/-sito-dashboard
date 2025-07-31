@@ -1,5 +1,5 @@
 .filter-dropdown-main {
-  @apply inline-flex;
+  @apply inline-flex w-full;
 }
 
 .filter-dropdown-button {
@@ -21,8 +21,7 @@
 .filter-dropdown-backdrop {
   transition: grid-template-rows;
   transition-duration: 500ms;
-  overflow: auto;
-  @apply grid;
+  @apply grid w-full overflow-auto;
 }
 
 .filter-dropdown-backdrop.opened {
@@ -34,7 +33,7 @@
 }
 
 .filter-popup {
-  overflow: auto;
+  @apply overflow-auto;
 }
 
 .filter-title {

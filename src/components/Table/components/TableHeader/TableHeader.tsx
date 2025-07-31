@@ -30,7 +30,9 @@ export const TableHeader = <TRow extends BaseDto>(
   }, [columns]);
 
   return (
-    <div className="table-header">
+    <div
+      className={`table-header ${title && (toolbar || !filterOptions?.button?.hide) ? "two" : "one"}`}
+    >
       {title && <h1 className="table-header-title">{title}</h1>}
       {!isLoading ? (
         <div className="table-header-right">
