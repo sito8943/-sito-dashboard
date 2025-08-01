@@ -3,7 +3,7 @@
 }
 
 .table-header {
-  @apply mb-5 grid;
+  @apply mb-5 grid gap-2;
 }
 
 .table-header.one {

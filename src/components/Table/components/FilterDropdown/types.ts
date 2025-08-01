@@ -3,9 +3,11 @@ import { ReactNode } from "react";
 // lib
 import { FilterType } from "lib";
 
-export type FilterPopupPropsType = {
+export type FilterDropdownPropsType = {
   filters?: FilterType[];
   options?: FilterOptions;
+  show: boolean;
+  handleShow: (value: boolean) => void;
 };
 
 export type FilterOptions = {

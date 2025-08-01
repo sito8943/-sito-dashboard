@@ -1,3 +1,3 @@
-export * from "./FilterPopup";
+export * from "./FilterDropdown";
 export * from "./types";
 export * from "./utils";

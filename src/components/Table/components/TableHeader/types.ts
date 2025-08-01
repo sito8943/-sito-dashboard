@@ -7,7 +7,7 @@ import { ColumnType } from "../types";
 import { BaseDto } from "lib";
 
 // components
-import { FilterOptions } from "../FilterPopup";
+import { FilterOptions } from "../FilterDropdown";
 
 export type TableHeaderPropsType<TRow extends BaseDto> = {
   title?: string;
