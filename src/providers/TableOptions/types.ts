@@ -21,6 +21,7 @@ export type TableOptionsContextType = {
   setCurrentPage: (currentPage: number) => void;
   onFilterApply: (filters: FiltersValue) => void;
   filters: TableFilters;
+  clearFilters: () => void;
 };
 
 export type TableOptionsProviderPropsType = {

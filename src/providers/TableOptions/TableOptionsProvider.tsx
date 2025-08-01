@@ -63,6 +63,10 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
     setFilters(parsedFilters);
   }, []);
 
+  const clearFilters = useCallback(() => {
+    setFilters({});
+  }, []);
+
   const value = {
     onSort,
     total,
@@ -78,6 +82,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
     setCurrentPage,
     filters,
     onFilterApply,
+    clearFilters,
   };
 
   return (
