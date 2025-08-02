@@ -1,3 +1,5 @@
 .badge-main {
-  @apply w-5 h-5 rounded-full;
+  font-size: 9px;
+  line-height: 0;
+  @apply absolute top-1 right-1 min-w-4 min-h-4 flex items-center justify-center rounded-full;
 }
