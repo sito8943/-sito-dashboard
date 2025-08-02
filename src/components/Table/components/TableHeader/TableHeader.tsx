@@ -10,7 +10,7 @@ import { BaseDto, FilterType } from "lib";
 import { TableHeaderPropsType } from "./types";
 
 // components
-import { FilterDropdown } from "../Filters";
+import { FilterDropdown, ActiveFilters } from "../Filters";
 import { Badge, Filters } from "components";
 
 export const TableHeader = <TRow extends BaseDto>(
@@ -84,7 +84,7 @@ export const TableHeader = <TRow extends BaseDto>(
           </div>
         ) : null}
       </div>
-
+      <ActiveFilters />
       {!!parsedFilters && !!parsedFilters.length && (
         <FilterDropdown
           filters={parsedFilters as FilterType[]}

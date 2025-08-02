@@ -14,8 +14,8 @@ import {
   CheckWidgetPropsType,
   AutocompleteWidgetPropsType,
   RangeWidgetPropsType,
-} from "../Widgets";
-import { RangeWidget } from "../Widgets/RangeWidget";
+} from "../../Widgets";
+import { RangeWidget } from "../../Widgets/RangeWidget";
 
 export const renderFilterComponent = (filter: WidgetFilterProps): ReactNode => {
   switch (filter.type) {
