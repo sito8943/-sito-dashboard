@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 
 // providers
-import { useTranslation } from "providers";
+import { useTableOptions, useTranslation } from "providers";
 
 // lib
 import { BaseDto, FilterType } from "lib";
@@ -11,12 +11,13 @@ import { TableHeaderPropsType } from "./types";
 
 // components
 import { FilterDropdown } from "../FilterDropdown";
-import { Filters } from "components";
+import { Badge, Filters } from "components";
 
 export const TableHeader = <TRow extends BaseDto>(
   props: TableHeaderPropsType<TRow>
 ) => {
   const { columns, title, isLoading, toolbar, filterOptions } = props;
+  const { countOfFilters } = useTableOptions();
 
   const { t } = useTranslation();
 
@@ -70,6 +71,7 @@ export const TableHeader = <TRow extends BaseDto>(
                 }
                 aria-expanded={showDropdown}
               >
+                <Badge count={countOfFilters} />
                 <span className="sr-only">
                   {t("_accessibility:buttons.filters")}
                 </span>

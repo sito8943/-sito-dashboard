@@ -22,6 +22,7 @@ export type TableOptionsContextType = {
   onFilterApply: (filters: FiltersValue) => void;
   filters: TableFilters;
   clearFilters: () => void;
+  countOfFilters: number;
 };
 
 export type TableOptionsProviderPropsType = {

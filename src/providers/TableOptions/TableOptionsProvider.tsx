@@ -1,4 +1,10 @@
-import { createContext, useCallback, useContext, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 
 // lib
 import { FiltersValue, SortOrder } from "lib";
@@ -67,6 +73,10 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
     setFilters({});
   }, []);
 
+  const countOfFilters = useMemo(() => {
+    return Object.keys(filters).length;
+  }, [filters]);
+
   const value = {
     onSort,
     total,
@@ -83,6 +93,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
     filters,
     onFilterApply,
     clearFilters,
+    countOfFilters,
   };
 
   return (
