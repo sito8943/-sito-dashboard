@@ -69,7 +69,8 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
     setFilters(parsedFilters);
   }, []);
 
-  const clearFilters = useCallback(() => {
+  const clearFilters = useCallback((key?: string) => {
+    console.log(key);
     setFilters({});
   }, []);
 

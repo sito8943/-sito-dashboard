@@ -87,7 +87,7 @@ export const TableHeader = <TRow extends BaseDto>(
           </div>
         ) : null}
       </div>
-      <ActiveFilters />
+      <ActiveFilters filtersDefinition={parsedFilters as FilterType[]} />
       {!!parsedFilters && !!parsedFilters.length && (
         <FilterDropdown
           filters={parsedFilters as FilterType[]}

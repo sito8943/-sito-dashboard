@@ -21,7 +21,7 @@ export type TableOptionsContextType = {
   setCurrentPage: (currentPage: number) => void;
   onFilterApply: (filters: FiltersValue) => void;
   filters: TableFilters;
-  clearFilters: () => void;
+  clearFilters: (key?: string) => void;
   countOfFilters: number;
 };
 

@@ -10,7 +10,20 @@ import { useTableOptions } from "providers";
 // styles
 import "./styles.css";
 
-export const ActiveFilters = () => {
+// types
+import { ActiveFiltersPropsType } from "./types";
+
+export const ActiveFilters = (props: ActiveFiltersPropsType) => {
+  const { filtersDefinition } = props;
+
+  const filterLabels = useMemo(() => {
+    const dict: { [key: string]: string } = {};
+    filtersDefinition.forEach((value) => {
+      dict[value.propertyName] = value.label ?? value.propertyName;
+    });
+    return dict;
+  }, [filtersDefinition]);
+
   const { filters, clearFilters } = useTableOptions();
 
   const fitlersAsList = useMemo(() => {
@@ -24,13 +37,16 @@ export const ActiveFilters = () => {
         <li key={key}>
           {filters[key].end || filters[key].start ? (
             <RangeChip
-              label={key}
+              label={filterLabels[key]}
               start={filters[key].start}
               end={filters[key].end}
               onClearFilter={clearFilters}
             />
           ) : (
-            <Chip label={key} />
+            <Chip
+              label={`${filterLabels[key]}: ${filters[key]}`}
+              onDelete={() => clearFilters(key)}
+            />
           )}
         </li>
       ))}
