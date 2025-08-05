@@ -71,7 +71,10 @@ export const TableHeader = <TRow extends BaseDto>(
                 }
                 aria-expanded={showDropdown}
               >
-                <Badge count={countOfFilters} />
+                <Badge
+                  count={countOfFilters}
+                  className={`${countOfFilters > 0 ? "show" : "hide"} `}
+                />
                 <span className="sr-only">
                   {t("_accessibility:buttons.filters")}
                 </span>
