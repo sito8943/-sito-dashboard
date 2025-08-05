@@ -23,13 +23,7 @@ export function filtersReducer(state: FiltersValue, action: FiltersActionType) {
   const { type } = action;
   switch (type) {
     case FiltersActions.reset: {
-      const { filters } = action;
-      const parsed: FiltersValue = {};
-      filters?.forEach(({ propertyName, defaultValue }) => {
-        parsed[propertyName] = { value: defaultValue };
-      });
-
-      return { ...state, ...parsed };
+      return {};
     }
     case FiltersActions.update: {
       const { toUpdate } = action;
