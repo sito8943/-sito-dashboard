@@ -9,7 +9,7 @@ export const ArrayChip = <T extends Option>(props: ArrayChipPropsType<T>) => {
 
   return (
     <Chip
-      label={`${label}: ${items.map((item: Option) => item.value ?? item.name).join(",")}`}
+      label={`${label}: ${items.map((item: Option) => item.value ?? item.name).join(", ")}`}
       onDelete={() => onClearFilter(label)}
     />
   );
