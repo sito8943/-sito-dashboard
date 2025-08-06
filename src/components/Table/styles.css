@@ -27,7 +27,7 @@
 }
 
 .table-content {
-  @apply w-full text-sm text-left;
+  @apply w-full h-full text-sm text-left;
 }
 
 .table-loading {
