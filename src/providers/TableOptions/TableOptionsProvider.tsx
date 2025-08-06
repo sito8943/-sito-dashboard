@@ -69,10 +69,15 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
     setFilters(parsedFilters);
   }, []);
 
-  const clearFilters = useCallback((key?: string) => {
-    console.log(key);
-    setFilters({});
-  }, []);
+  const clearFilters = useCallback(
+    (key?: string) => {
+      if (key) {
+        delete filters[key];
+        setFilters({ ...filters });
+      } else setFilters({});
+    },
+    [filters]
+  );
 
   const countOfFilters = useMemo(() => {
     return Object.keys(filters).length;
