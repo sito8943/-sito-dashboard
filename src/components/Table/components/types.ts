@@ -47,6 +47,7 @@ export type ColumnFilterOptions = {
   label?: string;
   options?: Option[];
   multiple?: boolean;
+  placeholder?: string;
 };
 
 export type RowsPropsType<TRow extends BaseDto> = {
