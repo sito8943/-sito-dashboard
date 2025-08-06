@@ -10,7 +10,7 @@ import { AutocompleteInput, Option } from "components";
 import { AutocompleteWidgetPropsType } from "./types";
 
 export function AutocompleteWidget(props: AutocompleteWidgetPropsType) {
-  const { propertyName, label, options, multiple = true } = props;
+  const { propertyName, label, placeholder, options, multiple = true } = props;
 
   const { currentFilters, setCurrentFilters } = useFilters();
 
@@ -41,6 +41,7 @@ export function AutocompleteWidget(props: AutocompleteWidgetPropsType) {
       helperTextClassName="hidden"
       containerClassName="options-widget-container"
       onChange={onChange}
+      placeholder={placeholder}
     />
   );
 }

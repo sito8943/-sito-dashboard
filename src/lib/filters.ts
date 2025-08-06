@@ -14,6 +14,7 @@ export type FilterType = {
   propertyName: string;
   label?: string;
   defaultValue?: any;
+  placeholder?: string;
 };
 
 export interface TextFilterType extends Omit<FilterType, "type"> {

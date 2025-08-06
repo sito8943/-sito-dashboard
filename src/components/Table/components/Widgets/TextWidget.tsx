@@ -10,7 +10,7 @@ import { FiltersActions, useFilters } from "providers";
 import { TextInput } from "components";
 
 export const TextWidget = (props: TextWidgetPropsType) => {
-  const { propertyName, label } = props;
+  const { propertyName, label, placeholder } = props;
 
   const { currentFilters, setCurrentFilters } = useFilters();
 
@@ -32,6 +32,7 @@ export const TextWidget = (props: TextWidgetPropsType) => {
       onChange={onChange}
       containerClassName="input-widget-container"
       helperTextClassName=""
+      placeholder={placeholder}
     />
   );
 };
