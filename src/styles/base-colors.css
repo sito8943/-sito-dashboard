@@ -36,6 +36,10 @@
   @apply bg-gray-300;
 }
 
+.autocomplete-delete-button {
+  @apply text-gray-900 dark:text-gray-100 hover:text-red-600 dark:hover:text-red-400;
+}
+
 /* CHIP */
 
 .chip-main {

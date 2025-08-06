@@ -130,7 +130,7 @@ export const AutocompleteInput = forwardRef(function (
         ref={ref}
         {...rest}
       >
-        {!multiple && value && (
+        {(value?.value || value?.name) && !multiple && (
           <button
             type="button"
             className="autocomplete-delete-button"

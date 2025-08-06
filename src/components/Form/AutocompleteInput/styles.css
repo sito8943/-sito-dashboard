@@ -7,7 +7,7 @@
 }
 
 .autocomplete-delete-button {
-  @apply absolute right-0 top-[9px];
+  @apply flex items-center justify-center absolute w-3 h-3 right-2 top-4;
 }
 
 .autocomplete-suggestions-container {
