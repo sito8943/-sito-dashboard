@@ -1,14 +1,12 @@
-import { ReactNode } from "react";
-
 // lib
 import { BaseDto, SortOrder } from "lib";
 
 // component
-import { ColumnType, TableHeaderPropsType } from "./components";
+import { TableHeaderPropsType } from "./components";
 
 export type Action<TRow extends BaseDto> = {
   id: string;
-  onClick: (entity: TRow) => void;
+  onClick: (entity?: TRow) => void;
   icon: any;
   tooltip: string;
   disabled?: boolean;
