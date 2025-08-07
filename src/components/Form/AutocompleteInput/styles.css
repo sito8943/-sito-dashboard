@@ -2,6 +2,10 @@
   @apply w-full mb-5;
 }
 
+.autocomplete-value-input-container {
+  @apply w-full relative;
+}
+
 .autocomplete-text-input {
   @apply !mb-0;
 }
@@ -19,5 +23,5 @@
 }
 
 .autocomplete-value-container {
-  @apply flex items-center justify-start flex-wrap my-4 gap-2;
+  @apply flex items-center justify-start flex-wrap my-4 gap-2 absolute -top-2 right-2;
 }

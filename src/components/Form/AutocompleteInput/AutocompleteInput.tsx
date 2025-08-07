@@ -2,6 +2,7 @@ import {
   ChangeEvent,
   ForwardedRef,
   forwardRef,
+  MutableRefObject,
   useCallback,
   useEffect,
   useRef,
@@ -61,6 +62,10 @@ export const AutocompleteInput = forwardRef(function (
   });
 
   const autocompleteRef = useRef<HTMLDivElement | null>(null);
+  const localInputRef = useRef<HTMLInputElement | null>(null);
+
+  const [threeDots, setThreeDots] = useState(false);
+  const multipleValueRef = useRef<HTMLUListElement | null>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -106,46 +111,101 @@ export const AutocompleteInput = forwardRef(function (
   );
 
   const handleDeleteChip = useCallback(
-    (index: number) => {
-      const newValue = value.filter((_: Option, i: number) => i !== index);
-      if (newValue.length) onChange(newValue);
-      else onChange(null);
+    (index?: number) => {
+      if (index != null) {
+        const newValue = value.filter((_: Option, i: number) => i !== index);
+        if (newValue.length) onChange(newValue);
+        else onChange(null);
+      } else onChange(null);
     },
     [onChange, value]
   );
+
+  useEffect(() => {
+    const valueWidth = multipleValueRef.current?.offsetWidth ?? 0;
+    const parentWidth =
+      ((ref ?? localInputRef) as MutableRefObject<HTMLInputElement | null>)
+        ?.current?.offsetWidth ?? 0;
+
+    console.log(valueWidth, parentWidth, valueWidth > parentWidth * 0.4);
+    if (valueWidth > parentWidth * 0.4) setThreeDots(true);
+    else setThreeDots(false);
+  }, [value]);
 
   return (
     <div
       className={`autocomplete-input-container ${containerClassName}`}
       ref={autocompleteRef}
     >
-      <TextInput
-        state={state}
-        name={name}
-        id={id}
-        value={!multiple && value ? (value.value ?? value.name) : inputValue}
-        onChange={handleChange}
-        placeholder={placeholder}
-        helperText={helperText}
-        onFocus={() => setShowSuggestions(true)}
-        label={label}
-        containerClassName={`autocomplete-text-input ${inputContainerClassName}`}
-        ref={ref}
-        {...rest}
-      >
-        {(value?.value || value?.name) && !multiple && (
-          <button
-            type="button"
-            className="autocomplete-delete-button"
-            onClick={(e) => {
-              handleSuggestionClick();
-              e.stopPropagation();
-            }}
-          >
-            <Close />
-          </button>
-        )}
-      </TextInput>
+      <div className="autocomplete-value-input-container">
+        <TextInput
+          state={state}
+          name={name}
+          id={id}
+          value={!multiple && value ? (value.value ?? value.name) : inputValue}
+          onChange={handleChange}
+          placeholder={placeholder}
+          helperText={helperText}
+          onFocus={() => setShowSuggestions(true)}
+          label={label}
+          containerClassName={`autocomplete-text-input ${inputContainerClassName}`}
+          ref={ref ?? localInputRef}
+          {...rest}
+        >
+          {(value?.value || value?.name) && !multiple && (
+            <button
+              type="button"
+              className="autocomplete-delete-button"
+              onClick={(e) => {
+                handleSuggestionClick();
+                e.stopPropagation();
+              }}
+            >
+              <Close />
+            </button>
+          )}
+        </TextInput>
+        {multiple && Array.isArray(value) && value.length ? (
+          <ul ref={multipleValueRef} className={`autocomplete-value-container`}>
+            {!threeDots ? (
+              value.map((selected: Option, i: number) => (
+                <li key={selected.id ?? selected.value ?? selected.name}>
+                  <Chip
+                    label={String(selected.value ?? selected.name)}
+                    onDelete={(e) => {
+                      handleDeleteChip(i);
+                      e.stopPropagation();
+                    }}
+                  />
+                </li>
+              ))
+            ) : (
+              <>
+                <li>
+                  <Chip
+                    label={value[0]?.value ?? value[0]?.name}
+                    onDelete={(e) => {
+                      handleDeleteChip(0);
+                      e.stopPropagation();
+                    }}
+                  />
+                </li>
+                {value.length > 1 && (
+                  <li>
+                    <Chip
+                      label={`+${value.length - 1}`}
+                      onDelete={(e) => {
+                        handleDeleteChip();
+                        e.stopPropagation();
+                      }}
+                    />
+                  </li>
+                )}
+              </>
+            )}
+          </ul>
+        ) : null}
+      </div>
       {showSuggestions && (
         <ul
           className={`autocomplete-suggestions-container ${css({ width: autocompleteRef.current?.offsetWidth })}`}
@@ -164,21 +224,6 @@ export const AutocompleteInput = forwardRef(function (
           ))}
         </ul>
       )}
-      {multiple && Array.isArray(value) && value.length ? (
-        <ul className={`autocomplete-value-container`}>
-          {value.map((selected: Option, i: number) => (
-            <li key={selected.id ?? selected.value ?? selected.name}>
-              <Chip
-                label={String(selected.value ?? selected.name)}
-                onDelete={(e) => {
-                  handleDeleteChip(i);
-                  e.stopPropagation();
-                }}
-              />
-            </li>
-          ))}
-        </ul>
-      ) : null}
     </div>
   );
 });
