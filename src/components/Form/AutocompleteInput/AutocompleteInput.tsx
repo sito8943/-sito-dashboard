@@ -8,6 +8,9 @@ import {
   useState,
 } from "react";
 
+// @emotion/css
+import { css } from "@emotion/css";
+
 // components
 import { Close, TextInput, Chip, Option } from "components";
 
@@ -144,7 +147,9 @@ export const AutocompleteInput = forwardRef(function (
         )}
       </TextInput>
       {showSuggestions && (
-        <ul className="autocomplete-suggestions-container">
+        <ul
+          className={`autocomplete-suggestions-container ${css({ width: autocompleteRef.current?.offsetWidth })}`}
+        >
           {suggestions.map((suggestion) => (
             <li
               className="autocomplete-suggestion-item"
@@ -160,7 +165,7 @@ export const AutocompleteInput = forwardRef(function (
         </ul>
       )}
       {multiple && Array.isArray(value) && value.length ? (
-        <ul className="autocomplete-value-container">
+        <ul className={`autocomplete-value-container`}>
           {value.map((selected: Option, i: number) => (
             <li key={selected.id ?? selected.value ?? selected.name}>
               <Chip

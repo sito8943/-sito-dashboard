@@ -1,5 +1,5 @@
 .autocomplete-input-container {
-  @apply relative w-full mb-5;
+  @apply w-full mb-5;
 }
 
 .autocomplete-text-input {
