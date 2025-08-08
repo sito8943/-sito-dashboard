@@ -10,7 +10,7 @@ import { BaseDto, FilterTypes, SortOrder } from "lib";
 import { Option } from "../../Form/";
 
 export type ColumnType<TRow extends BaseDto> = {
-  key: keyof TRow;
+  key: string;
   label?: string;
   /** if the column can be sorted */
   sortable?: boolean;

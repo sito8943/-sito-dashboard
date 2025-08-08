@@ -35,8 +35,8 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
           className={`table-row-cell ${i === 0 ? "basic" : ""} ${column.className ?? ""}`}
         >
           {column.renderBody
-            ? column.renderBody(row[column.key], row)
-            : baseRender(row[column.key])}
+            ? column.renderBody(row[column.key as keyof TRow], row)
+            : baseRender(row[column.key as keyof TRow])}
         </td>
       ))}
       {!!actions ? (
