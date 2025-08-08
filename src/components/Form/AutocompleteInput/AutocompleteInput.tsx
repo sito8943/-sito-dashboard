@@ -127,7 +127,6 @@ export const AutocompleteInput = forwardRef(function (
       ((ref ?? localInputRef) as MutableRefObject<HTMLInputElement | null>)
         ?.current?.offsetWidth ?? 0;
 
-    console.log(valueWidth, parentWidth, valueWidth > parentWidth * 0.4);
     if (valueWidth > parentWidth * 0.4) setThreeDots(true);
     else setThreeDots(false);
   }, [value]);
