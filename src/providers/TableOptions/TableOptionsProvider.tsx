@@ -72,7 +72,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
   const clearFilters = useCallback(
     (key?: string) => {
       if (key) {
-        delete filters[key];
+        delete filters[key.toLowerCase()];
         setFilters({ ...filters });
       } else setFilters({});
     },
