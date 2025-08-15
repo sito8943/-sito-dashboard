@@ -28,7 +28,6 @@ export const ActiveFilters = (props: ActiveFiltersPropsType) => {
   const { filters, clearFilters } = useTableOptions();
 
   const fitlersAsList = useMemo(() => {
-    Object.keys(filters).map((key) => console.log(filters[key]));
     return Object.keys(filters);
   }, [filters]);
 
