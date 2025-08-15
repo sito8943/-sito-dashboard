@@ -54,10 +54,8 @@ export function Columns<TRow extends BaseDto>(props: ColumnPropsType<TRow>) {
               className="table-headers-cell"
             >
               <span className="table-headers-label">{column.label}</span>
-              {column.sortable && (
-                <span
-                  className={`${sortingBy === column.id ? "table-headers-sort-on" : "table-headers-sort"}`}
-                >
+              {column.sortable && sortingBy === column.id && (
+                <span>
                   {sortingOrder === SortOrder.ASC
                     ? (column.sortOptions?.icons?.asc ?? (
                         <ChevronUp

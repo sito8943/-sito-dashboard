@@ -29,14 +29,6 @@
   @apply whitespace-nowrap;
 }
 
-.table-headers-sort {
-  @apply opacity-0;
-}
-
-.table-headers-sort-on {
-  @apply opacity-100;
-}
-
 .table-headers-sort-indicator {
   @apply w-3;
 }
