@@ -104,3 +104,9 @@
 .filter-footer {
   @apply border-slate-200 dark:border-gray-600 bg-slate-50 dark:bg-gray-700;
 }
+
+/*TABLE */
+
+.table-headers-cell {
+  @apply hover:bg-slate-200 dark:border-gray-600
+}
