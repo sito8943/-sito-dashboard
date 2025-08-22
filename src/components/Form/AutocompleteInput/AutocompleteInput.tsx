@@ -49,7 +49,6 @@ export const AutocompleteInput = forwardRef(function (
   const [inputValue, setInputValue] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const suggestions = options.filter((option) => {
-    console.log(option, inputValue);
     const isIncluded = String(option.value ?? option.name)
       .toLowerCase()
       .includes(inputValue?.toLowerCase());
