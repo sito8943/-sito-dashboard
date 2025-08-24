@@ -41,12 +41,6 @@ export const SelectInput = forwardRef(function (
     ...rest
   } = props;
 
-  // setting default value
-  /* useEffect(() => {
-    if ((!value || value === "") && options?.length)
-      onChange({ target: { value: options[0]?.id } });
-  }, [onChange, options, value]); */
-
   return (
     <div className={`select-input-container ${containerClassName}`}>
       <select
@@ -71,11 +65,13 @@ export const SelectInput = forwardRef(function (
         {label}
       </label>
       {children}
-      <p
-        className={`select-input-helper-text ${helperTextStateClassName(state)} ${helperTextClassName}`}
-      >
-        {state !== "error" && state !== "good" ? placeholder : helperText}
-      </p>
+      {(placeholder || helperText) && (
+        <p
+          className={`select-input-helper-text ${helperTextStateClassName(state)} ${helperTextClassName}`}
+        >
+          {state !== "error" && state !== "good" ? placeholder : helperText}
+        </p>
+      )}
     </div>
   );
 });
