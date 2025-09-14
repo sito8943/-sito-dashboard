@@ -5,10 +5,10 @@ import "./styles.css";
 import { TooltipPropsType } from "./types";
 
 export function Tooltip(props: TooltipPropsType) {
-  const { content, children } = props;
+  const { content, children, className = "" } = props;
 
   return (
-    <div className="tooltip-container">
+    <div className={`tooltip-container ${className}`}>
       {children}
       <div className="tooltip-text">{content}</div>
     </div>
