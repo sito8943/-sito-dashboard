@@ -3,13 +3,15 @@ import { createContext, useContext } from "react";
 // types
 import { TFunction, TranslationProviderPropsType } from "./types";
 
-const TranslationContext = createContext({} as { t: TFunction });
+const TranslationContext = createContext(
+  {} as { t: TFunction; language: string }
+);
 
 function TranslationProvider(props: TranslationProviderPropsType) {
-  const { children, t } = props;
+  const { children, t, language } = props;
 
   return (
-    <TranslationContext.Provider value={{ t }}>
+    <TranslationContext.Provider value={{ t, language }}>
       {children}
     </TranslationContext.Provider>
   );
