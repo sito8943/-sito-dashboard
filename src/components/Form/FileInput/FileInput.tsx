@@ -26,7 +26,6 @@ export const FileInput = forwardRef(function (
     helperText = "",
     helperTextClassName = "",
     iconClassName = "",
-    value = "",
     multiple = false,
     ...rest
   } = props;
@@ -36,7 +35,7 @@ export const FileInput = forwardRef(function (
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const selected = Array.from(e.target.files);
-      setFiles((prev) => [...prev, ...selected]); // acumular si quieres
+      setFiles((prev) => [...prev, ...selected]);
     }
     if (rest.onChange) rest.onChange(e);
   };
@@ -53,8 +52,11 @@ export const FileInput = forwardRef(function (
           <input
             type="file"
             ref={ref}
-            value={value}
             multiple={multiple}
+            onClick={(e) => {
+              // Ensure re-opening and re-selecting the same file triggers onChange
+              (e.currentTarget as HTMLInputElement).value = "";
+            }}
             onChange={handleChange}
             className={`file-input ${inputClassName}`}
             {...rest}

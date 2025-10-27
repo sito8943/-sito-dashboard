@@ -12,8 +12,9 @@ export default defineConfig({
       components: resolve(srcPath, "components"),
       providers: resolve(srcPath, "providers"),
       lib: resolve(srcPath, "lib"),
-      hooks: resolve(srcPath,"hooks")
+      hooks: resolve(srcPath, "hooks"),
     },
+    dedupe: ["react"],
   },
   plugins: [react(), dts({ insertTypesEntry: true }), libInjectCss()],
   build: {
@@ -25,7 +26,10 @@ export default defineConfig({
       formats: ["es", "cjs"],
     },
     rollupOptions: {
-      external: ["react", "react/jsx-runtime"],
+      external: [
+        "react",
+        "react/jsx-runtime",
+      ],
     },
   },
 });

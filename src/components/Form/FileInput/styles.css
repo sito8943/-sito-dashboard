@@ -1,5 +1,5 @@
 .file-input-container {
-  @apply relative z-0 w-full mb-5;
+  @apply relative z-0 w-full mb-5 p-3 flex items-center justify-center border border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-gray-400;
 }
 
 .file-input {
