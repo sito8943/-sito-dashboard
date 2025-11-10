@@ -20,11 +20,10 @@ export const Default: Story = {
           {...args}
           label="Acepto términos y condiciones"
           checked={checked}
-          onChange={(e) => setChecked(e.target.checked)}
+          onChange={(e) => setChecked(e.currentTarget.checked)}
         />
       );
     };
     return <Example />;
   },
 };
-

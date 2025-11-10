@@ -57,7 +57,7 @@ export const Controlled: Story = {
           <TextInput
             {...args}
             value={value}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e) => setValue(e.currentTarget.value)}
             label={args.label ?? "Controlado"}
             placeholder={args.placeholder ?? "Escribe algo..."}
           />
@@ -71,4 +71,3 @@ export const Controlled: Story = {
     state: State.default,
   },
 };
-

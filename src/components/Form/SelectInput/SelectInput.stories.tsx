@@ -30,7 +30,7 @@ export const Default: Story = {
             label="Selecciona una opción"
             options={sampleOptions}
             value={value}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e) => setValue(e.currentTarget.value)}
             placeholder="Elige una opción"
           />
           <p className="mt-2 text-sm text-gray-500">Valor: {String(value)}</p>
@@ -46,4 +46,3 @@ export const ErrorState: Story = {
   render: Default.render,
   args: { state: State.error, helperText: "Campo requerido" },
 };
-
