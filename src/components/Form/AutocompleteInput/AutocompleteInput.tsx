@@ -23,7 +23,7 @@ import "./styles.css";
 
 /**
  *
- * @param {object} props
+ * @param props
  * @returns
  */
 export const AutocompleteInput = forwardRef(function (
@@ -46,7 +46,9 @@ export const AutocompleteInput = forwardRef(function (
     ...rest
   } = props;
 
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(
+    !multiple ? (value?.value ?? value?.name ?? "") : ""
+  );
   const [showSuggestions, setShowSuggestions] = useState(false);
   const suggestions = options.filter((option) => {
     const isIncluded = String(option.value ?? option.name)
@@ -96,14 +98,17 @@ export const AutocompleteInput = forwardRef(function (
 
   const handleSuggestionClick = useCallback(
     (suggestion?: Option) => {
-      setInputValue("");
       if (!suggestion) onChange(null);
       else {
-        if (multiple)
+        if (multiple) {
+          setInputValue("");
           Array.isArray(value) && !!value.length
             ? onChange([...value, suggestion])
             : onChange([suggestion]);
-        else onChange(suggestion);
+        } else {
+          setInputValue(suggestion.name ?? suggestion.value);
+          onChange(suggestion);
+        }
       }
       setShowSuggestions(false);
     },
@@ -113,9 +118,15 @@ export const AutocompleteInput = forwardRef(function (
   const handleDeleteChip = useCallback(
     (index?: number) => {
       if (index != null) {
-        const newValue = value.filter((_: Option, i: number) => i !== index);
-        if (newValue.length) onChange(newValue);
-        else onChange(null);
+        if (index !== -1) {
+          const newValue = value.filter((_: Option, i: number) => i !== index);
+          if (newValue.length) onChange(newValue);
+          else onChange(null);
+        } else {
+          const [first] = value;
+          console.log(first);
+          onChange([first]);
+        }
       } else onChange(null);
     },
     [onChange, value]
@@ -141,7 +152,7 @@ export const AutocompleteInput = forwardRef(function (
           state={state}
           name={name}
           id={id}
-          value={!multiple && value ? (value.value ?? value.name) : inputValue}
+          value={!multiple ? inputValue : (value?.value ?? value?.name ?? "")}
           onChange={handleChange}
           placeholder={placeholder}
           helperText={helperText}
@@ -156,6 +167,7 @@ export const AutocompleteInput = forwardRef(function (
               type="button"
               className="autocomplete-delete-button"
               onClick={(e) => {
+                console.log("hola?");
                 handleSuggestionClick();
                 e.stopPropagation();
               }}
@@ -194,7 +206,7 @@ export const AutocompleteInput = forwardRef(function (
                     <Chip
                       label={`+${value.length - 1}`}
                       onDelete={(e) => {
-                        handleDeleteChip();
+                        handleDeleteChip(-1);
                         e.stopPropagation();
                       }}
                     />
