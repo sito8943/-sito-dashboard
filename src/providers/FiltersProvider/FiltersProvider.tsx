@@ -1,7 +1,17 @@
-import { createContext, useContext, useMemo, useReducer } from "react";
+import {
+  createContext,
+  useContext,
+  useMemo,
+  useReducer,
+  useEffect,
+} from "react";
 
 // types
-import { FiltersContextType, FiltersProviderPropsType } from "./types";
+import {
+  FiltersActions,
+  FiltersContextType,
+  FiltersProviderPropsType,
+} from "./types";
 
 // providers
 import { useTableOptions } from "providers";
@@ -19,6 +29,19 @@ const FiltersProvider = (props: FiltersProviderPropsType) => {
     filtersReducer,
     initializer(filters)
   );
+
+  // keep local currentFilters in sync with table-level filters
+  useEffect(() => {
+    // reset local filters
+    setCurrentFilters({ type: FiltersActions.reset });
+    const initial = initializer(filters);
+    if (Object.keys(initial).length) {
+      setCurrentFilters({
+        type: FiltersActions.update,
+        toUpdate: initial,
+      });
+    }
+  }, [filters]);
 
   const value = {
     currentFilters,

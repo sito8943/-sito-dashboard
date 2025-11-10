@@ -43,3 +43,33 @@ export const Basic: Story = {
   } as any,
 };
 
+export const WithAutocompleteFilter: Story = {
+  args: {
+    entity: "users",
+    title: "Usuarios",
+    data,
+    columns: [
+      { key: "id", label: "ID", sortable: true },
+      {
+        key: "name",
+        label: "Nombre",
+        sortable: true,
+        filterOptions: {
+          type: FilterTypes.autocomplete,
+          placeholder: "Selecciona nombre",
+          multiple: true,
+          options: Array.from(new Set(data.map((d) => d.name))).map((n) => ({
+            id: n,
+            name: n,
+          })),
+        },
+      },
+      {
+        key: "age",
+        label: "Edad",
+        sortable: true,
+        filterOptions: { type: FilterTypes.number, min: 0, max: 100 },
+      },
+    ],
+  } as any,
+};

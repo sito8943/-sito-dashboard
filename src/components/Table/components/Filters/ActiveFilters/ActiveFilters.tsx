@@ -27,15 +27,16 @@ export const ActiveFilters = (props: ActiveFiltersPropsType) => {
 
   const { filters, clearFilters } = useTableOptions();
 
-  const fitlersAsList = useMemo(() => {
+  const filtersAsList = useMemo(() => {
     return Object.keys(filters);
   }, [filters]);
 
   const parseFilters = useCallback(
     (key: string) => {
-      if (filters[key].end || filters[key].start)
+      if (filters[key]?.end || filters[key]?.start)
         return (
           <RangeChip
+            id={key}
             label={filterLabels[key]}
             start={filters[key].start}
             end={filters[key].end}
@@ -45,6 +46,7 @@ export const ActiveFilters = (props: ActiveFiltersPropsType) => {
       else if (Array.isArray(filters[key]))
         return (
           <ArrayChip
+            id={key}
             label={filterLabels[key]}
             items={filters[key]}
             onClearFilter={clearFilters}
@@ -63,7 +65,7 @@ export const ActiveFilters = (props: ActiveFiltersPropsType) => {
 
   return (
     <ul className="active-filters-main">
-      {fitlersAsList?.map((key) => <li key={key}>{parseFilters(key)}</li>)}
+      {filtersAsList?.map((key) => <li key={key}>{parseFilters(key)}</li>)}
     </ul>
   );
 };

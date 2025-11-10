@@ -58,7 +58,11 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
   const onFilterApply = useCallback((filters: FiltersValue) => {
     const parsedFilters: TableFilters = Object.entries(filters).reduce(
       (acc, [key, filter]) => {
-        if (filter && typeof filter.value !== "undefined") {
+        if (
+          filter &&
+          typeof filter.value !== "undefined" &&
+          filter.value !== null
+        ) {
           acc[key] = filter.value;
         }
         return acc;
@@ -71,6 +75,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
 
   const clearFilters = useCallback(
     (key?: string) => {
+      console.log(key, filters);
       if (key) {
         delete filters[key.toLowerCase()];
         setFilters({ ...filters });

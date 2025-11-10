@@ -21,9 +21,9 @@ import { renderFilterComponent } from "./utils";
 import "./styles.css";
 
 export const FilterDropdown = (props: FilterDropdownPropsType) => {
-  const { filters = [], options, show, handleShow } = props;
+  const { filters = [], show, handleShow } = props;
 
-  const { onFilterApply, filters: tableFilters } = useTableOptions();
+  const { onFilterApply } = useTableOptions();
   const { currentFilters, setCurrentFilters } = useFilters();
 
   const { t } = useTranslation();
