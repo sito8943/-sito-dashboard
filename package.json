@@ -33,7 +33,9 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "keywords": [
     "sito",
@@ -46,8 +48,13 @@
     "react": ">=18.2 <20"
   },
   "devDependencies": {
+    "@storybook/addon-a11y": "^7.6.20",
+    "@storybook/addon-essentials": "^7.6.20",
+    "@storybook/addon-interactions": "^7.6.20",
+    "@storybook/react-vite": "^7.6.20",
     "@types/node": "20.8.10",
     "@types/react": "18.3.3",
+    "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "6.0.0",
     "@typescript-eslint/parser": "6.0.0",
     "@vitejs/plugin-react": "4.0.3",
@@ -58,6 +65,8 @@
     "postcss": "8.4.41",
     "prettier": "3.3.3",
     "react": "18.3.1",
+    "react-dom": "^18.3.1",
+    "storybook": "^7.6.20",
     "tailwindcss": "3.4.10",
     "typescript": "5.5.4",
     "vite": "4.2.0",
