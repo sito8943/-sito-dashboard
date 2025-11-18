@@ -5,7 +5,7 @@ import { useTranslation } from "providers";
  * Empty component
  * @returns Empty component
  */
-export function Empty() {
+export function TableEmpty() {
   const { t } = useTranslation();
 
   return (

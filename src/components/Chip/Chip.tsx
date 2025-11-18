@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-
 // components
 import { Close } from "components";
 
@@ -15,14 +13,28 @@ import "./styles.css";
  * @returns Chip component
  */
 export function Chip(props: ChipPropsType) {
-  const { label, onDelete, className = "", spanClassName = "" } = props;
+  const {
+    text,
+    onDelete,
+    children,
+    icon,
+    variant = "default",
+    iconClassName = "",
+    className = "",
+    textClassName = "",
+  } = props;
 
   return (
-    <div className={`chip-main ${className}`}>
-      <span className={spanClassName}>{label}</span>
+    <div className={`chip-main ${variant} ${className}`}>
+      <span className={textClassName}>{text}</span>
+      {children}
       {onDelete ? (
-        <button type="button" className="chip-delete-button" onClick={onDelete}>
-          <Close />
+        <button
+          type="button"
+          className={`chip-delete-button ${iconClassName}`}
+          onClick={onDelete}
+        >
+          {icon ?? <Close />}
         </button>
       ) : null}
     </div>

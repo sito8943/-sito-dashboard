@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 // types
-import { Action } from "../types";
+import { ActionType } from "../types";
 
 // lib
 import { BaseDto, FilterTypes, SortOrder } from "lib";
@@ -54,5 +54,5 @@ export type RowsPropsType<TRow extends BaseDto> = {
   data: TRow[];
   columns: ColumnType<TRow>[];
   softDeleteProperty: keyof TRow;
-  actions: ((row: TRow) => Action<TRow>[]) | undefined;
+  actions: ((row: TRow) => ActionType<TRow>[]) | undefined;
 };

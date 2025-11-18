@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { Loading } from "components";
 
 // table components
-import { Empty, Columns, Footer, Rows, TableHeader } from "./components/";
+import { TableEmpty, Columns, Footer, Rows, TableHeader } from "./components/";
 
 // providers
 import { FiltersProvider } from "providers";
@@ -66,7 +66,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
                 <Footer />
               </>
             ) : (
-              <Empty />
+              <TableEmpty />
             )}
           </>
         ) : (

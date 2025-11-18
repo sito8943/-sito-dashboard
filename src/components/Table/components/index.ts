@@ -1,5 +1,5 @@
 export * from "./Columns";
-export * from "./Empty";
+export * from "./TableEmpty";
 export * from "./Footer";
 export * from "./Filters";
 export * from "./TableHeader"

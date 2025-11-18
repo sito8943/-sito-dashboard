@@ -182,7 +182,7 @@ export const AutocompleteInput = forwardRef(function (
               value.map((selected: Option, i: number) => (
                 <li key={selected.id ?? selected.value ?? selected.name}>
                   <Chip
-                    label={String(selected.value ?? selected.name)}
+                    text={String(selected.value ?? selected.name)}
                     onDelete={(e) => {
                       handleDeleteChip(i);
                       e.stopPropagation();
@@ -194,7 +194,7 @@ export const AutocompleteInput = forwardRef(function (
               <>
                 <li>
                   <Chip
-                    label={value[0]?.value ?? value[0]?.name}
+                    text={value[0]?.value ?? value[0]?.name}
                     onDelete={(e) => {
                       handleDeleteChip(0);
                       e.stopPropagation();
@@ -204,7 +204,7 @@ export const AutocompleteInput = forwardRef(function (
                 {value.length > 1 && (
                   <li>
                     <Chip
-                      label={`+${value.length - 1}`}
+                      text={`+${value.length - 1}`}
                       onDelete={(e) => {
                         handleDeleteChip(-1);
                         e.stopPropagation();

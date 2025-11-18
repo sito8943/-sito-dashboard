@@ -85,18 +85,18 @@ export default App;
 The Table component is a flexible and feature-rich table for displaying data.
 
 #### Props
-| Propiedad             | Tipo         | Valor por defecto      | Descripción                                                         |
-|-----------------------|--------------|-------------------------|---------------------------------------------------------------------|
-| `title`              | `string`     | `""`                    | El título de la tabla.                                              |
-| `data`               | `array`      | —                       | Los datos a mostrar en la tabla.                                   |
-| `columns`            | `array`      | `[]`                    | Definiciones de columnas, incluyendo claves (`key`) y etiquetas.   |
-| `isLoading`          | `boolean`    | `false`                 | Indica si la tabla está en estado de carga.                        |
-| `actions`            | `Action[]`   | —                       | Función para renderizar acciones por fila.                         |
-| `className`          | `string`     | `""`                    | Clase personalizada para el contenedor de la tabla.                |
-| `contentClassName`   | `string`     | `""`                    | Clase personalizada para el contenido de la tabla.                 |
-| `softDeleteProperty` | `string`     | `"deleted"`             | Propiedad usada para lógica de borrado suave.                      |
-| `toolbar`            | `ReactNode`  | `<></>`                 | Componente personalizado para la barra de herramientas.            |
-| `onSort`             | `function`   | —                       | Callback que se llama cuando se cambia el orden de la tabla.       |
+| Propiedad             | Tipo          | Valor por defecto       | Descripción                                                        |
+|-----------------------|---------------|-------------------------|--------------------------------------------------------------------|
+| `title`              | `string`       | `""`                    | El título de la tabla.                                             |
+| `data`               | `array`        | —                       | Los datos a mostrar en la tabla.                                   |
+| `columns`            | `array`        | `[]`                    | Definiciones de columnas, incluyendo claves (`key`) y etiquetas.   |
+| `isLoading`          | `boolean`      | `false`                 | Indica si la tabla está en estado de carga.                        |
+| `actions`            | `ActionType[]` | —                       | Función para renderizar acciones por fila.                         |
+| `className`          | `string`       | `""`                    | Clase personalizada para el contenedor de la tabla.                |
+| `contentClassName`   | `string`       | `""`                    | Clase personalizada para el contenido de la tabla.                 |
+| `softDeleteProperty` | `string`       | `"deleted"`             | Propiedad usada para lógica de borrado suave.                      |
+| `toolbar`            | `ReactNode`    | `<></>`                 | Componente personalizado para la barra de herramientas.            |
+| `onSort`             | `function`     | —                       | Callback que se llama cuando se cambia el orden de la tabla.       |
 
 
 ### TranslationProvider
