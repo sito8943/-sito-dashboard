@@ -9,7 +9,7 @@ export const RangeChip = <T extends any>(props: RangeChipPropsType<T>) => {
 
   return (
     <Chip
-      label={`${label}: ${!!start ? start : "♾️"} - ${!!end ? end : "♾️"}`}
+      text={`${label}: ${!!start ? start : "♾️"} - ${!!end ? end : "♾️"}`}
       onDelete={() => onClearFilter(label)}
     />
   );

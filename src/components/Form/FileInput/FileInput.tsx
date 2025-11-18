@@ -71,7 +71,7 @@ export const FileInput = forwardRef(function (
             <li key={i}>
               <Tooltip content={file.name}>
                 <Chip
-                  label={truncateFileName(file.name, 25)}
+                  text={truncateFileName(file.name, 25)}
                   onDelete={() => handleRemove(i)}
                 />
               </Tooltip>

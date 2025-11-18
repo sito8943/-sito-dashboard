@@ -55,7 +55,7 @@ export const ActiveFilters = (props: ActiveFiltersPropsType) => {
       else
         return (
           <Chip
-            label={`${filterLabels[key]}: ${filters[key]?.value ?? filters[key]?.name ?? filters[key]}`}
+            text={`${filterLabels[key]}: ${filters[key]?.value ?? filters[key]?.name ?? filters[key]}`}
             onDelete={() => clearFilters(key)}
           />
         );

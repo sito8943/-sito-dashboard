@@ -12,7 +12,7 @@ export default meta;
 type Story = StoryObj<typeof Chip>;
 
 export const Default: Story = {
-  args: { label: "Etiqueta" },
+  args: { text: "Etiqueta" },
 };
 
 export const Deletable: Story = {
@@ -22,7 +22,7 @@ export const Deletable: Story = {
       return (
         <Chip
           {...args}
-          label={`Borrar (${count})`}
+          text={`Borrar (${count})`}
           onDelete={() => setCount((c) => c + 1)}
         />
       );
