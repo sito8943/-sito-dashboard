@@ -5,12 +5,12 @@ import { Chip } from "components";
 import { RangeChipPropsType } from "./types";
 
 export const RangeChip = <T extends any>(props: RangeChipPropsType<T>) => {
-  const { end, start, label, onClearFilter } = props;
+  const { end, start, text, id, onClearFilter } = props;
 
   return (
     <Chip
-      text={`${label}: ${!!start ? start : "♾️"} - ${!!end ? end : "♾️"}`}
-      onDelete={() => onClearFilter(label)}
+      text={`${text}: ${!!start ? start : "♾️"} - ${!!end ? end : "♾️"}`}
+      onDelete={() => onClearFilter(id)}
     />
   );
 };

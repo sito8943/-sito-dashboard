@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
-import { Chip } from "components";
+import {
+  Chip,
+  RangeChip as SRangeChip,
+  ArrayChip as SArrayChip,
+  Option
+} from "components";
 
 const meta: Meta<typeof Chip> = {
   title: "Components/Chip",
@@ -31,3 +36,60 @@ export const Deletable: Story = {
   },
 };
 
+export const RangeChip: Story = {
+  render: (args) => {
+    const Example = () => {
+      const [date, setDate] = useState(String(new Date()));
+      return (
+        <SRangeChip
+          id={"number"}
+          text={"Date"}
+          start={date}
+          end={date}
+          onClearFilter={() => setDate("")}
+        />
+      );
+    };
+    return <Example />;
+  },
+};
+
+const options: Option[] = [
+  { id: 6, name: "Kiwi" },
+  { id: 7, name: "Fresa" },
+  { id: 8, name: "Uva" },
+  { id: 9, name: "Naranja" },
+  { id: 10, name: "Mandarina" },
+  { id: 11, name: "Piña" },
+  { id: 12, name: "Cereza" },
+  { id: 13, name: "Mango" },
+  { id: 14, name: "Papaya" },
+  { id: 15, name: "Durazno" },
+  { id: 16, name: "Ciruela" },
+  { id: 17, name: "Arándanos" },
+  { id: 18, name: "Frambuesa" },
+  { id: 19, name: "Coco" },
+  { id: 20, name: "Guayaba" },
+  { id: 21, name: "Lima" },
+  { id: 22, name: "Limón" },
+  { id: 23, name: "Maracuyá" },
+  { id: 24, name: "Higo" },
+  { id: 25, name: "Granada" },
+];
+
+export const ArrayChip: Story = {
+  render: (args) => {
+    const Example = () => {
+      const [tags, setTags] = useState(options);
+      return (
+        <SArrayChip
+          id={"Tags"}
+          text={"Tags"}
+          items={tags}
+          onClearFilter={() => setTags([])}
+        />
+      );
+    };
+    return <Example />;
+  },
+};

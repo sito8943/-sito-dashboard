@@ -2,7 +2,7 @@ import { FilterType } from "lib";
 
 export type FilterChip = {
   id: string;
-  label: string;
+  text: string;
   onClearFilter: (key: string) => void;
 };
 

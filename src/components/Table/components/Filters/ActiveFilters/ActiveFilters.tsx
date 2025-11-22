@@ -37,7 +37,7 @@ export const ActiveFilters = (props: ActiveFiltersPropsType) => {
         return (
           <RangeChip
             id={key}
-            label={filterLabels[key]}
+            text={filterLabels[key]}
             start={filters[key].start}
             end={filters[key].end}
             onClearFilter={clearFilters}
@@ -47,7 +47,7 @@ export const ActiveFilters = (props: ActiveFiltersPropsType) => {
         return (
           <ArrayChip
             id={key}
-            label={filterLabels[key]}
+            text={filterLabels[key]}
             items={filters[key]}
             onClearFilter={clearFilters}
           />

@@ -45,10 +45,10 @@ export const AutocompleteInput = forwardRef(function (
     multiple = false,
     ...rest
   } = props;
-
-  const [inputValue, setInputValue] = useState(
-    !multiple ? (value?.value ?? value?.name ?? "") : ""
-  );
+  const [inputValue, setInputValue] = useState("");
+  useEffect(() => {
+    setInputValue(!multiple ? (value?.value ?? value?.name ?? "") : "");
+  }, [value]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const suggestions = options.filter((option) => {
     const isIncluded = String(option.value ?? option.name)
@@ -106,7 +106,7 @@ export const AutocompleteInput = forwardRef(function (
             ? onChange([...value, suggestion])
             : onChange([suggestion]);
         } else {
-          setInputValue(suggestion.name ?? suggestion.value);
+          setInputValue(String(suggestion.name ?? suggestion.value ?? ""));
           onChange(suggestion);
         }
       }

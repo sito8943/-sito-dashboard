@@ -5,11 +5,11 @@ import { Chip, Option } from "components";
 import { ArrayChipPropsType } from "./types";
 
 export const ArrayChip = <T extends Option>(props: ArrayChipPropsType<T>) => {
-  const { items, label, id, onClearFilter } = props;
+  const { items, text, id, onClearFilter } = props;
 
   return (
     <Chip
-      text={`${label}: ${items.map((item: Option) => item.value ?? item.name).join(", ")}`}
+      text={`${text}: ${items.map((item: Option) => item.value ?? item.name).join(", ")}`}
       onDelete={() => onClearFilter(id)}
     />
   );
