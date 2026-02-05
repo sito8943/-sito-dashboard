@@ -30,7 +30,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
     columns = [],
     contentClassName = "",
     className = "",
-    softDeleteProperty = "deleted",
+    softDeleteProperty = "deletedAt",
     ...rest
   } = props;
 

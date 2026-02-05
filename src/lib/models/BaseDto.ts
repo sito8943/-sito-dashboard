@@ -1,4 +1,8 @@
 export type BaseDto = {
   id: number;
-  deleted: boolean;
+  /**
+   * Soft delete timestamp. If set (non-null/non-undefined),
+   * the entity is considered soft-deleted.
+   */
+  deletedAt?: string | Date | null;
 };

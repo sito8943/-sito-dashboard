@@ -15,9 +15,9 @@ export default meta;
 type Story = StoryObj<typeof Table<Row>>;
 
 const data: Row[] = [
-  { id: 1, deleted: false, name: "Alice", age: 28 },
-  { id: 2, deleted: false, name: "Bob", age: 34 },
-  { id: 3, deleted: false, name: "Carlos", age: 22 },
+  { id: 1, deletedAt: null, name: "Alice", age: 28 },
+  { id: 2, deletedAt: null, name: "Bob", age: 34 },
+  { id: 3, deletedAt: null, name: "Carlos", age: 22 },
 ];
 
 export const Basic: Story = {

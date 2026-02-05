@@ -94,7 +94,7 @@ The Table component is a flexible and feature-rich table for displaying data.
 | `actions`            | `ActionType[]` | —                       | Función para renderizar acciones por fila.                         |
 | `className`          | `string`       | `""`                    | Clase personalizada para el contenedor de la tabla.                |
 | `contentClassName`   | `string`       | `""`                    | Clase personalizada para el contenido de la tabla.                 |
-| `softDeleteProperty` | `string`       | `"deleted"`             | Propiedad usada para lógica de borrado suave.                      |
+| `softDeleteProperty` | `string`       | `"deletedAt"`           | Propiedad usada para lógica de borrado suave (fecha/hora).         |
 | `toolbar`            | `ReactNode`    | `<></>`                 | Componente personalizado para la barra de herramientas.            |
 | `onSort`             | `function`     | —                       | Callback que se llama cuando se cambia el orden de la tabla.       |
 

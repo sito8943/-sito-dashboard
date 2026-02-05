@@ -12,7 +12,7 @@ import { BaseDto } from "lib";
 const baseRender = (value: any) => value;
 
 export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
-  const { columns, softDeleteProperty = "deleted", data, actions } = props;
+  const { columns, softDeleteProperty = "deletedAt", data, actions } = props;
 
   const visibleColumns = useMemo(
     () =>
