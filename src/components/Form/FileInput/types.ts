@@ -2,10 +2,11 @@ import { BaseInputPropsType } from "main";
 import { HTMLProps, ReactNode } from "react";
 
 export interface FileInputPropsType
-  extends Omit<HTMLProps<HTMLInputElement>, "value" | "label">,
-    BaseInputPropsType {
-  label: string;
+  extends Omit<HTMLProps<HTMLInputElement>, "value">,
+    Omit<BaseInputPropsType, "value" | "label"> {
   iconClassName?: string;
   multiple?: boolean;
   children?: ReactNode;
+  label: string;
+  onClear?: () => void;
 }

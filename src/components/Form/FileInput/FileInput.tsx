@@ -3,14 +3,14 @@ import { ChangeEvent, ForwardedRef, forwardRef, useState } from "react";
 // types
 import { FileInputPropsType } from "./types";
 
-// components
-import { Chip, Close, File, State, Tooltip } from "components";
-
 // styles
 import "./styles.css";
 
 // utils
 import { truncateFileName } from "./utils";
+
+// components
+import { Chip, Close, File } from "components";
 
 export const FileInput = forwardRef(function (
   props: FileInputPropsType,
@@ -18,7 +18,6 @@ export const FileInput = forwardRef(function (
 ) {
   const {
     children,
-    state = State.default,
     label,
     containerClassName = "",
     inputClassName = "",
@@ -27,6 +26,8 @@ export const FileInput = forwardRef(function (
     helperTextClassName = "",
     iconClassName = "",
     multiple = false,
+    onChange,
+    onClear,
     ...rest
   } = props;
 
@@ -37,12 +38,18 @@ export const FileInput = forwardRef(function (
       const selected = Array.from(e.target.files);
       setFiles((prev) => [...prev, ...selected]);
     }
-    if (rest.onChange) rest.onChange(e);
+    if (onChange) onChange(e);
   };
 
   const handleRemove = (index: number) => {
-    setFiles((prev) => prev.filter((_, i) => i !== index));
+    setFiles((prev) => {
+      const next = prev.filter((_, i) => i !== index);
+      if (next.length === 0) onClear?.();
+      return next;
+    });
   };
+
+  console.log(files);
 
   return (
     <div className={`file-input-container ${containerClassName}`}>
@@ -69,12 +76,12 @@ export const FileInput = forwardRef(function (
         <ul className="file-preview-list">
           {files.map((file, i) => (
             <li key={i}>
-              <Tooltip content={file.name}>
+              <span data-tooltip-id="tooltip" data-tooltip-content={file.name}>
                 <Chip
                   text={truncateFileName(file.name, 25)}
                   onDelete={() => handleRemove(i)}
                 />
-              </Tooltip>
+              </span>
             </li>
           ))}
         </ul>
@@ -82,12 +89,19 @@ export const FileInput = forwardRef(function (
 
       {files.length === 1 && (
         <div className="file-preview">
-          <File className="file-icon" />
-          <Tooltip content={files[0]?.name ?? ""} className="!cursor-default">
-            <span>{truncateFileName(files[0]?.name ?? "", 25)}</span>
-          </Tooltip>
+          <File className={`file-icon ${iconClassName}`} />
+          <span
+            className="!cursor-default"
+            data-tooltip-id="tooltip"
+            data-tooltip-content={files[0]?.name ?? ""}
+          >
+            {truncateFileName(files[0]?.name ?? "", 25)}
+          </span>
           <button
-            onClick={() => setFiles([])}
+            onClick={() => {
+              setFiles([]);
+              onClear?.();
+            }}
             className="chip-delete-button"
             type="button"
           >
