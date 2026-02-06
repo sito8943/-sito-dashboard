@@ -124,7 +124,6 @@ export const AutocompleteInput = forwardRef(function (
           else onChange(null);
         } else {
           const [first] = value;
-          console.log(first);
           onChange([first]);
         }
       } else onChange(null);
@@ -167,7 +166,6 @@ export const AutocompleteInput = forwardRef(function (
               type="button"
               className="autocomplete-delete-button"
               onClick={(e) => {
-                console.log("hola?");
                 handleSuggestionClick();
                 e.stopPropagation();
               }}

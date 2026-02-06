@@ -75,7 +75,6 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
 
   const clearFilters = useCallback(
     (key?: string) => {
-      console.log(key, filters);
       if (key) {
         delete filters[key.toLowerCase()];
         setFilters({ ...filters });
