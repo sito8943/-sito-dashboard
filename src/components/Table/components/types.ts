@@ -39,6 +39,11 @@ export type ColumnPropsType<TRow extends BaseDto> = {
   columns: ColumnType<TRow>[];
   hasAction: boolean;
   onSortCallback?: (prop: string, sortOrder: SortOrder) => void;
+  selectionState?: {
+    hasSomeSelected: boolean;
+    allSelected: boolean;
+  };
+  onToggleAllRows?: () => void;
 };
 
 export type ColumnFilterOptions = {

@@ -11,6 +11,8 @@ export type ActionType<TRow extends BaseDto> = {
   tooltip: string;
   disabled?: boolean;
   hidden?: boolean;
+  multiple?: boolean;
+  onMultipleClick?: (rows: TRow[]) => void;
 };
 
 export interface TablePropsType<TRow extends BaseDto>

@@ -25,6 +25,10 @@
   @apply w-12 text-center;
 }
 
+.table-headers-checkbox input {
+  @apply cursor-pointer;
+}
+
 .table-headers-cell {
   @apply flex items-center gap-2 py-1 px-3 cursor-pointer;
 }

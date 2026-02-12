@@ -1,14 +1,42 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Table } from "components";
+import { TranslationProvider } from "providers";
 import type { BaseDto } from "lib";
 import { FilterTypes } from "lib";
 
 type Row = BaseDto & { name: string; age: number };
 
+const mockTranslations: Record<string, string> = {
+  "_accessibility:components.table.selectedCount":
+    "Selected {{count}} items",
+  "_accessibility:labels.actions": "Actions",
+  "_accessibility:buttons.filters": "Filters",
+  "_accessibility:buttons.previous": "Previous page",
+  "_accessibility:buttons.next": "Next page",
+  "_accessibility:buttons.clear": "Clear",
+  "_accessibility:buttons.applyFilters": "Apply filters",
+  "_accessibility:components.table.pageSizes": "Rows per page",
+  "_accessibility:components.table.jumpToPage": "Jump to page",
+  "_accessibility:components.table.of": "of",
+  "_accessibility:components.table.empty": "No data available",
+  "_accessibility:components.table.filters.range.start": "Start value",
+  "_accessibility:components.table.filters.range.end": "End value",
+};
+
+const mockT = (key: string, options?: { count?: number }) =>
+  mockTranslations[key]?.replace("{{count}}", String(options?.count ?? 0)) ?? key;
+
 const meta: Meta<typeof Table<Row>> = {
   title: "Components/Table",
   component: Table as any,
   tags: ["autodocs"],
+  decorators: [
+    (Story) => (
+      <TranslationProvider t={mockT} language="es">
+        <Story />
+      </TranslationProvider>
+    ),
+  ],
 };
 
 export default meta;

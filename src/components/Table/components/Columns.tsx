@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 // providers
 import { useTranslation, useTableOptions } from "providers";
@@ -20,7 +20,23 @@ import { ColumnPropsType } from "./types";
 export function Columns<TRow extends BaseDto>(props: ColumnPropsType<TRow>) {
   const { t } = useTranslation();
 
-  const { entity = "", columns = [], hasAction = true, onSortCallback } = props;
+  const {
+    entity = "",
+    columns = [],
+    hasAction = true,
+    onSortCallback,
+    selectionState,
+    onToggleAllRows,
+  } = props;
+
+  const headerCheckboxRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!headerCheckboxRef.current) return;
+    headerCheckboxRef.current.indeterminate = Boolean(
+      selectionState?.hasSomeSelected && !selectionState?.allSelected
+    );
+  }, [selectionState]);
 
   const { onSort, sortingOrder, sortingBy } = useTableOptions();
 
@@ -42,7 +58,17 @@ export function Columns<TRow extends BaseDto>(props: ColumnPropsType<TRow>) {
   return (
     <thead className="table-headers-row">
       <tr>
-        <th scope="col" className="table-headers-column table-headers-checkbox"></th>
+        <th scope="col" className="table-headers-column table-headers-checkbox">
+          {onToggleAllRows ? (
+            <input
+              type="checkbox"
+              ref={headerCheckboxRef}
+              checked={selectionState?.allSelected ?? false}
+              onChange={onToggleAllRows}
+              aria-label="Seleccionar todas las filas visibles"
+            />
+          ) : null}
+        </th>
         {parsedColumns.map((column) => (
           <th
             key={column.id as string}
