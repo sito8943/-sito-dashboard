@@ -42,6 +42,7 @@ export function Columns<TRow extends BaseDto>(props: ColumnPropsType<TRow>) {
   return (
     <thead className="table-headers-row">
       <tr>
+        <th scope="col" className="table-headers-column table-headers-checkbox"></th>
         {parsedColumns.map((column) => (
           <th
             key={column.id as string}

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 // components
 import { Loading } from "components";
@@ -13,7 +13,7 @@ import { FiltersProvider } from "providers";
 import { TablePropsType } from "./types";
 
 // lib
-import { BaseDto, FilterType } from "lib";
+import { BaseDto } from "lib";
 
 // styles
 import "./styles.css";
@@ -31,10 +31,59 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
     contentClassName = "",
     className = "",
     softDeleteProperty = "deletedAt",
+    onRowSelect,
+    onSelectedRowsChange,
     ...rest
   } = props;
 
+  const [selectedRows, setSelectedRows] = useState<Set<TRow["id"]>>(new Set());
+
   const isEmpty = useMemo(() => !data?.length, [data]);
+
+  useEffect(() => {
+    if (!data?.length) {
+      setSelectedRows(new Set());
+      return;
+    }
+
+    setSelectedRows((prevSelected) => {
+      const nextSelected = new Set<TRow["id"]>();
+      const currentIds = new Set(data.map((row) => row.id));
+
+      prevSelected.forEach((rowId) => {
+        if (currentIds.has(rowId)) {
+          nextSelected.add(rowId);
+        }
+      });
+
+      return nextSelected;
+    });
+  }, [data]);
+
+  const onRowSelectionChange = useCallback(
+    (row: TRow) => {
+      setSelectedRows((prevSelected) => {
+        const nextSelected = new Set(prevSelected);
+        if (nextSelected.has(row.id)) {
+          nextSelected.delete(row.id);
+        } else {
+          nextSelected.add(row.id);
+        }
+
+        onRowSelect?.(row, nextSelected.has(row.id));
+
+        return nextSelected;
+      });
+    },
+    [onRowSelect]
+  );
+
+  useEffect(() => {
+    if (!onSelectedRowsChange) return;
+
+    const selectedData = data?.filter((row) => selectedRows.has(row.id)) ?? [];
+    onSelectedRowsChange(selectedData);
+  }, [data, selectedRows, onSelectedRowsChange]);
 
   return (
     <FiltersProvider>
@@ -58,6 +107,8 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
                         actions={actions}
                         columns={columns}
                         softDeleteProperty={softDeleteProperty}
+                        selectedRows={selectedRows}
+                        onRowSelectionChange={onRowSelectionChange}
                       />
                     </tbody>
                   </table>

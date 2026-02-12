@@ -45,3 +45,19 @@
 .table-row-cell-action {
   @apply flex items-center gap-3 w-full justify-center;
 }
+
+.table-row {
+  @apply transition-colors duration-150;
+}
+
+.table-row.selected {
+  @apply bg-slate-50 dark:bg-gray-800;
+}
+
+.table-row-checkbox {
+  @apply w-12 px-3 text-center;
+}
+
+.table-row-checkbox input {
+  @apply cursor-pointer;
+}

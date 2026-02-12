@@ -55,4 +55,6 @@ export type RowsPropsType<TRow extends BaseDto> = {
   columns: ColumnType<TRow>[];
   softDeleteProperty: keyof TRow;
   actions: ((row: TRow) => ActionType<TRow>[]) | undefined;
+  selectedRows: Set<TRow["id"]>;
+  onRowSelectionChange: (row: TRow) => void;
 };

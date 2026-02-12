@@ -21,6 +21,10 @@
   @apply px-3 py-2;
 }
 
+.table-headers-checkbox {
+  @apply w-12 text-center;
+}
+
 .table-headers-cell {
   @apply flex items-center gap-2 py-1 px-3 cursor-pointer;
 }

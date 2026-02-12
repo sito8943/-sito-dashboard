@@ -22,4 +22,6 @@ export interface TablePropsType<TRow extends BaseDto>
   className?: string;
   softDeleteProperty?: keyof TRow;
   onSort?: (prop: string, sortOrder: SortOrder) => void;
+  onRowSelect?: (row: TRow, selected: boolean) => void;
+  onSelectedRowsChange?: (rows: TRow[]) => void;
 }
