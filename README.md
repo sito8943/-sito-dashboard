@@ -4,10 +4,10 @@ A React library for building customizable and responsive dashboards with ease.
 
 ## Features
 
-- **Table Component**: A powerful table component with support for sorting, pagination, and customizable columns.
+- **Table Component**: A powerful table component with support for sorting, filters, pagination, row selection, and customizable columns.
+- **Bulk Actions & Selection Bar**: Built-in checkbox column, selectable rows, and a contextual banner for executing multi-row actions.
 - **Translation Support**: Built-in translation support using a `TranslationProvider`.
-- **Customizable**: Easily style and configure components to fit your needs.
-- **Lightweight**: Optimized for performance and usability.
+- **Customizable & Lightweight**: Easily style and configure components to fit your needs without sacrificing performance.
 
 ## Installation
 
@@ -41,16 +41,74 @@ const App = () => {
   ];
 
   return (
-    <Table
-      title="User Table"
-      data={rows}
-      columns={columns}
-    />
+    <Table title="User Table" data={rows} columns={columns} />
   );
 };
 
 export default App;
 ```
+
+### Row selection, actions, and translations
+
+The table ships with a leading checkbox column and exposes callbacks so you can react when a user selects one or more rows. You can also define per-row actions (single or multiple) and translate the default accessibility strings.
+
+```tsx
+import { Table, TranslationProvider } from "@sito/dashboard";
+import { FilterTypes } from "@sito/dashboard/lib";
+
+const rows = [
+  { id: 1, name: "John Doe", age: 30 },
+  { id: 2, name: "Jane Smith", age: 25 },
+];
+
+const actions = (row) => [
+  {
+    id: "view",
+    tooltip: `View ${row.name}`,
+    icon: <span>👁️</span>,
+    onClick: () => console.log("View", row),
+  },
+  {
+    id: "delete",
+    tooltip: "Delete selected",
+    icon: <span>🗑️</span>,
+    multiple: true,
+    onClick: () => console.log("Delete", row),
+    onMultipleClick: (selectedRows) =>
+      console.log("Bulk delete", selectedRows.map(({ name }) => name)),
+  },
+];
+
+const translations = {
+  "_accessibility:components.table.selectedCount": "Selected {{count}} items",
+  "_accessibility:labels.actions": "Actions",
+};
+
+const TableWithSelection = () => (
+  <TranslationProvider t={(key, opts) =>
+      translations[key]?.replace("{{count}}", String(opts?.count ?? 0)) ?? key
+    } language="en"
+  >
+    <Table
+      title="User Table"
+      data={rows}
+      columns={[
+        { key: "name", label: "Name", filterOptions: { type: FilterTypes.text } },
+        { key: "age", label: "Age" },
+      ]}
+      actions={actions}
+      onRowSelect={(row, selected) =>
+        console.log(selected ? "Selected" : "Unselected", row)
+      }
+      onSelectedRowsChange={(selectedRows) =>
+        console.log("Current selection", selectedRows)
+      }
+    />
+  </TranslationProvider>
+);
+```
+
+When any row is selected, the built-in selection bar appears above the table headers with the translated count and any actions marked with `multiple: true`.
 
 ## Translation for its components
 
@@ -185,7 +243,10 @@ const columns = [
   onClick: (entity: object) => void;
   icon: any;
   tooltip: string;
-  hidden: (entity: object) => boolean;
+  hidden?: boolean | ((entity: object) => boolean);
+  disabled?: boolean;
+  multiple?: boolean;
+  onMultipleClick?: (entities: object[]) => void;
 }
 ```
 
