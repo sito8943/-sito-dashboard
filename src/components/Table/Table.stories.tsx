@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Table } from "components";
+import { ChevronRight, Close } from "components/SvgIcons";
 import { TranslationProvider } from "providers";
 import type { BaseDto } from "lib";
 import { FilterTypes } from "lib";
@@ -99,5 +100,58 @@ export const WithAutocompleteFilter: Story = {
         filterOptions: { type: FilterTypes.number, min: 0, max: 100 },
       },
     ],
+  } as any,
+};
+
+const singleRowActions = (row: Row) => [
+  {
+    id: "view",
+    tooltip: `View ${row.name}`,
+    icon: <ChevronRight className="w-4 h-4" />,
+    onClick: () => console.log("View row", row),
+  },
+];
+
+const multiRowActions = (row: Row) => [
+  {
+    id: "details",
+    tooltip: `Details for ${row.name}`,
+    icon: <ChevronRight className="w-4 h-4" />,
+    onClick: () => console.log("Details", row),
+  },
+  {
+    id: "remove",
+    tooltip: "Remove selected rows",
+    icon: <Close className="w-4 h-4" />,
+    onClick: () => console.log("Remove", row),
+    multiple: true,
+    onMultipleClick: (rows: Row[]) =>
+      console.log("Remove multiple", rows.map((item) => item.name)),
+  },
+];
+
+export const WithSimpleActions: Story = {
+  args: {
+    entity: "users",
+    title: "Users with actions",
+    data,
+    columns: [
+      { key: "name", label: "Name", sortable: true },
+      { key: "age", label: "Age", sortable: true },
+    ],
+    actions: singleRowActions,
+  } as any,
+};
+
+export const WithMultipleActions: Story = {
+  args: {
+    entity: "users",
+    title: "Users with bulk actions",
+    data,
+    columns: [
+      { key: "name", label: "Name", sortable: true },
+      { key: "age", label: "Age", sortable: true },
+    ],
+    actions: multiRowActions,
   } as any,
 };
