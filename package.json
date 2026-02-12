@@ -1,7 +1,7 @@
 {
   "name": "@sito/dashboard",
   "private": false,
-  "version": "0.0.56",
+  "version": "0.0.57",
   "type": "module",
   "description": "UI library with custom components for dashboards",
   "main": "dist/dashboard.cjs",
@@ -60,6 +60,7 @@
     "@vitejs/plugin-react": "4.0.3",
     "autoprefixer": "10.4.16",
     "eslint": "8.45.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-react-refresh": "0.4.3",
     "postcss": "8.4.41",

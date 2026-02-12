@@ -3,7 +3,7 @@
 - [x] Reusable Badge component
 - [x] Al autocomplete de tipo single poner el X para limpiarlo
 - [x] Better look for Autocompelte widget, perhaps should show chips inside input
+- [x] Hover on clickeable columns
+- [x] Can select rows to apply actions on multiple
 - [ ] Select filters default should have value because when apply doenst take
-- [ ] Hover on clickeable columns
-- [ ] Can select rows to apply actions on multiple
 - [ ] Can hide/show columns
