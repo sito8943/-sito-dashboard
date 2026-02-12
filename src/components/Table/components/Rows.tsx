@@ -9,9 +9,13 @@ import { RowsPropsType } from "./types";
 // lib
 import { BaseDto } from "lib";
 
+// providers
+import { useTranslation } from "providers";
+
 const baseRender = (value: any) => value;
 
 export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
+  const { t } = useTranslation();
   const {
     columns,
     softDeleteProperty = "deletedAt",
@@ -46,6 +50,7 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
             type="checkbox"
             checked={isSelected}
             onChange={() => onRowSelectionChange(row)}
+            aria-label={t("_accessibility:components.table.selectRow")}
           />
         </td>
         {visibleColumns?.map((column, i) => (

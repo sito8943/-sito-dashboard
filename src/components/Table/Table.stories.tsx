@@ -22,6 +22,8 @@ const mockTranslations: Record<string, string> = {
   "_accessibility:components.table.empty": "No data available",
   "_accessibility:components.table.filters.range.start": "Start value",
   "_accessibility:components.table.filters.range.end": "End value",
+  "_accessibility:components.table.selectRow": "Select row",
+  "_accessibility:components.table.selectAllRows": "Select all visible rows",
 };
 
 const mockT = (key: string, options?: { count?: number }) =>

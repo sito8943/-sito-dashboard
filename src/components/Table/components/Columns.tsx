@@ -65,7 +65,7 @@ export function Columns<TRow extends BaseDto>(props: ColumnPropsType<TRow>) {
               ref={headerCheckboxRef}
               checked={selectionState?.allSelected ?? false}
               onChange={onToggleAllRows}
-              aria-label="Seleccionar todas las filas visibles"
+              aria-label={t("_accessibility:components.table.selectAllRows")}
             />
           ) : null}
         </th>
