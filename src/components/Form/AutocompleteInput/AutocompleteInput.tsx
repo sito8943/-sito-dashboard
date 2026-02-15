@@ -140,7 +140,6 @@ export const AutocompleteInput = forwardRef(function (
     if (valueWidth > parentWidth * 0.4) setThreeDots(true);
     else setThreeDots(false);
   }, [value]);
-
   return (
     <div
       className={`autocomplete-input-container ${containerClassName}`}
@@ -151,7 +150,7 @@ export const AutocompleteInput = forwardRef(function (
           state={state}
           name={name}
           id={id}
-          value={!multiple ? inputValue : (value?.value ?? value?.name ?? "")}
+          value={inputValue}
           onChange={handleChange}
           placeholder={placeholder}
           helperText={helperText}
