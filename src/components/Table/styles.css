@@ -1,20 +1,12 @@
 .table-main {
-  @apply overflow-x-auto w-full h-full flex flex-col;
+  @apply w-full h-full flex flex-col min-h-0;
 }
 
 .table-header {
-  @apply mb-5 grid gap-2;
+  @apply mb-5 grid gap-2 grid-cols-1;
 }
 
-.table-header.one {
-  @apply grid-cols-1;
-}
-
-.table-header.two {
-  @apply grid-cols-2;
-}
-
-.table-header-right {
+.table-header-content {
   @apply flex items-center justify-end justify-self-end gap-2 w-full;
 }
 
@@ -23,7 +15,7 @@
 }
 
 .table-body {
-  @apply overflow-auto flex-1;
+  @apply flex-1 min-h-0 overflow-y-auto overflow-x-auto w-full;
 }
 
 .table-content {

@@ -52,13 +52,11 @@ export const TableHeader = <TRow extends BaseDto>(
   );
 
   return (
-    <div
-      className={`table-header ${title && (toolbar || !filterOptions?.button?.hide) ? "two" : "one"}`}
-    >
+    <div className={`table-header`}>
       <div>
         {title && <h1 className="table-header-title">{title}</h1>}
         {!isLoading ? (
-          <div className="table-header-right">
+          <div className="table-header-content">
             {toolbar}
             {filterOptions?.button?.hide !== true && (
               <button
@@ -87,7 +85,6 @@ export const TableHeader = <TRow extends BaseDto>(
           </div>
         ) : null}
       </div>
-      <ActiveFilters filtersDefinition={parsedFilters as FilterType[]} />
       {!!parsedFilters && !!parsedFilters.length && (
         <FilterDropdown
           filters={parsedFilters as FilterType[]}
@@ -96,6 +93,7 @@ export const TableHeader = <TRow extends BaseDto>(
           options={filterOptions}
         />
       )}
+      <ActiveFilters filtersDefinition={parsedFilters as FilterType[]} />
     </div>
   );
 };

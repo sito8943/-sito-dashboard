@@ -173,31 +173,31 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
           <>
             {!isEmpty ? (
               <>
+                {!!selectedRowsData.length && (
+                  <div className="table-selection-bar">
+                    <p className="table-selection-bar-count">
+                      {t("_accessibility:components.table.selectedCount", {
+                        count: selectedRowsData.length,
+                      })}
+                    </p>
+                    {multiActions.length > 0 && (
+                    <div className="table-selection-bar-actions">
+                        {multiActions.map((action) => (
+                          <Tooltip key={action.id} content={action.tooltip}>
+                            <button
+                              type="button"
+                              onClick={() => handleMultipleActionClick(action)}
+                              disabled={action.disabled}
+                            >
+                              {action.icon}
+                            </button>
+                          </Tooltip>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
                 <div className={`${contentClassName} table-body`}>
-                  {!!selectedRowsData.length && (
-                    <div className="table-selection-bar">
-                      <p className="table-selection-bar-count">
-                        {t("_accessibility:components.table.selectedCount", {
-                          count: selectedRowsData.length,
-                        })}
-                      </p>
-                      {multiActions.length > 0 && (
-                        <div className="table-selection-bar-actions">
-                          {multiActions.map((action) => (
-                            <Tooltip key={action.id} content={action.tooltip}>
-                              <button
-                                type="button"
-                                onClick={() => handleMultipleActionClick(action)}
-                                disabled={action.disabled}
-                              >
-                                {action.icon}
-                              </button>
-                            </Tooltip>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  )}
                   <table className="table-content">
                     <Columns
                       entity={entity}
