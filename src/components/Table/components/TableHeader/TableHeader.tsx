@@ -52,7 +52,7 @@ export const TableHeader = <TRow extends BaseDto>(
   );
 
   return (
-    <div className={`table-header`}>
+    <div className={`table-header ${showDropdown ? "showing-filters" : ""}`}>
       <div>
         {title && <h1 className="table-header-title">{title}</h1>}
         {!isLoading ? (

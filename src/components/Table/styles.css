@@ -3,7 +3,11 @@
 }
 
 .table-header {
-  @apply mb-5 grid gap-2 grid-cols-1;
+  @apply grid gap-2 grid-cols-1;
+}
+
+.table-header.showing-filters {
+  @apply mb-5;
 }
 
 .table-header-content {
@@ -11,7 +15,7 @@
 }
 
 .table-header-title {
-  @apply text-2xl md:text-3xl font-bold mx-5;
+  @apply text-2xl md:text-3xl font-bold;
 }
 
 .table-body {
