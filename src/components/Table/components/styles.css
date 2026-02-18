@@ -18,7 +18,7 @@
 }
 
 .table-headers-column {
-  @apply px-3 py-2;
+  @apply px-3 py-2 sticky top-0 z-20 bg-gray-50 dark:bg-gray-700;
 }
 
 .table-headers-checkbox {

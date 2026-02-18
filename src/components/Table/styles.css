@@ -19,7 +19,7 @@
 }
 
 .table-content {
-  @apply w-full h-full text-sm text-left;
+  @apply w-full h-full text-sm text-left border-separate border-spacing-0;
 }
 
 .table-loading {
