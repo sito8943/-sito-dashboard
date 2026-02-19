@@ -1,14 +1,16 @@
-import { ChangeEvent, useCallback, useMemo, useRef } from "react";
-
+// components
+import { TextInput } from "components";
 // providers
 import { FiltersActions, useFilters, useTranslation } from "providers";
+import { ChangeEvent, useCallback, useMemo, useRef } from "react";
 
 // types
 import { RangeWidgetPropsType } from "./types";
 
-// components
-import { TextInput } from "components";
-
+/**
+ *
+ * @param props
+ */
 export const RangeWidget = <T extends any>(props: RangeWidgetPropsType<T>) => {
   const { propertyName, label, inputType } = props;
 

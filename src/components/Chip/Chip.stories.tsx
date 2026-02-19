@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { useState } from "react";
 import {
-  Chip,
-  RangeChip as SRangeChip,
   ArrayChip as SArrayChip,
-  Option
+  Chip,
+  Option,
+  RangeChip as SRangeChip,
 } from "components";
+import { useState } from "react";
 
 const meta: Meta<typeof Chip> = {
   title: "Components/Chip",

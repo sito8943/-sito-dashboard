@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { useState } from "react";
+import type { Option } from "components";
 import { AutocompleteInput } from "components";
 import { State } from "components";
-import type { Option } from "components";
+import { useState } from "react";
 
 const meta: Meta<typeof AutocompleteInput> = {
   title: "Components/Form/AutocompleteInput",

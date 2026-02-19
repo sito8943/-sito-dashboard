@@ -1,9 +1,8 @@
-import { useMemo } from "react";
-// providers
-import { useTranslation, useTableOptions } from "providers";
-
 // components
-import { SelectInput, Option } from "components";
+import { Option, SelectInput } from "components";
+// providers
+import { useTableOptions, useTranslation } from "providers";
+import { useMemo } from "react";
 
 /**
  * Page size component
@@ -16,7 +15,7 @@ export function PageSize() {
 
   const optionPageSize = useMemo(
     () => pageSizes?.map((size) => ({ id: size, value: size })),
-    [pageSizes]
+    [pageSizes],
   );
 
   return (
@@ -28,7 +27,9 @@ export function PageSize() {
         inputClassName="page-size-input"
         containerClassName="page-size-input-container"
         helperTextClassName="hidden"
-        onChange={(e) => setPageSize(Number((e.target as HTMLInputElement).value))}
+        onChange={(e) =>
+          setPageSize(Number((e.target as HTMLInputElement).value))
+        }
       />
     </div>
   );

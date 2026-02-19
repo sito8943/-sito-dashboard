@@ -1,14 +1,16 @@
-import { ChangeEvent, useCallback, useMemo } from "react";
-
-// providers
-import { FiltersActions, useFilters } from "providers";
-
 // components
 import { SelectInput } from "components";
+// providers
+import { FiltersActions, useFilters } from "providers";
+import { ChangeEvent, useCallback, useMemo } from "react";
 
 // types
 import { SelectWidgetPropsType } from "./types";
 
+/**
+ *
+ * @param props
+ */
 export function SelectWidget(props: SelectWidgetPropsType) {
   const { propertyName, options, label, placeholder } = props;
 

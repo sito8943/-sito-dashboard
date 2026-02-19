@@ -12,4 +12,3 @@ type Story = StoryObj<typeof Loading>;
 
 export const Default: Story = { args: {} };
 export const ThickStroke: Story = { args: { strokeWidth: "8" } };
-

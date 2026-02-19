@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { useState } from "react";
 import { TextInput } from "components";
 import { State } from "components";
+import { useState } from "react";
 
 const meta: Meta<typeof TextInput> = {
   title: "Components/Form/TextInput",
@@ -61,7 +61,9 @@ export const Controlled: Story = {
             label={args.label ?? "Controlado"}
             placeholder={args.placeholder ?? "Escribe algo..."}
           />
-          <p className="mt-2 text-sm text-gray-500">Valor: {value || "(vacío)"}</p>
+          <p className="mt-2 text-sm text-gray-500">
+            Valor: {value || "(vacío)"}
+          </p>
         </div>
       );
     };

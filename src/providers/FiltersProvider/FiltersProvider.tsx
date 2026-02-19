@@ -1,9 +1,11 @@
+// providers
+import { useTableOptions } from "providers";
 import {
   createContext,
   useContext,
+  useEffect,
   useMemo,
   useReducer,
-  useEffect,
 } from "react";
 
 // types
@@ -12,22 +14,22 @@ import {
   FiltersContextType,
   FiltersProviderPropsType,
 } from "./types";
-
-// providers
-import { useTableOptions } from "providers";
-
 // utils
 import { filtersReducer, initializer } from "./utils";
 
 const FiltersContext = createContext({} as FiltersContextType);
 
+/**
+ *
+ * @param props
+ */
 const FiltersProvider = (props: FiltersProviderPropsType) => {
   const { children } = props;
   const { filters } = useTableOptions();
 
   const [currentFilters, setCurrentFilters] = useReducer(
     filtersReducer,
-    initializer(filters)
+    initializer(filters),
   );
 
   // keep local currentFilters in sync with table-level filters

@@ -1,3 +1,5 @@
+// lib
+import { FiltersValue, SortOrder } from "lib";
 import {
   createContext,
   useCallback,
@@ -5,9 +7,6 @@ import {
   useMemo,
   useState,
 } from "react";
-
-// lib
-import { FiltersValue, SortOrder } from "lib";
 
 // types
 import {
@@ -20,6 +19,10 @@ const pageSizes = [20, 50, 100];
 
 const TableOptionsContext = createContext({} as TableOptionsContextType);
 
+/**
+ *
+ * @param props
+ */
 const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
   const { children } = props;
 
@@ -35,7 +38,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
   const onSort = useCallback(
     (
       attribute: string,
-      onSortCallback?: (prop: string, sortOrder: SortOrder) => void
+      onSortCallback?: (prop: string, sortOrder: SortOrder) => void,
     ) => {
       let localSortingOrder = sortingOrder;
       if (sortingBy === attribute)
@@ -52,7 +55,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
 
       if (onSortCallback) onSortCallback(attribute, localSortingOrder);
     },
-    [sortingBy, sortingOrder]
+    [sortingBy, sortingOrder],
   );
 
   const onFilterApply = useCallback((filters: FiltersValue) => {
@@ -67,7 +70,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
         }
         return acc;
       },
-      {} as TableFilters
+      {} as TableFilters,
     );
 
     setFilters(parsedFilters);
@@ -80,7 +83,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
         setFilters({ ...filters });
       } else setFilters({});
     },
-    [filters]
+    [filters],
   );
 
   const countOfFilters = useMemo(() => {

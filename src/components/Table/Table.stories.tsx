@@ -1,12 +1,13 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { Table } from "components";
 import "./styles.css";
 import "./components/styles.css";
 import "./components/Widgets/styles.css";
+
+import type { Meta, StoryObj } from "@storybook/react";
+import { Table } from "components";
 import { ChevronRight, Close } from "components/SvgIcons";
-import { TranslationProvider } from "providers";
 import type { BaseDto } from "lib";
 import { FilterTypes } from "lib";
+import { TranslationProvider } from "providers";
 
 type Row = BaseDto & { name: string; age: number };
 
@@ -145,7 +146,7 @@ const multiRowActions = (row: Row) => [
     onMultipleClick: (rows: Row[]) =>
       console.log(
         "Remove multiple",
-        rows.map((item) => item.name)
+        rows.map((item) => item.name),
       ),
   },
 ];

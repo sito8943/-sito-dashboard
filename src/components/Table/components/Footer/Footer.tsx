@@ -1,8 +1,8 @@
 // components
-import { Navigation } from "./Navigation";
 import { CountOfTotal } from "./CountOfTotal";
-import { PageSize } from "./PageSize";
 import { JumpToPage } from "./JumpToPage";
+import { Navigation } from "./Navigation";
+import { PageSize } from "./PageSize";
 
 /**
  * @returns Footer component

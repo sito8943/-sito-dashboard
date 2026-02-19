@@ -1,13 +1,12 @@
-import { ForwardedRef, forwardRef } from "react";
+// styles
+import "./styles.css";
 
-// types
-import { CheckInputPropsType } from "./types";
+import { ForwardedRef, forwardRef } from "react";
 
 // utils
 import { State } from "../utils";
-
-// styles
-import "./styles.css";
+// types
+import { CheckInputPropsType } from "./types";
 
 /**
  * CheckInput
@@ -16,7 +15,7 @@ import "./styles.css";
  */
 export const CheckInput = forwardRef(function (
   props: CheckInputPropsType,
-  ref: ForwardedRef<HTMLInputElement>
+  ref: ForwardedRef<HTMLInputElement>,
 ) {
   const {
     checked,

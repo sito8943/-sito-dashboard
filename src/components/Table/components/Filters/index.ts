@@ -1,2 +1,2 @@
-export * from "./ActiveFilters"
-export * from "./FilterDropdown"
+export * from "./ActiveFilters";
+export * from "./FilterDropdown";

@@ -1,18 +1,17 @@
+// styles
+import "./styles.css";
+
 import { ForwardedRef, forwardRef } from "react";
 
 // utils
 import {
+  helperTextStateClassName,
   inputStateClassName,
   labelStateClassName,
-  helperTextStateClassName,
   State,
 } from "../utils";
-
 // types
 import { TextInputPropsType } from "./types";
-
-// styles
-import "./styles.css";
 
 /**
  * TextInput
@@ -21,7 +20,7 @@ import "./styles.css";
  */
 export const TextInput = forwardRef(function (
   props: TextInputPropsType,
-  ref: ForwardedRef<HTMLInputElement>
+  ref: ForwardedRef<HTMLInputElement>,
 ) {
   const {
     children,

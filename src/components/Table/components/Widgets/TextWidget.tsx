@@ -1,14 +1,16 @@
+// components
+import { TextInput } from "components";
+// providers
+import { FiltersActions, useFilters } from "providers";
 import { ChangeEvent, useCallback, useMemo } from "react";
 
 // types
 import { TextWidgetPropsType } from "./types";
 
-// providers
-import { FiltersActions, useFilters } from "providers";
-
-// components
-import { TextInput } from "components";
-
+/**
+ *
+ * @param props
+ */
 export const TextWidget = (props: TextWidgetPropsType) => {
   const { propertyName, label, placeholder } = props;
 

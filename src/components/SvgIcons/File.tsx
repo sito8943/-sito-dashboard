@@ -1,5 +1,9 @@
 import { IconProps } from "./types";
 
+/**
+ *
+ * @param props
+ */
 export function File(props: IconProps) {
   const { className = "" } = props;
 

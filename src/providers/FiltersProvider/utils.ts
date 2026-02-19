@@ -1,12 +1,15 @@
 // lib
 import { FiltersValue } from "lib";
+// providers
+import { TableFilters } from "providers";
 
 // types
 import { FiltersActions, FiltersActionType } from "./types";
 
-// providers
-import { TableFilters } from "providers";
-
+/**
+ *
+ * @param filters
+ */
 export const initializer = (filters: TableFilters) => {
   if (!!filters) {
     const parsed: FiltersValue = {};
@@ -19,6 +22,11 @@ export const initializer = (filters: TableFilters) => {
   return {};
 };
 
+/**
+ *
+ * @param state
+ * @param action
+ */
 export function filtersReducer(state: FiltersValue, action: FiltersActionType) {
   const { type } = action;
   switch (type) {

@@ -1,14 +1,16 @@
-import { useMemo, useCallback, ChangeEvent } from "react";
-
 // components
 import { CheckInput } from "components";
-
 // providers
 import { FiltersActions, useFilters } from "providers";
+import { ChangeEvent, useCallback, useMemo } from "react";
 
 // types
 import { CheckWidgetPropsType } from "./types";
 
+/**
+ *
+ * @param props
+ */
 export const CheckWidget = (props: CheckWidgetPropsType) => {
   const { propertyName, label } = props;
 

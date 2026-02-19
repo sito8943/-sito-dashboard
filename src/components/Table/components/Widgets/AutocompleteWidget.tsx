@@ -1,14 +1,16 @@
-import { useCallback, useMemo } from "react";
-
-// providers
-import { FiltersActions, useFilters } from "providers";
-
 // components
 import { AutocompleteInput, Option } from "components";
+// providers
+import { FiltersActions, useFilters } from "providers";
+import { useCallback, useMemo } from "react";
 
 // types
 import { AutocompleteWidgetPropsType } from "./types";
 
+/**
+ *
+ * @param props
+ */
 export function AutocompleteWidget(props: AutocompleteWidgetPropsType) {
   const { propertyName, label, placeholder, options, multiple = true } = props;
 
@@ -29,7 +31,7 @@ export function AutocompleteWidget(props: AutocompleteWidgetPropsType) {
         },
       });
     },
-    [multiple]
+    [multiple],
   );
 
   return (

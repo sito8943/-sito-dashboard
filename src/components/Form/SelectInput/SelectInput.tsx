@@ -1,18 +1,17 @@
+// styles
+import "./styles.css";
+
 import { ForwardedRef, forwardRef, useEffect } from "react";
 
 // utils
 import {
+  helperTextStateClassName,
   inputStateClassName,
   labelStateClassName,
-  helperTextStateClassName,
   State,
 } from "../utils";
-
 // types
 import { SelectInputPropsType } from "./types";
-
-// styles
-import "./styles.css";
 
 /**
  *
@@ -21,7 +20,7 @@ import "./styles.css";
  */
 export const SelectInput = forwardRef(function (
   props: SelectInputPropsType,
-  ref: ForwardedRef<HTMLSelectElement> | ForwardedRef<HTMLSelectElement>
+  ref: ForwardedRef<HTMLSelectElement> | ForwardedRef<HTMLSelectElement>,
 ) {
   const {
     value,

@@ -1,13 +1,10 @@
-import { useEffect, useMemo, useRef } from "react";
-
-// providers
-import { useTranslation, useTableOptions } from "providers";
-
-// models
-import { BaseDto, SortOrder } from "lib";
-
 // components
 import { ChevronDown, ChevronUp } from "components/SvgIcons";
+// models
+import { BaseDto, SortOrder } from "lib";
+// providers
+import { useTableOptions, useTranslation } from "providers";
+import { useEffect, useMemo, useRef } from "react";
 
 // types
 import { ColumnPropsType } from "./types";
@@ -34,7 +31,7 @@ export function Columns<TRow extends BaseDto>(props: ColumnPropsType<TRow>) {
   useEffect(() => {
     if (!headerCheckboxRef.current) return;
     headerCheckboxRef.current.indeterminate = Boolean(
-      selectionState?.hasSomeSelected && !selectionState?.allSelected
+      selectionState?.hasSomeSelected && !selectionState?.allSelected,
     );
   }, [selectionState]);
 

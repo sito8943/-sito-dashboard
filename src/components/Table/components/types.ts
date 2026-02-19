@@ -1,13 +1,11 @@
-import { ReactNode } from "react";
-
-// types
-import { ActionType } from "../types";
-
 // lib
 import { BaseDto, FilterTypes, SortOrder } from "lib";
+import { ReactNode } from "react";
 
 // form
 import { Option } from "../../Form/";
+// types
+import { ActionType } from "../types";
 
 export type ColumnType<TRow extends BaseDto> = {
   key: string;

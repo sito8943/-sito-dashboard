@@ -1,3 +1,3 @@
 export * from "./filters";
-export * from "./query";
 export * from "./models";
+export * from "./query";

@@ -1,3 +1,8 @@
+/**
+ *
+ * @param name
+ * @param maxLength
+ */
 export function truncateFileName(name: string, maxLength = 25): string {
   if (name.length <= maxLength) return name;
 

@@ -4,6 +4,10 @@ import { Chip, Option } from "components";
 // types
 import { ArrayChipPropsType } from "./types";
 
+/**
+ *
+ * @param props
+ */
 export const ArrayChip = <T extends Option>(props: ArrayChipPropsType<T>) => {
   const { items, text, id, onClearFilter } = props;
 

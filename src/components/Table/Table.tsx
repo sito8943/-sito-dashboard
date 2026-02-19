@@ -1,25 +1,25 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-
-// components
-import { Loading, Tooltip } from "components";
-
-// table components
-import { TableEmpty, Columns, Footer, Rows, TableHeader } from "./components/";
-
-// providers
-import { FiltersProvider, useTranslation } from "providers";
-
-// types
-import { ActionType, TablePropsType } from "./types";
-
-// lib
-import { BaseDto } from "lib";
-
 // styles
 import "./styles.css";
 import "./components/styles.css";
 import "./components/Widgets/styles.css";
 
+// components
+import { Loading, Tooltip } from "components";
+// lib
+import { BaseDto } from "lib";
+// providers
+import { FiltersProvider, useTranslation } from "providers";
+import { useCallback, useEffect, useMemo, useState } from "react";
+
+// table components
+import { Columns, Footer, Rows, TableEmpty, TableHeader } from "./components/";
+// types
+import { ActionType, TablePropsType } from "./types";
+
+/**
+ *
+ * @param props
+ */
 export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
   const {
     data,
@@ -44,7 +44,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
 
   const selectedRowsData = useMemo(
     () => data?.filter((row) => selectedRows.has(row.id)) ?? [],
-    [data, selectedRows]
+    [data, selectedRows],
   );
 
   useEffect(() => {
@@ -82,7 +82,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
         return nextSelected;
       });
     },
-    [onRowSelect]
+    [onRowSelect],
   );
 
   const onToggleAllRows = useCallback(() => {
@@ -90,7 +90,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
       const nextSelected = new Set(prevSelected);
       const visibleRows = data ?? [];
       const areAllSelected = visibleRows.every((row) =>
-        nextSelected.has(row.id)
+        nextSelected.has(row.id),
       );
 
       visibleRows.forEach((row) => {
@@ -129,27 +129,32 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
   const multiActions = useMemo<ActionType<TRow>[]>(() => {
     if (!actions || !selectedRowsData.length) return [];
 
-    return selectedRowsData.reduce<ActionType<TRow>[]>((sharedActions, row, index) => {
-      const rowActions = actions(row).filter(
-        (action) => action.multiple && !action.hidden
-      );
+    return selectedRowsData.reduce<ActionType<TRow>[]>(
+      (sharedActions, row, index) => {
+        const rowActions = actions(row).filter(
+          (action) => action.multiple && !action.hidden,
+        );
 
-      if (index === 0) return rowActions;
+        if (index === 0) return rowActions;
 
-      const sharedMap = new Map(sharedActions.map((action) => [action.id, action]));
+        const sharedMap = new Map(
+          sharedActions.map((action) => [action.id, action]),
+        );
 
-      return rowActions.reduce<ActionType<TRow>[]>((acc, action) => {
-        const existing = sharedMap.get(action.id);
-        if (existing) {
-          acc.push({
-            ...existing,
-            ...action,
-            disabled: action.disabled || existing.disabled,
-          });
-        }
-        return acc;
-      }, []);
-    }, []);
+        return rowActions.reduce<ActionType<TRow>[]>((acc, action) => {
+          const existing = sharedMap.get(action.id);
+          if (existing) {
+            acc.push({
+              ...existing,
+              ...action,
+              disabled: action.disabled || existing.disabled,
+            });
+          }
+          return acc;
+        }, []);
+      },
+      [],
+    );
   }, [actions, selectedRowsData]);
 
   const handleMultipleActionClick = useCallback(
@@ -162,7 +167,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
 
       selectedRowsData.forEach((row) => action.onClick(row));
     },
-    [selectedRowsData]
+    [selectedRowsData],
   );
 
   return (
@@ -181,7 +186,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
                       })}
                     </p>
                     {multiActions.length > 0 && (
-                    <div className="table-selection-bar-actions">
+                      <div className="table-selection-bar-actions">
                         {multiActions.map((action) => (
                           <Tooltip key={action.id} content={action.tooltip}>
                             <button

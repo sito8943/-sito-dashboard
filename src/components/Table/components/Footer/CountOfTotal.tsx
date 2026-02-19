@@ -1,6 +1,9 @@
 // providers
-import { useTranslation, useTableOptions } from "providers";
+import { useTableOptions, useTranslation } from "providers";
 
+/**
+ *
+ */
 export const CountOfTotal = () => {
   const { t } = useTranslation();
 
