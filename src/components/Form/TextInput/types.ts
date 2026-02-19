@@ -5,6 +5,6 @@ import { BaseInputPropsType } from "../types";
 
 export interface TextInputPropsType
   extends Omit<HTMLProps<HTMLInputElement>, "value">,
-    BaseInputPropsType {
+    BaseInputPropsType<string | number | readonly string[] | undefined> {
   children?: ReactNode;
 }

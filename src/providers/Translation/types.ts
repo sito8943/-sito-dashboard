@@ -1,5 +1,6 @@
 /**Define a translation function */
-export type TFunction = (text: string, options?: any) => string;
+export type TranslationOptions = Record<string, unknown>;
+export type TFunction = (text: string, options?: TranslationOptions) => string;
 
 export type TranslationProviderPropsType = {
   t: TFunction;

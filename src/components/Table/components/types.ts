@@ -46,7 +46,7 @@ export type ColumnPropsType<TRow extends BaseDto> = {
 
 export type ColumnFilterOptions = {
   type: FilterTypes;
-  defaultValue?: any;
+  defaultValue?: unknown;
   label?: string;
   options?: Option[];
   multiple?: boolean;

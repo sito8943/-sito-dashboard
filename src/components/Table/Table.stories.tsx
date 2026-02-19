@@ -30,9 +30,11 @@ const mockTranslations: Record<string, string> = {
   "_accessibility:components.table.selectAllRows": "Select all visible rows",
 };
 
-const mockT = (key: string, options?: { count?: number }) =>
-  mockTranslations[key]?.replace("{{count}}", String(options?.count ?? 0)) ??
-  key;
+const mockT = (key: string, options?: Record<string, unknown>) => {
+  const count = typeof options?.count === "number" ? options.count : 0;
+
+  return mockTranslations[key]?.replace("{{count}}", String(count)) ?? key;
+};
 
 const meta: Meta<typeof Table<Row>> = {
   title: "Components/Table",
