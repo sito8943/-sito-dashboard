@@ -55,7 +55,7 @@ export const FilterDropdown = (props: FilterDropdownPropsType) => {
 
   return (
     <div className={`filter-dropdown-backdrop ${show ? "opened" : "closed"}`}>
-      <div className="filter-popup">
+      <div className="filter-popup" ref={dropdown}>
         <div className="filter-title">
           {t("_accessibility:buttons.filters")}
         </div>
