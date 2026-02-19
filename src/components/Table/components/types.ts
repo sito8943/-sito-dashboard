@@ -53,11 +53,19 @@ export type ColumnFilterOptions = {
   placeholder?: string;
 };
 
+export type ExpandedRowStateType<TRow extends BaseDto> = {
+  rowId: TRow["id"];
+  content: ReactNode;
+  isVisible: boolean;
+};
+
 export type RowsPropsType<TRow extends BaseDto> = {
   data: TRow[];
   columns: ColumnType<TRow>[];
   softDeleteProperty: keyof TRow;
   actions: ((row: TRow) => ActionType<TRow>[]) | undefined;
   selectedRows: Set<TRow["id"]>;
+  expandedRows?: ExpandedRowStateType<TRow>[];
   onRowSelectionChange: (row: TRow) => void;
+  onRowExpand?: (row: TRow) => void;
 };

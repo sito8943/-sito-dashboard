@@ -46,7 +46,15 @@
   @apply transition-colors duration-150;
 }
 
+.table-row.expandable {
+  @apply cursor-pointer hover:bg-slate-50 dark:hover:bg-gray-800;
+}
+
 .table-row.selected {
+  @apply bg-slate-50 dark:bg-gray-800;
+}
+
+.table-row.expanded {
   @apply bg-slate-50 dark:bg-gray-800;
 }
 
@@ -56,6 +64,30 @@
 
 .table-row-checkbox input {
   @apply cursor-pointer;
+}
+
+.table-row-expanded-cell {
+  @apply p-0 bg-transparent border-0;
+}
+
+.table-row-expanded-content {
+  @apply grid opacity-0;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 220ms ease, opacity 220ms ease;
+}
+
+.table-row-expanded-content.open {
+  @apply opacity-100;
+  grid-template-rows: 1fr;
+}
+
+.table-row-expanded-content.closed {
+  @apply opacity-0;
+  grid-template-rows: 0fr;
+}
+
+.table-row-expanded-inner {
+  @apply overflow-hidden px-6 py-4 bg-slate-50 dark:bg-gray-800 border-t border-slate-200 dark:border-gray-700;
 }
 
 .table-selection-bar {

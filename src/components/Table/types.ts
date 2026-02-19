@@ -1,5 +1,6 @@
 // lib
 import { BaseDto, SortOrder } from "lib";
+import { ReactNode } from "react";
 
 // component
 import { TableHeaderPropsType } from "./components";
@@ -26,4 +27,11 @@ export interface TablePropsType<TRow extends BaseDto>
   onSort?: (prop: string, sortOrder: SortOrder) => void;
   onRowSelect?: (row: TRow, selected: boolean) => void;
   onSelectedRowsChange?: (rows: TRow[]) => void;
+  allowMultipleExpandedRows?: boolean;
+  expandedRowId?: TRow["id"] | null;
+  onExpandedRowChange?: (
+    expandedRow: TRow | null,
+    collapsedRow: TRow | null,
+  ) => void;
+  onRowExpand?: (expandedRow: TRow, collapsedRow: TRow | null) => ReactNode;
 }
