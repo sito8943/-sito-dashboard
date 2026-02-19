@@ -1,20 +1,21 @@
+// styles
+import "./styles.css";
+
+// components
+import { Chip, Close, File } from "components";
 import { ChangeEvent, ForwardedRef, forwardRef, useState } from "react";
 
 // types
 import { FileInputPropsType } from "./types";
-
-// styles
-import "./styles.css";
-
 // utils
 import { truncateFileName } from "./utils";
 
-// components
-import { Chip, Close, File } from "components";
-
+/**
+ * Renders a file input with preview and clear/remove actions.
+ */
 export const FileInput = forwardRef(function (
   props: FileInputPropsType,
-  ref: ForwardedRef<HTMLInputElement>
+  ref: ForwardedRef<HTMLInputElement>,
 ) {
   const {
     children,

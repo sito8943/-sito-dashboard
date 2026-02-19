@@ -1,9 +1,12 @@
 // providers
-import { useTableOptions, useTranslation } from "providers";
-
 // components
 import { ChevronLeft, ChevronRight } from "components";
+import { useTableOptions, useTranslation } from "providers";
 
+/**
+ * Renders the Navigation component.
+ * @returns Function result.
+ */
 export const Navigation = () => {
   const { t } = useTranslation();
 

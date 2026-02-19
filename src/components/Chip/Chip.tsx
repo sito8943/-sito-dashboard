@@ -1,11 +1,11 @@
 // components
+// styles
+import "./styles.css";
+
 import { Close } from "components";
 
 // types
 import { ChipPropsType } from "./types";
-
-// styles
-import "./styles.css";
 
 /**
  * Chip component

@@ -1,5 +1,3 @@
-import { HTMLInputTypeAttribute } from "react";
-
 // lib
 import {
   AutocompleteFilterType,
@@ -8,6 +6,7 @@ import {
   SelectFilterType,
   TextFilterType,
 } from "lib";
+import { HTMLInputTypeAttribute } from "react";
 
 export interface SelectWidgetPropsType extends SelectFilterType {}
 

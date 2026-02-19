@@ -1,3 +1,9 @@
+/**
+ * Handles truncateFileName.
+ * @param name - name parameter.
+ * @param maxLength - maxLength parameter.
+ * @returns Function result.
+ */
 export function truncateFileName(name: string, maxLength = 25): string {
   if (name.length <= maxLength) return name;
 

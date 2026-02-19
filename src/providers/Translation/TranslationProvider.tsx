@@ -4,9 +4,14 @@ import { createContext, useContext } from "react";
 import { TFunction, TranslationProviderPropsType } from "./types";
 
 const TranslationContext = createContext(
-  {} as { t: TFunction; language: string }
+  {} as { t: TFunction; language: string },
 );
 
+/**
+ * Renders the TranslationProvider component.
+ * @param props - props parameter.
+ * @returns Function result.
+ */
 function TranslationProvider(props: TranslationProviderPropsType) {
   const { children, t, language } = props;
 
@@ -17,6 +22,10 @@ function TranslationProvider(props: TranslationProviderPropsType) {
   );
 }
 
+/**
+ * Provides the useTranslation hook.
+ * @returns Function result.
+ */
 const useTranslation = () => {
   const context = useContext(TranslationContext);
   if (context === undefined)
@@ -24,4 +33,4 @@ const useTranslation = () => {
   return context;
 };
 
-export { useTranslation, TranslationProvider };
+export { TranslationProvider, useTranslation };

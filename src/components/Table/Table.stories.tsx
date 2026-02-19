@@ -1,12 +1,13 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { Table } from "components";
 import "./styles.css";
 import "./components/styles.css";
 import "./components/Widgets/styles.css";
+
+import type { Meta, StoryObj } from "@storybook/react";
+import { Table } from "components";
 import { ChevronRight, Close } from "components/SvgIcons";
-import { TranslationProvider } from "providers";
 import type { BaseDto } from "lib";
 import { FilterTypes } from "lib";
+import { TranslationProvider } from "providers";
 
 type Row = BaseDto & { name: string; age: number };
 
@@ -125,7 +126,7 @@ const singleRowActions = (row: Row) => [
     id: "view",
     tooltip: `View ${row.name}`,
     icon: <ChevronRight className="w-4 h-4" />,
-    onClick: () => console.log("View row", row),
+    onClick: () => undefined,
   },
 ];
 
@@ -134,19 +135,15 @@ const multiRowActions = (row: Row) => [
     id: "details",
     tooltip: `Details for ${row.name}`,
     icon: <ChevronRight className="w-4 h-4" />,
-    onClick: () => console.log("Details", row),
+    onClick: () => undefined,
   },
   {
     id: "remove",
     tooltip: "Remove selected rows",
     icon: <Close className="w-4 h-4" />,
-    onClick: () => console.log("Remove", row),
+    onClick: () => undefined,
     multiple: true,
-    onMultipleClick: (rows: Row[]) =>
-      console.log(
-        "Remove multiple",
-        rows.map((item) => item.name)
-      ),
+    onMultipleClick: () => undefined,
   },
 ];
 

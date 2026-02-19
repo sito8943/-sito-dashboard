@@ -1,12 +1,11 @@
-import { ReactNode } from "react";
-
 // lib
 import { FiltersValue, SortOrder } from "lib";
+import { ReactNode } from "react";
 
 export type TableOptionsContextType = {
   onSort: (
     column: string,
-    onSortCallback?: (prop: string, sortOrder: SortOrder) => void
+    onSortCallback?: (prop: string, sortOrder: SortOrder) => void,
   ) => void;
   total: number;
   setTotal: (total: number) => void;

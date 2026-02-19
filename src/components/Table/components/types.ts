@@ -1,13 +1,11 @@
-import { ReactNode } from "react";
-
-// types
-import { ActionType } from "../types";
-
 // lib
 import { BaseDto, FilterTypes, SortOrder } from "lib";
+import { ReactNode } from "react";
 
 // form
 import { Option } from "../../Form/";
+// types
+import { ActionType } from "../types";
 
 export type ColumnType<TRow extends BaseDto> = {
   key: string;
@@ -27,7 +25,7 @@ export type ColumnType<TRow extends BaseDto> = {
   /** column position from 0 */
   pos?: number;
   /** custom body of the cell */
-  renderBody?: (value: any, row: any) => ReactNode;
+  renderBody?: (value: unknown, row: TRow) => ReactNode;
   /** custom head of the cell */
   renderHead?: () => void;
   /** filter options */

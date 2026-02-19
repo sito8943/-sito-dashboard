@@ -1,7 +1,6 @@
-import { ReactNode } from "react";
-
 // lib
 import { FilterType } from "lib";
+import { ReactNode } from "react";
 
 export type FilterDropdownPropsType = {
   filters?: FilterType[];

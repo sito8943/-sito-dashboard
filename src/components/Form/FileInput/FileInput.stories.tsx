@@ -35,4 +35,3 @@ export const MultipleFiles: Story = {
     multiple: true,
   },
 };
-

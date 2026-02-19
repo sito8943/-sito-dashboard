@@ -1,7 +1,6 @@
-import { Dispatch, ReactNode } from "react";
-
 // lib
 import { FiltersValue, FilterType } from "lib";
+import { Dispatch, ReactNode } from "react";
 
 export enum FiltersActions {
   update,

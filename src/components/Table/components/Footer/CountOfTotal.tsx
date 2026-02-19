@@ -1,6 +1,10 @@
 // providers
-import { useTranslation, useTableOptions } from "providers";
+import { useTableOptions, useTranslation } from "providers";
 
+/**
+ * Renders the CountOfTotal component.
+ * @returns Function result.
+ */
 export const CountOfTotal = () => {
   const { t } = useTranslation();
 

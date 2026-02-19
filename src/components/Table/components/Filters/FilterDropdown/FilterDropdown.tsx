@@ -1,25 +1,27 @@
-import { useRef, useEffect } from "react";
-
-// types
-import { FilterDropdownPropsType } from "./types";
-
-// lib
-import { WidgetFilterProps } from "lib";
-
-// providers
-import {
-  useTranslation,
-  FiltersActions,
-  useFilters,
-  useTableOptions,
-} from "providers";
-
-// utils
-import { renderFilterComponent } from "./utils";
-
 // styles
 import "./styles.css";
 
+// lib
+import { WidgetFilterProps } from "lib";
+// providers
+import {
+  FiltersActions,
+  useFilters,
+  useTableOptions,
+  useTranslation,
+} from "providers";
+import { useEffect, useRef } from "react";
+
+// types
+import { FilterDropdownPropsType } from "./types";
+// utils
+import { renderFilterComponent } from "./utils";
+
+/**
+ * Renders the FilterDropdown component.
+ * @param props - props parameter.
+ * @returns Function result.
+ */
 export const FilterDropdown = (props: FilterDropdownPropsType) => {
   const { filters = [], show, handleShow } = props;
 

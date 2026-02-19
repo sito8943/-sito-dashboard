@@ -1,19 +1,22 @@
-import { useCallback, useMemo } from "react";
-
-// components
-import { Chip } from "components";
-import { ArrayChip } from "./ArrayChip";
-import { RangeChip } from "./RangeChip";
-
-// providers
-import { useTableOptions } from "providers";
-
 // styles
 import "./styles.css";
 
+// components
+import { Chip } from "components";
+// providers
+import { useTableOptions } from "providers";
+import { useCallback, useMemo } from "react";
+
+import { ArrayChip } from "./ArrayChip";
+import { RangeChip } from "./RangeChip";
 // types
 import { ActiveFiltersPropsType } from "./types";
 
+/**
+ * Renders the ActiveFilters component.
+ * @param props - props parameter.
+ * @returns Function result.
+ */
 export const ActiveFilters = (props: ActiveFiltersPropsType) => {
   const { filtersDefinition } = props;
 
@@ -60,7 +63,7 @@ export const ActiveFilters = (props: ActiveFiltersPropsType) => {
           />
         );
     },
-    [filters, filterLabels]
+    [filters, filterLabels],
   );
 
   return (

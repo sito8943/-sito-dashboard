@@ -1,5 +1,10 @@
 import { IconProps } from "./types";
 
+/**
+ * Renders the ChevronDown component.
+ * @param props - props parameter.
+ * @returns Function result.
+ */
 export function ChevronDown(props: IconProps) {
   const { className = "" } = props;
 

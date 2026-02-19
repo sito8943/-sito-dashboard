@@ -1,9 +1,8 @@
-import { useMemo } from "react";
-// providers
-import { useTranslation, useTableOptions } from "providers";
-
 // components
-import { SelectInput, Option } from "components";
+import { SelectInput } from "components";
+// providers
+import { useTableOptions, useTranslation } from "providers";
+import { useMemo } from "react";
 
 /**
  * Page size component
@@ -32,7 +31,9 @@ export function JumpToPage() {
         inputClassName="jump-to-page-input"
         containerClassName="jump-to-page-input-container"
         helperTextClassName="hidden"
-        onChange={(e) => setCurrentPage(Number((e.target as HTMLInputElement).value))}
+        onChange={(e) =>
+          setCurrentPage(Number((e.target as HTMLInputElement).value))
+        }
       />
     </div>
   );

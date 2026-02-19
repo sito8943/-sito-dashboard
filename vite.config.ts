@@ -1,8 +1,8 @@
-import { defineConfig } from "vite";
-import { resolve } from "path";
 import react from "@vitejs/plugin-react";
-import { libInjectCss } from "vite-plugin-lib-inject-css";
+import { resolve } from "path";
+import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
+import { libInjectCss } from "vite-plugin-lib-inject-css";
 
 const srcPath = resolve(__dirname, "src");
 
@@ -26,10 +26,7 @@ export default defineConfig({
       formats: ["es", "cjs"],
     },
     rollupOptions: {
-      external: [
-        "react",
-        "react/jsx-runtime",
-      ],
+      external: ["react", "react/jsx-runtime"],
     },
   },
 });

@@ -1,19 +1,21 @@
-import { useMemo } from "react";
-
 // components
 import { Tooltip } from "components";
+// lib
+import { BaseDto } from "lib";
+// providers
+import { useTranslation } from "providers";
+import { useMemo } from "react";
 
 // types
 import { RowsPropsType } from "./types";
 
-// lib
-import { BaseDto } from "lib";
-
-// providers
-import { useTranslation } from "providers";
-
 const baseRender = (value: any) => value;
 
+/**
+ * Renders the Rows component.
+ * @param props - props parameter.
+ * @returns Function result.
+ */
 export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
   const { t } = useTranslation();
   const {
@@ -32,7 +34,7 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
           return (colB.pos ?? 0) - (colA.pos ?? 0);
         })
         .filter((column) => column.display !== "none"),
-    [columns]
+    [columns],
   );
 
   return data?.map((row) => {

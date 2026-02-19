@@ -1,3 +1,10 @@
+// styles
+import "./styles.css";
+
+// @emotion/css
+import { css } from "@emotion/css";
+// components
+import { Chip, Close, Option, TextInput } from "components";
 import {
   ChangeEvent,
   ForwardedRef,
@@ -9,17 +16,8 @@ import {
   useState,
 } from "react";
 
-// @emotion/css
-import { css } from "@emotion/css";
-
-// components
-import { Close, TextInput, Chip, Option } from "components";
-
 // types
 import { AutocompleteInputPropsType } from "./types";
-
-// styles
-import "./styles.css";
 
 /**
  *
@@ -28,7 +26,7 @@ import "./styles.css";
  */
 export const AutocompleteInput = forwardRef(function (
   props: AutocompleteInputPropsType,
-  ref: ForwardedRef<HTMLInputElement>
+  ref: ForwardedRef<HTMLInputElement>,
 ) {
   const {
     state,
@@ -112,7 +110,7 @@ export const AutocompleteInput = forwardRef(function (
       }
       setShowSuggestions(false);
     },
-    [multiple, onChange, value]
+    [multiple, onChange, value],
   );
 
   const handleDeleteChip = useCallback(
@@ -128,7 +126,7 @@ export const AutocompleteInput = forwardRef(function (
         }
       } else onChange(null);
     },
-    [onChange, value]
+    [onChange, value],
   );
 
   useEffect(() => {

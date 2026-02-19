@@ -1,20 +1,22 @@
-import { useCallback, useMemo, useState } from "react";
-
-// providers
-import { useTableOptions, useTranslation } from "providers";
-
+import { Badge, Filters } from "components";
 // lib
 import { BaseDto, FilterType } from "lib";
+// providers
+import { useTableOptions, useTranslation } from "providers";
+import { useCallback, useMemo, useState } from "react";
 
+// components
+import { ActiveFilters, FilterDropdown } from "../Filters";
 // types
 import { TableHeaderPropsType } from "./types";
 
-// components
-import { FilterDropdown, ActiveFilters } from "../Filters";
-import { Badge, Filters } from "components";
-
+/**
+ * Renders the TableHeader component.
+ * @param props - props parameter.
+ * @returns Function result.
+ */
 export const TableHeader = <TRow extends BaseDto>(
-  props: TableHeaderPropsType<TRow>
+  props: TableHeaderPropsType<TRow>,
 ) => {
   const { columns, title, isLoading, toolbar, filterOptions } = props;
   const { countOfFilters } = useTableOptions();
@@ -43,12 +45,12 @@ export const TableHeader = <TRow extends BaseDto>(
       filterOptions?.dropdown?.setOpened?.(value ?? false) ??
         setDropdownOpen(value ?? false);
     },
-    [filterOptions, dropdownOpen]
+    [filterOptions, dropdownOpen],
   );
 
   const showDropdown = useMemo(
     () => filterOptions?.dropdown?.opened ?? dropdownOpen,
-    [filterOptions, dropdownOpen]
+    [filterOptions, dropdownOpen],
   );
 
   return (
@@ -64,7 +66,7 @@ export const TableHeader = <TRow extends BaseDto>(
                 aria-haspopup="true"
                 onClick={() =>
                   handleDropdown(
-                    filterOptions?.dropdown?.opened ?? !dropdownOpen
+                    filterOptions?.dropdown?.opened ?? !dropdownOpen,
                   )
                 }
                 aria-expanded={showDropdown}

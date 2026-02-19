@@ -1,5 +1,10 @@
 import { IconProps } from "./types";
 
+/**
+ * Renders the Close component.
+ * @param props - props parameter.
+ * @returns Function result.
+ */
 export function Close(props: IconProps) {
   const { className = "" } = props;
 

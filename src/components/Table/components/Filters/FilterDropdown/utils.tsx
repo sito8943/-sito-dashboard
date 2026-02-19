@@ -1,22 +1,26 @@
-import { ReactNode } from "react";
-
 // types
 import { FilterTypes, WidgetFilterProps } from "lib";
+import { ReactNode } from "react";
 
 // widgets
 import {
-  SelectWidget,
-  TextWidget,
   AutocompleteWidget,
-  CheckWidget,
-  SelectWidgetPropsType,
-  TextWidgetPropsType,
-  CheckWidgetPropsType,
   AutocompleteWidgetPropsType,
+  CheckWidget,
+  CheckWidgetPropsType,
   RangeWidgetPropsType,
+  SelectWidget,
+  SelectWidgetPropsType,
+  TextWidget,
+  TextWidgetPropsType,
 } from "../../Widgets";
 import { RangeWidget } from "../../Widgets/RangeWidget";
 
+/**
+ * Handles renderFilterComponent.
+ * @param filter - filter parameter.
+ * @returns Function result.
+ */
 export const renderFilterComponent = (filter: WidgetFilterProps): ReactNode => {
   switch (filter.type) {
     case FilterTypes.text:

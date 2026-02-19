@@ -4,6 +4,11 @@ import "./styles.css";
 // types
 import { TooltipPropsType } from "./types";
 
+/**
+ * Renders the Tooltip component.
+ * @param props - props parameter.
+ * @returns Function result.
+ */
 export function Tooltip(props: TooltipPropsType) {
   const { content, children, className = "" } = props;
 
