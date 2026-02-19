@@ -1,331 +1,226 @@
 # @sito/dashboard
 
-A React library for building customizable and responsive dashboards with ease.
+`@sito/dashboard` is a React + TypeScript UI library focused on reusable dashboard components.
 
-## Features
+## Project Description
 
-- **Table Component**: A powerful table component with support for sorting, filters, pagination, row selection, and customizable columns.
-- **Bulk Actions & Selection Bar**: Built-in checkbox column, selectable rows, and a contextual banner for executing multi-row actions.
-- **Translation Support**: Built-in translation support using a `TranslationProvider`.
-- **Customizable & Lightweight**: Easily style and configure components to fit your needs without sacrificing performance.
+This package provides ready-to-use components for admin/dashboard use cases, with focus on data-heavy screens:
+
+- `Table` with sorting, filtering, pagination, row selection, bulk actions, and expandable rows.
+- Form inputs and utility components (`Badge`, `Chip`, `Tooltip`, `Loading`, icons).
+- Built-in providers for translations and table state management.
 
 ## Installation
 
-To install the library, use npm or yarn:
-
 ```bash
-# Using npm
+# npm
 npm install @sito/dashboard
 
-# Using yarn
+# yarn
 yarn add @sito/dashboard
 ```
 
-## Table
+### Peer dependencies
 
-Here’s how you can use the Table component in your project:
+Make sure your app provides compatible versions:
 
-```bash
-import React from "react";
-import { Table } from "sito-dashboard";
+- `react` (`>=18.2 <20`)
+- `@emotion/css` (`11.13.5`)
 
-const App = () => {
-  const rows = [
-    { id: 1, name: "John Doe", age: 30 },
-    { id: 2, name: "Jane Smith", age: 25 },
-  ];
+## Usage
 
-  const columns = [
-    { key: "name", label: "Name" },
-    { key: "age", label: "Age" },
-  ];
+Important:
 
-  return (
-    <Table title="User Table" data={rows} columns={columns} />
-  );
-};
-
-export default App;
-```
-
-### Row selection, actions, and translations
-
-The table ships with a leading checkbox column and exposes callbacks so you can react when a user selects one or more rows. You can also define per-row actions (single or multiple) and translate the default accessibility strings.
+- Import from `@sito/dashboard` (not from `@sito/dashboard/lib`).
+- `Table` should be wrapped by `TranslationProvider` and `TableOptionsProvider`.
+- `actions` is a callback per row: `(row) => ActionType[]`.
 
 ```tsx
-import { Table, TranslationProvider } from "@sito/dashboard";
-import { FilterTypes } from "@sito/dashboard/lib";
+import {
+  FilterTypes,
+  Table,
+  TableOptionsProvider,
+  TranslationProvider,
+  type BaseDto,
+} from "@sito/dashboard";
 
-const rows = [
-  { id: 1, name: "John Doe", age: 30 },
-  { id: 2, name: "Jane Smith", age: 25 },
+type UserRow = BaseDto & {
+  name: string;
+  age: number;
+};
+
+const rows: UserRow[] = [
+  { id: 1, deletedAt: null, name: "John Doe", age: 30 },
+  { id: 2, deletedAt: null, name: "Jane Smith", age: 25 },
 ];
 
-const actions = (row) => [
+const actions = (row: UserRow) => [
   {
     id: "view",
     tooltip: `View ${row.name}`,
-    icon: <span>👁️</span>,
+    icon: <span>View</span>,
     onClick: () => console.log("View", row),
   },
   {
     id: "delete",
     tooltip: "Delete selected",
-    icon: <span>🗑️</span>,
+    icon: <span>Delete</span>,
     multiple: true,
     onClick: () => console.log("Delete", row),
-    onMultipleClick: (selectedRows) =>
+    onMultipleClick: (selectedRows: UserRow[]) =>
       console.log("Bulk delete", selectedRows.map(({ name }) => name)),
   },
 ];
 
-const translations = {
+const translations: Record<string, string> = {
   "_accessibility:components.table.selectedCount": "Selected {{count}} items",
   "_accessibility:labels.actions": "Actions",
+  "_accessibility:buttons.filters": "Filters",
+  "_accessibility:buttons.previous": "Previous page",
+  "_accessibility:buttons.next": "Next page",
+  "_accessibility:buttons.clear": "Clear",
+  "_accessibility:buttons.applyFilters": "Apply filters",
+  "_accessibility:components.table.pageSizes": "Rows per page",
+  "_accessibility:components.table.jumpToPage": "Jump to page",
+  "_accessibility:components.table.of": "of",
+  "_accessibility:components.table.empty": "No data available",
+  "_accessibility:components.table.selectRow": "Select row",
+  "_accessibility:components.table.selectAllRows": "Select all visible rows",
 };
 
-const TableWithSelection = () => (
-  <TranslationProvider t={(key, opts) =>
-      translations[key]?.replace("{{count}}", String(opts?.count ?? 0)) ?? key
-    } language="en"
-  >
-    <Table
-      title="User Table"
-      data={rows}
-      columns={[
-        { key: "name", label: "Name", filterOptions: { type: FilterTypes.text } },
-        { key: "age", label: "Age" },
-      ]}
-      actions={actions}
-      onRowSelect={(row, selected) =>
-        console.log(selected ? "Selected" : "Unselected", row)
-      }
-      onSelectedRowsChange={(selectedRows) =>
-        console.log("Current selection", selectedRows)
-      }
-    />
-  </TranslationProvider>
-);
-```
+const t = (key: string, options?: Record<string, unknown>) => {
+  if (key === "_accessibility:components.table.selectedCount") {
+    const count = typeof options?.count === "number" ? options.count : 0;
+    return translations[key].replace("{{count}}", String(count));
+  }
 
-When any row is selected, the built-in selection bar appears above the table headers with the translated count and any actions marked with `multiple: true`.
-
-## Translation for its components
-
-Wrap your application with the TranslationProvider to enable translations:
-
-```bash
-import React from "react";
-import { TranslationProvider } from "@sito/dashboard";
-
-const translations = {
-  en: { hello: "Hello" },
-  es: { hello: "Hola" },
+  return translations[key] ?? key;
 };
 
-const App = () => {
-  const t = (key) => translations["en"][key]; // Example translation function
-
+export function UsersTable() {
   return (
-    <TranslationProvider t={t}>
-      <h1>{t("hello")}</h1>
+    <TranslationProvider t={t} language="en">
+      <TableOptionsProvider>
+        <Table<UserRow>
+          entity="users"
+          title="Users"
+          data={rows}
+          columns={[
+            {
+              key: "name",
+              label: "Name",
+              sortable: true,
+              filterOptions: {
+                type: FilterTypes.text,
+                placeholder: "Search by name",
+              },
+            },
+            { key: "age", label: "Age", sortable: true },
+          ]}
+          actions={actions}
+          onRowSelect={(row, selected) => console.log(selected, row)}
+          onSelectedRowsChange={(selectedRows) =>
+            console.log("Selected rows", selectedRows)
+          }
+        />
+      </TableOptionsProvider>
     </TranslationProvider>
   );
-};
-
-export default App;
-```
-
-## Components
-
-### Table
-
-The Table component is a flexible and feature-rich table for displaying data.
-
-#### Props
-| Propiedad             | Tipo          | Valor por defecto       | Descripción                                                        |
-|-----------------------|---------------|-------------------------|--------------------------------------------------------------------|
-| `title`              | `string`       | `""`                    | El título de la tabla.                                             |
-| `data`               | `array`        | —                       | Los datos a mostrar en la tabla.                                   |
-| `columns`            | `array`        | `[]`                    | Definiciones de columnas, incluyendo claves (`key`) y etiquetas.   |
-| `isLoading`          | `boolean`      | `false`                 | Indica si la tabla está en estado de carga.                        |
-| `actions`            | `ActionType[]` | —                       | Función para renderizar acciones por fila.                         |
-| `className`          | `string`       | `""`                    | Clase personalizada para el contenedor de la tabla.                |
-| `contentClassName`   | `string`       | `""`                    | Clase personalizada para el contenido de la tabla.                 |
-| `softDeleteProperty` | `string`       | `"deletedAt"`           | Propiedad usada para lógica de borrado suave (fecha/hora).         |
-| `toolbar`            | `ReactNode`    | `<></>`                 | Componente personalizado para la barra de herramientas.            |
-| `onSort`             | `function`     | —                       | Callback que se llama cuando se cambia el orden de la tabla.       |
-
-
-### TranslationProvider
-
-Provides translation support for your application.
-
-#### Props
-- `t` (function): A translation function that takes a key and returns the translated string.
-
-### Examples
-
-#### Columns definition
-
-```
-  key: string;
-  label: string;
-  sortable?: boolean;
-  sortOptions: {
-    icons: {
-      className: string;
-      asc: string;
-      desc: string;
-    };
-  };
-  className?: string;
-  display?: "visible" | "none";
-  pos?: number;
-  renderBody?: (value: any, row: any) => ReactNode;
-  renderHead?: () => void;
-  filterOptions?: ColumnFilterOptions;
-```
-
-ColumnFilterOptions
-
-```
-{
-  type: FilterTypes;
-  defaultValue: any;
-  label?: string;
 }
 ```
 
-FilterTypes enum
+## Core Table Props
 
-```
-text,
-number,
-select,
-autocomplete,
-date,
-check,
-```
+| Prop | Type | Required | Description |
+|---|---|---|---|
+| `entity` | `string` | Yes | Entity name used by internal components. |
+| `data` | `TRow[]` | Yes | Rows to render. `TRow` must extend `BaseDto` and include `id`. |
+| `columns` | `ColumnType<TRow>[]` | No | Column definitions. |
+| `actions` | `(row: TRow) => ActionType<TRow>[]` | No | Per-row action factory. |
+| `title` | `string` | No | Header title. |
+| `toolbar` | `ReactNode` | No | Custom header content. |
+| `onSort` | `(prop: string, sortOrder: SortOrder) => void` | No | Sort callback. |
+| `onRowSelect` | `(row: TRow, selected: boolean) => void` | No | Row selection callback. |
+| `onSelectedRowsChange` | `(rows: TRow[]) => void` | No | Selected rows callback. |
+| `onRowExpand` | `(expandedRow: TRow, collapsedRow: TRow \| null) => ReactNode` | No | Expand row content callback. |
+| `allowMultipleExpandedRows` | `boolean` | No | Allows multiple expanded rows at once. |
+| `expandedRowId` | `TRow["id"] \| null` | No | Controlled expansion mode. |
 
-```
-import { Table } from "@sito/dashboard";
+## Development Setup (Step-by-step)
 
-const columns = [
-  {
-    key: "tagIds",
-    label: t("_entities:news.tags.label"),
-    filterOptions: {
-      type: FilterTypes.autocomplete,
-      options: tagsList,
-      defaultValue: [],
-    },
-    sortable: false,
-    renderBody: (_, news) =>
-      (
-        <div className="flex flex-wrap gap-3">
-          {news.tags?.map(({ name, id }) => (
-            <Chip key={id} label={name} spanClassName="text-xs" />
-          ))}
-        </div>
-      ) ?? " - ",
-  },
-]
-
-<Table data={...} columns={columns} />
-```
-
-#### Actions definition
-
-```
-{
-  id: string;
-  onClick: (entity: object) => void;
-  icon: any;
-  tooltip: string;
-  hidden?: boolean | ((entity: object) => boolean);
-  disabled?: boolean;
-  multiple?: boolean;
-  onMultipleClick?: (entities: object[]) => void;
-}
-```
-
-```
-import { Table } from "@sito/dashboard";
-
-const addAction = {
-  id: "add",
-  hidden: false,
-  onClick: async () => {
-    // do some stuff here
-  },
-  icon: (
-    <FontAwesomeIcon
-      icon={isLoading ? faSpinner : faAdd}
-      className={`text-success ${isLoading ? "rotate" : ""}`}
-    />
-  ),
-  tooltip: t("_accessibility:buttons.add"),
-}
-
-<Table data={...} columns={...} actions={[addAction]} />
-```
-
-#### Your custom toolbar
-
-```
-import { Table } from "@sito/dashboard";
-
-const Toolbar = () => {
-  return <div>
-    <h1>My custom toolbar</h1>
-  </div>
-}
-
-<Table data={...} columns={...} toolbar={<Toolbar />} />
-```
-
-## Development
-
-Running Locally
-
-To run the project locally:
-
-1. Clone the repository:
+1. Clone the repository.
 
 ```bash
-git clone https://github.com/your-repo/sito-dashboard.git
-
-cd sito-dashboard
+git clone https://github.com/sito8943/-sito-dashboard.git
+cd -- -sito-dashboard
 ```
 
-2. Install dependencies:
+2. Use the expected Node version.
+
+```bash
+nvm install 20.19.0
+nvm use 20.19.0
+```
+
+3. Install dependencies.
 
 ```bash
 npm install
 ```
 
-3. Start the development server
+4. Start local development.
 
 ```bash
-npm start
+# Vite dev server
+npm run dev
+
+# Component-focused development (recommended)
+npm run storybook
 ```
 
-Building the Library
-
-To build the library for production
+5. Build the library.
 
 ```bash
 npm run build
 ```
 
+## How To Run Tests
+
+```bash
+# run all tests once
+npm run test
+
+# run a specific test file
+npm run test -- src/components/Table/Table.expandable.test.tsx
+```
+
+## How To Run Linters
+
+```bash
+# runs ESLint with auto-fix enabled in this project
+npm run lint
+```
+
+## Additional Useful Scripts
+
+```bash
+# format source files
+npm run format
+
+# build static Storybook
+npm run build-storybook
+
+# preview production build
+npm run preview
+```
+
 ## Contributing
 
-Contributions are welcome! Please follow these steps:
-1. Fork the repository.
-2. Create a new branch for your feature or bugfix.
-3. Submit a pull request with a detailed description of your changes.
+1. Create a branch from `main`.
+2. Add/adjust tests for your changes.
+3. Run lint and tests.
+4. Open a pull request with a clear summary.
 
 ## License
 
-This project is licensed under the MIT License.
+MIT
