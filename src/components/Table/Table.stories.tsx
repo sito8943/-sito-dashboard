@@ -8,6 +8,7 @@ import { ChevronRight, Close } from "components/SvgIcons";
 import type { BaseDto } from "lib";
 import { FilterTypes } from "lib";
 import { TranslationProvider } from "providers";
+import { useState } from "react";
 
 type Row = BaseDto & { name: string; age: number };
 
@@ -29,9 +30,11 @@ const mockTranslations: Record<string, string> = {
   "_accessibility:components.table.selectAllRows": "Select all visible rows",
 };
 
-const mockT = (key: string, options?: { count?: number }) =>
-  mockTranslations[key]?.replace("{{count}}", String(options?.count ?? 0)) ??
-  key;
+const mockT = (key: string, options?: Record<string, unknown>) => {
+  const count = typeof options?.count === "number" ? options.count : 0;
+
+  return mockTranslations[key]?.replace("{{count}}", String(count)) ?? key;
+};
 
 const meta: Meta<typeof Table<Row>> = {
   title: "Components/Table",
@@ -170,5 +173,78 @@ export const WithMultipleActions: Story = {
       { key: "age", label: "Age", sortable: true },
     ],
     actions: multiRowActions,
+  } as any,
+};
+
+export const WithExpandableRows: Story = {
+  render: (args) => {
+    const Example = () => {
+      const [expandedRowId, setExpandedRowId] = useState<Row["id"] | null>(
+        null,
+      );
+
+      return (
+        <Table<Row>
+          {...(args as any)}
+          expandedRowId={expandedRowId}
+          onExpandedRowChange={(expandedRow) =>
+            setExpandedRowId(expandedRow?.id ?? null)
+          }
+          onRowExpand={(expandedRow, collapsedRow) => (
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="font-semibold">
+                  Expanded user: {expandedRow.name}
+                </p>
+                <p className="text-xs opacity-70">Age: {expandedRow.age}</p>
+              </div>
+              <p className="text-xs opacity-70">
+                Collapsed: {collapsedRow?.name ?? "none"}
+              </p>
+            </div>
+          )}
+        />
+      );
+    };
+
+    return <Example />;
+  },
+  args: {
+    entity: "users",
+    title: "Users with expandable rows",
+    data,
+    columns: [
+      { key: "name", label: "Name", sortable: true },
+      { key: "age", label: "Age", sortable: true },
+    ],
+  } as any,
+};
+
+export const WithMultipleExpandableRows: Story = {
+  render: (args) => (
+    <Table<Row>
+      {...(args as any)}
+      allowMultipleExpandedRows
+      onRowExpand={(expandedRow, collapsedRow) => (
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="font-semibold">Expanded user: {expandedRow.name}</p>
+            <p className="text-xs opacity-70">Age: {expandedRow.age}</p>
+          </div>
+          <p className="text-xs opacity-70">
+            Collapsed: {collapsedRow?.name ?? "none"}
+          </p>
+        </div>
+      )}
+    />
+  ),
+  args: {
+    entity: "users",
+    title: "Users with multiple expandable rows",
+    data,
+    columns: [
+      { key: "name", label: "Name", sortable: true },
+      { key: "age", label: "Age", sortable: true },
+    ],
   } as any,
 };

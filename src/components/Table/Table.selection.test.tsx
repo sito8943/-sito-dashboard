@@ -33,9 +33,10 @@ const translations: Record<string, string> = {
   "_accessibility:components.table.jumpToPage": "Jump to page",
 };
 
-const t = (key: string, options?: { count?: number }) => {
+const t = (key: string, options?: Record<string, unknown>) => {
   if (key === "_accessibility:components.table.selectedCount") {
-    return `Selected ${options?.count ?? 0}`;
+    const count = typeof options?.count === "number" ? options.count : 0;
+    return `Selected ${count}`;
   }
 
   return translations[key] ?? key;

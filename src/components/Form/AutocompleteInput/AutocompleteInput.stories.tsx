@@ -75,8 +75,10 @@ export const Multiple: Story = {
             placeholder="Selecciona varias"
             multiple
             options={options}
-            value={value as any}
-            onChange={setValue as any}
+            value={value}
+            onChange={(nextValue) =>
+              setValue(Array.isArray(nextValue) ? nextValue : null)
+            }
           />
           <p className="mt-2 text-sm text-gray-500">
             Valor:{" "}

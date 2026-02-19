@@ -45,19 +45,27 @@ export const AutocompleteInput = forwardRef(function (
   } = props;
   const [inputValue, setInputValue] = useState("");
   useEffect(() => {
-    setInputValue(!multiple ? (value?.value ?? value?.name ?? "") : "");
-  }, [value]);
+    if (!multiple && value && !Array.isArray(value)) {
+      setInputValue(String(value.value ?? value.name ?? ""));
+      return;
+    }
+
+    setInputValue("");
+  }, [multiple, value]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const suggestions = options.filter((option) => {
     const isIncluded = String(option.value ?? option.name)
       .toLowerCase()
       .includes(inputValue?.toLowerCase());
-    if (value && value.length) {
-      const toShow = value?.some
-        ? !value?.some((v: Option) => v.id === option.id)
-        : value?.id !== option.id;
-      return toShow;
+
+    if (Array.isArray(value) && value.length) {
+      return !value.some((selected) => selected.id === option.id);
     }
+
+    if (value && !Array.isArray(value)) {
+      return value.id !== option.id;
+    }
+
     return isIncluded;
   });
 
@@ -115,6 +123,11 @@ export const AutocompleteInput = forwardRef(function (
 
   const handleDeleteChip = useCallback(
     (index?: number) => {
+      if (!Array.isArray(value)) {
+        onChange(null);
+        return;
+      }
+
       if (index != null) {
         if (index !== -1) {
           const newValue = value.filter((_: Option, i: number) => i !== index);
@@ -158,18 +171,21 @@ export const AutocompleteInput = forwardRef(function (
           ref={ref ?? localInputRef}
           {...rest}
         >
-          {(value?.value || value?.name) && !multiple && (
-            <button
-              type="button"
-              className="autocomplete-delete-button"
-              onClick={(e) => {
-                handleSuggestionClick();
-                e.stopPropagation();
-              }}
-            >
-              <Close />
-            </button>
-          )}
+          {!multiple &&
+            value &&
+            !Array.isArray(value) &&
+            (value.value || value.name) && (
+              <button
+                type="button"
+                className="autocomplete-delete-button"
+                onClick={(e) => {
+                  handleSuggestionClick();
+                  e.stopPropagation();
+                }}
+              >
+                <Close />
+              </button>
+            )}
         </TextInput>
         {multiple && Array.isArray(value) && value.length ? (
           <ul ref={multipleValueRef} className={`autocomplete-value-container`}>

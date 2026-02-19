@@ -11,6 +11,6 @@ export type Option = {
 
 export interface SelectInputPropsType
   extends Omit<HTMLProps<HTMLSelectElement>, "value">,
-    BaseInputPropsType {
+    BaseInputPropsType<string | number | readonly string[] | undefined> {
   options: Option[];
 }

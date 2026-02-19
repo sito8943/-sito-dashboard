@@ -1,8 +1,8 @@
 import { State } from "./utils";
 
-export type BaseInputPropsType = {
+export type BaseInputPropsType<TValue = unknown> = {
   state?: State;
-  value: any;
+  value: TValue;
   name?: string;
   id?: string;
   label?: string;
