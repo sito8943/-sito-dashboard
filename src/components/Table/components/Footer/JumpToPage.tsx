@@ -1,5 +1,5 @@
 // components
-import { Option, SelectInput } from "components";
+import { SelectInput } from "components";
 // providers
 import { useTableOptions, useTranslation } from "providers";
 import { useMemo } from "react";

@@ -12,8 +12,9 @@ import { RowsPropsType } from "./types";
 const baseRender = (value: any) => value;
 
 /**
- *
- * @param props
+ * Renders the Rows component.
+ * @param props - props parameter.
+ * @returns Function result.
  */
 export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
   const { t } = useTranslation();

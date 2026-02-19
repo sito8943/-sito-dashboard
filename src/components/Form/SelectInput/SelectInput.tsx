@@ -1,7 +1,7 @@
 // styles
 import "./styles.css";
 
-import { ForwardedRef, forwardRef, useEffect } from "react";
+import { ForwardedRef, forwardRef } from "react";
 
 // utils
 import {

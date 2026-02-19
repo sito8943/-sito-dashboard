@@ -7,8 +7,9 @@ import { TableFilters } from "providers";
 import { FiltersActions, FiltersActionType } from "./types";
 
 /**
- *
- * @param filters
+ * Handles initializer.
+ * @param filters - filters parameter.
+ * @returns Function result.
  */
 export const initializer = (filters: TableFilters) => {
   if (!!filters) {
@@ -23,9 +24,10 @@ export const initializer = (filters: TableFilters) => {
 };
 
 /**
- *
- * @param state
- * @param action
+ * Handles filtersReducer.
+ * @param state - state parameter.
+ * @param action - action parameter.
+ * @returns Function result.
  */
 export function filtersReducer(state: FiltersValue, action: FiltersActionType) {
   const { type } = action;

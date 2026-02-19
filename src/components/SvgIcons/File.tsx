@@ -1,8 +1,9 @@
 import { IconProps } from "./types";
 
 /**
- *
- * @param props
+ * Renders the File component.
+ * @param props - props parameter.
+ * @returns Function result.
  */
 export function File(props: IconProps) {
   const { className = "" } = props;

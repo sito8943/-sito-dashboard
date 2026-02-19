@@ -10,6 +10,9 @@ import { FileInputPropsType } from "./types";
 // utils
 import { truncateFileName } from "./utils";
 
+/**
+ * Renders a file input with preview and clear/remove actions.
+ */
 export const FileInput = forwardRef(function (
   props: FileInputPropsType,
   ref: ForwardedRef<HTMLInputElement>,

@@ -11,8 +11,9 @@ import { ActiveFilters, FilterDropdown } from "../Filters";
 import { TableHeaderPropsType } from "./types";
 
 /**
- *
- * @param props
+ * Renders the TableHeader component.
+ * @param props - props parameter.
+ * @returns Function result.
  */
 export const TableHeader = <TRow extends BaseDto>(
   props: TableHeaderPropsType<TRow>,

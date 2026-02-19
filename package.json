@@ -61,6 +61,7 @@
     "@typescript-eslint/parser": "6.0.0",
     "@vitejs/plugin-react": "4.0.3",
     "autoprefixer": "10.4.16",
+    "baseline-browser-mapping": "^2.10.0",
     "eslint": "8.45.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-jsdoc": "^62.6.1",

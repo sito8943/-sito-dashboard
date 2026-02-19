@@ -8,8 +8,9 @@ import { ChangeEvent, useCallback, useMemo } from "react";
 import { TextWidgetPropsType } from "./types";
 
 /**
- *
- * @param props
+ * Renders the TextWidget component.
+ * @param props - props parameter.
+ * @returns Function result.
  */
 export const TextWidget = (props: TextWidgetPropsType) => {
   const { propertyName, label, placeholder } = props;

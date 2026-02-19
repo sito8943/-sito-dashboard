@@ -37,7 +37,7 @@ export const Deletable: Story = {
 };
 
 export const RangeChip: Story = {
-  render: (args) => {
+  render: () => {
     const Example = () => {
       const [date, setDate] = useState(String(new Date()));
       return (
@@ -78,7 +78,7 @@ const options: Option[] = [
 ];
 
 export const ArrayChip: Story = {
-  render: (args) => {
+  render: () => {
     const Example = () => {
       const [tags, setTags] = useState(options);
       return (

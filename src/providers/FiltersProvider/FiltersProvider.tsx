@@ -1,12 +1,6 @@
 // providers
 import { useTableOptions } from "providers";
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useReducer,
-} from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 
 // types
 import {
@@ -20,8 +14,9 @@ import { filtersReducer, initializer } from "./utils";
 const FiltersContext = createContext({} as FiltersContextType);
 
 /**
- *
- * @param props
+ * Renders the FiltersProvider component.
+ * @param props - props parameter.
+ * @returns Function result.
  */
 const FiltersProvider = (props: FiltersProviderPropsType) => {
   const { children } = props;
@@ -55,8 +50,8 @@ const FiltersProvider = (props: FiltersProviderPropsType) => {
 };
 
 /**
- *
- * @returns options
+ * Provides the useFilters hook.
+ * @returns Function result.
  */
 const useFilters = () => {
   const context = useContext(FiltersContext);

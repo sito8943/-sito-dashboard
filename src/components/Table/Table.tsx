@@ -17,8 +17,9 @@ import { Columns, Footer, Rows, TableEmpty, TableHeader } from "./components/";
 import { ActionType, TablePropsType } from "./types";
 
 /**
- *
- * @param props
+ * Renders the Table component.
+ * @param props - props parameter.
+ * @returns Function result.
  */
 export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
   const {

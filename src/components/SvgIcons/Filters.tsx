@@ -1,8 +1,9 @@
 import { IconProps } from "./types";
 
 /**
- *
- * @param props
+ * Renders the Filters component.
+ * @param props - props parameter.
+ * @returns Function result.
  */
 export const Filters = (props: IconProps) => {
   const { className = "" } = props;

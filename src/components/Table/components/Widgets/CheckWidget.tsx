@@ -8,8 +8,9 @@ import { ChangeEvent, useCallback, useMemo } from "react";
 import { CheckWidgetPropsType } from "./types";
 
 /**
- *
- * @param props
+ * Renders the CheckWidget component.
+ * @param props - props parameter.
+ * @returns Function result.
  */
 export const CheckWidget = (props: CheckWidgetPropsType) => {
   const { propertyName, label } = props;

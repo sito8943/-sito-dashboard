@@ -8,8 +8,9 @@ import { ChangeEvent, useCallback, useMemo } from "react";
 import { SelectWidgetPropsType } from "./types";
 
 /**
- *
- * @param props
+ * Renders the SelectWidget component.
+ * @param props - props parameter.
+ * @returns Function result.
  */
 export function SelectWidget(props: SelectWidgetPropsType) {
   const { propertyName, options, label, placeholder } = props;

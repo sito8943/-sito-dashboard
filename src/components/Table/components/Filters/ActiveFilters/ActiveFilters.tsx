@@ -13,8 +13,9 @@ import { RangeChip } from "./RangeChip";
 import { ActiveFiltersPropsType } from "./types";
 
 /**
- *
- * @param props
+ * Renders the ActiveFilters component.
+ * @param props - props parameter.
+ * @returns Function result.
  */
 export const ActiveFilters = (props: ActiveFiltersPropsType) => {
   const { filtersDefinition } = props;

@@ -8,8 +8,9 @@ const TranslationContext = createContext(
 );
 
 /**
- *
- * @param props
+ * Renders the TranslationProvider component.
+ * @param props - props parameter.
+ * @returns Function result.
  */
 function TranslationProvider(props: TranslationProviderPropsType) {
   const { children, t, language } = props;
@@ -22,7 +23,8 @@ function TranslationProvider(props: TranslationProviderPropsType) {
 }
 
 /**
- *
+ * Provides the useTranslation hook.
+ * @returns Function result.
  */
 const useTranslation = () => {
   const context = useContext(TranslationContext);

@@ -7,8 +7,9 @@ import { useEffect, useRef } from "react";
 import { BadgePropsType } from "./types";
 
 /**
- *
- * @param props
+ * Renders the Badge component.
+ * @param props - props parameter.
+ * @returns Function result.
  */
 export const Badge = (props: BadgePropsType) => {
   const { count, className = "" } = props;

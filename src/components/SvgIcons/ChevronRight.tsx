@@ -1,8 +1,9 @@
 import { IconProps } from "./types";
 
 /**
- *
- * @param props
+ * Renders the ChevronRight component.
+ * @param props - props parameter.
+ * @returns Function result.
  */
 export function ChevronRight(props: IconProps) {
   const { className = "" } = props;

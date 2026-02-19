@@ -5,10 +5,11 @@ import { Chip } from "components";
 import { RangeChipPropsType } from "./types";
 
 /**
- *
- * @param props
+ * Renders the RangeChip component.
+ * @param props - props parameter.
+ * @returns Function result.
  */
-export const RangeChip = <T extends any>(props: RangeChipPropsType<T>) => {
+export const RangeChip = <T,>(props: RangeChipPropsType<T>) => {
   const { end, start, text, id, onClearFilter } = props;
 
   return (

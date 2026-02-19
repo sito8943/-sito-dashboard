@@ -18,8 +18,9 @@ import { FilterDropdownPropsType } from "./types";
 import { renderFilterComponent } from "./utils";
 
 /**
- *
- * @param props
+ * Renders the FilterDropdown component.
+ * @param props - props parameter.
+ * @returns Function result.
  */
 export const FilterDropdown = (props: FilterDropdownPropsType) => {
   const { filters = [], show, handleShow } = props;

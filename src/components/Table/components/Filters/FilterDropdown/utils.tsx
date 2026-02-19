@@ -17,8 +17,9 @@ import {
 import { RangeWidget } from "../../Widgets/RangeWidget";
 
 /**
- *
- * @param filter
+ * Handles renderFilterComponent.
+ * @param filter - filter parameter.
+ * @returns Function result.
  */
 export const renderFilterComponent = (filter: WidgetFilterProps): ReactNode => {
   switch (filter.type) {

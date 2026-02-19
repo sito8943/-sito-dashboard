@@ -5,8 +5,9 @@ import { Chip, Option } from "components";
 import { ArrayChipPropsType } from "./types";
 
 /**
- *
- * @param props
+ * Renders the ArrayChip component.
+ * @param props - props parameter.
+ * @returns Function result.
  */
 export const ArrayChip = <T extends Option>(props: ArrayChipPropsType<T>) => {
   const { items, text, id, onClearFilter } = props;

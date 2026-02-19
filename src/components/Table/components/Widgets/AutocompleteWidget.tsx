@@ -8,8 +8,9 @@ import { useCallback, useMemo } from "react";
 import { AutocompleteWidgetPropsType } from "./types";
 
 /**
- *
- * @param props
+ * Renders the AutocompleteWidget component.
+ * @param props - props parameter.
+ * @returns Function result.
  */
 export function AutocompleteWidget(props: AutocompleteWidgetPropsType) {
   const { propertyName, label, placeholder, options, multiple = true } = props;

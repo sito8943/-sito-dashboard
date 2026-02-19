@@ -20,8 +20,9 @@ const pageSizes = [20, 50, 100];
 const TableOptionsContext = createContext({} as TableOptionsContextType);
 
 /**
- *
- * @param props
+ * Renders the TableOptionsProvider component.
+ * @param props - props parameter.
+ * @returns Function result.
  */
 const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
   const { children } = props;
@@ -117,8 +118,8 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
 };
 
 /**
- *
- * @returns - options
+ * Provides the useTableOptions hook.
+ * @returns Function result.
  */
 const useTableOptions = () => {
   const context = useContext(TableOptionsContext);

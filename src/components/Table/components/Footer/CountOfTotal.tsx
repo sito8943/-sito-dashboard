@@ -2,7 +2,8 @@
 import { useTableOptions, useTranslation } from "providers";
 
 /**
- *
+ * Renders the CountOfTotal component.
+ * @returns Function result.
  */
 export const CountOfTotal = () => {
   const { t } = useTranslation();
