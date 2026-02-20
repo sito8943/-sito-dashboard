@@ -45,7 +45,7 @@ export const TableHeader = <TRow extends BaseDto>(
       filterOptions?.dropdown?.setOpened?.(value ?? false) ??
         setDropdownOpen(value ?? false);
     },
-    [filterOptions, dropdownOpen],
+    [filterOptions],
   );
 
   const showDropdown = useMemo(
@@ -64,11 +64,7 @@ export const TableHeader = <TRow extends BaseDto>(
               <button
                 className="filter-dropdown-button normal filter-dropdown-trigger"
                 aria-haspopup="true"
-                onClick={() =>
-                  handleDropdown(
-                    filterOptions?.dropdown?.opened ?? !dropdownOpen,
-                  )
-                }
+                onClick={() => handleDropdown(!showDropdown)}
                 aria-expanded={showDropdown}
               >
                 <Badge

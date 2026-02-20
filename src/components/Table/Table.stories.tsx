@@ -4,7 +4,7 @@ import "./components/Widgets/styles.css";
 
 import type { Meta, StoryObj } from "@storybook/react";
 import { Table } from "components";
-import { ChevronRight, Close } from "components/SvgIcons";
+import { ChevronRight, Close, Filters } from "components/SvgIcons";
 import type { BaseDto } from "lib";
 import { FilterTypes } from "lib";
 import { TranslationProvider } from "providers";
@@ -113,6 +113,61 @@ export const WithAutocompleteFilter: Story = {
             name: n,
           })),
         },
+      },
+      {
+        key: "age",
+        label: "Edad",
+        sortable: true,
+        filterOptions: { type: FilterTypes.number, min: 0, max: 100 },
+      },
+    ],
+  } as any,
+};
+
+export const WithControlledFiltersDropdown: Story = {
+  render: (args) => {
+    const Example = () => {
+      const [showFilters, setShowFilters] = useState(true);
+
+      return (
+        <Table<Row>
+          {...(args as any)}
+          toolbar={
+            <button
+              type="button"
+              className="filter-dropdown-button normal filter-dropdown-trigger"
+              aria-label="Toggle filters"
+              onClick={() => setShowFilters((prev) => !prev)}
+            >
+              <Filters className="filter-dropdown-trigger-icon" />
+            </button>
+          }
+          filterOptions={{
+            button: {
+              hide: true,
+            },
+            dropdown: {
+              opened: showFilters,
+              setOpened: setShowFilters,
+            },
+          }}
+        />
+      );
+    };
+
+    return <Example />;
+  },
+  args: {
+    entity: "users",
+    title: "Usuarios con filtros controlados",
+    data,
+    columns: [
+      { key: "id", label: "ID", sortable: true },
+      {
+        key: "name",
+        label: "Nombre",
+        sortable: true,
+        filterOptions: { type: FilterTypes.text, placeholder: "Buscar nombre" },
       },
       {
         key: "age",
