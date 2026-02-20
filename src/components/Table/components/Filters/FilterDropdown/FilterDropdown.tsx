@@ -36,12 +36,14 @@ export const FilterDropdown = (props: FilterDropdownPropsType) => {
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
       if (!dropdown.current) return;
+      if ((target as HTMLElement | null)?.closest(".filter-dropdown-trigger"))
+        return;
       if (!show || (dropdown.current as any)?.contains(target)) return;
       handleShow(false);
     };
     document.addEventListener("click", clickHandler);
     return () => document.removeEventListener("click", clickHandler);
-  });
+  }, [handleShow, show]);
 
   // close if the esc key is pressed
   useEffect(() => {
@@ -51,7 +53,7 @@ export const FilterDropdown = (props: FilterDropdownPropsType) => {
     };
     document.addEventListener("keydown", keyHandler);
     return () => document.removeEventListener("keydown", keyHandler);
-  });
+  }, [handleShow, show]);
 
   return (
     <div className={`filter-dropdown-backdrop ${show ? "opened" : "closed"}`}>

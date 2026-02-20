@@ -17,7 +17,7 @@
 .filter-dropdown-backdrop {
   transition: grid-template-rows;
   transition-duration: 500ms;
-  @apply grid w-full overflow-auto;
+  @apply grid w-full overflow-hidden;
 }
 
 .filter-dropdown-backdrop.opened {
@@ -29,6 +29,7 @@
 }
 
 .filter-popup {
+  min-height: 0;
   @apply overflow-auto;
 }
 
