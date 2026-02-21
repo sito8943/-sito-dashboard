@@ -96,7 +96,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
 
   const selectedRowsData = useMemo(
     () => data?.filter((row) => selectedRows.has(row.id)) ?? [],
-    [data, selectedRows],
+    [data, selectedRows]
   );
 
   const findRowById = useCallback(
@@ -104,7 +104,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
       if (rowId === null) return null;
       return data.find((row) => row.id === rowId) ?? null;
     },
-    [data],
+    [data]
   );
 
   const clearExpandedRowAnimationTimeout = useCallback(() => {
@@ -124,11 +124,11 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
       }
 
       expandedRowsAnimationTimeoutRef.current.forEach((timeoutId) =>
-        clearTimeout(timeoutId),
+        clearTimeout(timeoutId)
       );
       expandedRowsAnimationTimeoutRef.current.clear();
     },
-    [],
+    []
   );
 
   const collapseRenderedRow = useCallback(
@@ -137,14 +137,14 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
 
       setRenderedExpandedRows((prevRows) => {
         const hasRow = prevRows.some(
-          (expandedRow) => expandedRow.rowId === rowId,
+          (expandedRow) => expandedRow.rowId === rowId
         );
         if (!hasRow) return prevRows;
 
         return prevRows.map((expandedRow) =>
           expandedRow.rowId === rowId
             ? { ...expandedRow, isVisible: false }
-            : expandedRow,
+            : expandedRow
         );
       });
 
@@ -152,13 +152,13 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
         rowId,
         setTimeout(() => {
           setRenderedExpandedRows((prevRows) =>
-            prevRows.filter((expandedRow) => expandedRow.rowId !== rowId),
+            prevRows.filter((expandedRow) => expandedRow.rowId !== rowId)
           );
           expandedRowsAnimationTimeoutRef.current.delete(rowId);
-        }, EXPANDED_ROW_ANIMATION_MS),
+        }, EXPANDED_ROW_ANIMATION_MS)
       );
     },
-    [clearExpandedRowsAnimationTimeout],
+    [clearExpandedRowsAnimationTimeout]
   );
 
   const expandRenderedRow = useCallback(
@@ -167,7 +167,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
 
       setRenderedExpandedRows((prevRows) => {
         const hasRow = prevRows.some(
-          (expandedRow) => expandedRow.rowId === rowId,
+          (expandedRow) => expandedRow.rowId === rowId
         );
         if (!hasRow) {
           return [...prevRows, { rowId, content, isVisible: false }];
@@ -176,7 +176,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
         return prevRows.map((expandedRow) =>
           expandedRow.rowId === rowId
             ? { ...expandedRow, content, isVisible: false }
-            : expandedRow,
+            : expandedRow
         );
       });
 
@@ -185,12 +185,12 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
           prevRows.map((expandedRow) =>
             expandedRow.rowId === rowId
               ? { ...expandedRow, isVisible: true }
-              : expandedRow,
-          ),
+              : expandedRow
+          )
         );
       });
     },
-    [clearExpandedRowsAnimationTimeout],
+    [clearExpandedRowsAnimationTimeout]
   );
 
   useEffect(() => {
@@ -240,7 +240,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
       });
 
       return prevRows.filter((expandedRow) =>
-        currentIds.has(expandedRow.rowId),
+        currentIds.has(expandedRow.rowId)
       );
     });
   }, [data, isMultipleExpandedRowsEnabled, clearExpandedRowsAnimationTimeout]);
@@ -328,7 +328,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
       clearExpandedRowAnimationTimeout();
       clearExpandedRowsAnimationTimeout();
     },
-    [clearExpandedRowAnimationTimeout, clearExpandedRowsAnimationTimeout],
+    [clearExpandedRowAnimationTimeout, clearExpandedRowsAnimationTimeout]
   );
 
   useEffect(() => {
@@ -366,7 +366,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
         return nextSelected;
       });
     },
-    [onRowSelect],
+    [onRowSelect]
   );
 
   const onRowExpandChange = useCallback(
@@ -400,7 +400,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
         } else {
           clearExpandedRowsAnimationTimeout(row.id);
           setRenderedExpandedRows((prevRows) =>
-            prevRows.filter((expandedRow) => expandedRow.rowId !== row.id),
+            prevRows.filter((expandedRow) => expandedRow.rowId !== row.id)
           );
         }
 
@@ -440,7 +440,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
       isMultipleExpandedRowsEnabled,
       onExpandedRowChange,
       onRowExpand,
-    ],
+    ]
   );
 
   const onToggleAllRows = useCallback(() => {
@@ -448,7 +448,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
       const nextSelected = new Set(prevSelected);
       const visibleRows = data ?? [];
       const areAllSelected = visibleRows.every((row) =>
-        nextSelected.has(row.id),
+        nextSelected.has(row.id)
       );
 
       visibleRows.forEach((row) => {
@@ -490,13 +490,13 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
     return selectedRowsData.reduce<ActionType<TRow>[]>(
       (sharedActions, row, index) => {
         const rowActions = actions(row).filter(
-          (action) => action.multiple && !action.hidden,
+          (action) => action.multiple && !action.hidden
         );
 
         if (index === 0) return rowActions;
 
         const sharedMap = new Map(
-          sharedActions.map((action) => [action.id, action]),
+          sharedActions.map((action) => [action.id, action])
         );
 
         return rowActions.reduce<ActionType<TRow>[]>((acc, action) => {
@@ -511,7 +511,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
           return acc;
         }, []);
       },
-      [],
+      []
     );
   }, [actions, selectedRowsData]);
 
@@ -525,7 +525,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
 
       selectedRowsData.forEach((row) => action.onClick(row));
     },
-    [selectedRowsData],
+    [selectedRowsData]
   );
 
   const expandedRowsToRender = useMemo<ExpandedRowStateType<TRow>[]>(() => {
@@ -577,6 +577,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
                           <Tooltip key={action.id} content={action.tooltip}>
                             <button
                               type="button"
+                              className="table-action"
                               onClick={() => handleMultipleActionClick(action)}
                               disabled={action.disabled}
                             >
