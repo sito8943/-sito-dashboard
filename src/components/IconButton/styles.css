@@ -1,0 +1,7 @@
+.icon-button {
+  @apply bg-gray-100/30 dark:bg-gray-800/30 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 w-7 h-7 min-w-[1.75rem] rounded-full flex items-center justify-center transition duration-300 ease-in-out;
+}
+
+.icon-button.error:hover {
+  @apply bg-red-500 text-white;
+}

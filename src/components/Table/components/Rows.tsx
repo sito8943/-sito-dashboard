@@ -36,15 +36,15 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
           return (colB.pos ?? 0) - (colA.pos ?? 0);
         })
         .filter((column) => column.display !== "none"),
-    [columns]
+    [columns],
   );
 
   const expandedRowsMap = useMemo(
     () =>
       new Map(
-        expandedRows.map((expandedRow) => [expandedRow.rowId, expandedRow])
+        expandedRows.map((expandedRow) => [expandedRow.rowId, expandedRow]),
       ),
-    [expandedRows]
+    [expandedRows],
   );
 
   return data?.map((row) => {
