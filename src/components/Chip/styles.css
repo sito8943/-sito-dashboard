@@ -3,5 +3,9 @@
 }
 
 .chip-delete-button {
-  @apply ml-2 w-2.5 h-2.5 cursor-pointer;
+  @apply ml-2 cursor-pointer;
+}
+
+.chip-delete-button svg {
+  @apply w-3 h-3;
 }

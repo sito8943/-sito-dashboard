@@ -1,5 +1,5 @@
 // components
-import { Tooltip } from "components";
+import { IconButton, Tooltip } from "components";
 // lib
 import { BaseDto } from "lib";
 // providers
@@ -87,14 +87,14 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
                   .filter((action) => !action.hidden)
                   ?.map((action) => (
                     <Tooltip key={action.id} content={action.tooltip}>
-                      <button
+                      <IconButton
+                        icon={action.icon}
+                        className="row-table-action"
                         onClick={(e) => {
                           e.stopPropagation();
                           action.onClick(row);
                         }}
-                      >
-                        {action.icon}
-                      </button>
+                      />
                     </Tooltip>
                   ))}
               </div>

@@ -1,6 +1,6 @@
 // providers
 // components
-import { ChevronLeft, ChevronRight } from "components";
+import { ChevronLeft, ChevronRight, IconButton } from "components";
 import { useTableOptions, useTranslation } from "providers";
 
 /**
@@ -14,24 +14,22 @@ export const Navigation = () => {
 
   return (
     <div className="table-navigation-pages">
-      <button
+      <IconButton
+        icon={<ChevronLeft className="w-2.5" />}
         className="table-navigation-buttons"
         disabled={currentPage === 0}
         aria-label={t("_accessibility:buttons.previous")}
         name={t("_accessibility:buttons.previous")}
         onClick={() => setCurrentPage(currentPage - 1)}
-      >
-        <ChevronLeft className="w-2.5" />
-      </button>
-      <button
+      />
+      <IconButton
+        icon={<ChevronRight className="w-2.5" />}
         disabled={Math.floor(total / ((currentPage + 1) * pageSize)) === 0}
         className="table-navigation-buttons"
         name={t("_accessibility:buttons.next")}
         aria-label={t("_accessibility:buttons.next")}
         onClick={() => setCurrentPage(currentPage + 1)}
-      >
-        <ChevronRight className="w-2.5" />
-      </button>
+      />
     </div>
   );
 };

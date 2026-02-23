@@ -4,7 +4,7 @@ import "./styles.css";
 // @emotion/css
 import { css } from "@emotion/css";
 // components
-import { Chip, Close, Option, TextInput } from "components";
+import { Chip, Close, IconButton, Option, TextInput } from "components";
 import {
   ChangeEvent,
   ForwardedRef,
@@ -108,9 +108,9 @@ export const AutocompleteInput = forwardRef(function (
       else {
         if (multiple) {
           setInputValue("");
-          Array.isArray(value) && !!value.length
-            ? onChange([...value, suggestion])
-            : onChange([suggestion]);
+          if (Array.isArray(value) && !!value.length)
+            onChange([...value, suggestion]);
+          else onChange([suggestion]);
         } else {
           setInputValue(String(suggestion.name ?? suggestion.value ?? ""));
           onChange(suggestion);
@@ -175,16 +175,14 @@ export const AutocompleteInput = forwardRef(function (
             value &&
             !Array.isArray(value) &&
             (value.value || value.name) && (
-              <button
-                type="button"
+              <IconButton
+                icon={<Close />}
                 className="autocomplete-delete-button"
                 onClick={(e) => {
                   handleSuggestionClick();
                   e.stopPropagation();
                 }}
-              >
-                <Close />
-              </button>
+              />
             )}
         </TextInput>
         {multiple && Array.isArray(value) && value.length ? (

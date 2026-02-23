@@ -1,0 +1,11 @@
+.dropdown-main {
+  @apply transition duration-300 ease-in-out absolute right-5 bg-white dark:bg-gray-800 p-2 shadow-xl shadow-black/50;
+}
+
+.dropdown-main.opened {
+  @apply z-10 opacity-100;
+}
+
+.dropdown-main.closed {
+  @apply -z-10 opacity-0 pointer-events-none;
+}

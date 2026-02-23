@@ -8,7 +8,7 @@ import { TableHeaderPropsType } from "./components";
 export type ActionType<TRow extends BaseDto> = {
   id: string;
   onClick: (entity?: TRow) => void;
-  icon: any;
+  icon: ReactNode;
   tooltip: string;
   disabled?: boolean;
   hidden?: boolean;

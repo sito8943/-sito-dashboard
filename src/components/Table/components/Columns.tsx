@@ -1,4 +1,5 @@
 // components
+import { Button } from "components";
 import { ChevronDown, ChevronUp } from "components/SvgIcons";
 // models
 import { BaseDto, SortOrder } from "lib";
@@ -72,7 +73,7 @@ export function Columns<TRow extends BaseDto>(props: ColumnPropsType<TRow>) {
             scope="col"
             className={`table-headers-column ${column.className}`}
           >
-            <button
+            <Button
               disabled={!column.sortable}
               onClick={() => onSort(column.id as string, onSortCallback)}
               className="table-headers-cell"
@@ -99,12 +100,14 @@ export function Columns<TRow extends BaseDto>(props: ColumnPropsType<TRow>) {
                       ))}
                 </span>
               )}
-            </button>
+            </Button>
           </th>
         ))}
         {hasAction && (
           <th scope="col" className="table-headers-action">
-            {t("_accessibility:labels.actions")}
+            <span className="button text default disabled">
+              {t("_accessibility:labels.actions")}
+            </span>
           </th>
         )}
       </tr>

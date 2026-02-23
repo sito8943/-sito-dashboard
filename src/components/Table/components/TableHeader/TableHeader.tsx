@@ -1,4 +1,4 @@
-import { Badge, Filters } from "components";
+import { Badge, Filters, IconButton } from "components";
 // lib
 import { BaseDto, FilterType } from "lib";
 // providers
@@ -42,8 +42,9 @@ export const TableHeader = <TRow extends BaseDto>(
 
   const handleDropdown = useCallback(
     (value?: boolean) => {
-      filterOptions?.dropdown?.setOpened?.(value ?? false) ??
-        setDropdownOpen(value ?? false);
+      if (filterOptions?.dropdown?.setOpened)
+        filterOptions.dropdown.setOpened(value ?? false);
+      else setDropdownOpen(value ?? false);
     },
     [filterOptions],
   );
@@ -61,7 +62,12 @@ export const TableHeader = <TRow extends BaseDto>(
           <div className="table-header-content">
             {toolbar}
             {filterOptions?.button?.hide !== true && (
-              <button
+              <IconButton
+                icon={
+                  filterOptions?.button?.icon ?? (
+                    <Filters className="filter-dropdown-trigger-icon" />
+                  )
+                }
                 className="filter-dropdown-button normal filter-dropdown-trigger"
                 aria-haspopup="true"
                 onClick={() => handleDropdown(!showDropdown)}
@@ -75,10 +81,7 @@ export const TableHeader = <TRow extends BaseDto>(
                   {t("_accessibility:buttons.filters")}
                 </span>
                 <wbr />
-                {filterOptions?.button?.icon ?? (
-                  <Filters className="filter-dropdown-trigger-icon" />
-                )}
-              </button>
+              </IconButton>
             )}
           </div>
         ) : null}
