@@ -42,8 +42,9 @@ export const TableHeader = <TRow extends BaseDto>(
 
   const handleDropdown = useCallback(
     (value?: boolean) => {
-      filterOptions?.dropdown?.setOpened?.(value ?? false) ??
-        setDropdownOpen(value ?? false);
+      if (filterOptions?.dropdown?.setOpened)
+        filterOptions.dropdown.setOpened(value ?? false);
+      else setDropdownOpen(value ?? false);
     },
     [filterOptions],
   );

@@ -108,9 +108,9 @@ export const AutocompleteInput = forwardRef(function (
       else {
         if (multiple) {
           setInputValue("");
-          Array.isArray(value) && !!value.length
-            ? onChange([...value, suggestion])
-            : onChange([suggestion]);
+          if (Array.isArray(value) && !!value.length)
+            onChange([...value, suggestion]);
+          else onChange([suggestion]);
         } else {
           setInputValue(String(suggestion.name ?? suggestion.value ?? ""));
           onChange(suggestion);

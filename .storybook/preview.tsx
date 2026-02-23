@@ -1,13 +1,12 @@
-import type { Preview } from "@storybook/react";
-import type { Decorator } from "@storybook/react";
-
 // Global styles (Tailwind + project tokens)
 import "./styles.css";
 import "../src/index.css";
 import "../src/styles/base-colors.css";
 
+import type { Preview } from "@storybook/react";
+import type { Decorator } from "@storybook/react";
 // Providers
-import { TranslationProvider, TableOptionsProvider } from "providers";
+import { TableOptionsProvider, TranslationProvider } from "providers";
 
 const translations: Record<string, string> = {
   // Labels
