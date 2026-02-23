@@ -4,7 +4,7 @@ import "./components/styles.css";
 import "./components/Widgets/styles.css";
 
 // components
-import { Loading, Tooltip } from "components";
+import { IconButton, Loading, Tooltip } from "components";
 // lib
 import { BaseDto } from "lib";
 // providers
@@ -575,14 +575,12 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
                       <div className="table-selection-bar-actions">
                         {multiActions.map((action) => (
                           <Tooltip key={action.id} content={action.tooltip}>
-                            <button
-                              type="button"
-                              className="table-action"
+                            <IconButton
+                              icon={action.icon}
+                              className="multi-table-action"
                               onClick={() => handleMultipleActionClick(action)}
                               disabled={action.disabled}
-                            >
-                              {action.icon}
-                            </button>
+                            />
                           </Tooltip>
                         ))}
                       </div>

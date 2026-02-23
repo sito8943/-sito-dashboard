@@ -73,7 +73,9 @@
 .table-row-expanded-content {
   @apply grid opacity-0;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 220ms ease, opacity 220ms ease;
+  transition:
+    grid-template-rows 220ms ease,
+    opacity 220ms ease;
 }
 
 .table-row-expanded-content.open {
@@ -102,6 +104,6 @@
   @apply flex items-center gap-2;
 }
 
-.table-selection-bar-actions button {
-  @apply w-8 h-8 flex items-center justify-center rounded border border-transparent bg-transparent hover:border-slate-300 dark:hover:border-gray-600 disabled:opacity-50 disabled:cursor-not-allowed;
+.multi-table-action {
+  @apply w-8 h-8 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed;
 }

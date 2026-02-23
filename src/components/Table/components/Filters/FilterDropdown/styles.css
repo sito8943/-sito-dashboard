@@ -1,5 +1,5 @@
 .filter-dropdown-button {
-  @apply text-sm inline-flex items-center justify-center border border-transparent rounded leading-5 shadow-sm transition duration-150 ease-in-out;
+  @apply text-sm;
 }
 
 .filter-dropdown-button.normal {

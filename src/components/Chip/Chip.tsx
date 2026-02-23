@@ -1,8 +1,7 @@
-// components
 // styles
 import "./styles.css";
 
-import { Close } from "components";
+import { Close, IconButton } from "components";
 
 // types
 import { ChipPropsType } from "./types";
@@ -29,13 +28,11 @@ export function Chip(props: ChipPropsType) {
       <span className={textClassName}>{text}</span>
       {children}
       {onDelete ? (
-        <button
-          type="button"
+        <IconButton
+          icon={icon ?? <Close />}
           className={`chip-delete-button ${iconClassName}`}
           onClick={onDelete}
-        >
-          {icon ?? <Close />}
-        </button>
+        />
       ) : null}
     </div>
   );
