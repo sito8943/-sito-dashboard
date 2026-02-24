@@ -13,5 +13,6 @@ export type ButtonBaseProps = {
 };
 
 export interface ButtonPropsType
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "color">,
+  extends
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, "color">,
     ButtonBaseProps {}

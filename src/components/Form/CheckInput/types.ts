@@ -4,5 +4,6 @@ import { HTMLProps } from "react";
 import { BaseInputPropsType } from "../types";
 
 export interface CheckInputPropsType
-  extends HTMLProps<HTMLInputElement>,
+  extends
+    HTMLProps<HTMLInputElement>,
     Omit<BaseInputPropsType, "value" | "onChange"> {}

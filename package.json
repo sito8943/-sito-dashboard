@@ -31,7 +31,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint --fix . --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint --fix . --report-unused-disable-directives --max-warnings 0 && prettier --write . && depcheck .",
     "test": "vitest run",
     "preview": "vite preview",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
@@ -50,6 +50,13 @@
     "@emotion/css": "11.13.5",
     "react": ">=18.2 <20"
   },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix --report-unused-disable-directives --max-warnings 0",
+      "prettier --write"
+    ],
+    "*.{js,jsx,css,json,md}": "prettier --write"
+  },
   "devDependencies": {
     "@storybook/addon-a11y": "^10.2.10",
     "@storybook/react": "^10.2.10",
@@ -64,6 +71,7 @@
     "@vitejs/plugin-react": "^4.7.0",
     "autoprefixer": "10.4.16",
     "baseline-browser-mapping": "^2.10.0",
+    "depcheck": "^1.4.7",
     "eslint": "^10.0.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-jsdoc": "^62.6.1",
@@ -71,8 +79,9 @@
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "husky": "^9.1.7",
     "jsdom": "^26.1.0",
+    "lint-staged": "^16.2.7",
     "postcss": "8.4.41",
-    "prettier": "^3.3.3",
+    "prettier": "^3.8.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "storybook": "^10.2.10",

@@ -108,5 +108,5 @@
 /*TABLE */
 
 .table-headers-cell {
-  @apply hover:bg-slate-200 dark:border-gray-600
+  @apply hover:bg-slate-200 dark:border-gray-600;
 }

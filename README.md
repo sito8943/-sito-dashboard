@@ -68,7 +68,10 @@ const actions = (row: UserRow) => [
     multiple: true,
     onClick: () => console.log("Delete", row),
     onMultipleClick: (selectedRows: UserRow[]) =>
-      console.log("Bulk delete", selectedRows.map(({ name }) => name)),
+      console.log(
+        "Bulk delete",
+        selectedRows.map(({ name }) => name),
+      ),
   },
 ];
 
@@ -131,20 +134,20 @@ export function UsersTable() {
 
 ## Core Table Props
 
-| Prop | Type | Required | Description |
-|---|---|---|---|
-| `entity` | `string` | Yes | Entity name used by internal components. |
-| `data` | `TRow[]` | Yes | Rows to render. `TRow` must extend `BaseDto` and include `id`. |
-| `columns` | `ColumnType<TRow>[]` | No | Column definitions. |
-| `actions` | `(row: TRow) => ActionType<TRow>[]` | No | Per-row action factory. |
-| `title` | `string` | No | Header title. |
-| `toolbar` | `ReactNode` | No | Custom header content. |
-| `onSort` | `(prop: string, sortOrder: SortOrder) => void` | No | Sort callback. |
-| `onRowSelect` | `(row: TRow, selected: boolean) => void` | No | Row selection callback. |
-| `onSelectedRowsChange` | `(rows: TRow[]) => void` | No | Selected rows callback. |
-| `onRowExpand` | `(expandedRow: TRow, collapsedRow: TRow \| null) => ReactNode` | No | Expand row content callback. |
-| `allowMultipleExpandedRows` | `boolean` | No | Allows multiple expanded rows at once. |
-| `expandedRowId` | `TRow["id"] \| null` | No | Controlled expansion mode. |
+| Prop                        | Type                                                           | Required | Description                                                    |
+| --------------------------- | -------------------------------------------------------------- | -------- | -------------------------------------------------------------- |
+| `entity`                    | `string`                                                       | Yes      | Entity name used by internal components.                       |
+| `data`                      | `TRow[]`                                                       | Yes      | Rows to render. `TRow` must extend `BaseDto` and include `id`. |
+| `columns`                   | `ColumnType<TRow>[]`                                           | No       | Column definitions.                                            |
+| `actions`                   | `(row: TRow) => ActionType<TRow>[]`                            | No       | Per-row action factory.                                        |
+| `title`                     | `string`                                                       | No       | Header title.                                                  |
+| `toolbar`                   | `ReactNode`                                                    | No       | Custom header content.                                         |
+| `onSort`                    | `(prop: string, sortOrder: SortOrder) => void`                 | No       | Sort callback.                                                 |
+| `onRowSelect`               | `(row: TRow, selected: boolean) => void`                       | No       | Row selection callback.                                        |
+| `onSelectedRowsChange`      | `(rows: TRow[]) => void`                                       | No       | Selected rows callback.                                        |
+| `onRowExpand`               | `(expandedRow: TRow, collapsedRow: TRow \| null) => ReactNode` | No       | Expand row content callback.                                   |
+| `allowMultipleExpandedRows` | `boolean`                                                      | No       | Allows multiple expanded rows at once.                         |
+| `expandedRowId`             | `TRow["id"] \| null`                                           | No       | Controlled expansion mode.                                     |
 
 ## Development Setup (Step-by-step)
 
