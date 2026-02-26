@@ -58,7 +58,7 @@ export const SelectInput = forwardRef(function (
         ))}
       </select>
       <label
-        htmlFor={name}
+        htmlFor={id}
         className={`select-input-label ${labelStateClassName(state)} ${labelClassName}`}
       >
         {label}

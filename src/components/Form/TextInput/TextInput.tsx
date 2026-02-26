@@ -45,7 +45,7 @@ export const TextInput = forwardRef(function (
       />
       {!!label && (
         <label
-          htmlFor={rest.name}
+          htmlFor={rest.id}
           className={`text-input-label ${labelStateClassName(state)} ${labelClassName}`}
         >
           {label}

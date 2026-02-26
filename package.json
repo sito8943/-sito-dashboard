@@ -47,7 +47,6 @@
   "author": "sito8943",
   "license": "MIT",
   "peerDependencies": {
-    "@emotion/css": "11.13.5",
     "react": ">=18.2 <20"
   },
   "lint-staged": {

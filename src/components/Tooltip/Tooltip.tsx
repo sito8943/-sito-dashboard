@@ -1,5 +1,8 @@
+// react
 // styles
 import "./styles.css";
+
+import { useId } from "react";
 
 // types
 import { TooltipPropsType } from "./types";
@@ -12,10 +15,17 @@ import { TooltipPropsType } from "./types";
 export function Tooltip(props: TooltipPropsType) {
   const { content, children, className = "" } = props;
 
+  const tooltipId = useId();
+
   return (
-    <div className={`tooltip-container ${className}`}>
+    <div
+      className={`tooltip-container ${className}`}
+      aria-describedby={tooltipId}
+    >
       {children}
-      <div className="tooltip-text">{content}</div>
+      <div id={tooltipId} role="tooltip" className="tooltip-text">
+        {content}
+      </div>
     </div>
   );
 }
