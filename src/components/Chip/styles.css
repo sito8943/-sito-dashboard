@@ -2,6 +2,10 @@
   @apply flex items-center justify-start rounded-3xl text-sm px-4 py-2;
 }
 
+.chip-main.deletable {
+  @apply pr-2;
+}
+
 .chip-delete-button {
   @apply ml-2 cursor-pointer;
 }

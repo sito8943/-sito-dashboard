@@ -24,7 +24,9 @@ export function Chip(props: ChipPropsType) {
   } = props;
 
   return (
-    <div className={`chip-main ${variant} ${className}`}>
+    <div
+      className={`chip-main ${variant} ${onDelete ? "deletable" : ""} ${className}`}
+    >
       <span className={textClassName}>{text}</span>
       {children}
       {onDelete ? (

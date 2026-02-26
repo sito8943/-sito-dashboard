@@ -11,6 +11,11 @@ const meta: Meta<typeof Chip> = {
   title: "Components/Chip",
   component: Chip,
   tags: ["autodocs"],
+  decorators: (Story) => (
+    <div className="flex items-start justify-start">
+      <Story />
+    </div>
+  ),
 };
 
 export default meta;
@@ -25,11 +30,13 @@ export const Deletable: Story = {
     const Example = () => {
       const [count, setCount] = useState(0);
       return (
-        <Chip
-          {...args}
-          text={`Borrar (${count})`}
-          onDelete={() => setCount((c) => c + 1)}
-        />
+        <div className="flex items-start justify-start">
+          <Chip
+            {...args}
+            text={`Borrar (${count})`}
+            onDelete={() => setCount((c) => c + 1)}
+          />
+        </div>
       );
     };
     return <Example />;
@@ -41,13 +48,15 @@ export const RangeChip: Story = {
     const Example = () => {
       const [date, setDate] = useState(String(new Date()));
       return (
-        <SRangeChip
-          id={"number"}
-          text={"Date"}
-          start={date}
-          end={date}
-          onClearFilter={() => setDate("")}
-        />
+        <div className="flex items-start justify-start">
+          <SRangeChip
+            id={"number"}
+            text={"Date"}
+            start={date}
+            end={date}
+            onClearFilter={() => setDate("")}
+          />
+        </div>
       );
     };
     return <Example />;
@@ -82,12 +91,14 @@ export const ArrayChip: Story = {
     const Example = () => {
       const [tags, setTags] = useState(options);
       return (
-        <SArrayChip
-          id={"Tags"}
-          text={"Tags"}
-          items={tags}
-          onClearFilter={() => setTags([])}
-        />
+        <div className="flex items-start justify-start">
+          <SArrayChip
+            id={"Tags"}
+            text={"Tags"}
+            items={tags}
+            onClearFilter={() => setTags([])}
+          />
+        </div>
       );
     };
     return <Example />;
