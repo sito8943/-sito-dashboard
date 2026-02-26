@@ -6,14 +6,12 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.stories.@(ts|tsx)"],
-  addons: ["@storybook/addon-a11y"],
+  addons: ["@storybook/addon-docs", "@storybook/addon-a11y"],
   framework: {
     name: "@storybook/react-vite",
     options: {},
   },
-  docs: {
-    autodocs: "tag",
-  },
+  docs: {},
   viteFinal: async (config) => {
     config.resolve = config.resolve || {};
     config.resolve.alias = {
