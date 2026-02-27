@@ -31,7 +31,7 @@ export const Default: Story = {
             options={sampleOptions}
             value={value}
             onChange={(e) => setValue(e.currentTarget.value)}
-            placeholder="Elige una opción"
+            helperText="Elige una opción"
           />
           <p className="mt-2 text-sm text-gray-500">Valor: {String(value)}</p>
         </div>
