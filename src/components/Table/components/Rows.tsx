@@ -119,5 +119,3 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
     );
   });
 };
-
-export default Rows;
