@@ -1,0 +1,15 @@
+{
+  "ignores": [
+    "autoprefixer",
+    "postcss",
+    "tailwindcss",
+    "baseline-browser-mapping",
+    "@storybook/addon-a11y",
+    "@storybook/addon-docs",
+    "@testing-library/jest-dom",
+    "lib",
+    "providers",
+    "components",
+    "main"
+  ]
+}

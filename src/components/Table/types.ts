@@ -16,8 +16,9 @@ export type ActionType<TRow extends BaseDto> = {
   onMultipleClick?: (rows: TRow[]) => void;
 };
 
-export interface TablePropsType<TRow extends BaseDto>
-  extends TableHeaderPropsType<TRow> {
+export interface TablePropsType<
+  TRow extends BaseDto,
+> extends TableHeaderPropsType<TRow> {
   entity: string;
   data: TRow[];
   actions?: (row: TRow) => ActionType<TRow>[];

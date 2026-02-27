@@ -30,29 +30,27 @@ export const FilterDropdown = (props: FilterDropdownPropsType) => {
 
   const { t } = useTranslation();
 
-  const dropdown = useRef(null);
+  const dropdown = useRef<HTMLDivElement | null>(null);
 
-  // close on click outside
+  // close on click outside or Escape key
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
       if (!dropdown.current) return;
       if ((target as HTMLElement | null)?.closest(".filter-dropdown-trigger"))
         return;
-      if (!show || (dropdown.current as any)?.contains(target)) return;
+      if (!show || dropdown.current.contains(target as Node)) return;
+      handleShow(false);
+    };
+    const keyHandler = ({ code }: KeyboardEvent) => {
+      if (!show || code !== "Escape") return;
       handleShow(false);
     };
     document.addEventListener("click", clickHandler);
-    return () => document.removeEventListener("click", clickHandler);
-  }, [handleShow, show]);
-
-  // close if the esc key is pressed
-  useEffect(() => {
-    const keyHandler = (e: KeyboardEvent) => {
-      if (!show || e.code !== "Escape") return;
-      handleShow(false);
-    };
     document.addEventListener("keydown", keyHandler);
-    return () => document.removeEventListener("keydown", keyHandler);
+    return () => {
+      document.removeEventListener("click", clickHandler);
+      document.removeEventListener("keydown", keyHandler);
+    };
   }, [handleShow, show]);
 
   return (
@@ -90,7 +88,6 @@ export const FilterDropdown = (props: FilterDropdownPropsType) => {
                   handleShow(false);
                   onFilterApply(currentFilters);
                 }}
-                onBlur={() => handleShow(false)}
               >
                 {t("_accessibility:buttons.applyFilters")}
               </button>

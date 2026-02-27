@@ -20,7 +20,7 @@ import { SelectInputPropsType } from "./types";
  */
 export const SelectInput = forwardRef(function (
   props: SelectInputPropsType,
-  ref: ForwardedRef<HTMLSelectElement> | ForwardedRef<HTMLSelectElement>,
+  ref: ForwardedRef<HTMLSelectElement>,
 ) {
   const {
     value,
@@ -31,7 +31,6 @@ export const SelectInput = forwardRef(function (
     labelClassName = "",
     helperText = "",
     helperTextClassName = "",
-    placeholder = "",
     label = "",
     name = "",
     id = "",
@@ -58,17 +57,17 @@ export const SelectInput = forwardRef(function (
         ))}
       </select>
       <label
-        htmlFor={name}
+        htmlFor={id}
         className={`select-input-label ${labelStateClassName(state)} ${labelClassName}`}
       >
         {label}
       </label>
       {children}
-      {(placeholder || helperText) && (
+      {helperText && (
         <p
           className={`select-input-helper-text ${helperTextStateClassName(state)} ${helperTextClassName}`}
         >
-          {state !== "error" && state !== "good" ? placeholder : helperText}
+          {helperText}
         </p>
       )}
     </div>

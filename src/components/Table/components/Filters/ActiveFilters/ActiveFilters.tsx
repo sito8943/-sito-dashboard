@@ -68,7 +68,9 @@ export const ActiveFilters = (props: ActiveFiltersPropsType) => {
 
   return (
     <ul className="active-filters-main">
-      {filtersAsList?.map((key) => <li key={key}>{parseFilters(key)}</li>)}
+      {filtersAsList?.map((key) => (
+        <li key={key}>{parseFilters(key)}</li>
+      ))}
     </ul>
   );
 };

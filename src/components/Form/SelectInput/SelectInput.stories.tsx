@@ -13,10 +13,10 @@ export default meta;
 type Story = StoryObj<typeof SelectInput>;
 
 const sampleOptions = [
-  { id: "", value: "Seleccione..." },
-  { id: 1, value: "Opción 1" },
-  { id: 2, value: "Opción 2" },
-  { id: 3, value: "Opción 3" },
+  { id: "", value: "Select..." },
+  { id: 1, value: "Option 1" },
+  { id: 2, value: "Option 2" },
+  { id: 3, value: "Option 3" },
 ];
 
 export const Default: Story = {
@@ -27,13 +27,13 @@ export const Default: Story = {
         <div className="max-w-sm">
           <SelectInput
             {...args}
-            label="Selecciona una opción"
+            label="Select an option"
             options={sampleOptions}
             value={value}
             onChange={(e) => setValue(e.currentTarget.value)}
-            placeholder="Elige una opción"
+            helperText="Choose an option"
           />
-          <p className="mt-2 text-sm text-gray-500">Valor: {String(value)}</p>
+          <p className="mt-2 text-sm text-gray-500">Value: {String(value)}</p>
         </div>
       );
     };
@@ -44,5 +44,5 @@ export const Default: Story = {
 
 export const ErrorState: Story = {
   render: Default.render,
-  args: { state: State.error, helperText: "Campo requerido" },
+  args: { state: State.error, helperText: "Required field" },
 };

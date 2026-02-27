@@ -1,5 +1,8 @@
+// react
 // styles
 import "./styles.css";
+
+import { cloneElement, isValidElement, useId } from "react";
 
 // types
 import { TooltipPropsType } from "./types";
@@ -12,10 +15,20 @@ import { TooltipPropsType } from "./types";
 export function Tooltip(props: TooltipPropsType) {
   const { content, children, className = "" } = props;
 
+  const tooltipId = useId();
+
+  const trigger = isValidElement(children)
+    ? cloneElement(children as React.ReactElement, {
+        "aria-describedby": tooltipId,
+      })
+    : children;
+
   return (
     <div className={`tooltip-container ${className}`}>
-      {children}
-      <div className="tooltip-text">{content}</div>
+      {trigger}
+      <div id={tooltipId} role="tooltip" className="tooltip-text">
+        {content}
+      </div>
     </div>
   );
 }

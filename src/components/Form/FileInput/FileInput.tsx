@@ -2,8 +2,14 @@
 import "./styles.css";
 
 // components
-import { Chip, Close, File } from "components";
-import { ChangeEvent, ForwardedRef, forwardRef, useState } from "react";
+import { Chip, Close, File, IconButton, Tooltip } from "components";
+import {
+  ChangeEvent,
+  ForwardedRef,
+  forwardRef,
+  useCallback,
+  useState,
+} from "react";
 
 // types
 import { FileInputPropsType } from "./types";
@@ -34,21 +40,40 @@ export const FileInput = forwardRef(function (
 
   const [files, setFiles] = useState<File[]>([]);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const selected = Array.from(e.target.files);
-      setFiles((prev) => [...prev, ...selected]);
-    }
-    if (onChange) onChange(e);
-  };
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files) {
+        const selected = Array.from(e.target.files);
+        setFiles((prev) => [...prev, ...selected]);
+      }
+      onChange?.(e);
+    },
+    [onChange],
+  );
 
-  const handleRemove = (index: number) => {
-    setFiles((prev) => {
-      const next = prev.filter((_, i) => i !== index);
-      if (next.length === 0) onClear?.();
-      return next;
-    });
-  };
+  const handleRemove = useCallback(
+    (index: number) => {
+      setFiles((prev) => {
+        const next = prev.filter((_, i) => i !== index);
+        if (next.length === 0) onClear?.();
+        return next;
+      });
+    },
+    [onClear],
+  );
+
+  const handleClear = useCallback(() => {
+    setFiles([]);
+    onClear?.();
+  }, [onClear]);
+
+  const handleInputClick = useCallback(
+    (e: React.MouseEvent<HTMLInputElement>) => {
+      // Ensure re-opening and re-selecting the same file triggers onChange
+      (e.currentTarget as HTMLInputElement).value = "";
+    },
+    [],
+  );
 
   return (
     <div className={`file-input-container ${containerClassName}`}>
@@ -59,10 +84,7 @@ export const FileInput = forwardRef(function (
             type="file"
             ref={ref}
             multiple={multiple}
-            onClick={(e) => {
-              // Ensure re-opening and re-selecting the same file triggers onChange
-              (e.currentTarget as HTMLInputElement).value = "";
-            }}
+            onClick={handleInputClick}
             onChange={handleChange}
             className={`file-input ${inputClassName}`}
             {...rest}
@@ -74,13 +96,13 @@ export const FileInput = forwardRef(function (
       {files.length > 1 && (
         <ul className="file-preview-list">
           {files.map((file, i) => (
-            <li key={i}>
-              <span data-tooltip-id="tooltip" data-tooltip-content={file.name}>
+            <li key={`${file.name}-${file.lastModified}`}>
+              <Tooltip content={file.name}>
                 <Chip
                   text={truncateFileName(file.name, 25)}
                   onDelete={() => handleRemove(i)}
                 />
-              </span>
+              </Tooltip>
             </li>
           ))}
         </ul>
@@ -89,23 +111,12 @@ export const FileInput = forwardRef(function (
       {files.length === 1 && (
         <div className="file-preview">
           <File className={`file-icon ${iconClassName}`} />
-          <span
-            className="!cursor-default"
-            data-tooltip-id="tooltip"
-            data-tooltip-content={files[0]?.name ?? ""}
-          >
-            {truncateFileName(files[0]?.name ?? "", 25)}
-          </span>
-          <button
-            onClick={() => {
-              setFiles([]);
-              onClear?.();
-            }}
-            className="chip-delete-button"
-            type="button"
-          >
-            <Close />
-          </button>
+          <Tooltip content={files[0]?.name ?? ""}>
+            <span className="!cursor-default">
+              {truncateFileName(files[0]?.name ?? "", 25)}
+            </span>
+          </Tooltip>
+          <IconButton icon={<Close />} onClick={handleClear} type="button" />
         </div>
       )}
 

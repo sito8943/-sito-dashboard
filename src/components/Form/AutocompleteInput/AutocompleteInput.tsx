@@ -1,17 +1,16 @@
 // styles
 import "./styles.css";
 
-// @emotion/css
-import { css } from "@emotion/css";
 // components
 import { Chip, Close, IconButton, Option, TextInput } from "components";
 import {
   ChangeEvent,
   ForwardedRef,
   forwardRef,
-  MutableRefObject,
   useCallback,
   useEffect,
+  useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -20,9 +19,9 @@ import {
 import { AutocompleteInputPropsType } from "./types";
 
 /**
- *
- * @param props
- * @returns
+ * Text input with autocomplete suggestions, supporting single and multiple selection.
+ * @param props - Component props
+ * @param ref - Forwarded ref to the underlying input element
  */
 export const AutocompleteInput = forwardRef(function (
   props: AutocompleteInputPropsType,
@@ -43,31 +42,40 @@ export const AutocompleteInput = forwardRef(function (
     multiple = false,
     ...rest
   } = props;
+
   const [inputValue, setInputValue] = useState("");
+
   useEffect(() => {
     if (!multiple && value && !Array.isArray(value)) {
       setInputValue(String(value.value ?? value.name ?? ""));
       return;
     }
-
     setInputValue("");
   }, [multiple, value]);
+
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const suggestions = options.filter((option) => {
-    const isIncluded = String(option.value ?? option.name)
-      .toLowerCase()
-      .includes(inputValue?.toLowerCase());
 
-    if (Array.isArray(value) && value.length) {
-      return !value.some((selected) => selected.id === option.id);
-    }
+  const suggestions = useMemo(
+    () =>
+      options.filter((option) => {
+        const isIncluded = String(option.value ?? option.name)
+          .toLowerCase()
+          .includes(inputValue?.toLowerCase());
 
-    if (value && !Array.isArray(value)) {
-      return value.id !== option.id;
-    }
+        if (Array.isArray(value) && value.length) {
+          return (
+            isIncluded && !value.some((selected) => selected.id === option.id)
+          );
+        }
 
-    return isIncluded;
-  });
+        if (value && !Array.isArray(value)) {
+          return isIncluded && value.id !== option.id;
+        }
+
+        return isIncluded;
+      }),
+    [options, value, inputValue],
+  );
 
   const autocompleteRef = useRef<HTMLDivElement | null>(null);
   const localInputRef = useRef<HTMLInputElement | null>(null);
@@ -98,9 +106,9 @@ export const AutocompleteInput = forwardRef(function (
     };
   }, []);
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
-  };
+  }, []);
 
   const handleSuggestionClick = useCallback(
     (suggestion?: Option) => {
@@ -122,35 +130,29 @@ export const AutocompleteInput = forwardRef(function (
   );
 
   const handleDeleteChip = useCallback(
-    (index?: number) => {
+    (index: number) => {
       if (!Array.isArray(value)) {
         onChange(null);
         return;
       }
-
-      if (index != null) {
-        if (index !== -1) {
-          const newValue = value.filter((_: Option, i: number) => i !== index);
-          if (newValue.length) onChange(newValue);
-          else onChange(null);
-        } else {
-          const [first] = value;
-          onChange([first]);
-        }
-      } else onChange(null);
+      const newValue = value.filter((_, i) => i !== index);
+      if (newValue.length) onChange(newValue);
+      else onChange(null);
     },
     [onChange, value],
   );
 
-  useEffect(() => {
-    const valueWidth = multipleValueRef.current?.offsetWidth ?? 0;
-    const parentWidth =
-      ((ref ?? localInputRef) as MutableRefObject<HTMLInputElement | null>)
-        ?.current?.offsetWidth ?? 0;
+  const handleTrimToFirst = useCallback(() => {
+    if (!Array.isArray(value)) return;
+    onChange([value[0]]);
+  }, [onChange, value]);
 
-    if (valueWidth > parentWidth * 0.4) setThreeDots(true);
-    else setThreeDots(false);
+  useLayoutEffect(() => {
+    const valueWidth = multipleValueRef.current?.offsetWidth ?? 0;
+    const parentWidth = autocompleteRef.current?.offsetWidth ?? 0;
+    setThreeDots(valueWidth > parentWidth * 0.4);
   }, [value]);
+
   return (
     <div
       className={`autocomplete-input-container ${containerClassName}`}
@@ -186,7 +188,7 @@ export const AutocompleteInput = forwardRef(function (
             )}
         </TextInput>
         {multiple && Array.isArray(value) && value.length ? (
-          <ul ref={multipleValueRef} className={`autocomplete-value-container`}>
+          <ul ref={multipleValueRef} className="autocomplete-value-container">
             {!threeDots ? (
               value.map((selected: Option, i: number) => (
                 <li key={selected.id ?? selected.value ?? selected.name}>
@@ -215,7 +217,7 @@ export const AutocompleteInput = forwardRef(function (
                     <Chip
                       text={`+${value.length - 1}`}
                       onDelete={(e) => {
-                        handleDeleteChip(-1);
+                        handleTrimToFirst();
                         e.stopPropagation();
                       }}
                     />
@@ -228,7 +230,8 @@ export const AutocompleteInput = forwardRef(function (
       </div>
       {showSuggestions && (
         <ul
-          className={`autocomplete-suggestions-container ${css({ width: autocompleteRef.current?.offsetWidth })}`}
+          className="autocomplete-suggestions-container"
+          style={{ width: autocompleteRef.current?.offsetWidth }}
         >
           {suggestions.map((suggestion) => (
             <li

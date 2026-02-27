@@ -5,8 +5,10 @@ import {
   ReactNode,
 } from "react";
 
-export interface ChipPropsType
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+export interface ChipPropsType extends DetailedHTMLProps<
+  HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+> {
   text?: string | ReactNode;
   variant?:
     | "primary"

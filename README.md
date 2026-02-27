@@ -1,14 +1,13 @@
 # @sito/dashboard
 
-`@sito/dashboard` is a React + TypeScript UI library focused on reusable dashboard components.
+`@sito/dashboard` is a React + TypeScript UI library for dashboard and admin interfaces.
 
-## Project Description
+## Highlights
 
-This package provides ready-to-use components for admin/dashboard use cases, with focus on data-heavy screens:
-
-- `Table` with sorting, filtering, pagination, row selection, bulk actions, and expandable rows.
-- Form inputs and utility components (`Badge`, `Chip`, `Tooltip`, `Loading`, icons).
-- Built-in providers for translations and table state management.
+- `Table` component with sorting, filtering, pagination, row selection, bulk actions, and expandable rows.
+- Reusable UI pieces: `Badge`, `Button`, `Chip`, `Dropdown`, `IconButton`, `Loading`, `Tooltip`, and `SvgIcons`.
+- Form controls: `TextInput`, `SelectInput`, `AutocompleteInput`, `CheckInput`, and `FileInput`.
+- Built-in providers for translations and table state (`TranslationProvider`, `TableOptionsProvider`).
 
 ## Installation
 
@@ -18,22 +17,18 @@ npm install @sito/dashboard
 
 # yarn
 yarn add @sito/dashboard
+
+# pnpm
+pnpm add @sito/dashboard
 ```
 
-### Peer dependencies
-
-Make sure your app provides compatible versions:
+### Peer dependency
 
 - `react` (`>=18.2 <20`)
-- `@emotion/css` (`11.13.5`)
 
-## Usage
+## Quick Usage
 
-Important:
-
-- Import from `@sito/dashboard` (not from `@sito/dashboard/lib`).
-- `Table` should be wrapped by `TranslationProvider` and `TableOptionsProvider`.
-- `actions` is a callback per row: `(row) => ActionType[]`.
+Import directly from `@sito/dashboard` (do not import from internal paths).
 
 ```tsx
 import {
@@ -54,48 +49,7 @@ const rows: UserRow[] = [
   { id: 2, deletedAt: null, name: "Jane Smith", age: 25 },
 ];
 
-const actions = (row: UserRow) => [
-  {
-    id: "view",
-    tooltip: `View ${row.name}`,
-    icon: <span>View</span>,
-    onClick: () => console.log("View", row),
-  },
-  {
-    id: "delete",
-    tooltip: "Delete selected",
-    icon: <span>Delete</span>,
-    multiple: true,
-    onClick: () => console.log("Delete", row),
-    onMultipleClick: (selectedRows: UserRow[]) =>
-      console.log("Bulk delete", selectedRows.map(({ name }) => name)),
-  },
-];
-
-const translations: Record<string, string> = {
-  "_accessibility:components.table.selectedCount": "Selected {{count}} items",
-  "_accessibility:labels.actions": "Actions",
-  "_accessibility:buttons.filters": "Filters",
-  "_accessibility:buttons.previous": "Previous page",
-  "_accessibility:buttons.next": "Next page",
-  "_accessibility:buttons.clear": "Clear",
-  "_accessibility:buttons.applyFilters": "Apply filters",
-  "_accessibility:components.table.pageSizes": "Rows per page",
-  "_accessibility:components.table.jumpToPage": "Jump to page",
-  "_accessibility:components.table.of": "of",
-  "_accessibility:components.table.empty": "No data available",
-  "_accessibility:components.table.selectRow": "Select row",
-  "_accessibility:components.table.selectAllRows": "Select all visible rows",
-};
-
-const t = (key: string, options?: Record<string, unknown>) => {
-  if (key === "_accessibility:components.table.selectedCount") {
-    const count = typeof options?.count === "number" ? options.count : 0;
-    return translations[key].replace("{{count}}", String(count));
-  }
-
-  return translations[key] ?? key;
-};
+const t = (key: string) => key;
 
 export function UsersTable() {
   return (
@@ -117,11 +71,14 @@ export function UsersTable() {
             },
             { key: "age", label: "Age", sortable: true },
           ]}
-          actions={actions}
-          onRowSelect={(row, selected) => console.log(selected, row)}
-          onSelectedRowsChange={(selectedRows) =>
-            console.log("Selected rows", selectedRows)
-          }
+          actions={(row) => [
+            {
+              id: "view",
+              tooltip: `View ${row.name}`,
+              icon: <span>View</span>,
+              onClick: () => console.log("View", row),
+            },
+          ]}
         />
       </TableOptionsProvider>
     </TranslationProvider>
@@ -129,24 +86,38 @@ export function UsersTable() {
 }
 ```
 
-## Core Table Props
+## Core `Table` Props
 
-| Prop | Type | Required | Description |
-|---|---|---|---|
-| `entity` | `string` | Yes | Entity name used by internal components. |
-| `data` | `TRow[]` | Yes | Rows to render. `TRow` must extend `BaseDto` and include `id`. |
-| `columns` | `ColumnType<TRow>[]` | No | Column definitions. |
-| `actions` | `(row: TRow) => ActionType<TRow>[]` | No | Per-row action factory. |
-| `title` | `string` | No | Header title. |
-| `toolbar` | `ReactNode` | No | Custom header content. |
-| `onSort` | `(prop: string, sortOrder: SortOrder) => void` | No | Sort callback. |
-| `onRowSelect` | `(row: TRow, selected: boolean) => void` | No | Row selection callback. |
-| `onSelectedRowsChange` | `(rows: TRow[]) => void` | No | Selected rows callback. |
-| `onRowExpand` | `(expandedRow: TRow, collapsedRow: TRow \| null) => ReactNode` | No | Expand row content callback. |
-| `allowMultipleExpandedRows` | `boolean` | No | Allows multiple expanded rows at once. |
-| `expandedRowId` | `TRow["id"] \| null` | No | Controlled expansion mode. |
+| Prop                        | Type                                                              | Required | Description                                                                 |
+| --------------------------- | ----------------------------------------------------------------- | -------- | --------------------------------------------------------------------------- |
+| `entity`                    | `string`                                                          | Yes      | Entity name used by internal table state.                                   |
+| `data`                      | `TRow[]`                                                          | Yes      | Rows to render. `TRow` must extend `BaseDto` and include `id`.              |
+| `columns`                   | `ColumnType<TRow>[]`                                              | No       | Column definitions.                                                         |
+| `actions`                   | `(row: TRow) => ActionType<TRow>[]`                               | No       | Per-row action factory.                                                     |
+| `title`                     | `string`                                                          | No       | Header title.                                                               |
+| `toolbar`                   | `ReactNode`                                                       | No       | Extra content rendered in the table header.                                 |
+| `isLoading`                 | `boolean`                                                         | No       | Loading state for table UI.                                                 |
+| `filterOptions`             | `FilterOptions`                                                   | No       | Extra options passed to filter behavior/components.                         |
+| `onSort`                    | `(prop: string, sortOrder: SortOrder) => void`                    | No       | Sort callback when a sortable column is toggled.                            |
+| `onRowSelect`               | `(row: TRow, selected: boolean) => void`                          | No       | Row selection callback.                                                     |
+| `onSelectedRowsChange`      | `(rows: TRow[]) => void`                                          | No       | Callback with selected rows.                                                |
+| `softDeleteProperty`        | `keyof TRow`                                                      | No       | Property name used to determine soft-deleted rows. Defaults to `deletedAt`. |
+| `allowMultipleExpandedRows` | `boolean`                                                         | No       | Enables multiple expanded rows (uncontrolled mode).                         |
+| `expandedRowId`             | `TRow["id"] \| null`                                              | No       | Controlled expanded row id.                                                 |
+| `onExpandedRowChange`       | `(expandedRow: TRow \| null, collapsedRow: TRow \| null) => void` | No       | Called when expanded row changes.                                           |
+| `onRowExpand`               | `(expandedRow: TRow, collapsedRow: TRow \| null) => ReactNode`    | No       | Returns content rendered inside expanded row area.                          |
+| `className`                 | `string`                                                          | No       | Wrapper class name.                                                         |
+| `contentClassName`          | `string`                                                          | No       | Content container class name.                                               |
 
-## Development Setup (Step-by-step)
+## Exported API
+
+Main package exports include:
+
+- Components: `Badge`, `Button`, `Chip`, `Dropdown`, `Form`, `IconButton`, `Loading`, `SvgIcons`, `Table`, `Tooltip`.
+- Providers: `FiltersProvider`, `TableOptionsProvider`, `TranslationProvider` and related hooks/types.
+- Utilities and models: `FilterTypes`, `SortOrder`, `BaseDto`, and query/filter helpers from `lib`.
+
+## Development Setup
 
 1. Clone the repository.
 
@@ -158,9 +129,11 @@ cd -- -sito-dashboard
 2. Use the expected Node version.
 
 ```bash
-nvm install 20.19.0
-nvm use 20.19.0
+nvm install
+nvm use
 ```
+
+Current `.nvmrc`: `20.19.0`
 
 3. Install dependencies.
 
@@ -168,57 +141,33 @@ nvm use 20.19.0
 npm install
 ```
 
-4. Start local development.
+4. Start development.
 
 ```bash
 # Vite dev server
 npm run dev
 
-# Component-focused development (recommended)
+# Storybook (recommended for component work)
 npm run storybook
 ```
 
-5. Build the library.
+## Scripts
 
 ```bash
-npm run build
-```
-
-## How To Run Tests
-
-```bash
-# run all tests once
-npm run test
-
-# run a specific test file
-npm run test -- src/components/Table/Table.expandable.test.tsx
-```
-
-## How To Run Linters
-
-```bash
-# runs ESLint with auto-fix enabled in this project
-npm run lint
-```
-
-## Additional Useful Scripts
-
-```bash
-# format source files
-npm run format
-
-# build static Storybook
-npm run build-storybook
-
-# preview production build
-npm run preview
+npm run build            # Build library (types + bundles)
+npm run test             # Run tests once with Vitest
+npm run lint             # ESLint + Prettier + depcheck
+npm run format           # Prettier on src files
+npm run build-storybook  # Build static Storybook
+npm run preview          # Preview Vite build
+npm run full             # lint + build + test
 ```
 
 ## Contributing
 
 1. Create a branch from `main`.
-2. Add/adjust tests for your changes.
-3. Run lint and tests.
+2. Add or update tests for your changes.
+3. Run `npm run full`.
 4. Open a pull request with a clear summary.
 
 ## License

@@ -7,6 +7,8 @@ import { BaseDto, SortOrder } from "lib";
 import { useTableOptions, useTranslation } from "providers";
 import { useEffect, useMemo, useRef } from "react";
 
+// utils
+import { getSortedVisibleColumns } from "../utils";
 // types
 import { ColumnPropsType } from "./types";
 
@@ -39,18 +41,13 @@ export function Columns<TRow extends BaseDto>(props: ColumnPropsType<TRow>) {
   const { onSort, sortingOrder, sortingBy } = useTableOptions();
 
   const parsedColumns = useMemo(() => {
-    return columns
-      .sort((colA, colB) => {
-        return (colB.pos ?? 0) - (colA.pos ?? 0);
-      })
-      .filter((column) => column.display !== "none")
-      ?.map((column) => ({
-        id: column.key,
-        label: column.label,
-        className: column.className ?? "",
-        sortable: column.sortable ?? true,
-        sortOptions: column.sortOptions,
-      }));
+    return getSortedVisibleColumns(columns).map((column) => ({
+      id: column.key,
+      label: column.label,
+      className: column.className ?? "",
+      sortable: column.sortable ?? true,
+      sortOptions: column.sortOptions,
+    }));
   }, [columns, entity, t]);
 
   return (
