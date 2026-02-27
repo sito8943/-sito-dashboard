@@ -30,7 +30,7 @@ export const FilterDropdown = (props: FilterDropdownPropsType) => {
 
   const { t } = useTranslation();
 
-  const dropdown = useRef(null);
+  const dropdown = useRef<HTMLDivElement | null>(null);
 
   // close on click outside
   useEffect(() => {
@@ -38,7 +38,7 @@ export const FilterDropdown = (props: FilterDropdownPropsType) => {
       if (!dropdown.current) return;
       if ((target as HTMLElement | null)?.closest(".filter-dropdown-trigger"))
         return;
-      if (!show || (dropdown.current as any)?.contains(target)) return;
+      if (!show || dropdown.current.contains(target as Node)) return;
       handleShow(false);
     };
     document.addEventListener("click", clickHandler);
@@ -90,7 +90,6 @@ export const FilterDropdown = (props: FilterDropdownPropsType) => {
                   handleShow(false);
                   onFilterApply(currentFilters);
                 }}
-                onBlur={() => handleShow(false)}
               >
                 {t("_accessibility:buttons.applyFilters")}
               </button>
