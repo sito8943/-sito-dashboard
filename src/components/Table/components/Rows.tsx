@@ -6,6 +6,8 @@ import { BaseDto } from "lib";
 import { useTranslation } from "providers";
 import { Fragment, useMemo } from "react";
 
+// utils
+import { getSortedVisibleColumns } from "../utils";
 // types
 import { RowsPropsType } from "./types";
 
@@ -30,12 +32,7 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
   } = props;
 
   const visibleColumns = useMemo(
-    () =>
-      columns
-        .sort((colA, colB) => {
-          return (colB.pos ?? 0) - (colA.pos ?? 0);
-        })
-        .filter((column) => column.display !== "none"),
+    () => getSortedVisibleColumns(columns),
     [columns],
   );
 

@@ -9,6 +9,7 @@ import type { BaseDto } from "lib";
 import { FilterTypes } from "lib";
 import { TranslationProvider } from "providers";
 import { useState } from "react";
+import { fn } from "storybook/test";
 
 type Row = BaseDto & { name: string; age: number };
 
@@ -40,6 +41,12 @@ const meta: Meta<typeof Table<Row>> = {
   title: "Components/Table",
   component: Table as any,
   tags: ["autodocs"],
+  args: {
+    onSort: fn(),
+    onRowSelect: fn(),
+    onSelectedRowsChange: fn(),
+    onExpandedRowChange: fn(),
+  },
   decorators: [
     (Story) => (
       <TranslationProvider t={mockT} language="es">
