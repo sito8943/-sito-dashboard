@@ -31,15 +31,17 @@ export const TextInput = forwardRef(function (
     labelClassName = "",
     helperText = "",
     helperTextClassName = "",
-    value = "",
+    value,
     ...rest
   } = props;
+
+  const isControlled = value !== undefined;
 
   return (
     <div className={`text-input-container ${containerClassName}`}>
       <input
         ref={ref}
-        value={value}
+        {...(isControlled ? { value } : {})}
         className={`text-input ${inputStateClassName(state)} peer ${inputClassName} ${!!value ? "has-value" : ""} ${rest.placeholder ? "has-placeholder" : ""}`}
         {...rest}
       />
