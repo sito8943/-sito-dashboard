@@ -1,7 +1,9 @@
+@reference "../../styles/variables.css";
+
 .icon-button {
-  @apply bg-gray-100/30 dark:bg-gray-800/30 enabled:hover:bg-gray-100 dark:enabled:hover:bg-gray-700 text-gray-900 dark:text-gray-100 w-7 h-7 min-w-[1.75rem] rounded-full flex items-center justify-center transition duration-300 ease-in-out enabled:cursor-pointer disabled:cursor-not-allowed disabled:opacity-50;
+  @apply bg-base/30 enabled:hover:bg-base text-text w-7 h-7 min-w-[1.75rem] rounded-full flex items-center justify-center transition duration-300 ease-in-out enabled:cursor-pointer disabled:cursor-not-allowed disabled:opacity-50;
 }
 
 .icon-button.error:enabled:hover {
-  @apply bg-red-500 text-white;
+  @apply bg-secondary text-base-light;
 }

@@ -1,3 +1,5 @@
+@reference "../../styles/variables.css";
+
 .badge-main {
   font-size: 9px;
   line-height: 0;

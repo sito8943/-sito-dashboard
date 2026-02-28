@@ -1,27 +1,29 @@
+@reference "../../styles/variables.css";
+
 .button {
-  @apply duration-300 text-sm font-medium text-gray-900 dark:text-gray-100 transition flex items-center gap-2 justify-center rounded-full px-4 py-2 enabled:cursor-pointer disabled:cursor-not-allowed disabled:opacity-50;
+  @apply duration-300 text-sm font-medium text-text transition flex items-center gap-2 justify-center rounded-full px-4 py-2 enabled:cursor-pointer disabled:cursor-not-allowed disabled:opacity-50;
 }
 
 .button.close {
-  @apply enabled:hover:bg-red-500;
+  @apply enabled:hover:bg-secondary;
 }
 
 .button.text {
-  @apply bg-transparent enabled:hover:bg-gray-100 dark:enabled:hover:bg-gray-800;
+  @apply bg-transparent enabled:hover:bg-base;
 }
 
 .button.submit {
-  @apply bg-gray-100 dark:bg-gray-800 enabled:hover:bg-white dark:enabled:hover:bg-gray-700;
+  @apply bg-base enabled:hover:bg-base-light;
 }
 
 .button.outlined {
-  @apply border-gray-300 dark:border-gray-600 border-[1px] enabled:hover:bg-gray-300 dark:enabled:hover:bg-gray-600;
+  @apply border-border border-[1px] enabled:hover:bg-base-dark;
 }
 
 .button.outlined.primary {
-  @apply border-blue-600 dark:border-blue-400 enabled:hover:bg-blue-500 enabled:hover:border-blue-500 enabled:hover:text-gray-100;
+  @apply border-primary enabled:hover:bg-hover-primary enabled:hover:border-hover-primary enabled:hover:text-base-light;
 }
 
 .button.submit.primary {
-  @apply bg-blue-700 dark:bg-blue-600 enabled:hover:bg-blue-500 text-gray-100 enabled:hover:text-gray-900 dark:enabled:hover:text-gray-100;
+  @apply bg-bg-primary enabled:hover:bg-hover-primary text-base-light enabled:hover:text-text;
 }

@@ -1,3 +1,5 @@
+@reference "../../../../../styles/variables.css";
+
 .filter-dropdown-button {
   @apply text-sm;
 }

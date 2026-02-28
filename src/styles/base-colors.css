@@ -1,112 +1,114 @@
+@reference "./variables.css";
+
 /* INPUTS */
 
 .input-normal {
-  @apply text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 focus:border-blue-600 dark:focus:border-blue-400;
+  @apply text-text border-border focus:border-primary;
 }
 
 .input-label-error {
-  @apply peer-focus:text-red-700 dark:peer-focus:text-red-400 text-red-700 dark:text-red-400;
+  @apply text-secondary;
 }
 
 .input-label-good {
-  @apply peer-focus:text-green-700 dark:peer-focus:text-green-400 text-green-700 dark:text-green-400;
+  @apply text-bg-success;
 }
 
 .input-label-normal {
-  @apply peer-focus:text-blue-600 dark:peer-focus:text-blue-400 text-gray-500 dark:text-gray-400;
+  @apply peer-focus:text-primary text-text-muted;
 }
 
 .input-helper-text-error {
-  @apply text-red-600 dark:text-red-400;
+  @apply text-bg-error;
 }
 
 .input-helper-text-good {
-  @apply text-green-600 dark:text-green-400;
+  @apply text-bg-success;
 }
 
 .input-helper-text-normal {
-  @apply text-gray-500 dark:text-gray-400;
+  @apply text-text-muted;
 }
 
 .autocomplete-suggestions-container {
-  @apply bg-white dark:bg-gray-800;
+  @apply bg-base-light;
 }
 
 .autocomplete-suggestion-item:hover {
-  @apply bg-gray-300;
+  @apply bg-base-dark;
 }
 
 .autocomplete-delete-button {
-  @apply text-gray-900 dark:text-gray-100 hover:text-red-600 dark:hover:text-red-400;
+  @apply text-text hover:text-secondary;
 }
 
 /* CHIP */
 
 .chip-main {
-  @apply text-gray-800 bg-gray-300 dark:text-white dark:bg-gray-800;
+  @apply text-text bg-base-dark;
 }
 
 .chip-delete-button:hover {
-  @apply text-red-700 dark:text-red-400;
+  @apply text-secondary;
 }
 
 /* BADGE */
 
 .badge-main {
-  @apply bg-red-600 dark:bg-red-500 text-white;
+  @apply bg-bg-error text-error;
 }
 
 /* TABLE */
 
 .table-loading {
-  @apply bg-white dark:bg-gray-800;
+  @apply bg-base-light;
 }
 
 .table-row {
-  @apply bg-white dark:bg-gray-800 border-b-gray-100 dark:border-b-gray-700;
+  @apply bg-base-light border-b-border;
 }
 
 .table-headers-row {
-  @apply text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-700;
+  @apply text-text-muted bg-base;
 }
 
 .table-content {
-  @apply text-gray-500 dark:text-gray-400;
+  @apply text-text-muted;
 }
 
 .table-row-cell.basic {
-  @apply text-gray-900 dark:text-gray-100;
+  @apply text-text;
 }
 
 .table-navigation-buttons:disabled {
-  @apply text-gray-400 dark:text-gray-600;
+  @apply text-text-muted;
 }
 
 /* FILTER */
 
 .filter-popup {
-  @apply bg-white dark:bg-gray-800;
+  @apply bg-base-light;
 }
 
 .filter-dropdown-submit,
 .filter-dropdown-cancel {
-  @apply bg-white dark:bg-gray-800 border-slate-200 dark:border-gray-600 hover:border-slate-300 dark:hover:border-gray-500 text-slate-500 dark:text-slate-300 hover:text-slate-600 dark:hover:text-slate-200;
+  @apply bg-base-light border-border hover:border-text-muted text-text-muted hover:text-text;
 }
 
 .filter-dropdown-trigger {
-  @apply bg-white dark:bg-gray-800 border-slate-200 dark:border-gray-600 hover:border-slate-300 dark:hover:border-gray-500 text-slate-500 dark:text-slate-300 hover:text-slate-600 dark:hover:text-slate-200;
+  @apply bg-base-light border-border hover:border-text-muted text-text-muted hover:text-text;
 }
 
 .filter-title {
-  @apply text-slate-400 dark:text-slate-300;
+  @apply text-text-muted;
 }
 
 .filter-footer {
-  @apply border-slate-200 dark:border-gray-600 bg-slate-50 dark:bg-gray-700;
+  @apply border-border bg-base;
 }
 
-/*TABLE */
+/* TABLE */
 
 .table-headers-cell {
-  @apply hover:bg-slate-200 dark:border-gray-600;
+  @apply hover:bg-base-dark border-border;
 }

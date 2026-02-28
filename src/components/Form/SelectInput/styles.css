@@ -1,3 +1,5 @@
+@reference "../../../styles/variables.css";
+
 .select-input-container {
   @apply relative z-0 w-full mb-5;
 }

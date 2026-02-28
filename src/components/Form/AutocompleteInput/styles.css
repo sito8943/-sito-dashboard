@@ -1,3 +1,5 @@
+@reference "../../../styles/variables.css";
+
 .autocomplete-input-container {
   @apply w-full mb-5;
 }

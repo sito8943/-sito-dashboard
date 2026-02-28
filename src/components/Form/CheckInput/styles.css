@@ -1,3 +1,5 @@
+@reference "../../../styles/variables.css";
+
 .input-check-container {
   @apply flex items-center;
 }
