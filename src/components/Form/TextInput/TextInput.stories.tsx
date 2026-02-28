@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { TextInput } from "components";
 import { State } from "components";
 import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 
 const meta: Meta<typeof TextInput> = {
   title: "Components/Form/TextInput",
@@ -45,6 +46,51 @@ export const ErrorState: Story = {
     helperText: "Campo requerido",
     state: State.error,
     required: true,
+  },
+};
+
+export const WithController: Story = {
+  render: () => {
+    const WithControllerExample = () => {
+      const { control, handleSubmit } = useForm<{ email: string }>({
+        defaultValues: { email: "" },
+      });
+
+      const onSubmit = (data: { email: string }) => {
+        alert(`Email: ${data.email}`);
+      };
+
+      return (
+        <form onSubmit={handleSubmit(onSubmit)} className="max-w-sm space-y-4">
+          <Controller
+            control={control}
+            name="email"
+            rules={{
+              required: "El correo es requerido",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Ingresa un correo válido",
+              },
+            }}
+            render={({ field, fieldState }) => (
+              <TextInput
+                {...field}
+                type="email"
+                id="email"
+                label="Correo electrónico"
+                required
+                helperText={fieldState.error?.message}
+                state={fieldState.error ? State.error : State.default}
+              />
+            )}
+          />
+          <button type="submit" className="btn-primary">
+            Enviar
+          </button>
+        </form>
+      );
+    };
+    return <WithControllerExample />;
   },
 };
 
