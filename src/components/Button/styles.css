@@ -8,22 +8,92 @@
   @apply enabled:hover:bg-secondary;
 }
 
+/* ── TEXT variant ── */
+
 .button.text {
   @apply bg-transparent enabled:hover:bg-base;
 }
 
-.button.submit {
-  @apply bg-base enabled:hover:bg-base-light;
+.button.text.primary {
+  @apply text-primary enabled:hover:bg-primary/10;
 }
 
+.button.text.secondary {
+  @apply text-secondary enabled:hover:bg-secondary/10;
+}
+
+.button.text.error {
+  @apply text-bg-error enabled:hover:bg-bg-error/10;
+}
+
+.button.text.warning {
+  @apply text-bg-warning enabled:hover:bg-bg-warning/10;
+}
+
+.button.text.success {
+  @apply text-bg-success enabled:hover:bg-bg-success/10;
+}
+
+.button.text.info {
+  @apply text-bg-info enabled:hover:bg-bg-info/10;
+}
+
+/* ── OUTLINED variant ── */
+
 .button.outlined {
-  @apply border-border border-[1px] enabled:hover:bg-base-dark;
+  @apply border-border border enabled:hover:bg-base-dark;
 }
 
 .button.outlined.primary {
   @apply border-primary enabled:hover:bg-hover-primary enabled:hover:border-hover-primary enabled:hover:text-base-light;
 }
 
+.button.outlined.secondary {
+  @apply border-secondary text-secondary enabled:hover:bg-hover-secondary enabled:hover:border-hover-secondary enabled:hover:text-base-light;
+}
+
+.button.outlined.error {
+  @apply border-bg-error text-bg-error enabled:hover:bg-bg-error enabled:hover:text-error;
+}
+
+.button.outlined.warning {
+  @apply border-bg-warning text-bg-warning enabled:hover:bg-bg-warning enabled:hover:text-warning;
+}
+
+.button.outlined.success {
+  @apply border-bg-success text-bg-success enabled:hover:bg-bg-success enabled:hover:text-success;
+}
+
+.button.outlined.info {
+  @apply border-bg-info text-bg-info enabled:hover:bg-bg-info enabled:hover:text-info;
+}
+
+/* ── SUBMIT variant ── */
+
+.button.submit {
+  @apply bg-base enabled:hover:bg-base-light;
+}
+
 .button.submit.primary {
-  @apply bg-bg-primary enabled:hover:bg-hover-primary text-base-light enabled:hover:text-text;
+  @apply bg-bg-primary enabled:hover:bg-hover-primary text-base-light;
+}
+
+.button.submit.secondary {
+  @apply bg-bg-secondary text-base-light enabled:hover:bg-hover-secondary;
+}
+
+.button.submit.error {
+  @apply bg-bg-error text-error enabled:hover:bg-bg-error/80;
+}
+
+.button.submit.warning {
+  @apply bg-bg-warning text-warning enabled:hover:bg-bg-warning/80;
+}
+
+.button.submit.success {
+  @apply bg-bg-success text-success enabled:hover:bg-bg-success/80;
+}
+
+.button.submit.info {
+  @apply bg-bg-info text-info enabled:hover:bg-bg-info/80;
 }

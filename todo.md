@@ -5,7 +5,9 @@
 - [x] Better look for Autocompelte widget, perhaps should show chips inside input
 - [x] Hover on clickeable columns
 - [x] Can select rows to apply actions on multiple
-- [ ] Expandible rows
-- [ ] Has IconButton and Button
-- [ ] Select filters default should have value because when apply doenst take
+- [x] Expandible rows
+- [x] Has IconButton and Button
+- [x] Select filters default should have value because when apply doenst take
+- [x] Add Each variant / color combination of button in story
+- [ ] Fix Tooltip is overlapping edge of screen
 - [ ] Can hide/show columns
