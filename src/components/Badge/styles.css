@@ -7,9 +7,9 @@
 }
 
 .badge-main.show {
-  @apply !scale-100;
+  @apply scale-100!;
 }
 
 .badge-main.hide {
-  @apply !scale-0;
+  @apply scale-0!;
 }
