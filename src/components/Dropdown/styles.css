@@ -1,11 +1,13 @@
 @reference "../../styles/variables.css";
 
 .dropdown-main {
-  @apply transition duration-300 ease-in-out absolute right-5 bg-base-light p-2 shadow-xl shadow-black/50;
+  @apply fixed bg-base-light p-2 border border-border shadow rounded-lg;
+  /* Only transition opacity — top/left must update instantly to avoid sliding animation */
+  transition: opacity 300ms ease-in-out;
 }
 
 .dropdown-main.opened {
-  @apply z-10 opacity-100;
+  @apply z-50 opacity-100;
 }
 
 .dropdown-main.closed {

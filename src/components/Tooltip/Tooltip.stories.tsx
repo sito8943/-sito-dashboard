@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Tooltip } from "components";
+import { Button, Tooltip } from "components";
 
 const meta: Meta<typeof Tooltip> = {
   title: "Components/Tooltip",
@@ -13,8 +13,6 @@ type Story = StoryObj<typeof Tooltip>;
 export const Default: Story = {
   args: {
     content: "Información útil",
-    children: (
-      <button className="px-3 py-1 bg-gray-200 rounded">Hover aquí</button>
-    ),
+    children: <Button variant="submit">Hover aquí</Button>,
   },
 };

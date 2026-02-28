@@ -4,8 +4,8 @@
   "version": "0.0.65",
   "type": "module",
   "description": "UI library with custom components for dashboards",
-  "main": "dist/dashboard.cjs",
-  "module": "dist/dashboard.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist/"
@@ -21,8 +21,78 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/dashboard.js",
-      "require": "./dist/dashboard.cjs"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./Badge": {
+      "types": "./dist/components/Badge/index.d.ts",
+      "import": "./dist/Badge.js",
+      "require": "./dist/Badge.cjs"
+    },
+    "./Button": {
+      "types": "./dist/components/Button/index.d.ts",
+      "import": "./dist/Button.js",
+      "require": "./dist/Button.cjs"
+    },
+    "./Chip": {
+      "types": "./dist/components/Chip/index.d.ts",
+      "import": "./dist/Chip.js",
+      "require": "./dist/Chip.cjs"
+    },
+    "./Dropdown": {
+      "types": "./dist/components/Dropdown/index.d.ts",
+      "import": "./dist/Dropdown.js",
+      "require": "./dist/Dropdown.cjs"
+    },
+    "./Form": {
+      "types": "./dist/components/Form/index.d.ts",
+      "import": "./dist/Form.js",
+      "require": "./dist/Form.cjs"
+    },
+    "./IconButton": {
+      "types": "./dist/components/IconButton/index.d.ts",
+      "import": "./dist/IconButton.js",
+      "require": "./dist/IconButton.cjs"
+    },
+    "./Loading": {
+      "types": "./dist/components/Loading/index.d.ts",
+      "import": "./dist/Loading.js",
+      "require": "./dist/Loading.cjs"
+    },
+    "./SvgIcons": {
+      "types": "./dist/components/SvgIcons/index.d.ts",
+      "import": "./dist/SvgIcons.js",
+      "require": "./dist/SvgIcons.cjs"
+    },
+    "./Table": {
+      "types": "./dist/components/Table/index.d.ts",
+      "import": "./dist/Table.js",
+      "require": "./dist/Table.cjs"
+    },
+    "./Tooltip": {
+      "types": "./dist/components/Tooltip/index.d.ts",
+      "import": "./dist/Tooltip.js",
+      "require": "./dist/Tooltip.cjs"
+    },
+    "./FiltersProvider": {
+      "types": "./dist/providers/FiltersProvider/index.d.ts",
+      "import": "./dist/FiltersProvider.js",
+      "require": "./dist/FiltersProvider.cjs"
+    },
+    "./TableOptions": {
+      "types": "./dist/providers/TableOptions/index.d.ts",
+      "import": "./dist/TableOptions.js",
+      "require": "./dist/TableOptions.cjs"
+    },
+    "./Translation": {
+      "types": "./dist/providers/Translation/index.d.ts",
+      "import": "./dist/Translation.js",
+      "require": "./dist/Translation.cjs"
+    },
+    "./lib": {
+      "types": "./dist/lib/index.d.ts",
+      "import": "./dist/lib.js",
+      "require": "./dist/lib.cjs"
     }
   },
   "sideEffects": [
@@ -47,7 +117,8 @@
   "author": "sito8943",
   "license": "MIT",
   "peerDependencies": {
-    "react": ">=18.2 <20"
+    "react": ">=18.2 <20",
+    "react-dom": ">=18.2 <20"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

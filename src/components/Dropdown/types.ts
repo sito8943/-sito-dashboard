@@ -4,4 +4,5 @@ export type DropdownPropsType = {
   children: ReactNode;
   open: boolean;
   onClose: () => void;
+  anchorEl?: HTMLElement | null;
 };

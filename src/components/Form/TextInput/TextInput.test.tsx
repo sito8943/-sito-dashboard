@@ -9,7 +9,7 @@ import { TextInput } from "./TextInput";
 describe("TextInput", () => {
   it("adds has-value in uncontrolled mode after typing and keeps it after blur", () => {
     const { container } = render(
-      <TextInput label="Usuario" state={State.error} />,
+      <TextInput label="Usuario" state={State.error} value={undefined} />,
     );
     const input = container.querySelector("input");
 
@@ -39,7 +39,9 @@ describe("TextInput", () => {
 
   it("still forwards onChange callbacks", () => {
     const onChange = vi.fn();
-    const { container } = render(<TextInput onChange={onChange} />);
+    const { container } = render(
+      <TextInput onChange={onChange} value={undefined} />,
+    );
     const input = container.querySelector("input");
 
     expect(input).toBeTruthy();

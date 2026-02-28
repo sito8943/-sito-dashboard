@@ -1,7 +1,30 @@
 # @sito/dashboard — Agent Guide
 
-> **Audience:** AI coding agents (Claude, Codex, etc.) working on projects that consume this library.
+> **Audience:** AI coding agents (Claude, Codex, etc.) working on this library or projects that consume it.
 > This document is the single source of truth for how to use `@sito/dashboard` correctly.
+
+---
+
+## 0. Developer Workflow (agents working on the library itself)
+
+**After every change, run the full validation suite before finishing:**
+
+```bash
+npm run full   # lint + build + test (all three in one command)
+```
+
+This covers ESLint, Prettier, TypeScript type-checking, the Vite bundle build, and Vitest tests.
+Running it locally catches errors immediately and avoids costly follow-up fix cycles.
+
+If you prefer to run steps individually:
+
+```bash
+npm run lint   # ESLint + Prettier + depcheck
+npm run build  # Vite library build + type declarations
+npm run test   # Vitest (run once, no watch)
+```
+
+> **Rule:** Never mark a task complete without a passing `npm run full`.
 
 ---
 
@@ -418,16 +441,48 @@ import { Chip } from "@sito/dashboard";
 
 ## 8. Dropdown
 
+The Dropdown renders its content into `document.body` via a React portal and positions itself
+relative to an `anchorEl`. It is a **controlled** component — the parent owns the `open` state.
+
 ```tsx
 import { Dropdown } from "@sito/dashboard";
+import { useRef, useState } from "react";
 
-<Dropdown>
-  <DropdownTrigger />          {/* your trigger element */}
-  <DropdownMenu items={...} /> {/* your menu content */}
-</Dropdown>
+function MyMenu() {
+  const [open, setOpen] = useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
+  return (
+    <>
+      <button ref={triggerRef} onClick={() => setOpen((v) => !v)}>
+        Open menu
+      </button>
+      <Dropdown
+        open={open}
+        onClose={() => setOpen(false)}
+        anchorEl={triggerRef.current}
+      >
+        <ul role="menu">
+          <li>Item 1</li>
+          <li>Item 2</li>
+        </ul>
+      </Dropdown>
+    </>
+  );
+}
 ```
 
-Handles click-outside and Escape-key closing automatically.
+**Props:**
+
+| Prop       | Type                  | Required | Description                               |
+| ---------- | --------------------- | -------- | ----------------------------------------- |
+| `open`     | `boolean`             | Yes      | Controls visibility                       |
+| `onClose`  | `() => void`          | Yes      | Called on click-outside or Escape key     |
+| `anchorEl` | `HTMLElement \| null` | No       | Anchor element used for smart positioning |
+| `children` | `ReactNode`           | Yes      | Dropdown content                          |
+
+Smart positioning: aligns below the anchor by default, flips up/left if it would overflow the viewport.
+Repositions automatically on window resize while open.
 
 ---
 
@@ -619,4 +674,4 @@ export type { FilterType, FiltersValue, WidgetFilterProps };
 
 ---
 
-_Last updated: 2026-02-28 — library version 0.0.65_
+_Last updated: 2026-02-28 — library version 0.0.66_
