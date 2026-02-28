@@ -10,6 +10,7 @@
     "lib",
     "providers",
     "components",
-    "main"
+    "main",
+    "@tailwindcss/postcss"
   ]
 }
