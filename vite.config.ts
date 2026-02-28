@@ -14,19 +14,37 @@ export default defineConfig({
       lib: resolve(srcPath, "lib"),
       hooks: resolve(srcPath, "hooks"),
     },
-    dedupe: ["react"],
+    dedupe: ["react", "react-dom"],
   },
   plugins: [react(), dts({ insertTypesEntry: true }), libInjectCss()],
   build: {
     copyPublicDir: false,
     lib: {
-      entry: resolve(__dirname, "src/main.ts"),
+      entry: {
+        index: resolve(srcPath, "main.ts"),
+        // Components
+        Badge: resolve(srcPath, "components/Badge/index.ts"),
+        Button: resolve(srcPath, "components/Button/index.ts"),
+        Chip: resolve(srcPath, "components/Chip/index.ts"),
+        Dropdown: resolve(srcPath, "components/Dropdown/index.ts"),
+        Form: resolve(srcPath, "components/Form/index.ts"),
+        IconButton: resolve(srcPath, "components/IconButton/index.ts"),
+        Loading: resolve(srcPath, "components/Loading/index.ts"),
+        SvgIcons: resolve(srcPath, "components/SvgIcons/index.ts"),
+        Table: resolve(srcPath, "components/Table/index.ts"),
+        Tooltip: resolve(srcPath, "components/Tooltip/index.ts"),
+        // Providers
+        FiltersProvider: resolve(srcPath, "providers/FiltersProvider/index.ts"),
+        TableOptions: resolve(srcPath, "providers/TableOptions/index.ts"),
+        Translation: resolve(srcPath, "providers/Translation/index.ts"),
+        // Lib
+        lib: resolve(srcPath, "lib/index.ts"),
+      },
       name: "@sito/dashboard",
-      fileName: "dashboard",
       formats: ["es", "cjs"],
     },
     rollupOptions: {
-      external: ["react", "react/jsx-runtime"],
+      external: ["react", "react-dom", "react/jsx-runtime"],
     },
   },
 });

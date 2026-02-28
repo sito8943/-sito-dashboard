@@ -1,7 +1,7 @@
 // styles
 import "./styles.css";
 
-import { ForwardedRef, forwardRef } from "react";
+import { ChangeEvent, ForwardedRef, forwardRef, useState } from "react";
 
 // utils
 import {
@@ -12,6 +12,18 @@ import {
 } from "../utils";
 // types
 import { TextInputPropsType } from "./types";
+
+const hasInputValue = (inputValue: TextInputPropsType["value"]) => {
+  if (inputValue === undefined || inputValue === null) {
+    return false;
+  }
+
+  if (Array.isArray(inputValue)) {
+    return inputValue.length > 0;
+  }
+
+  return `${inputValue}`.length > 0;
+};
 
 /**
  * TextInput
@@ -31,16 +43,35 @@ export const TextInput = forwardRef(function (
     labelClassName = "",
     helperText = "",
     helperTextClassName = "",
-    value = "",
+    value,
+    defaultValue,
+    onChange,
     ...rest
   } = props;
+
+  const isControlled = value !== undefined;
+  const [uncontrolledHasValue, setUncontrolledHasValue] = useState(() =>
+    hasInputValue(defaultValue as TextInputPropsType["value"]),
+  );
+
+  const hasValue = isControlled ? hasInputValue(value) : uncontrolledHasValue;
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!isControlled) {
+      setUncontrolledHasValue(event.currentTarget.value.length > 0);
+    }
+
+    onChange?.(event);
+  };
 
   return (
     <div className={`text-input-container ${containerClassName}`}>
       <input
         ref={ref}
-        value={value}
-        className={`text-input ${inputStateClassName(state)} peer ${inputClassName} ${!!value ? "has-value" : ""} ${rest.placeholder ? "has-placeholder" : ""}`}
+        defaultValue={defaultValue}
+        onChange={handleChange}
+        {...(isControlled ? { value } : {})}
+        className={`text-input ${inputStateClassName(state)} ${inputClassName} ${hasValue ? "has-value" : ""} ${rest.placeholder ? "has-placeholder" : ""}`}
         {...rest}
       />
       {!!label && (

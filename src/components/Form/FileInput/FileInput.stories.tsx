@@ -9,6 +9,7 @@ const meta: Meta<typeof FileInput> = {
   argTypes: {
     label: { control: "text" },
     helperText: { control: "text" },
+    accept: { control: "text" },
     multiple: { control: "boolean" },
     disabled: { control: "boolean" },
     state: {
@@ -25,6 +26,7 @@ export const Default: Story = {
   args: {
     label: "Selecciona archivo",
     helperText: "Formatos admitidos: PDF, PNG, JPG",
+    accept: ".pdf,.png,.jpg,.jpeg,application/pdf,image/png,image/jpeg",
     multiple: false,
   },
 };

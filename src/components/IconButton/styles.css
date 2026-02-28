@@ -1,7 +1,95 @@
+@reference "../../styles/variables.css";
+
 .icon-button {
-  @apply bg-gray-100/30 dark:bg-gray-800/30 enabled:hover:bg-gray-100 dark:enabled:hover:bg-gray-700 text-gray-900 dark:text-gray-100 w-7 h-7 min-w-[1.75rem] rounded-full flex items-center justify-center transition duration-300 ease-in-out enabled:cursor-pointer disabled:cursor-not-allowed disabled:opacity-50;
+  @apply text-text w-7 h-7 min-w-[1.75rem] rounded-full flex items-center justify-center transition duration-300 ease-in-out enabled:cursor-pointer disabled:cursor-not-allowed disabled:opacity-50;
 }
 
-.icon-button.error:enabled:hover {
-  @apply bg-red-500 text-white;
+/* ── TEXT variant ── */
+
+.icon-button.text {
+  @apply bg-base/30 enabled:hover:bg-base;
+}
+
+.icon-button.text.primary {
+  @apply text-primary enabled:hover:bg-primary/10;
+}
+
+.icon-button.text.secondary {
+  @apply text-secondary enabled:hover:bg-secondary/10;
+}
+
+.icon-button.text.error {
+  @apply text-bg-error enabled:hover:bg-bg-error/10;
+}
+
+.icon-button.text.warning {
+  @apply text-bg-warning enabled:hover:bg-bg-warning/10;
+}
+
+.icon-button.text.success {
+  @apply text-bg-success enabled:hover:bg-bg-success/10;
+}
+
+.icon-button.text.info {
+  @apply text-bg-info enabled:hover:bg-bg-info/10;
+}
+
+/* ── OUTLINED variant ── */
+
+.icon-button.outlined {
+  @apply border border-border bg-transparent enabled:hover:bg-base-dark;
+}
+
+.icon-button.outlined.primary {
+  @apply border-primary text-primary enabled:hover:bg-hover-primary enabled:hover:border-hover-primary enabled:hover:text-base-light;
+}
+
+.icon-button.outlined.secondary {
+  @apply border-secondary text-secondary enabled:hover:bg-hover-secondary enabled:hover:border-hover-secondary enabled:hover:text-base-light;
+}
+
+.icon-button.outlined.error {
+  @apply border-bg-error text-bg-error enabled:hover:bg-bg-error enabled:hover:text-error;
+}
+
+.icon-button.outlined.warning {
+  @apply border-bg-warning text-bg-warning enabled:hover:bg-bg-warning enabled:hover:text-warning;
+}
+
+.icon-button.outlined.success {
+  @apply border-bg-success text-bg-success enabled:hover:bg-bg-success enabled:hover:text-success;
+}
+
+.icon-button.outlined.info {
+  @apply border-bg-info text-bg-info enabled:hover:bg-bg-info enabled:hover:text-info;
+}
+
+/* ── SUBMIT variant ── */
+
+.icon-button.submit {
+  @apply bg-base enabled:hover:bg-base-dark;
+}
+
+.icon-button.submit.primary {
+  @apply bg-bg-primary text-base-light enabled:hover:bg-hover-primary;
+}
+
+.icon-button.submit.secondary {
+  @apply bg-bg-secondary text-base-light enabled:hover:bg-hover-secondary;
+}
+
+.icon-button.submit.error {
+  @apply bg-bg-error text-error enabled:hover:bg-bg-error/80;
+}
+
+.icon-button.submit.warning {
+  @apply bg-bg-warning text-warning enabled:hover:bg-bg-warning/80;
+}
+
+.icon-button.submit.success {
+  @apply bg-bg-success text-success enabled:hover:bg-bg-success/80;
+}
+
+.icon-button.submit.info {
+  @apply bg-bg-info text-info enabled:hover:bg-bg-info/80;
 }

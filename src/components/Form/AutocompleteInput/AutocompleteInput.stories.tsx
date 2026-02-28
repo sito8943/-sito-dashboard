@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import type { Option } from "components";
-import { AutocompleteInput } from "components";
+import { AutocompleteInput, Button } from "components";
 import { State } from "components";
 import { useState } from "react";
 
@@ -103,10 +103,13 @@ export const Default: Story = {
       });
 
       return (
-        <div className="max-w-sm flex gap-2">
-          <button onClick={() => setValue({ name: "another", id: 2 })}>
+        <div className="max-w-sm flex flex-col gap-5">
+          <Button
+            variant="submit"
+            onClick={() => setValue({ name: "another", id: 2 })}
+          >
             Set another value
-          </button>
+          </Button>
           <AutocompleteInput
             {...args}
             label="Fruta"

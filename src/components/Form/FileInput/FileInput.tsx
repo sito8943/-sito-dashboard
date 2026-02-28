@@ -112,7 +112,7 @@ export const FileInput = forwardRef(function (
         <div className="file-preview">
           <File className={`file-icon ${iconClassName}`} />
           <Tooltip content={files[0]?.name ?? ""}>
-            <span className="!cursor-default">
+            <span className="file-preview-name">
               {truncateFileName(files[0]?.name ?? "", 25)}
             </span>
           </Tooltip>
