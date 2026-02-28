@@ -52,3 +52,11 @@
 .table-navigation-pages {
   @apply flex gap-5 items-center justify-end;
 }
+
+.table-navigation-icon {
+  @apply w-2.5;
+}
+
+.table-header-sr {
+  @apply sr-only;
+}

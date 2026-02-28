@@ -18,3 +18,7 @@
 .file-icon {
   @apply w-10 h-10;
 }
+
+.file-preview-name {
+  @apply !cursor-default;
+}

@@ -42,7 +42,7 @@ export const TextInput = forwardRef(function (
       <input
         ref={ref}
         {...(isControlled ? { value } : {})}
-        className={`text-input ${inputStateClassName(state)} peer ${inputClassName} ${!!value ? "has-value" : ""} ${rest.placeholder ? "has-placeholder" : ""}`}
+        className={`text-input ${inputStateClassName(state)} ${inputClassName} ${!!value ? "has-value" : ""} ${rest.placeholder ? "has-placeholder" : ""}`}
         {...rest}
       />
       {!!label && (

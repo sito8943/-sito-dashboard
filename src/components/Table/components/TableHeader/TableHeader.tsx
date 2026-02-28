@@ -77,7 +77,7 @@ export const TableHeader = <TRow extends BaseDto>(
                   count={countOfFilters}
                   className={`${countOfFilters > 0 ? "show" : "hide"} `}
                 />
-                <span className="sr-only">
+                <span className="table-header-sr">
                   {t("_accessibility:buttons.filters")}
                 </span>
                 <wbr />

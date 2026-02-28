@@ -15,7 +15,7 @@ export const Navigation = () => {
   return (
     <div className="table-navigation-pages">
       <IconButton
-        icon={<ChevronLeft className="w-2.5" />}
+        icon={<ChevronLeft className="table-navigation-icon" />}
         className="table-navigation-buttons"
         disabled={currentPage === 0}
         aria-label={t("_accessibility:buttons.previous")}
@@ -23,7 +23,7 @@ export const Navigation = () => {
         onClick={() => setCurrentPage(currentPage - 1)}
       />
       <IconButton
-        icon={<ChevronRight className="w-2.5" />}
+        icon={<ChevronRight className="table-navigation-icon" />}
         disabled={Math.floor(total / ((currentPage + 1) * pageSize)) === 0}
         className="table-navigation-buttons"
         name={t("_accessibility:buttons.next")}
