@@ -36,7 +36,7 @@
 }
 
 .table-headers-action {
-  @apply px-6 py-3 text-center;
+  @apply px-6 py-3 text-center sticky top-0 z-20 bg-base;
 }
 
 .table-empty {

@@ -67,16 +67,6 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
               aria-label={t("_accessibility:components.table.selectRow")}
             />
           </td>
-          {visibleColumns?.map((column, i) => (
-            <td
-              key={column.key as string}
-              className={`table-row-cell ${i === 0 ? "basic" : ""} ${column.className ?? ""}`}
-            >
-              {column.renderBody
-                ? column.renderBody(row[column.key as keyof TRow], row)
-                : baseRender(row[column.key as keyof TRow])}
-            </td>
-          ))}
           {!!actions ? (
             <td>
               <div className="table-row-cell-action">
@@ -97,6 +87,16 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
               </div>
             </td>
           ) : null}
+          {visibleColumns?.map((column, i) => (
+            <td
+              key={column.key as string}
+              className={`table-row-cell ${i === 0 ? "basic" : ""} ${column.className ?? ""}`}
+            >
+              {column.renderBody
+                ? column.renderBody(row[column.key as keyof TRow], row)
+                : baseRender(row[column.key as keyof TRow])}
+            </td>
+          ))}
         </tr>
         {isExpanded &&
           expandedRow?.content !== null &&
