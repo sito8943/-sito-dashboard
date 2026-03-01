@@ -64,6 +64,11 @@ export function Columns<TRow extends BaseDto>(props: ColumnPropsType<TRow>) {
             />
           ) : null}
         </th>
+        {hasAction && (
+          <th scope="col" className="table-headers-action">
+            <span>{t("_accessibility:labels.actions")}</span>
+          </th>
+        )}
         {parsedColumns.map((column) => (
           <th
             key={column.id as string}
@@ -100,13 +105,6 @@ export function Columns<TRow extends BaseDto>(props: ColumnPropsType<TRow>) {
             </Button>
           </th>
         ))}
-        {hasAction && (
-          <th scope="col" className="table-headers-action">
-            <span className="button text default disabled">
-              {t("_accessibility:labels.actions")}
-            </span>
-          </th>
-        )}
       </tr>
     </thead>
   );

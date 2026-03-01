@@ -13,6 +13,7 @@ export type ActionType<TRow extends BaseDto> = {
   disabled?: boolean;
   hidden?: boolean;
   multiple?: boolean;
+  sticky?: boolean;
   onMultipleClick?: (rows: TRow[]) => void;
 };
 

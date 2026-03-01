@@ -21,6 +21,7 @@ const mockTranslations: Record<string, string> = {
   "_accessibility:buttons.next": "Next page",
   "_accessibility:buttons.clear": "Clear",
   "_accessibility:buttons.applyFilters": "Apply filters",
+  "_accessibility:buttons.openActions": "Open actions",
   "_accessibility:components.table.pageSizes": "Rows per page",
   "_accessibility:components.table.jumpToPage": "Jump to page",
   "_accessibility:components.table.of": "of",
@@ -192,6 +193,7 @@ const singleRowActions = (row: Row) => [
     tooltip: `View ${row.name}`,
     icon: <ChevronRight className="w-4 h-4" />,
     onClick: () => undefined,
+    sticky: true,
   },
 ];
 
@@ -201,6 +203,7 @@ const multiRowActions = (row: Row) => [
     tooltip: `Details for ${row.name}`,
     icon: <ChevronRight className="w-4 h-4" />,
     onClick: () => undefined,
+    sticky: true,
   },
   {
     id: "remove",
@@ -209,6 +212,35 @@ const multiRowActions = (row: Row) => [
     onClick: () => undefined,
     multiple: true,
     onMultipleClick: () => undefined,
+  },
+];
+
+const mixedRowActions = (row: Row) => [
+  {
+    id: "view",
+    tooltip: `View ${row.name}`,
+    icon: <ChevronRight className="w-4 h-4" />,
+    onClick: () => undefined,
+    sticky: true,
+  },
+  {
+    id: "edit",
+    tooltip: `Edit ${row.name}`,
+    icon: <ChevronRight className="w-4 h-4" />,
+    onClick: () => undefined,
+    sticky: true,
+  },
+  {
+    id: "remove",
+    tooltip: "Remove",
+    icon: <Close className="w-4 h-4" />,
+    onClick: () => undefined,
+  },
+  {
+    id: "archive",
+    tooltip: "Archive",
+    icon: <Close className="w-4 h-4" />,
+    onClick: () => undefined,
   },
 ];
 
@@ -235,6 +267,19 @@ export const WithMultipleActions: Story = {
       { key: "age", label: "Age", sortable: true },
     ],
     actions: multiRowActions,
+  } as any,
+};
+
+export const WithStickyAndDropdownActions: Story = {
+  args: {
+    entity: "users",
+    title: "Users — sticky + dropdown actions",
+    data,
+    columns: [
+      { key: "name", label: "Name", sortable: true },
+      { key: "age", label: "Age", sortable: true },
+    ],
+    actions: mixedRowActions,
   } as any,
 };
 

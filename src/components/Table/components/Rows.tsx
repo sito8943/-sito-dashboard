@@ -1,5 +1,5 @@
 // components
-import { IconButton, Tooltip } from "components";
+import { ActionsDropdown, IconButton, Tooltip } from "components";
 // lib
 import { BaseDto } from "lib";
 // providers
@@ -67,6 +67,42 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
               aria-label={t("_accessibility:components.table.selectRow")}
             />
           </td>
+          {!!actions ? (
+            <td className="w-px">
+              <div className="table-row-cell-action">
+                {(() => {
+                  const visibleActions = actions(row).filter(
+                    (action) => !action.hidden,
+                  );
+                  const stickyActions = visibleActions.filter(
+                    (action) => action.sticky,
+                  );
+                  const nonStickyActions = visibleActions.filter(
+                    (action) => !action.sticky,
+                  );
+                  return (
+                    <>
+                      {stickyActions.map((action) => (
+                        <Tooltip key={action.id} content={action.tooltip}>
+                          <IconButton
+                            icon={action.icon}
+                            className="row-table-action"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              action.onClick(row);
+                            }}
+                          />
+                        </Tooltip>
+                      ))}
+                      {nonStickyActions.length > 0 && (
+                        <ActionsDropdown actions={nonStickyActions} />
+                      )}
+                    </>
+                  );
+                })()}
+              </div>
+            </td>
+          ) : null}
           {visibleColumns?.map((column, i) => (
             <td
               key={column.key as string}
@@ -77,26 +113,6 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
                 : baseRender(row[column.key as keyof TRow])}
             </td>
           ))}
-          {!!actions ? (
-            <td>
-              <div className="table-row-cell-action">
-                {actions(row)
-                  .filter((action) => !action.hidden)
-                  ?.map((action) => (
-                    <Tooltip key={action.id} content={action.tooltip}>
-                      <IconButton
-                        icon={action.icon}
-                        className="row-table-action"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          action.onClick(row);
-                        }}
-                      />
-                    </Tooltip>
-                  ))}
-              </div>
-            </td>
-          ) : null}
         </tr>
         {isExpanded &&
           expandedRow?.content !== null &&

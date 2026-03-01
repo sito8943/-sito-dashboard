@@ -5,7 +5,7 @@
 ## Highlights
 
 - `Table` component with sorting, filtering, pagination, row selection, bulk actions, and expandable rows.
-- Reusable UI pieces: `Badge`, `Button`, `Chip`, `Dropdown`, `IconButton`, `Loading`, `Tooltip`, and `SvgIcons`.
+- Reusable UI pieces: `Badge`, `Button`, `Chip`, `Dropdown`, `IconButton`, `Loading`, `Tooltip`, `SvgIcons`, `Actions`, and `ActionsDropdown`.
 - Form controls: `TextInput`, `SelectInput`, `AutocompleteInput`, `CheckInput`, and `FileInput`.
 - Built-in providers for translations and table state (`TranslationProvider`, `TableOptionsProvider`).
 
@@ -77,6 +77,7 @@ export function UsersTable() {
               tooltip: `View ${row.name}`,
               icon: <span>View</span>,
               onClick: () => console.log("View", row),
+              sticky: true, // always visible; omit to place in the ellipsis dropdown
             },
           ]}
         />
@@ -113,7 +114,7 @@ export function UsersTable() {
 
 Main package exports include:
 
-- Components: `Badge`, `Button`, `Chip`, `Dropdown`, `Form`, `IconButton`, `Loading`, `SvgIcons`, `Table`, `Tooltip`.
+- Components: `Action`, `Actions`, `ActionsDropdown`, `Badge`, `Button`, `Chip`, `Dropdown`, `Form`, `IconButton`, `Loading`, `SvgIcons`, `Table`, `Tooltip`.
 - Providers: `FiltersProvider`, `TableOptionsProvider`, `TranslationProvider` and related hooks/types.
 - Utilities and models: `FilterTypes`, `SortOrder`, `BaseDto`, and query/filter helpers from `lib`.
 
