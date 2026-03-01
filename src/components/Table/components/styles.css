@@ -7,12 +7,12 @@
 
 .jump-to-page-input,
 .page-size-input {
-  @apply !py-0 !pl-2 !pr-7 !border-none font-bold;
+  @apply py-0! pl-2! pr-7! border-none! font-bold;
 }
 
 .jump-to-page-input-container,
 .page-size-input-container {
-  @apply !w-auto !mb-0 !border-none;
+  @apply w-auto! mb-0! border-none!;
 }
 
 .table-headers-column {
@@ -36,11 +36,12 @@
 }
 
 .table-headers-action {
-  @apply px-6 py-3 text-center sticky top-0 z-20 bg-base;
+  @apply text-text font-medium px-6 py-3 text-center sticky top-0 z-20 bg-base w-px;
+  white-space: nowrap;
 }
 
 .table-empty {
-  @apply w-full flex items-center justify-center py-2 border-t-[1px];
+  @apply w-full flex items-center justify-center py-2 border-t;
 }
 
 .table-footer {

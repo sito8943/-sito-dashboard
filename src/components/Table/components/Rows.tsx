@@ -1,5 +1,5 @@
 // components
-import { IconButton, Tooltip } from "components";
+import { ActionsDropdown, IconButton, Tooltip } from "components";
 // lib
 import { BaseDto } from "lib";
 // providers
@@ -68,22 +68,38 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
             />
           </td>
           {!!actions ? (
-            <td>
+            <td className="w-px">
               <div className="table-row-cell-action">
-                {actions(row)
-                  .filter((action) => !action.hidden)
-                  ?.map((action) => (
-                    <Tooltip key={action.id} content={action.tooltip}>
-                      <IconButton
-                        icon={action.icon}
-                        className="row-table-action"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          action.onClick(row);
-                        }}
-                      />
-                    </Tooltip>
-                  ))}
+                {(() => {
+                  const visibleActions = actions(row).filter(
+                    (action) => !action.hidden,
+                  );
+                  const stickyActions = visibleActions.filter(
+                    (action) => action.sticky,
+                  );
+                  const nonStickyActions = visibleActions.filter(
+                    (action) => !action.sticky,
+                  );
+                  return (
+                    <>
+                      {stickyActions.map((action) => (
+                        <Tooltip key={action.id} content={action.tooltip}>
+                          <IconButton
+                            icon={action.icon}
+                            className="row-table-action"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              action.onClick(row);
+                            }}
+                          />
+                        </Tooltip>
+                      ))}
+                      {nonStickyActions.length > 0 && (
+                        <ActionsDropdown actions={nonStickyActions} />
+                      )}
+                    </>
+                  );
+                })()}
               </div>
             </td>
           ) : null}
