@@ -266,9 +266,39 @@ type ActionType<TRow extends BaseDto> = {
   tooltip: string;
   disabled?: boolean;
   hidden?: boolean;
+  sticky?: boolean; // always visible next to the row (default: false → goes into ellipsis dropdown)
   multiple?: boolean; // show in multi-select bar
   onMultipleClick?: (rows: TRow[]) => void; // bulk action handler
 };
+```
+
+**Sticky vs dropdown behavior (new in 0.0.67)**
+
+When `actions()` returns a list, actions are split into two groups before rendering:
+
+| `sticky` value | Rendering                                                                  |
+| -------------- | -------------------------------------------------------------------------- |
+| `true`         | Rendered directly as `IconButton`s next to the row (always visible)        |
+| `false` / omit | Collected into an `ActionsDropdown` — an ellipsis button that opens a menu |
+
+```tsx
+const actions = (row: User): ActionType<User>[] => [
+  {
+    id: "edit",
+    tooltip: "Edit",
+    icon: <EditIcon />,
+    onClick: (entity) => openEdit(entity),
+    sticky: true, // always visible
+  },
+  {
+    id: "delete",
+    tooltip: "Delete",
+    icon: <DeleteIcon />,
+    onClick: (entity) => confirmDelete(entity),
+    hidden: !!row.deletedAt, // hidden for already-deleted rows
+    // sticky omitted → appears in the ellipsis dropdown
+  },
+];
 ```
 
 > **Tip:** Return `hidden: true` from `actions()` to conditionally hide an action.
@@ -306,7 +336,76 @@ const { filters } = useTableOptions();
 
 ---
 
-## 5. Form Components
+## 5. Actions Components
+
+Three standalone components are exported for rendering action buttons outside of `Table`. They share the same `ActionType` shape used by the table.
+
+### 5.1 `Action`
+
+A single action button. Renders as an icon button or as an icon + label depending on `showText`.
+
+```tsx
+import { Action } from "@sito/dashboard";
+
+<Action
+  id="delete"
+  icon={<DeleteIcon />}
+  tooltip="Delete"
+  onClick={() => confirmDelete()}
+  showText // renders tooltip text next to the icon
+/>;
+```
+
+### 5.2 `Actions`
+
+Renders a `<ul>` list of `Action` buttons from an array.
+
+```tsx
+import { Actions } from "@sito/dashboard";
+
+<Actions
+  actions={[
+    { id: "edit", icon: <EditIcon />, tooltip: "Edit", onClick: openEdit },
+    {
+      id: "delete",
+      icon: <DeleteIcon />,
+      tooltip: "Delete",
+      onClick: confirmDelete,
+    },
+  ]}
+  showActionTexts // show label text (default: false = icon-only)
+  showTooltips // default: true
+/>;
+```
+
+### 5.3 `ActionsDropdown`
+
+Wraps `Actions` in a `Dropdown` triggered by an ellipsis (`⋮`) `IconButton`. This is the same component the `Table` uses for non-sticky actions.
+
+```tsx
+import { ActionsDropdown } from "@sito/dashboard";
+
+<ActionsDropdown
+  actions={[
+    {
+      id: "archive",
+      icon: <ArchiveIcon />,
+      tooltip: "Archive",
+      onClick: archive,
+    },
+    {
+      id: "export",
+      icon: <ExportIcon />,
+      tooltip: "Export",
+      onClick: doExport,
+    },
+  ]}
+/>;
+```
+
+---
+
+## 6. Form Components
 
 All form components share a common base interface:
 
@@ -326,7 +425,7 @@ type BaseInputPropsType<TValue> = {
 };
 ```
 
-### 5.1 `TextInput`
+### 6.1 `TextInput`
 
 ```tsx
 import { TextInput } from "@sito/dashboard";
@@ -344,7 +443,7 @@ import { TextInput } from "@sito/dashboard";
 
 Supports `forwardRef`.
 
-### 5.2 `SelectInput`
+### 6.2 `SelectInput`
 
 ```tsx
 import { SelectInput } from "@sito/dashboard";
@@ -363,7 +462,7 @@ const options: Option[] = [
 />;
 ```
 
-### 5.3 `AutocompleteInput`
+### 6.3 `AutocompleteInput`
 
 ```tsx
 import { AutocompleteInput } from "@sito/dashboard";
@@ -377,7 +476,7 @@ import { AutocompleteInput } from "@sito/dashboard";
 />;
 ```
 
-### 5.4 `CheckInput`
+### 6.4 `CheckInput`
 
 ```tsx
 import { CheckInput } from "@sito/dashboard";
@@ -389,7 +488,7 @@ import { CheckInput } from "@sito/dashboard";
 />;
 ```
 
-### 5.5 `FileInput`
+### 6.5 `FileInput`
 
 ```tsx
 import { FileInput } from "@sito/dashboard";
@@ -404,7 +503,7 @@ import { FileInput } from "@sito/dashboard";
 
 ---
 
-## 6. Button & IconButton
+## 7. Button & IconButton
 
 ```tsx
 import { Button, IconButton } from "@sito/dashboard";
@@ -429,7 +528,7 @@ All native `<button>` HTML attributes are supported (they are spread through).
 
 ---
 
-## 7. Chip
+## 8. Chip
 
 ```tsx
 import { Chip } from "@sito/dashboard";
@@ -439,7 +538,7 @@ import { Chip } from "@sito/dashboard";
 
 ---
 
-## 8. Dropdown
+## 9. Dropdown
 
 The Dropdown renders its content into `document.body` via a React portal and positions itself
 relative to an `anchorEl`. It is a **controlled** component — the parent owns the `open` state.
@@ -486,7 +585,7 @@ Repositions automatically on window resize while open.
 
 ---
 
-## 9. Tooltip
+## 10. Tooltip
 
 ```tsx
 import { Tooltip } from "@sito/dashboard";
@@ -502,7 +601,7 @@ Injects `aria-describedby` on the child using `cloneElement`. Child must accept 
 
 ---
 
-## 10. Loading
+## 11. Loading
 
 ```tsx
 import { Loading } from "@sito/dashboard";
@@ -514,7 +613,7 @@ Pure SVG spinner. Accepts `className`, `color`, and `strokeWidth`.
 
 ---
 
-## 11. Badge
+## 12. Badge
 
 ```tsx
 import { Badge } from "@sito/dashboard";
@@ -524,7 +623,7 @@ import { Badge } from "@sito/dashboard";
 
 ---
 
-## 12. Complete Page Example
+## 13. Complete Page Example
 
 ```tsx
 import {
@@ -621,7 +720,7 @@ export default function ProductsPage() {
 
 ---
 
-## 13. Rules & Pitfalls
+## 14. Rules & Pitfalls
 
 | Rule                                                                                                   | Why                                                                                |
 | ------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
@@ -636,10 +735,11 @@ export default function ProductsPage() {
 
 ---
 
-## 14. Exports Reference
+## 15. Exports Reference
 
 ```ts
 // Components
+export { Action, Actions, ActionsDropdown }; // standalone action primitives
 export { Table, Button, IconButton, Chip, Dropdown, Tooltip, Loading, Badge };
 export { TextInput, SelectInput, AutocompleteInput, CheckInput, FileInput };
 export type { Option }; // used by SelectInput / AutocompleteInput
@@ -652,6 +752,7 @@ export { TableOptionsProvider, useTableOptions };
 export type { BaseDto };
 export type { ColumnType, ColumnFilterOptions };
 export type { ActionType, TablePropsType };
+export type { ActionsContainerPropsType, ActionPropsType }; // Actions component types
 export type { ButtonPropsType, ButtonBaseProps };
 export type { TextInputPropsType, BaseInputPropsType };
 export type { TooltipPropsType };
@@ -664,7 +765,7 @@ export type { FilterType, FiltersValue, WidgetFilterProps };
 
 ---
 
-## 15. Styling Notes
+## 16. Styling Notes
 
 - The library bundles its own CSS (Tailwind utilities compiled to atomic classes).
 - **Do not** import Tailwind into the consuming project in a way that would purge library classes.
@@ -674,4 +775,4 @@ export type { FilterType, FiltersValue, WidgetFilterProps };
 
 ---
 
-_Last updated: 2026-02-28 — library version 0.0.66_
+_Last updated: 2026-03-01 — library version 0.0.67_
