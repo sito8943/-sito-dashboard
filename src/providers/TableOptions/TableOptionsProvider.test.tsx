@@ -43,6 +43,16 @@ const Harness = (props: HarnessProps) => {
       >
         Apply filters
       </button>
+      <button
+        data-testid="apply-camel-filters"
+        onClick={() =>
+          onFilterApply({
+            userName: { value: "alice" },
+          })
+        }
+      >
+        Apply camel filters
+      </button>
       <button data-testid="clear-status" onClick={() => clearFilters("status")}>
         Clear status
       </button>
@@ -55,6 +65,11 @@ const Harness = (props: HarnessProps) => {
       <pre data-testid="filters">{JSON.stringify(filters)}</pre>
     </div>
   );
+};
+
+const HookConsumer = () => {
+  useTableOptions();
+  return null;
 };
 
 describe("TableOptionsProvider", () => {
@@ -126,5 +141,38 @@ describe("TableOptionsProvider", () => {
       JSON.parse(screen.getByTestId("filters").textContent ?? "{}"),
     ).toEqual({});
     expect(screen.getByTestId("count-of-filters").textContent).toBe("0");
+  });
+
+  it("clears filters by exact key without lowercasing", () => {
+    render(
+      <TableOptionsProvider>
+        <Harness />
+      </TableOptionsProvider>,
+    );
+
+    fireEvent.click(screen.getByTestId("apply-camel-filters"));
+    expect(
+      JSON.parse(screen.getByTestId("filters").textContent ?? "{}"),
+    ).toEqual({
+      userName: "alice",
+    });
+
+    fireEvent.click(screen.getByTestId("clear-status"));
+    expect(
+      JSON.parse(screen.getByTestId("filters").textContent ?? "{}"),
+    ).toEqual({
+      userName: "alice",
+    });
+
+    fireEvent.click(screen.getByTestId("clear-all"));
+    expect(
+      JSON.parse(screen.getByTestId("filters").textContent ?? "{}"),
+    ).toEqual({});
+  });
+
+  it("throws when useTableOptions is used outside its provider", () => {
+    expect(() => render(<HookConsumer />)).toThrow(
+      "tableOptionsContext must be used within a Provider",
+    );
   });
 });
