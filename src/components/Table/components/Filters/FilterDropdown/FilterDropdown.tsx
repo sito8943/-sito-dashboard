@@ -1,6 +1,8 @@
 // styles
 import "./styles.css";
 
+// components
+import { Button } from "components";
 // lib
 import { WidgetFilterProps } from "lib";
 // providers
@@ -69,28 +71,33 @@ export const FilterDropdown = (props: FilterDropdownPropsType) => {
         <div className="filter-footer">
           <ul className="filter-buttons-row">
             <li>
-              <button
+              <Button
+                type="button"
+                variant="submit"
                 onClick={() =>
                   setCurrentFilters({
                     type: FiltersActions.reset,
                     filters,
                   })
                 }
-                className="filter-dropdown-button small filter-dropdown-cancel"
+                className="filter-dropdown-button filter-dropdown-cancel"
               >
                 {t("_accessibility:buttons.clear")}
-              </button>
+              </Button>
             </li>
             <li>
-              <button
-                className="filter-dropdown-button small filter-dropdown-submit"
+              <Button
+                type="button"
+                variant="submit"
+                color="primary"
+                className="filter-dropdown-button filter-dropdown-submit"
                 onClick={() => {
                   handleShow(false);
                   onFilterApply(currentFilters);
                 }}
               >
                 {t("_accessibility:buttons.applyFilters")}
-              </button>
+              </Button>
             </li>
           </ul>
         </div>

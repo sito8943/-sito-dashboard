@@ -52,4 +52,39 @@ describe("TextInput", () => {
     fireEvent.change(input, { target: { value: "ana" } });
     expect(onChange).toHaveBeenCalledOnce();
   });
+
+  it("keeps label up after first focus when no placeholder is provided", () => {
+    const { container } = render(
+      <TextInput label="Nombre" value={undefined} />,
+    );
+    const input = container.querySelector("input");
+
+    expect(input).toBeTruthy();
+    if (!input) {
+      return;
+    }
+
+    expect(input.className).not.toContain("keep-label-up");
+
+    fireEvent.focus(input);
+    expect(input.className).toContain("keep-label-up");
+
+    fireEvent.blur(input);
+    expect(input.className).toContain("keep-label-up");
+  });
+
+  it("keeps label up when placeholder is present", () => {
+    const { container } = render(
+      <TextInput
+        label="Nombre"
+        placeholder="Buscar nombre"
+        value={undefined}
+      />,
+    );
+    const input = container.querySelector("input");
+
+    expect(input).toBeTruthy();
+    expect(input?.className).toContain("keep-label-up");
+    expect(input?.className).toContain("has-placeholder");
+  });
 });

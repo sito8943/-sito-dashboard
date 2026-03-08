@@ -27,6 +27,13 @@ type Story = StoryObj<typeof TextInput>;
 export const Default: Story = {
   args: {
     label: "Nombre",
+    state: State.default,
+  },
+};
+
+export const Placeholder: Story = {
+  args: {
+    label: "Nombre",
     placeholder: "Ingresa tu nombre",
     state: State.default,
   },
@@ -45,6 +52,14 @@ export const ErrorState: Story = {
     label: "Usuario",
     helperText: "Campo requerido",
     state: State.error,
+    required: true,
+  },
+};
+
+export const SuccessState: Story = {
+  args: {
+    label: "Usuario",
+    state: State.good,
     required: true,
   },
 };
