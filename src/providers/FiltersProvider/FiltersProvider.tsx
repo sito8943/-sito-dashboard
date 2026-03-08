@@ -11,7 +11,7 @@ import {
 // utils
 import { filtersReducer, initializer } from "./utils";
 
-const FiltersContext = createContext({} as FiltersContextType);
+const FiltersContext = createContext<FiltersContextType | undefined>(undefined);
 
 /**
  * Renders the FiltersProvider component.
@@ -55,8 +55,8 @@ const FiltersProvider = (props: FiltersProviderPropsType) => {
  */
 const useFilters = () => {
   const context = useContext(FiltersContext);
-  if (context === undefined)
-    throw new Error("tableOptionsContext must be used within a Provider");
+  if (!context)
+    throw new Error("filtersContext must be used within a Provider");
   return context;
 };
 

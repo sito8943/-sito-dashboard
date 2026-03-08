@@ -37,10 +37,14 @@ export const ActionsDropdown = <TRow extends BaseDto>(
       <IconButton
         icon={<Ellipsis />}
         onClick={(e) => {
+          e.stopPropagation();
           setAnchorEl(e.currentTarget as HTMLElement);
           setOpenMenu((prev) => !prev);
         }}
+        onMouseDown={(e) => e.stopPropagation()}
         className="actions-dropdown-trigger"
+        aria-label={t("_accessibility:buttons.openActions")}
+        name={t("_accessibility:buttons.openActions")}
         data-tooltip-id="tooltip"
         data-tooltip-content={t("_accessibility:buttons.openActions")}
       />

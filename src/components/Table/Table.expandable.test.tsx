@@ -35,6 +35,7 @@ const translations: Record<string, string> = {
   "_accessibility:components.table.selectRow": "Select row",
   "_accessibility:components.table.selectAllRows": "Select all rows",
   "_accessibility:labels.actions": "Actions",
+  "_accessibility:buttons.openActions": "Open actions",
   "_accessibility:components.table.jumpToPage": "Jump to page",
   "_accessibility:components.table.pageSizes": "Rows per page",
 };
@@ -63,6 +64,12 @@ const TableWithProviders = (props: Partial<TablePropsType<Row>>) => {
     </TranslationProvider>
   );
 };
+
+const getExpandIndicator = (rowName: string) =>
+  screen
+    .getByText(rowName)
+    .closest("tr")
+    ?.querySelector(".table-row-expand-indicator");
 
 describe("Table expandable rows", () => {
   afterEach(() => {
@@ -122,6 +129,74 @@ describe("Table expandable rows", () => {
 
     expect(onRowExpand).toHaveBeenCalledTimes(1);
     expect(onExpandedRowChange).toHaveBeenLastCalledWith(null, rows[0]);
+  });
+
+  it("shows chevron direction based on expanded row state", async () => {
+    const onRowExpand = vi.fn((expandedRow: Row) => (
+      <div>{`details-${expandedRow.name}`}</div>
+    ));
+
+    render(
+      TableWithProviders({
+        onRowExpand,
+      }),
+    );
+
+    expect(getExpandIndicator("Alice")).toHaveAttribute(
+      "data-state",
+      "collapsed",
+    );
+
+    fireEvent.click(screen.getByText("Alice"));
+    await waitFor(() => expect(screen.getByText("details-Alice")).toBeTruthy());
+
+    expect(getExpandIndicator("Alice")).toHaveAttribute(
+      "data-state",
+      "expanded",
+    );
+
+    fireEvent.click(screen.getByText("Alice"));
+    await waitFor(() =>
+      expect(screen.queryByText("details-Alice")).toBeFalsy(),
+    );
+
+    expect(getExpandIndicator("Alice")).toHaveAttribute(
+      "data-state",
+      "collapsed",
+    );
+  });
+
+  it("does not expand row when clicking actions dropdown trigger", () => {
+    const onRowExpand = vi.fn((expandedRow: Row) => (
+      <div>{`details-${expandedRow.name}`}</div>
+    ));
+    const onActionClick = vi.fn();
+
+    const actions = () => [
+      {
+        id: "menu-action",
+        tooltip: "Menu action",
+        icon: <span>...</span>,
+        onClick: onActionClick,
+      },
+    ];
+
+    render(
+      TableWithProviders({
+        onRowExpand,
+        actions,
+      }),
+    );
+
+    const aliceRow = screen.getByText("Alice").closest("tr");
+    const trigger = aliceRow?.querySelector(".actions-dropdown-trigger");
+    expect(trigger).toBeTruthy();
+
+    if (!trigger) return;
+    fireEvent.click(trigger);
+
+    expect(onRowExpand).not.toHaveBeenCalled();
+    expect(screen.queryByText("details-Alice")).toBeFalsy();
   });
 
   it("allows multiple expanded rows at the same time", async () => {
