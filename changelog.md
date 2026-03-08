@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.68] - 2026-03-08
+
+### Added
+
+- Expand/collapse visual indicator for table rows with `onRowExpand`: chevron down (`↓`) when collapsed and chevron up (`↑`) when expanded.
+- New Storybook scenario `WithPagination` to exercise table pagination behavior with in-memory paged data.
+- New Storybook scenario `WithCompleteFeatures` combining sticky actions, dropdown actions, pagination, single-row expansion, and filters.
+- Regression test to ensure the row actions dropdown trigger does not expand/collapse expandable rows.
+
+### Changed
+
+- Updated `AGENTS.md` with expandable-row chevron behavior, actions dropdown propagation expectations, and Storybook scenario references.
+
+### Fixed
+
+- Fixed table UX bug where clicking the row actions dropdown trigger could expand/collapse the row.
+
 ## [0.0.67] - 2026-03-01
 
 ### Added

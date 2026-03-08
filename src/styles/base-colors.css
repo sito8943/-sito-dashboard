@@ -2,6 +2,14 @@
 
 /* INPUTS */
 
+.input-error {
+  @apply text-bg-error border-bg-error focus:border-bg-error;
+}
+
+.input-good {
+  @apply text-bg-success border-bg-success focus:border-bg-success;
+}
+
 .input-normal {
   @apply text-text border-border focus:border-primary;
 }
@@ -90,21 +98,12 @@
   @apply bg-base-light;
 }
 
-.filter-dropdown-submit,
-.filter-dropdown-cancel {
-  @apply bg-base-light border-border hover:border-text-muted text-text-muted hover:text-text;
-}
-
-.filter-dropdown-trigger {
-  @apply bg-base-light border-border hover:border-text-muted text-text-muted hover:text-text;
-}
-
 .filter-title {
   @apply text-text-muted;
 }
 
 .filter-footer {
-  @apply border-border bg-base;
+  @apply border-border bg-base-dark;
 }
 
 /* TABLE */

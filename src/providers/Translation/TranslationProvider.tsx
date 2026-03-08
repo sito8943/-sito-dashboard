@@ -3,8 +3,10 @@ import { createContext, useContext } from "react";
 // types
 import { TFunction, TranslationProviderPropsType } from "./types";
 
-const TranslationContext = createContext(
-  {} as { t: TFunction; language: string },
+type TranslationContextType = { t: TFunction; language: string };
+
+const TranslationContext = createContext<TranslationContextType | undefined>(
+  undefined,
 );
 
 /**
@@ -28,7 +30,7 @@ function TranslationProvider(props: TranslationProviderPropsType) {
  */
 const useTranslation = () => {
   const context = useContext(TranslationContext);
-  if (context === undefined)
+  if (!context)
     throw new Error("translationContext must be used within a Provider");
   return context;
 };

@@ -1,5 +1,6 @@
 // components
 import { ActionsDropdown, IconButton, Tooltip } from "components";
+import { ChevronDown, ChevronUp } from "components/SvgIcons";
 // lib
 import { BaseDto } from "lib";
 // providers
@@ -103,16 +104,40 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
               </div>
             </td>
           ) : null}
-          {visibleColumns?.map((column, i) => (
-            <td
-              key={column.key as string}
-              className={`table-row-cell ${i === 0 ? "basic" : ""} ${column.className ?? ""}`}
-            >
-              {column.renderBody
-                ? column.renderBody(row[column.key as keyof TRow], row)
-                : baseRender(row[column.key as keyof TRow])}
-            </td>
-          ))}
+          {visibleColumns?.map((column, i) => {
+            const columnValue = row[column.key as keyof TRow];
+            const renderedContent = column.renderBody
+              ? column.renderBody(columnValue, row)
+              : baseRender(columnValue);
+
+            return (
+              <td
+                key={column.key as string}
+                className={`table-row-cell ${i === 0 ? "basic" : ""} ${column.className ?? ""}`}
+              >
+                {onRowExpand && i === 0 ? (
+                  <div className="table-row-expand-content">
+                    <span
+                      className="table-row-expand-indicator"
+                      aria-hidden
+                      data-state={isExpanded ? "expanded" : "collapsed"}
+                    >
+                      {isExpanded ? (
+                        <ChevronUp className="table-row-expand-chevron" />
+                      ) : (
+                        <ChevronDown className="table-row-expand-chevron" />
+                      )}
+                    </span>
+                    <div className="table-row-expand-value">
+                      {renderedContent}
+                    </div>
+                  </div>
+                ) : (
+                  renderedContent
+                )}
+              </td>
+            );
+          })}
         </tr>
         {isExpanded &&
           expandedRow?.content !== null &&

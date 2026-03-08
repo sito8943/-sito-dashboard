@@ -17,7 +17,9 @@ import {
 
 const pageSizes = [20, 50, 100];
 
-const TableOptionsContext = createContext({} as TableOptionsContextType);
+const TableOptionsContext = createContext<TableOptionsContextType | undefined>(
+  undefined,
+);
 
 /**
  * Renders the TableOptionsProvider component.
@@ -80,11 +82,16 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
   const clearFilters = useCallback(
     (key?: string) => {
       if (key) {
-        delete filters[key.toLowerCase()];
-        setFilters({ ...filters });
-      } else setFilters({});
+        setFilters((previousFilters) => {
+          const nextFilters = { ...previousFilters };
+          delete nextFilters[key];
+          return nextFilters;
+        });
+      } else {
+        setFilters({});
+      }
     },
-    [filters],
+    [setFilters],
   );
 
   const countOfFilters = useMemo(() => {
@@ -123,7 +130,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
  */
 const useTableOptions = () => {
   const context = useContext(TableOptionsContext);
-  if (context === undefined)
+  if (!context)
     throw new Error("tableOptionsContext must be used within a Provider");
   return context;
 };

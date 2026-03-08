@@ -17,19 +17,21 @@
   @apply font-medium start-0 scale-75 -translate-y-7;
 }
 
+[dir="rtl"] .text-input.keep-label-up ~ .text-input-label,
 [dir="rtl"] .text-input:focus ~ .text-input-label {
   @apply translate-x-1/4;
   left: auto;
 }
 
+.text-input.keep-label-up ~ .text-input-label,
 /* Si tiene placeholder, levanta */
 .text-input.has-placeholder ~ .text-input-label {
-  @apply -translate-y-7 scale-75;
+  @apply font-medium start-0 -translate-y-7 scale-75;
 }
 
 /* Si tiene valor, levanta */
 .text-input.has-value ~ .text-input-label {
-  @apply -translate-y-7 scale-75;
+  @apply font-medium start-0 -translate-y-7 scale-75;
 }
 
 .text-input-helper-text {

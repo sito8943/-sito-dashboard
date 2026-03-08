@@ -1,19 +1,11 @@
 @reference "../../../../../styles/variables.css";
 
-.filter-dropdown-button {
-  @apply text-sm;
-}
-
-.filter-dropdown-button.normal {
-  @apply px-3 py-2;
-}
-
-.filter-dropdown-button.small {
-  @apply px-2 py-0.5;
-}
-
 .filter-dropdown-trigger-icon {
   @apply w-4 h-4 fill-current;
+}
+
+.filter-dropdown-button {
+  @apply text-xs font-medium;
 }
 
 .filter-dropdown-backdrop {

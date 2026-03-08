@@ -1,7 +1,13 @@
 // styles
 import "./styles.css";
 
-import { ChangeEvent, ForwardedRef, forwardRef, useState } from "react";
+import {
+  ChangeEvent,
+  FocusEvent,
+  ForwardedRef,
+  forwardRef,
+  useState,
+} from "react";
 
 // utils
 import {
@@ -46,6 +52,8 @@ export const TextInput = forwardRef(function (
     value,
     defaultValue,
     onChange,
+    onFocus,
+    onBlur,
     ...rest
   } = props;
 
@@ -53,8 +61,10 @@ export const TextInput = forwardRef(function (
   const [uncontrolledHasValue, setUncontrolledHasValue] = useState(() =>
     hasInputValue(defaultValue as TextInputPropsType["value"]),
   );
+  const [hasBeenFocused, setHasBeenFocused] = useState(false);
 
   const hasValue = isControlled ? hasInputValue(value) : uncontrolledHasValue;
+  const keepLabelUp = Boolean(rest.placeholder) || hasBeenFocused;
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!isControlled) {
@@ -64,14 +74,32 @@ export const TextInput = forwardRef(function (
     onChange?.(event);
   };
 
+  const handleFocus = (event: FocusEvent<HTMLInputElement>) => {
+    if (!hasBeenFocused) {
+      setHasBeenFocused(true);
+    }
+
+    onFocus?.(event);
+  };
+
+  const handleBlur = (event: FocusEvent<HTMLInputElement>) => {
+    if (!hasBeenFocused) {
+      setHasBeenFocused(true);
+    }
+
+    onBlur?.(event);
+  };
+
   return (
     <div className={`text-input-container ${containerClassName}`}>
       <input
         ref={ref}
         defaultValue={defaultValue}
         onChange={handleChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         {...(isControlled ? { value } : {})}
-        className={`text-input ${inputStateClassName(state)} ${inputClassName} ${hasValue ? "has-value" : ""} ${rest.placeholder ? "has-placeholder" : ""}`}
+        className={`text-input ${inputStateClassName(state)} ${inputClassName} ${hasValue ? "has-value" : ""} ${rest.placeholder ? "has-placeholder" : ""} ${keepLabelUp ? "keep-label-up" : ""}`}
         {...rest}
       />
       {!!label && (

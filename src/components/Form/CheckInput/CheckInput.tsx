@@ -3,6 +3,8 @@ import "./styles.css";
 
 import { ForwardedRef, forwardRef } from "react";
 
+// utils
+import { inputStateClassName, labelStateClassName, State } from "../utils";
 // types
 import { CheckInputPropsType } from "./types";
 
@@ -21,6 +23,7 @@ export const CheckInput = forwardRef(function (
     name = "",
     id = "",
     label = "",
+    state = State.default,
     containerClassName = "",
     inputClassName = "",
     labelClassName = "",
@@ -36,10 +39,14 @@ export const CheckInput = forwardRef(function (
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        className={`input-check ${inputClassName}`}
+        className={`input-check ${inputStateClassName(state)} ${inputClassName}`}
         {...rest}
       />
-      <span className={`input-check-label ${labelClassName}`}>{label}</span>
+      <span
+        className={`input-check-label ${labelStateClassName(state)} ${labelClassName}`}
+      >
+        {label}
+      </span>
     </label>
   );
 });
