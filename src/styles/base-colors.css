@@ -103,7 +103,7 @@
 }
 
 .filter-footer {
-  @apply border-border bg-base;
+  @apply border-border bg-base-dark;
 }
 
 /* TABLE */

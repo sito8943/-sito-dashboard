@@ -83,8 +83,8 @@ export const TextInput = forwardRef(function (
   };
 
   const handleBlur = (event: FocusEvent<HTMLInputElement>) => {
-    if (hasBeenFocused) {
-      setHasBeenFocused(false);
+    if (!hasBeenFocused) {
+      setHasBeenFocused(true);
     }
 
     onBlur?.(event);
