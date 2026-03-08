@@ -11,6 +11,8 @@ export const Navigation = () => {
   const { t } = useTranslation();
 
   const { total, pageSize, currentPage, setCurrentPage } = useTableOptions();
+  const totalPages = Math.ceil(total / pageSize);
+  const canGoNext = currentPage < totalPages - 1;
 
   return (
     <div className="table-navigation-pages">
@@ -24,11 +26,15 @@ export const Navigation = () => {
       />
       <IconButton
         icon={<ChevronRight className="table-navigation-icon" />}
-        disabled={Math.floor(total / ((currentPage + 1) * pageSize)) === 0}
+        disabled={!canGoNext}
         className="table-navigation-buttons"
         name={t("_accessibility:buttons.next")}
         aria-label={t("_accessibility:buttons.next")}
-        onClick={() => setCurrentPage(currentPage + 1)}
+        onClick={() => {
+          if (canGoNext) {
+            setCurrentPage(currentPage + 1);
+          }
+        }}
       />
     </div>
   );

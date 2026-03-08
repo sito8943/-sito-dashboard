@@ -68,6 +68,22 @@
   @apply cursor-pointer;
 }
 
+.table-row-expand-content {
+  @apply flex items-center gap-2;
+}
+
+.table-row-expand-indicator {
+  @apply inline-flex items-center justify-center shrink-0 text-text-muted;
+}
+
+.table-row-expand-indicator[data-state="expanded"] {
+  @apply text-text;
+}
+
+.table-row-expand-chevron {
+  @apply w-2.5 h-2.5;
+}
+
 .table-row-expanded-cell {
   @apply p-0 bg-transparent border-0;
 }

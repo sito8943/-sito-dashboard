@@ -46,3 +46,8 @@ export const ErrorState: Story = {
   render: Default.render,
   args: { state: State.error, helperText: "Required field" },
 };
+
+export const SuccessState: Story = {
+  render: Default.render,
+  args: { state: State.good, helperText: "Selection is valid" },
+};

@@ -25,7 +25,7 @@ export const TableHeader = <TRow extends BaseDto>(
 
   const parsedFilters = useMemo(() => {
     if (columns)
-      return columns
+      return [...columns]
         .sort((colA, colB) => {
           return (colB.pos ?? 0) - (colA.pos ?? 0);
         })
