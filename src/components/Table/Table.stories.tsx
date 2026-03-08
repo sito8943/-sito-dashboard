@@ -7,8 +7,8 @@ import { Table } from "components";
 import { ChevronRight, Close, Filters } from "components/SvgIcons";
 import type { BaseDto } from "lib";
 import { FilterTypes } from "lib";
-import { TranslationProvider } from "providers";
-import { useState } from "react";
+import { TranslationProvider, useTableOptions } from "providers";
+import { useEffect, useMemo, useState } from "react";
 import { fn } from "storybook/test";
 
 type Row = BaseDto & { name: string; age: number };
@@ -77,6 +77,13 @@ const data: Row[] = [
   { id: 14, deletedAt: null, name: "Natalia", age: 33 },
   { id: 15, deletedAt: null, name: "Oscar", age: 45 },
 ];
+
+const paginationData: Row[] = Array.from({ length: 95 }, (_, index) => ({
+  id: index + 1,
+  deletedAt: null,
+  name: `User ${index + 1}`,
+  age: 20 + (index % 30),
+}));
 
 export const Basic: Story = {
   args: {
@@ -352,6 +359,169 @@ export const WithMultipleExpandableRows: Story = {
     columns: [
       { key: "name", label: "Name", sortable: true },
       { key: "age", label: "Age", sortable: true },
+    ],
+  } as any,
+};
+
+export const WithPagination: Story = {
+  render: (args) => {
+    const Example = () => {
+      const { currentPage, pageSize, setTotal, setCurrentPage } =
+        useTableOptions();
+
+      useEffect(() => {
+        setTotal(paginationData.length);
+      }, [setTotal]);
+
+      useEffect(() => {
+        const totalPages = Math.max(
+          1,
+          Math.ceil(paginationData.length / pageSize),
+        );
+        if (currentPage >= totalPages) {
+          setCurrentPage(totalPages - 1);
+        }
+      }, [currentPage, pageSize, setCurrentPage]);
+
+      const paginatedRows = useMemo(() => {
+        const start = currentPage * pageSize;
+        return paginationData.slice(start, start + pageSize);
+      }, [currentPage, pageSize]);
+
+      return <Table<Row> {...(args as any)} data={paginatedRows} />;
+    };
+
+    return <Example />;
+  },
+  args: {
+    entity: "users",
+    title: "Users with pagination",
+    columns: [
+      { key: "id", label: "ID", sortable: true },
+      { key: "name", label: "Name", sortable: true },
+      { key: "age", label: "Age", sortable: true },
+    ],
+  } as any,
+};
+
+export const WithCompleteFeatures: Story = {
+  render: (args) => {
+    const Example = () => {
+      const { currentPage, pageSize, setTotal, setCurrentPage, filters } =
+        useTableOptions();
+      const [expandedRowId, setExpandedRowId] = useState<Row["id"] | null>(
+        null,
+      );
+
+      const filteredData = useMemo(() => {
+        return paginationData.filter((row) => {
+          const nameFilter =
+            typeof filters.name === "string"
+              ? filters.name.trim().toLowerCase()
+              : "";
+          if (nameFilter && !row.name.toLowerCase().includes(nameFilter)) {
+            return false;
+          }
+
+          const ageFilter = filters.age as
+            | { start?: string | number; end?: string | number }
+            | undefined;
+
+          const minAge =
+            ageFilter?.start !== null &&
+            typeof ageFilter?.start !== "undefined" &&
+            ageFilter.start !== ""
+              ? Number(ageFilter.start)
+              : null;
+          const maxAge =
+            ageFilter?.end !== null &&
+            typeof ageFilter?.end !== "undefined" &&
+            ageFilter.end !== ""
+              ? Number(ageFilter.end)
+              : null;
+
+          if (minAge !== null && !Number.isNaN(minAge) && row.age < minAge) {
+            return false;
+          }
+
+          if (maxAge !== null && !Number.isNaN(maxAge) && row.age > maxAge) {
+            return false;
+          }
+
+          return true;
+        });
+      }, [filters]);
+
+      useEffect(() => {
+        setTotal(filteredData.length);
+      }, [filteredData.length, setTotal]);
+
+      useEffect(() => {
+        const totalPages = Math.max(
+          1,
+          Math.ceil(filteredData.length / pageSize),
+        );
+        if (currentPage >= totalPages) {
+          setCurrentPage(totalPages - 1);
+        }
+      }, [currentPage, filteredData.length, pageSize, setCurrentPage]);
+
+      useEffect(() => {
+        if (!expandedRowId) return;
+        if (!filteredData.some((row) => row.id === expandedRowId)) {
+          setExpandedRowId(null);
+        }
+      }, [expandedRowId, filteredData]);
+
+      const paginatedRows = useMemo(() => {
+        const start = currentPage * pageSize;
+        return filteredData.slice(start, start + pageSize);
+      }, [currentPage, filteredData, pageSize]);
+
+      return (
+        <Table<Row>
+          {...(args as any)}
+          data={paginatedRows}
+          expandedRowId={expandedRowId}
+          onExpandedRowChange={(expandedRow) =>
+            setExpandedRowId(expandedRow?.id ?? null)
+          }
+          onRowExpand={(expandedRow) => (
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="font-semibold">{expandedRow.name}</p>
+                <p className="text-xs opacity-70">Age: {expandedRow.age}</p>
+              </div>
+              <p className="text-xs opacity-70">ID: {expandedRow.id}</p>
+            </div>
+          )}
+        />
+      );
+    };
+
+    return <Example />;
+  },
+  args: {
+    entity: "users",
+    title: "Users with complete features",
+    actions: mixedRowActions,
+    columns: [
+      { key: "id", label: "ID", sortable: true },
+      {
+        key: "name",
+        label: "Name",
+        sortable: true,
+        filterOptions: {
+          type: FilterTypes.text,
+          placeholder: "Search by name",
+        },
+      },
+      {
+        key: "age",
+        label: "Age",
+        sortable: true,
+        filterOptions: { type: FilterTypes.number, min: 18, max: 80 },
+      },
     ],
   } as any,
 };
