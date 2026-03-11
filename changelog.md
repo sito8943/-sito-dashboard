@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.69] - 2026-03-11
+
+### Changed
+
+- Updated docs compatibility reference to `@sito/dashboard` `0.0.69`.
+- Added translation keys reference document for consumer projects.
+
+### Fixed
+
+- Prevented `vite-plugin-dts` from emitting declarations for `*.test.*` and `*.stories.*` files.
+- Fixed table header filters UX by hiding the filters trigger when no filters are configured.
+- Fixed active range filter rendering for falsy values (for example `0` and `0`).
+
 ## [0.0.68] - 2026-03-08
 
 ### Added

@@ -9,4 +9,4 @@ This folder is meant to be copied into a project that consumes the library.
 Base compatibility:
 
 - `react` / `react-dom` `>=18.2 <20`
-- `@sito/dashboard` `0.0.68`
+- `@sito/dashboard` `0.0.69`

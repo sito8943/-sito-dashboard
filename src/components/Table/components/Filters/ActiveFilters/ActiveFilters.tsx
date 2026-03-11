@@ -12,6 +12,14 @@ import { RangeChip } from "./RangeChip";
 // types
 import { ActiveFiltersPropsType } from "./types";
 
+const isRangeValue = (
+  value: unknown,
+): value is { start?: unknown; end?: unknown } =>
+  typeof value === "object" &&
+  value !== null &&
+  !Array.isArray(value) &&
+  ("start" in value || "end" in value);
+
 /**
  * Renders the ActiveFilters component.
  * @param props - props parameter.
@@ -36,34 +44,36 @@ export const ActiveFilters = (props: ActiveFiltersPropsType) => {
 
   const parseFilters = useCallback(
     (key: string) => {
-      if (filters[key]?.end || filters[key]?.start)
+      const filterValue = filters[key];
+
+      if (isRangeValue(filterValue))
         return (
           <RangeChip
             id={key}
             text={filterLabels[key]}
-            start={filters[key].start}
-            end={filters[key].end}
+            start={filterValue.start}
+            end={filterValue.end}
             onClearFilter={clearFilters}
           />
         );
-      else if (Array.isArray(filters[key]))
+      else if (Array.isArray(filterValue))
         return (
           <ArrayChip
             id={key}
             text={filterLabels[key]}
-            items={filters[key]}
+            items={filterValue}
             onClearFilter={clearFilters}
           />
         );
       else
         return (
           <Chip
-            text={`${filterLabels[key]}: ${filters[key]?.value ?? filters[key]?.name ?? filters[key]}`}
+            text={`${filterLabels[key]}: ${filterValue?.value ?? filterValue?.name ?? filterValue}`}
             onDelete={() => clearFilters(key)}
           />
         );
     },
-    [filters, filterLabels],
+    [filters, filterLabels, clearFilters],
   );
 
   return (

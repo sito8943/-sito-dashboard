@@ -53,15 +53,21 @@ export const TableHeader = <TRow extends BaseDto>(
     () => filterOptions?.dropdown?.opened ?? dropdownOpen,
     [filterOptions, dropdownOpen],
   );
+  const hasFilters = parsedFilters.length > 0;
+  const canShowFilterButton =
+    hasFilters && filterOptions?.button?.hide !== true;
+  const isFilterDropdownOpen = hasFilters && showDropdown;
 
   return (
-    <div className={`table-header ${showDropdown ? "showing-filters" : ""}`}>
+    <div
+      className={`table-header ${isFilterDropdownOpen ? "showing-filters" : ""}`}
+    >
       <div>
         {title && <h1 className="table-header-title">{title}</h1>}
         {!isLoading ? (
           <div className="table-header-content">
             {toolbar}
-            {filterOptions?.button?.hide !== true && (
+            {canShowFilterButton && (
               <IconButton
                 icon={
                   filterOptions?.button?.icon ?? (
@@ -86,10 +92,10 @@ export const TableHeader = <TRow extends BaseDto>(
           </div>
         ) : null}
       </div>
-      {!!parsedFilters && !!parsedFilters.length && (
+      {hasFilters && (
         <FilterDropdown
           filters={parsedFilters as FilterType[]}
-          show={showDropdown}
+          show={isFilterDropdownOpen}
           handleShow={handleDropdown}
           options={filterOptions}
         />

@@ -16,7 +16,19 @@ export default defineConfig({
     },
     dedupe: ["react", "react-dom"],
   },
-  plugins: [react(), dts({ insertTypesEntry: true }), libInjectCss()],
+  plugins: [
+    react(),
+    dts({
+      insertTypesEntry: true,
+      exclude: [
+        "**/*.test.ts",
+        "**/*.test.tsx",
+        "**/*.stories.ts",
+        "**/*.stories.tsx",
+      ],
+    }),
+    libInjectCss(),
+  ],
   test: {
     environment: "jsdom",
     globals: true,

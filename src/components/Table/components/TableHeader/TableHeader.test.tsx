@@ -1,8 +1,12 @@
 /* @vitest-environment jsdom */
 
-import { cleanup, render } from "@testing-library/react";
-import { BaseDto } from "lib";
-import { TableOptionsProvider, TranslationProvider } from "providers";
+import { cleanup, render, screen } from "@testing-library/react";
+import { BaseDto, FilterTypes } from "lib";
+import {
+  FiltersProvider,
+  TableOptionsProvider,
+  TranslationProvider,
+} from "providers";
 import { ReactNode } from "react";
 import { afterEach, describe, expect, it } from "vitest";
 
@@ -23,7 +27,9 @@ const Wrapper = (props: WrapperProps) => {
   const { children } = props;
   return (
     <TranslationProvider t={t} language="en">
-      <TableOptionsProvider>{children}</TableOptionsProvider>
+      <TableOptionsProvider>
+        <FiltersProvider>{children}</FiltersProvider>
+      </TableOptionsProvider>
     </TranslationProvider>
   );
 };
@@ -46,5 +52,37 @@ describe("TableHeader", () => {
     );
 
     expect(columns.map((column) => column.key)).toEqual(["name", "id"]);
+  });
+
+  it("does not render filter button when there are no filters configured", () => {
+    render(
+      <Wrapper>
+        <TableHeader columns={[{ key: "name", label: "Name" }]} />
+      </Wrapper>,
+    );
+
+    expect(
+      screen.queryByRole("button", { name: "_accessibility:buttons.filters" }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("renders filter button when at least one column has filter options", () => {
+    render(
+      <Wrapper>
+        <TableHeader
+          columns={[
+            {
+              key: "name",
+              label: "Name",
+              filterOptions: { type: FilterTypes.text },
+            },
+          ]}
+        />
+      </Wrapper>,
+    );
+
+    expect(
+      screen.getByRole("button", { name: /_accessibility:buttons\.filters/ }),
+    ).toBeInTheDocument();
   });
 });
