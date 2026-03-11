@@ -41,6 +41,7 @@ export function Action<TEntity extends BaseDto>(
       id={id}
       className={`action ${showText ? "text-action" : "icon-action"} ${className}`}
       disabled={disabled}
+      aria-label={tooltip}
       onClick={(e) => {
         e.stopPropagation();
         onClick?.();

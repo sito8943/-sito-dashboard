@@ -44,6 +44,7 @@ export function TableSelectionBar<TRow extends BaseDto>({
                 className="multi-table-action"
                 onClick={() => onActionClick(action)}
                 disabled={action.disabled}
+                aria-label={action.tooltip}
               />
             </Tooltip>
           ))}

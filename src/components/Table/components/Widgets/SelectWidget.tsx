@@ -1,5 +1,5 @@
 // components
-import { SelectInput } from "components";
+import { Option, SelectInput } from "components";
 // providers
 import { FiltersActions, useFilters } from "providers";
 import { ChangeEvent, useCallback, useMemo } from "react";
@@ -18,15 +18,34 @@ export function SelectWidget(props: SelectWidgetPropsType) {
   const { currentFilters, setCurrentFilters } = useFilters();
 
   const value = useMemo(() => {
-    return currentFilters[propertyName]?.value ?? options[0];
-  }, [currentFilters]);
+    const currentValue = currentFilters[propertyName]?.value;
+    if (currentValue === null || typeof currentValue === "undefined") {
+      return options[0]?.id ?? "";
+    }
 
-  const onChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
-    setCurrentFilters({
-      type: FiltersActions.update,
-      toUpdate: { [propertyName]: { value: e.target.value } },
-    });
-  }, []);
+    if (typeof currentValue === "object" && !Array.isArray(currentValue)) {
+      const optionValue = currentValue as Option;
+      return optionValue.id ?? optionValue.value ?? "";
+    }
+
+    return currentValue;
+  }, [currentFilters, options, propertyName]);
+
+  const onChange = useCallback(
+    (e: ChangeEvent<HTMLSelectElement>) => {
+      const matchedOption = options.find(
+        (option) => String(option.id) === e.target.value,
+      );
+
+      setCurrentFilters({
+        type: FiltersActions.update,
+        toUpdate: {
+          [propertyName]: { value: matchedOption?.id ?? e.target.value },
+        },
+      });
+    },
+    [options, propertyName, setCurrentFilters],
+  );
 
   return (
     <SelectInput

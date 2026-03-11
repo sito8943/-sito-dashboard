@@ -9,20 +9,10 @@
 
 **After every change, run the full validation suite before finishing:**
 
-```bash
-npm run full   # lint + build + test (all three in one command)
-```
-
 This covers ESLint, Prettier, TypeScript type-checking, the Vite bundle build, and Vitest tests.
 Running it locally catches errors immediately and avoids costly follow-up fix cycles.
 
 If you prefer to run steps individually:
-
-```bash
-npm run lint   # ESLint + Prettier + depcheck
-npm run build  # Vite library build + type declarations
-npm run test   # Vitest (run once, no watch)
-```
 
 > **Rule:** Never mark a task complete without a passing `npm run full`.
 

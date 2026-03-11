@@ -14,9 +14,14 @@ const Harness = (props: HarnessProps) => {
   const { onSortCallback } = props;
   const {
     countOfFilters,
+    currentPage,
+    pageSize,
     filters,
     onFilterApply,
     onSort,
+    setCurrentPage,
+    setPageSize,
+    setTotal,
     sortingBy,
     sortingOrder,
     clearFilters,
@@ -29,6 +34,18 @@ const Harness = (props: HarnessProps) => {
         onClick={() => onSort("name", onSortCallback)}
       >
         Sort by name
+      </button>
+      <button data-testid="set-total-large" onClick={() => setTotal(120)}>
+        Set total 120
+      </button>
+      <button data-testid="set-total-small" onClick={() => setTotal(10)}>
+        Set total 10
+      </button>
+      <button data-testid="set-page-five" onClick={() => setCurrentPage(5)}>
+        Set page 5
+      </button>
+      <button data-testid="set-page-size-50" onClick={() => setPageSize(50)}>
+        Set page size 50
       </button>
       <button
         data-testid="apply-filters"
@@ -68,6 +85,8 @@ const Harness = (props: HarnessProps) => {
       </button>
       <div data-testid="sorting-by">{sortingBy}</div>
       <div data-testid="sorting-order">{sortingOrder}</div>
+      <div data-testid="current-page">{currentPage}</div>
+      <div data-testid="page-size">{pageSize}</div>
       <div data-testid="count-of-filters">{countOfFilters}</div>
       <pre data-testid="filters">{JSON.stringify(filters)}</pre>
     </div>
@@ -181,6 +200,38 @@ describe("TableOptionsProvider", () => {
     expect(
       JSON.parse(screen.getByTestId("filters").textContent ?? "{}"),
     ).toEqual({});
+  });
+
+  it("resets and clamps pagination when filters, page size, and totals change", () => {
+    render(
+      <TableOptionsProvider>
+        <Harness />
+      </TableOptionsProvider>,
+    );
+
+    fireEvent.click(screen.getByTestId("set-total-large"));
+    fireEvent.click(screen.getByTestId("set-page-five"));
+    expect(screen.getByTestId("current-page").textContent).toBe("5");
+
+    fireEvent.click(screen.getByTestId("apply-camel-filters"));
+    expect(screen.getByTestId("current-page").textContent).toBe("0");
+
+    fireEvent.click(screen.getByTestId("set-page-five"));
+    expect(screen.getByTestId("current-page").textContent).toBe("5");
+
+    fireEvent.click(screen.getByTestId("clear-all"));
+    expect(screen.getByTestId("current-page").textContent).toBe("0");
+
+    fireEvent.click(screen.getByTestId("set-page-five"));
+    fireEvent.click(screen.getByTestId("set-page-size-50"));
+    expect(screen.getByTestId("page-size").textContent).toBe("50");
+    expect(screen.getByTestId("current-page").textContent).toBe("0");
+
+    fireEvent.click(screen.getByTestId("set-page-five"));
+    expect(screen.getByTestId("current-page").textContent).toBe("2");
+
+    fireEvent.click(screen.getByTestId("set-total-small"));
+    expect(screen.getByTestId("current-page").textContent).toBe("0");
   });
 
   it("throws when useTableOptions is used outside its provider", () => {

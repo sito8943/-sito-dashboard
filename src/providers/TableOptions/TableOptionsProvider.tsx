@@ -55,14 +55,50 @@ const hasMeaningfulFilterValue = (value: unknown): boolean => {
 const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
   const { children } = props;
 
-  const [total, setTotal] = useState(0);
-  const [pageSize, setPageSize] = useState(20);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [total, setTotalState] = useState(0);
+  const [pageSize, setPageSizeState] = useState(20);
+  const [currentPage, setCurrentPageState] = useState(0);
 
   const [sortingBy, setSortingBy] = useState("id");
   const [sortingOrder, setSortingOrder] = useState(SortOrder.DESC);
 
   const [filters, setFilters] = useState<TableFilters>({});
+
+  const getMaxPage = useCallback(
+    (localTotal: number, localPageSize: number) => {
+      if (localPageSize <= 0) return 0;
+      return Math.max(0, Math.ceil(localTotal / localPageSize) - 1);
+    },
+    [],
+  );
+
+  const setTotal = useCallback(
+    (nextTotal: number) => {
+      const parsedTotal = Number.isFinite(nextTotal)
+        ? Math.max(0, nextTotal)
+        : 0;
+      setTotalState(parsedTotal);
+      setCurrentPageState((previousPage) =>
+        Math.min(previousPage, getMaxPage(parsedTotal, pageSize)),
+      );
+    },
+    [getMaxPage, pageSize],
+  );
+
+  const setPageSize = useCallback((nextPageSize: number) => {
+    if (!Number.isFinite(nextPageSize) || nextPageSize <= 0) return;
+    setPageSizeState(nextPageSize);
+    setCurrentPageState(0);
+  }, []);
+
+  const setCurrentPage = useCallback(
+    (nextCurrentPage: number) => {
+      if (!Number.isFinite(nextCurrentPage)) return;
+      const nextPage = Math.max(0, Math.floor(nextCurrentPage));
+      setCurrentPageState(Math.min(nextPage, getMaxPage(total, pageSize)));
+    },
+    [getMaxPage, pageSize, total],
+  );
 
   const onSort = useCallback(
     (
@@ -99,6 +135,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
     );
 
     setFilters(parsedFilters);
+    setCurrentPageState(0);
   }, []);
 
   const clearFilters = useCallback(
@@ -112,6 +149,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
       } else {
         setFilters({});
       }
+      setCurrentPageState(0);
     },
     [setFilters],
   );

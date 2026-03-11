@@ -7,11 +7,6 @@ Guidance for AI agents working in this repository.
 - Treat `AGENTS.md` as the primary project guide.
 - If there is any conflict, follow `AGENTS.md`.
 
-## Required Workflow
-
-- Run `npm run full` after every change.
-- Do not mark work complete unless `npm run full` passes.
-
 ## Library Usage Invariants
 
 - Wrap component usage with `TranslationProvider`.

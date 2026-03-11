@@ -63,4 +63,11 @@ describe("Actions", () => {
     render(<Actions actions={actions} />);
     expect(screen.getByRole("button").getAttribute("type")).toBe("button");
   });
+
+  it("uses tooltip text as accessible name for icon-only actions", () => {
+    render(<Actions actions={[makeAction({ tooltip: "Delete record" })]} />);
+    expect(
+      screen.getByRole("button", { name: "Delete record" }),
+    ).toBeInTheDocument();
+  });
 });

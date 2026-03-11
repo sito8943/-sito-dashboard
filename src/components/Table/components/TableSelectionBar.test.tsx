@@ -97,6 +97,8 @@ describe("TableSelectionBar", () => {
     );
 
     expect(screen.getAllByRole("button")).toHaveLength(2);
+    expect(screen.getByRole("button", { name: "Delete" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Export" })).toBeTruthy();
   });
 
   it("calls onActionClick with the correct action when a button is clicked", () => {
