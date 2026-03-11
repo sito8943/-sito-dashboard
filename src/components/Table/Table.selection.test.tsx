@@ -156,4 +156,88 @@ describe("Table row selection", () => {
       expect(onSelectedRowsChange).toHaveBeenLastCalledWith([rows[0]]),
     );
   });
+
+  it("renders custom column headers with renderHead", () => {
+    const customColumns: ColumnType<Row>[] = [
+      {
+        key: "name",
+        renderHead: () => <span>Custom Name Header</span>,
+      },
+    ];
+
+    render(
+      <TranslationProvider t={t} language="en">
+        <TableOptionsProvider>
+          <Table<Row> entity="users" data={rows} columns={customColumns} />
+        </TableOptionsProvider>
+      </TranslationProvider>,
+    );
+
+    expect(screen.getByText("Custom Name Header")).toBeTruthy();
+  });
+
+  it("does not execute disabled sticky actions", () => {
+    const onStickyAction = vi.fn();
+
+    render(
+      <TranslationProvider t={t} language="en">
+        <TableOptionsProvider>
+          <Table<Row>
+            entity="users"
+            data={rows}
+            columns={columns}
+            actions={(row) => [
+              {
+                id: `sticky-${row.id}`,
+                tooltip: "Sticky",
+                icon: <span>S</span>,
+                sticky: true,
+                disabled: true,
+                onClick: onStickyAction,
+              },
+            ]}
+          />
+        </TableOptionsProvider>
+      </TranslationProvider>,
+    );
+
+    const firstStickyAction = document.querySelector(".row-table-action");
+    expect(firstStickyAction).toBeTruthy();
+    if (!firstStickyAction) return;
+
+    fireEvent.click(firstStickyAction);
+    expect(onStickyAction).not.toHaveBeenCalled();
+  });
+
+  it("passes row entity to sticky actions", () => {
+    const onStickyAction = vi.fn();
+
+    render(
+      <TranslationProvider t={t} language="en">
+        <TableOptionsProvider>
+          <Table<Row>
+            entity="users"
+            data={rows}
+            columns={columns}
+            actions={(row) => [
+              {
+                id: `sticky-${row.id}`,
+                tooltip: "Sticky",
+                icon: <span>S</span>,
+                sticky: true,
+                onClick: onStickyAction,
+              },
+            ]}
+          />
+        </TableOptionsProvider>
+      </TranslationProvider>,
+    );
+
+    const firstStickyAction = document.querySelector(".row-table-action");
+    expect(firstStickyAction).toBeTruthy();
+    if (!firstStickyAction) return;
+
+    fireEvent.click(firstStickyAction);
+    expect(onStickyAction).toHaveBeenCalledWith(rows[0]);
+  });
 });

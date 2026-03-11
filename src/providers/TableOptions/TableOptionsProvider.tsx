@@ -21,6 +21,32 @@ const TableOptionsContext = createContext<TableOptionsContextType | undefined>(
   undefined,
 );
 
+const hasMeaningfulFilterValue = (value: unknown): boolean => {
+  if (value === null || typeof value === "undefined") return false;
+
+  if (typeof value === "string") {
+    return value.trim().length > 0;
+  }
+
+  if (Array.isArray(value)) {
+    return value.length > 0;
+  }
+
+  if (typeof value === "object") {
+    const parsedValue = value as { start?: unknown; end?: unknown };
+    if ("start" in parsedValue || "end" in parsedValue) {
+      return (
+        hasMeaningfulFilterValue(parsedValue.start) ||
+        hasMeaningfulFilterValue(parsedValue.end)
+      );
+    }
+
+    return true;
+  }
+
+  return true;
+};
+
 /**
  * Renders the TableOptionsProvider component.
  * @param props - props parameter.
@@ -64,11 +90,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
   const onFilterApply = useCallback((filters: FiltersValue) => {
     const parsedFilters: TableFilters = Object.entries(filters).reduce(
       (acc, [key, filter]) => {
-        if (
-          filter &&
-          typeof filter.value !== "undefined" &&
-          filter.value !== null
-        ) {
+        if (filter && hasMeaningfulFilterValue(filter.value)) {
           acc[key] = filter.value;
         }
         return acc;

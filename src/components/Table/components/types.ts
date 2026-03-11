@@ -27,7 +27,7 @@ export type ColumnType<TRow extends BaseDto> = {
   /** custom body of the cell */
   renderBody?: (value: unknown, row: TRow) => ReactNode;
   /** custom head of the cell */
-  renderHead?: () => void;
+  renderHead?: () => ReactNode;
   /** filter options */
   filterOptions?: ColumnFilterOptions;
 };

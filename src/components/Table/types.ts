@@ -20,7 +20,7 @@ export type ActionType<TRow extends BaseDto> = {
 export interface TablePropsType<
   TRow extends BaseDto,
 > extends TableHeaderPropsType<TRow> {
-  entity: string;
+  entity?: string;
   data: TRow[];
   actions?: (row: TRow) => ActionType<TRow>[];
   contentClassName?: string;

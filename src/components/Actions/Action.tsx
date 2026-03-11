@@ -37,12 +37,13 @@ export function Action<TEntity extends BaseDto>(
 
   return !hidden ? (
     <button
+      type="button"
       id={id}
       className={`action ${showText ? "text-action" : "icon-action"} ${className}`}
       disabled={disabled}
       onClick={(e) => {
-        onClick?.();
         e.stopPropagation();
+        onClick?.();
       }}
       aria-disabled={disabled}
       data-tooltip-id="tooltip"

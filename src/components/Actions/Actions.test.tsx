@@ -57,4 +57,10 @@ describe("Actions", () => {
     render(<Actions actions={actions} />);
     expect(screen.getByRole("button")).toBeDisabled();
   });
+
+  it("uses type button to avoid accidental form submits", () => {
+    const actions = [makeAction()];
+    render(<Actions actions={actions} />);
+    expect(screen.getByRole("button").getAttribute("type")).toBe("button");
+  });
 });

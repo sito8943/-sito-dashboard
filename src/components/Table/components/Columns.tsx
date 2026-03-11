@@ -44,6 +44,7 @@ export function Columns<TRow extends BaseDto>(props: ColumnPropsType<TRow>) {
     return getSortedVisibleColumns(columns).map((column) => ({
       id: column.key,
       label: column.label,
+      renderHead: column.renderHead,
       className: column.className ?? "",
       sortable: column.sortable ?? true,
       sortOptions: column.sortOptions,
@@ -80,7 +81,11 @@ export function Columns<TRow extends BaseDto>(props: ColumnPropsType<TRow>) {
               onClick={() => onSort(column.id as string, onSortCallback)}
               className="table-headers-cell"
             >
-              <span className="table-headers-label">{column.label}</span>
+              {column.renderHead ? (
+                column.renderHead()
+              ) : (
+                <span className="table-headers-label">{column.label}</span>
+              )}
               {column.sortable && sortingBy === column.id && (
                 <span>
                   {sortingOrder === SortOrder.ASC

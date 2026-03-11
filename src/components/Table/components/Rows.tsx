@@ -85,7 +85,11 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
                     <>
                       {stickyActions.map((action) => (
                         <Tooltip key={action.id} content={action.tooltip}>
-                          <Action {...action} className="row-table-action" />
+                          <Action
+                            {...action}
+                            onClick={() => action.onClick(row)}
+                            className="row-table-action"
+                          />
                         </Tooltip>
                       ))}
                       {nonStickyActions.length > 0 && (

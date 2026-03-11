@@ -36,6 +36,13 @@ const Harness = (props: HarnessProps) => {
           onFilterApply({
             status: { value: "active" },
             zero: { value: 0 },
+            emptyString: { value: "" },
+            spacesOnly: { value: "   " },
+            emptyArray: { value: [] },
+            selectedList: { value: ["admin"] },
+            emptyRange: { value: { start: "", end: "" } },
+            partialRange: { value: { start: "2026-01-01", end: "" } },
+            unchecked: { value: false },
             empty: { value: null },
             undef: { value: undefined },
           })
@@ -111,7 +118,7 @@ describe("TableOptionsProvider", () => {
     expect(onSortCallback).toHaveBeenLastCalledWith("name", SortOrder.DESC);
   });
 
-  it("applies filters dropping null/undefined and clears them", () => {
+  it("applies filters dropping empty values and clears them", () => {
     render(
       <TableOptionsProvider>
         <Harness />
@@ -125,16 +132,22 @@ describe("TableOptionsProvider", () => {
     ).toEqual({
       status: "active",
       zero: 0,
+      selectedList: ["admin"],
+      partialRange: { start: "2026-01-01", end: "" },
+      unchecked: false,
     });
-    expect(screen.getByTestId("count-of-filters").textContent).toBe("2");
+    expect(screen.getByTestId("count-of-filters").textContent).toBe("5");
 
     fireEvent.click(screen.getByTestId("clear-status"));
     expect(
       JSON.parse(screen.getByTestId("filters").textContent ?? "{}"),
     ).toEqual({
       zero: 0,
+      selectedList: ["admin"],
+      partialRange: { start: "2026-01-01", end: "" },
+      unchecked: false,
     });
-    expect(screen.getByTestId("count-of-filters").textContent).toBe("1");
+    expect(screen.getByTestId("count-of-filters").textContent).toBe("4");
 
     fireEvent.click(screen.getByTestId("clear-all"));
     expect(
