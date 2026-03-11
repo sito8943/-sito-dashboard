@@ -98,24 +98,44 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
     return Object.keys(filters).length;
   }, [filters]);
 
-  const value = {
-    onSort,
-    total,
-    setTotal,
-    sortingBy,
-    setSortingBy,
-    sortingOrder,
-    setSortingOrder,
-    pageSize,
-    pageSizes,
-    setPageSize,
-    currentPage,
-    setCurrentPage,
-    filters,
-    onFilterApply,
-    clearFilters,
-    countOfFilters,
-  };
+  const value = useMemo(
+    () => ({
+      onSort,
+      total,
+      setTotal,
+      sortingBy,
+      setSortingBy,
+      sortingOrder,
+      setSortingOrder,
+      pageSize,
+      pageSizes,
+      setPageSize,
+      currentPage,
+      setCurrentPage,
+      filters,
+      onFilterApply,
+      clearFilters,
+      countOfFilters,
+    }),
+    [
+      onSort,
+      total,
+      setTotal,
+      sortingBy,
+      setSortingBy,
+      sortingOrder,
+      setSortingOrder,
+      pageSize,
+      pageSizes,
+      setPageSize,
+      currentPage,
+      setCurrentPage,
+      filters,
+      onFilterApply,
+      clearFilters,
+      countOfFilters,
+    ],
+  );
 
   return (
     <TableOptionsContext.Provider value={value}>
