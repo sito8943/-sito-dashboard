@@ -40,7 +40,10 @@ export function Action<TEntity extends BaseDto>(
       id={id}
       className={`action ${showText ? "text-action" : "icon-action"} ${className}`}
       disabled={disabled}
-      onClick={() => onClick?.()}
+      onClick={(e) => {
+        onClick?.();
+        e.stopPropagation();
+      }}
       aria-disabled={disabled}
       data-tooltip-id="tooltip"
       data-tooltip-content={showTooltips ? tooltip : ""}

@@ -89,6 +89,7 @@ export const Basic: Story = {
   args: {
     entity: "users",
     title: "Usuarios",
+    onExpandedRowChange: null,
     data,
     columns: [
       { key: "id", label: "ID", sortable: true },
@@ -112,6 +113,7 @@ export const WithAutocompleteFilter: Story = {
   args: {
     entity: "users",
     title: "Usuarios",
+    onExpandedRowChange: null,
     data,
     columns: [
       { key: "id", label: "ID", sortable: true },
@@ -147,6 +149,7 @@ export const WithControlledFiltersDropdown: Story = {
       return (
         <Table<Row>
           {...(args as any)}
+          onExpandedRowChange={null}
           toolbar={
             <button
               type="button"
@@ -255,6 +258,7 @@ export const WithSimpleActions: Story = {
   args: {
     entity: "users",
     title: "Users with actions",
+    onExpandedRowChange: null,
     data,
     columns: [
       { key: "name", label: "Name", sortable: true },
@@ -267,6 +271,7 @@ export const WithSimpleActions: Story = {
 export const WithMultipleActions: Story = {
   args: {
     entity: "users",
+    onExpandedRowChange: null,
     title: "Users with bulk actions",
     data,
     columns: [
@@ -281,6 +286,7 @@ export const WithStickyAndDropdownActions: Story = {
   args: {
     entity: "users",
     title: "Users — sticky + dropdown actions",
+    onExpandedRowChange: null,
     data,
     columns: [
       { key: "name", label: "Name", sortable: true },

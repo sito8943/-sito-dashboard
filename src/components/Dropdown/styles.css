@@ -11,5 +11,5 @@
 }
 
 .dropdown-main.closed {
-  @apply -z-10 opacity-0 pointer-events-none;
+  @apply z-50 opacity-0 pointer-events-none;
 }

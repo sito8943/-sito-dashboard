@@ -1,4 +1,4 @@
-import { BaseInputPropsType } from "main";
+import { BaseInputPropsType } from "components";
 import { HTMLProps, ReactNode } from "react";
 
 export interface FileInputPropsType
