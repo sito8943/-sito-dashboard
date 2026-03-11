@@ -4,16 +4,29 @@ All notable changes to this project will be documented in this file.
 
 ## [0.0.69] - 2026-03-11
 
+### Added
+
+- Added consumer docs guides: `docs/usage-guide.md` and `docs/style-customization.md`.
+
 ### Changed
 
 - Updated docs compatibility reference to `@sito/dashboard` `0.0.69`.
 - Added translation keys reference document for consumer projects.
+- `Dropdown` now unmounts its menu when `open` is `false` instead of keeping a hidden menu node.
+- `ColumnType.renderHead` is now typed as `() => ReactNode` and is rendered in table headers.
+- `TablePropsType.entity` is now optional.
 
 ### Fixed
 
 - Prevented `vite-plugin-dts` from emitting declarations for `*.test.*` and `*.stories.*` files.
 - Fixed table header filters UX by hiding the filters trigger when no filters are configured.
 - Fixed active range filter rendering for falsy values (for example `0` and `0`).
+- Fixed `TableOptionsProvider` filter parsing to drop empty values while preserving valid falsy values (`0`, `false`) and to reset/clamp pagination when filters, `pageSize`, or `total` change.
+- Fixed filter widgets value normalization for preloaded object values in `SelectWidget` and `AutocompleteWidget`.
+- Fixed row sticky action behavior to always receive the row entity and stop click propagation via `Action`.
+- Fixed `Action` and selection-bar action button accessibility/semantics (`type="button"` and `aria-label` from tooltip).
+- Fixed `FileInput` single-file mode (`multiple={false}`) so it replaces previous selection instead of accumulating files.
+- Fixed `FileInput` exported types import path to avoid consumer type-resolution issues.
 
 ## [0.0.68] - 2026-03-08
 
