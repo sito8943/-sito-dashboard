@@ -18,8 +18,10 @@ export function AutocompleteWidget(props: AutocompleteWidgetPropsType) {
   const { currentFilters, setCurrentFilters } = useFilters();
 
   const value = useMemo(() => {
-    return currentFilters[propertyName] ?? options[0];
-  }, [currentFilters]);
+    const currentValue = currentFilters[propertyName]?.value;
+    if (typeof currentValue === "undefined") return null;
+    return currentValue as Option | Option[] | null;
+  }, [currentFilters, propertyName]);
 
   const onChange = useCallback(
     (value: Option | Option[] | null) => {
@@ -32,12 +34,12 @@ export function AutocompleteWidget(props: AutocompleteWidgetPropsType) {
         },
       });
     },
-    [multiple],
+    [propertyName, setCurrentFilters],
   );
 
   return (
     <AutocompleteInput
-      value={value?.value}
+      value={value}
       label={label}
       options={options}
       multiple={multiple}

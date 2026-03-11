@@ -44,11 +44,13 @@ export const FileInput = forwardRef(function (
     (e: ChangeEvent<HTMLInputElement>) => {
       if (e.target.files) {
         const selected = Array.from(e.target.files);
-        setFiles((prev) => [...prev, ...selected]);
+        setFiles((prev) =>
+          multiple ? [...prev, ...selected] : selected.slice(0, 1),
+        );
       }
       onChange?.(e);
     },
-    [onChange],
+    [multiple, onChange],
   );
 
   const handleRemove = useCallback(

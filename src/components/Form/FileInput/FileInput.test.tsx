@@ -30,4 +30,18 @@ describe("FileInput", () => {
       screen.getByText("hola.txt", { selector: ".file-preview-name" }),
     ).toBeTruthy();
   });
+
+  it("does not accumulate files when multiple is false", () => {
+    render(<FileInput label="Archivo" onChange={vi.fn()} />);
+    const input = screen.getByLabelText("Archivo");
+    const first = new File(["one"], "one.txt", { type: "text/plain" });
+    const second = new File(["two"], "two.txt", { type: "text/plain" });
+
+    fireEvent.change(input, { target: { files: [first, second] } });
+
+    expect(
+      screen.getByText("one.txt", { selector: ".file-preview-name" }),
+    ).toBeTruthy();
+    expect(screen.queryByText("two.txt")).toBeNull();
+  });
 });

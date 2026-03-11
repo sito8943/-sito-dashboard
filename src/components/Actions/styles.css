@@ -17,7 +17,7 @@
 }
 
 .icon-action {
-  @apply rounded-full w-9 h-9;
+  @apply rounded-full w-8 h-8;
 }
 
 .text-action {

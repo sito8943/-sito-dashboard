@@ -51,9 +51,7 @@ describe("ActionsDropdown", () => {
         <ActionsDropdown actions={[makeAction()]} />
       </Wrapper>,
     );
-    expect(
-      screen.getByRole("menu", { hidden: true }).getAttribute("aria-hidden"),
-    ).toBe("true");
+    expect(screen.queryByRole("menu")).toBeNull();
   });
 
   it("opens the dropdown when the trigger is clicked", () => {
@@ -63,7 +61,7 @@ describe("ActionsDropdown", () => {
       </Wrapper>,
     );
     fireEvent.click(screen.getByRole("button"));
-    expect(screen.getByRole("menu").getAttribute("aria-hidden")).toBe("false");
+    expect(screen.getByRole("menu")).toBeTruthy();
   });
 
   it("shows all action buttons when the dropdown is open", () => {
@@ -113,9 +111,7 @@ describe("ActionsDropdown", () => {
     );
     fireEvent.click(screen.getByRole("button")); // open
     fireEvent.mouseDown(document.body);
-    expect(
-      screen.getByRole("menu", { hidden: true }).getAttribute("aria-hidden"),
-    ).toBe("true");
+    expect(screen.queryByRole("menu")).toBeNull();
   });
 
   it("toggles the dropdown closed when the trigger is clicked again", () => {
@@ -127,8 +123,6 @@ describe("ActionsDropdown", () => {
     const trigger = screen.getByRole("button");
     fireEvent.click(trigger); // open
     fireEvent.click(trigger); // close
-    expect(
-      screen.getByRole("menu", { hidden: true }).getAttribute("aria-hidden"),
-    ).toBe("true");
+    expect(screen.queryByRole("menu")).toBeNull();
   });
 });

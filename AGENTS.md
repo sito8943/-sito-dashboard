@@ -9,20 +9,10 @@
 
 **After every change, run the full validation suite before finishing:**
 
-```bash
-npm run full   # lint + build + test (all three in one command)
-```
-
 This covers ESLint, Prettier, TypeScript type-checking, the Vite bundle build, and Vitest tests.
 Running it locally catches errors immediately and avoids costly follow-up fix cycles.
 
 If you prefer to run steps individually:
-
-```bash
-npm run lint   # ESLint + Prettier + depcheck
-npm run build  # Vite library build + type declarations
-npm run test   # Vitest (run once, no watch)
-```
 
 > **Rule:** Never mark a task complete without a passing `npm run full`.
 
@@ -242,7 +232,7 @@ type ColumnType<TRow extends BaseDto> = {
   display?: "visible" | "none";
   pos?: number; // column order (0-based)
   renderBody?: (value: unknown, row: TRow) => ReactNode; // custom cell renderer
-  renderHead?: () => void; // custom header renderer
+  renderHead?: () => ReactNode; // custom header renderer
   filterOptions?: ColumnFilterOptions; // inline column filter
 };
 
@@ -463,8 +453,8 @@ import { SelectInput } from "@sito/dashboard";
 import type { Option } from "@sito/dashboard";
 
 const options: Option[] = [
-  { value: "admin", label: "Admin" },
-  { value: "viewer", label: "Viewer" },
+  { id: "admin", value: "Admin" },
+  { id: "viewer", value: "Viewer" },
 ];
 
 <SelectInput
@@ -496,7 +486,7 @@ import { CheckInput } from "@sito/dashboard";
 
 <CheckInput
   label="Active"
-  value={isActive}
+  checked={isActive}
   onChange={(e) => setIsActive(e.target.checked)}
 />;
 ```
@@ -508,8 +498,8 @@ import { FileInput } from "@sito/dashboard";
 
 <FileInput
   label="Upload CSV"
-  value={file}
-  onChange={(file) => setFile(file)}
+  onChange={(e) => setFile(e.currentTarget.files?.[0] ?? null)}
+  onClear={() => setFile(null)}
   accept=".csv"
 />;
 ```
@@ -546,7 +536,7 @@ All native `<button>` HTML attributes are supported (they are spread through).
 ```tsx
 import { Chip } from "@sito/dashboard";
 
-<Chip onDelete={() => removeTag(tag)}>{tag.label}</Chip>;
+<Chip text={tag.label} onDelete={() => removeTag(tag)} />;
 ```
 
 ---
@@ -796,4 +786,4 @@ export type { FilterType, FiltersValue, WidgetFilterProps };
 
 ---
 
-_Last updated: 2026-03-08 — library version 0.0.68_
+_Last updated: 2026-03-11 — library version 0.0.69_

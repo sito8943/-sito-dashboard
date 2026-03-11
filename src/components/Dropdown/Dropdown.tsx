@@ -107,13 +107,14 @@ export const Dropdown = (props: DropdownPropsType) => {
     };
   }, [open, handlePointerDown, handleKeyDown]);
 
+  if (!open) return null;
+
   return createPortal(
     <div
       ref={containerRef}
       role="menu"
-      aria-hidden={!open}
       tabIndex={-1}
-      className={`dropdown-main ${open ? "opened" : "closed"}`}
+      className="dropdown-main opened"
       onClick={(e) => e.stopPropagation()}
     >
       {children}

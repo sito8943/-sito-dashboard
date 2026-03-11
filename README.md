@@ -25,6 +25,7 @@ pnpm add @sito/dashboard
 ### Peer dependency
 
 - `react` (`>=18.2 <20`)
+- `react-dom` (`>=18.2 <20`)
 
 ## Quick Usage
 
@@ -86,6 +87,12 @@ export function UsersTable() {
   );
 }
 ```
+
+## Form Input Notes
+
+- `SelectInput` expects `Option` items with an `id` (plus optional `value`/`name`).
+- `CheckInput` is controlled with `checked` (not `value`).
+- `FileInput` `onChange` receives the native input event; read files from `e.currentTarget.files`.
 
 ## Core `Table` Props
 

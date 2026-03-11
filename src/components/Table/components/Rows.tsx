@@ -1,5 +1,5 @@
 // components
-import { ActionsDropdown, IconButton, Tooltip } from "components";
+import { Action, ActionsDropdown, Tooltip } from "components";
 import { ChevronDown, ChevronUp } from "components/SvgIcons";
 // lib
 import { BaseDto } from "lib";
@@ -85,13 +85,10 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
                     <>
                       {stickyActions.map((action) => (
                         <Tooltip key={action.id} content={action.tooltip}>
-                          <IconButton
-                            icon={action.icon}
+                          <Action
+                            {...action}
+                            onClick={() => action.onClick(row)}
                             className="row-table-action"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              action.onClick(row);
-                            }}
                           />
                         </Tooltip>
                       ))}

@@ -1,6 +1,12 @@
 // providers
 import { useTableOptions } from "providers";
-import { createContext, useContext, useEffect, useReducer } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useReducer,
+} from "react";
 
 // types
 import {
@@ -40,10 +46,14 @@ const FiltersProvider = (props: FiltersProviderPropsType) => {
     }
   }, [filters]);
 
-  const value = {
-    currentFilters,
-    setCurrentFilters,
-  };
+  const value = useMemo(
+    () => ({
+      currentFilters,
+      setCurrentFilters,
+    }),
+    [currentFilters],
+  );
+
   return (
     <FiltersContext.Provider value={value}>{children}</FiltersContext.Provider>
   );

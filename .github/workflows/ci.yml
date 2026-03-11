@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  lint-and-test:
+  validate:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,8 +21,28 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint
-        run: npm run lint
+      - name: Full validation
+        run: npm run full
 
-      - name: Test
-        run: npm run test
+      - name: Consumer type smoke test
+        run: |
+          TMP_DIR="$(mktemp -d)"
+          cat > "$TMP_DIR/consumer.ts" <<EOF
+          import type { FileInputPropsType } from '${GITHUB_WORKSPACE}/dist/components/Form/FileInput/types';
+          const value: FileInputPropsType | null = null;
+          console.log(value);
+          EOF
+          cat > "$TMP_DIR/tsconfig.json" <<'EOF'
+          {
+            "compilerOptions": {
+              "target": "ES2020",
+              "module": "ESNext",
+              "moduleResolution": "Bundler",
+              "strict": true,
+              "skipLibCheck": false,
+              "noEmit": true
+            },
+            "include": ["consumer.ts"]
+          }
+          EOF
+          npx tsc -p "$TMP_DIR/tsconfig.json"

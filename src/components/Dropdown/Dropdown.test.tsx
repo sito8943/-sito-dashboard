@@ -29,11 +29,9 @@ describe("Dropdown", () => {
     expect(screen.getByRole("menu").className).toContain("opened");
   });
 
-  it("has class 'closed' when open is false", () => {
+  it("does not render menu content when open is false", () => {
     renderDropdown(false);
-    expect(screen.getByRole("menu", { hidden: true }).className).toContain(
-      "closed",
-    );
+    expect(screen.queryByRole("menu")).toBeNull();
   });
 
   it("calls onClose when clicking outside", () => {
