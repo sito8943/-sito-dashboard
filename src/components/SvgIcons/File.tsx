@@ -2,7 +2,7 @@ import { IconProps } from "./types";
 
 /**
  * Renders the File component.
- * @param props - props parameter.
+ * @param props - {@link IconProps}
  * @returns Function result.
  */
 export function File(props: IconProps) {

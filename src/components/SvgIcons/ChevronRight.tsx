@@ -2,7 +2,7 @@ import { IconProps } from "./types";
 
 /**
  * Renders the ChevronRight component.
- * @param props - props parameter.
+ * @param props - {@link IconProps}
  * @returns Function result.
  */
 export function ChevronRight(props: IconProps) {

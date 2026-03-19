@@ -10,6 +10,6 @@
 - [x] Select filters default should have value because when apply doenst take
 - [x] Add Each variant / color combination of button in story
 - [x] Fix Dropdown position
-- [ ] Fix Tooltip is overlapping edge of screen
+- [x] Fix Tooltip is overlapping edge of screen
 - [ ] Input className is overwritten
 - [ ] Can hide/show columns

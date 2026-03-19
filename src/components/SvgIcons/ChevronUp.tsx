@@ -2,7 +2,7 @@ import { IconProps } from "./types";
 
 /**
  * Renders the ChevronUp component.
- * @param props - props parameter.
+ * @param props - {@link IconProps}
  * @returns Function result.
  */
 export function ChevronUp(props: IconProps) {
