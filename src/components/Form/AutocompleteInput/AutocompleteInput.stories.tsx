@@ -1,3 +1,5 @@
+import { faAppleWhole } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Meta, StoryObj } from "@storybook/react";
 import type { Option } from "components";
 import { AutocompleteInput, Button } from "components";
@@ -86,6 +88,36 @@ export const Multiple: Story = {
               ? value.map((v) => v.name).join(", ")
               : "(vacío)"}
           </p>
+        </div>
+      );
+    };
+    return <Example />;
+  },
+  args: { state: State.default },
+};
+
+export const CustomLabel: Story = {
+  render: (args) => {
+    const Example = () => {
+      const [value, setValue] = useState<Option | Option[] | null>(null);
+      return (
+        <div className="max-w-sm">
+          <AutocompleteInput
+            {...args}
+            label={
+              <span className="flex items-center gap-2">
+                <FontAwesomeIcon icon={faAppleWhole} className="text-red-500" />
+                <span>
+                  Fruta favorita{" "}
+                  <span className="text-xs text-gray-400">(opcional)</span>
+                </span>
+              </span>
+            }
+            placeholder="Escribe para filtrar"
+            options={options}
+            value={value}
+            onChange={setValue}
+          />
         </div>
       );
     };
