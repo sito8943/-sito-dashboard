@@ -1,4 +1,5 @@
 import { Badge, Filters, IconButton } from "components";
+import { BarsStaggered } from "components/SvgIcons";
 // lib
 import { BaseDto, FilterType } from "lib";
 // providers
@@ -6,6 +7,7 @@ import { useTableOptions, useTranslation } from "providers";
 import { useCallback, useMemo, useState } from "react";
 
 // components
+import { ColumnVisibilityMenu } from "../ColumnVisibilityMenu";
 import { ActiveFilters, FilterDropdown } from "../Filters";
 // types
 import { TableHeaderPropsType } from "./types";
@@ -18,8 +20,16 @@ import { TableHeaderPropsType } from "./types";
 export const TableHeader = <TRow extends BaseDto>(
   props: TableHeaderPropsType<TRow>,
 ) => {
-  const { columns, title, isLoading, toolbar, filterOptions } = props;
-  const { countOfFilters } = useTableOptions();
+  const {
+    columns,
+    title,
+    isLoading,
+    toolbar,
+    filterOptions,
+    canHideColumns = false,
+    canReset = false,
+  } = props;
+  const { countOfFilters, resetTableOptions } = useTableOptions();
 
   const { t } = useTranslation();
 
@@ -67,6 +77,20 @@ export const TableHeader = <TRow extends BaseDto>(
         {!isLoading ? (
           <div className="table-header-content">
             {toolbar}
+            {canHideColumns && columns && (
+              <ColumnVisibilityMenu columns={columns} />
+            )}
+            {canReset && (
+              <IconButton
+                icon={<BarsStaggered className="reset-table-icon" />}
+                className="normal"
+                onClick={resetTableOptions}
+              >
+                <span className="table-header-sr">
+                  {t("_accessibility:buttons.reset")}
+                </span>
+              </IconButton>
+            )}
             {canShowFilterButton && (
               <IconButton
                 icon={

@@ -38,10 +38,10 @@ export function Columns<TRow extends BaseDto>(props: ColumnPropsType<TRow>) {
     );
   }, [selectionState]);
 
-  const { onSort, sortingOrder, sortingBy } = useTableOptions();
+  const { onSort, sortingOrder, sortingBy, hiddenColumns } = useTableOptions();
 
   const parsedColumns = useMemo(() => {
-    return getSortedVisibleColumns(columns).map((column) => ({
+    return getSortedVisibleColumns(columns, hiddenColumns).map((column) => ({
       id: column.key,
       label: column.label,
       renderHead: column.renderHead,
@@ -49,7 +49,7 @@ export function Columns<TRow extends BaseDto>(props: ColumnPropsType<TRow>) {
       sortable: column.sortable ?? true,
       sortOptions: column.sortOptions,
     }));
-  }, [columns, entity, t]);
+  }, [columns, entity, t, hiddenColumns]);
 
   return (
     <thead className="table-headers-row">

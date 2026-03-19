@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 import { State } from "./utils";
 
 export type BaseInputPropsType<TValue = unknown> = {
@@ -5,7 +7,7 @@ export type BaseInputPropsType<TValue = unknown> = {
   value: TValue;
   name?: string;
   id?: string;
-  label?: string;
+  label?: string | ReactNode;
   containerClassName?: string;
   inputClassName?: string;
   labelClassName?: string;

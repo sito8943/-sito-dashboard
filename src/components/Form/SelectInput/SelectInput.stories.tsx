@@ -1,3 +1,5 @@
+import { faList } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Meta, StoryObj } from "@storybook/react";
 import { SelectInput } from "components";
 import { State } from "components";
@@ -34,6 +36,37 @@ export const Default: Story = {
             helperText="Choose an option"
           />
           <p className="mt-2 text-sm text-gray-500">Value: {String(value)}</p>
+        </div>
+      );
+    };
+    return <Example />;
+  },
+  args: { state: State.default },
+};
+
+export const CustomLabel: Story = {
+  render: (args) => {
+    const Example = () => {
+      const [value, setValue] = useState<string | number>("");
+      return (
+        <div className="max-w-sm">
+          <SelectInput
+            {...args}
+            label={
+              <span className="flex items-center gap-2">
+                <FontAwesomeIcon icon={faList} className="text-indigo-500" />
+                <span>
+                  Categoría{" "}
+                  <span className="text-xs text-gray-400">
+                    (elige una opción)
+                  </span>
+                </span>
+              </span>
+            }
+            options={sampleOptions}
+            value={value}
+            onChange={(e) => setValue(e.currentTarget.value)}
+          />
         </div>
       );
     };

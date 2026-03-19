@@ -63,3 +63,31 @@
 .table-header-sr {
   @apply sr-only;
 }
+
+.column-visibility-menu {
+  @apply relative;
+}
+
+.column-visibility-icon {
+  @apply w-4 h-4;
+}
+
+.column-visibility-trigger {
+  @apply flex items-center;
+}
+
+.column-visibility-backdrop {
+  @apply fixed inset-0 z-30;
+}
+
+.column-visibility-dropdown {
+  @apply absolute right-0 top-full mt-1 z-40 bg-base border border-border rounded shadow-lg p-2 min-w-48 max-h-64 overflow-y-auto;
+}
+
+.column-visibility-item {
+  @apply px-2 py-1 rounded hover:bg-base cursor-pointer;
+}
+
+.reset-table-icon {
+  @apply w-4 h-4;
+}

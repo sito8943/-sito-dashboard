@@ -13,4 +13,6 @@ export type TableHeaderPropsType<TRow extends BaseDto> = {
   toolbar?: ReactNode;
   columns?: ColumnType<TRow>[];
   filterOptions?: FilterOptions;
+  canHideColumns?: boolean;
+  canReset?: boolean;
 };

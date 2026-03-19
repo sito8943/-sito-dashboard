@@ -1,3 +1,4 @@
+export * from "./BarsStaggered";
 export * from "./ChevronDown";
 export * from "./ChevronLeft";
 export * from "./ChevronRight";
@@ -6,4 +7,5 @@ export * from "./Close";
 export * from "./Ellipsis";
 export * from "./File";
 export * from "./Filters";
+export * from "./TableColumns";
 export * from "./types";

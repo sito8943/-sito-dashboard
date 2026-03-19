@@ -1,3 +1,5 @@
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Meta, StoryObj } from "@storybook/react";
 import { TextInput } from "components";
 import { State } from "components";
@@ -106,6 +108,21 @@ export const WithController: Story = {
       );
     };
     return <WithControllerExample />;
+  },
+};
+
+export const CustomLabel: Story = {
+  args: {
+    label: (
+      <span className="flex items-center gap-2">
+        <FontAwesomeIcon icon={faEnvelope} className="text-blue-500" />
+        <span>
+          Correo <span className="text-xs text-gray-400">(requerido)</span>
+        </span>
+      </span>
+    ),
+    placeholder: "nombre@dominio.com",
+    state: State.default,
   },
 };
 

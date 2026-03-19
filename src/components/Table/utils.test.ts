@@ -77,4 +77,33 @@ describe("getSortedVisibleColumns", () => {
     expect(result.sortable).toBe(false);
     expect(result.className).toBe("foo");
   });
+
+  it("filters out columns in hiddenColumns array", () => {
+    const columns = [col("a"), col("b"), col("c")];
+
+    const result = getSortedVisibleColumns(columns, ["b"]);
+
+    expect(result.map((c) => c.key)).toEqual(["a", "c"]);
+  });
+
+  it("combines display none and hiddenColumns filtering", () => {
+    const columns = [
+      col("a"),
+      col("b", { display: "none" }),
+      col("c"),
+      col("d"),
+    ];
+
+    const result = getSortedVisibleColumns(columns, ["c"]);
+
+    expect(result.map((c) => c.key)).toEqual(["a", "d"]);
+  });
+
+  it("returns all visible columns when hiddenColumns is empty", () => {
+    const columns = [col("a"), col("b"), col("c")];
+
+    const result = getSortedVisibleColumns(columns, []);
+
+    expect(result.map((c) => c.key)).toEqual(["a", "b", "c"]);
+  });
 });
