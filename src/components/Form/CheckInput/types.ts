@@ -5,5 +5,5 @@ import { BaseInputPropsType } from "../types";
 
 export interface CheckInputPropsType
   extends
-    HTMLProps<HTMLInputElement>,
+    Omit<HTMLProps<HTMLInputElement>, "label">,
     Omit<BaseInputPropsType, "value" | "onChange"> {}
