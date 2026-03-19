@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.70] - 2026-03-19
+
+### Added
+
+- New `ColumnVisibilityMenu` component: dropdown with checkboxes to hide/show table columns at runtime (uses `TableColumns` SVG icon).
+- New `canHideColumns` prop on `Table`: controls whether the column visibility menu appears in the header toolbar.
+- New `canReset` prop on `Table`: renders a reset button (uses `BarsStaggered` SVG icon) that restores filters, sort, and hidden columns to their default values.
+- New `hideable` prop on `ColumnType`: columns with `hideable: false` are excluded from the visibility menu.
+- New `defaultHiddenColumns` prop on `TableOptionsProvider`: sets initially hidden columns.
+- New `hiddenColumns`, `toggleColumn`, `setHiddenColumns`, and `resetTableOptions` in `TableOptionsContext`.
+- Exported `BarsStaggered` SVG icon.
+- Form inputs now accept `ReactNode` as label.
+- 3 new unit tests for `getSortedVisibleColumns` with `hiddenColumns` parameter.
+- 10 new integration tests for column visibility toggle and reset button behavior.
+- New Storybook stories: `WithColumnVisibility` and `WithColumnVisibilityAndFilters`.
+
+### Changed
+
+- `getSortedVisibleColumns` now accepts an optional `hiddenColumns` array as second parameter.
+- `Columns` and `Rows` components consume `hiddenColumns` from `TableOptionsContext` to filter columns at runtime.
+
 ## [0.0.69] - 2026-03-11
 
 ### Added
