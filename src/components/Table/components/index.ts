@@ -1,4 +1,5 @@
 export * from "./Columns";
+export * from "./ColumnVisibilityMenu";
 export * from "./Filters";
 export * from "./Footer";
 export * from "./Rows";

@@ -22,6 +22,8 @@ export type ColumnType<TRow extends BaseDto> = {
   };
   className?: string;
   display?: "visible" | "none";
+  /** if the column can be toggled visible/hidden by the user */
+  hideable?: boolean;
   /** column position from 0 */
   pos?: number;
   /** custom body of the cell */

@@ -53,7 +53,7 @@ const hasMeaningfulFilterValue = (value: unknown): boolean => {
  * @returns Function result.
  */
 const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
-  const { children } = props;
+  const { children, defaultHiddenColumns = [] } = props;
 
   const [total, setTotalState] = useState(0);
   const [pageSize, setPageSizeState] = useState(20);
@@ -63,6 +63,9 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
   const [sortingOrder, setSortingOrder] = useState(SortOrder.DESC);
 
   const [filters, setFilters] = useState<TableFilters>({});
+
+  const [hiddenColumns, setHiddenColumns] =
+    useState<string[]>(defaultHiddenColumns);
 
   const getMaxPage = useCallback(
     (localTotal: number, localPageSize: number) => {
@@ -158,6 +161,20 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
     return Object.keys(filters).length;
   }, [filters]);
 
+  const toggleColumn = useCallback((key: string) => {
+    setHiddenColumns((prev) =>
+      prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key],
+    );
+  }, []);
+
+  const resetTableOptions = useCallback(() => {
+    setHiddenColumns(defaultHiddenColumns);
+    setSortingBy("id");
+    setSortingOrder(SortOrder.DESC);
+    setFilters({});
+    setCurrentPageState(0);
+  }, [defaultHiddenColumns]);
+
   const value = useMemo(
     () => ({
       onSort,
@@ -176,6 +193,10 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
       onFilterApply,
       clearFilters,
       countOfFilters,
+      hiddenColumns,
+      toggleColumn,
+      setHiddenColumns,
+      resetTableOptions,
     }),
     [
       onSort,
@@ -194,6 +215,10 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
       onFilterApply,
       clearFilters,
       countOfFilters,
+      hiddenColumns,
+      toggleColumn,
+      setHiddenColumns,
+      resetTableOptions,
     ],
   );
 

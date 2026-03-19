@@ -4,7 +4,7 @@ import { ChevronDown, ChevronUp } from "components/SvgIcons";
 // lib
 import { BaseDto } from "lib";
 // providers
-import { useTranslation } from "providers";
+import { useTableOptions, useTranslation } from "providers";
 import { Fragment, useMemo } from "react";
 
 // utils
@@ -21,6 +21,7 @@ const baseRender = (value: any) => value;
  */
 export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
   const { t } = useTranslation();
+  const { hiddenColumns } = useTableOptions();
   const {
     columns,
     softDeleteProperty = "deletedAt",
@@ -33,8 +34,8 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
   } = props;
 
   const visibleColumns = useMemo(
-    () => getSortedVisibleColumns(columns),
-    [columns],
+    () => getSortedVisibleColumns(columns, hiddenColumns),
+    [columns, hiddenColumns],
   );
 
   const expandedRowsMap = useMemo(

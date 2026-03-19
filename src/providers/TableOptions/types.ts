@@ -22,10 +22,15 @@ export type TableOptionsContextType = {
   filters: TableFilters;
   clearFilters: (key?: string) => void;
   countOfFilters: number;
+  hiddenColumns: string[];
+  toggleColumn: (key: string) => void;
+  setHiddenColumns: (keys: string[]) => void;
+  resetTableOptions: () => void;
 };
 
 export type TableOptionsProviderPropsType = {
   children: ReactNode;
+  defaultHiddenColumns?: string[];
 };
 
 export type TableFilters = {

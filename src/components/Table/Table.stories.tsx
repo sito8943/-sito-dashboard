@@ -17,6 +17,8 @@ const mockTranslations: Record<string, string> = {
   "_accessibility:components.table.selectedCount": "Selected {{count}} items",
   "_accessibility:labels.actions": "Actions",
   "_accessibility:buttons.filters": "Filters",
+  "_accessibility:buttons.columns": "Columns",
+  "_accessibility:buttons.reset": "Reset",
   "_accessibility:buttons.previous": "Previous page",
   "_accessibility:buttons.next": "Next page",
   "_accessibility:buttons.clear": "Clear",
@@ -527,6 +529,51 @@ export const WithCompleteFeatures: Story = {
         label: "Age",
         sortable: true,
         filterOptions: { type: FilterTypes.number, min: 18, max: 80 },
+      },
+    ],
+  } as any,
+};
+
+export const WithColumnVisibility: Story = {
+  args: {
+    entity: "users",
+    title: "Users — hide/show columns",
+    onExpandedRowChange: null,
+    data,
+    canHideColumns: true,
+    canReset: true,
+    columns: [
+      { key: "id", label: "ID", sortable: true, hideable: false },
+      { key: "name", label: "Name", sortable: true },
+      { key: "age", label: "Age", sortable: true },
+    ],
+  } as any,
+};
+
+export const WithColumnVisibilityAndFilters: Story = {
+  args: {
+    entity: "users",
+    title: "Users — columns + filters + reset",
+    onExpandedRowChange: null,
+    data,
+    canHideColumns: true,
+    canReset: true,
+    columns: [
+      { key: "id", label: "ID", sortable: true, hideable: false },
+      {
+        key: "name",
+        label: "Name",
+        sortable: true,
+        filterOptions: {
+          type: FilterTypes.text,
+          placeholder: "Search by name",
+        },
+      },
+      {
+        key: "age",
+        label: "Age",
+        sortable: true,
+        filterOptions: { type: FilterTypes.number, min: 0, max: 100 },
       },
     ],
   } as any,
