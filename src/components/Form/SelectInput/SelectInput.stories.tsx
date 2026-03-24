@@ -84,3 +84,27 @@ export const SuccessState: Story = {
   render: Default.render,
   args: { state: State.good, helperText: "Selection is valid" },
 };
+
+export const CustomOptions: Story = {
+  render: (args) => {
+    const Example = () => {
+      const [value, setValue] = useState<string | number>("");
+      return (
+        <div className="max-w-sm">
+          <SelectInput
+            {...args}
+            native={false}
+            label="Select with custom options"
+            options={sampleOptions}
+            value={value}
+            onChange={(e) => setValue(e.currentTarget.value)}
+            helperText="Navigate with ArrowUp/ArrowDown and Enter"
+          />
+          <p className="mt-2 text-sm text-gray-500">Value: {String(value)}</p>
+        </div>
+      );
+    };
+    return <Example />;
+  },
+  args: { state: State.default },
+};
