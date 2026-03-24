@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.71] - 2026-03-24
+
+### Added
+
+- Added `native?: boolean` prop to `SelectInput`:
+  - `true` (default): keeps native `<select>` behavior.
+  - `false`: enables custom options UI rendered from a `TextInput` + listbox.
+- Added keyboard UX for non-native `SelectInput`:
+  - `ArrowUp` / `ArrowDown` to move highlighted option.
+  - `Enter` to open/select.
+  - `Escape` to close.
+- Added keyboard UX for `AutocompleteInput` suggestions:
+  - `ArrowUp` / `ArrowDown` to navigate suggestions.
+  - `Enter` to select highlighted suggestion.
+  - `Escape` to close suggestions.
+- Added visual highlighted state for active `SelectInput` option and `AutocompleteInput` suggestion.
+- Added `SelectInput` Storybook story: `CustomOptions`.
+- Added new form UX tests:
+  - `SelectInput.test.tsx` (native default + keyboard navigation in non-native mode).
+  - `AutocompleteInput.test.tsx` (keyboard selection with arrows + Enter).
+
+### Changed
+
+- Updated styling guidance in `AGENTS.md`: any Tailwind color `@apply` must be defined only in `src/styles/base-colors.css`.
+- Centralized new color-related `@apply` rules for select/autocomplete option states in `src/styles/base-colors.css`.
+
 ## [0.0.70] - 2026-03-19
 
 ### Added

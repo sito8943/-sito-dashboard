@@ -776,6 +776,7 @@ export type { FilterType, FiltersValue, WidgetFilterProps };
 - Dark mode is supported via the `dark` class on `<html>` or `<body>` (`darkMode: "class"` strategy).
 - All components accept `className` / `containerClassName` / `inputClassName` for overrides.
 - Custom colors are available via CSS custom properties defined in `base-colors.css` (bundled automatically).
+- Any Tailwind color @apply must be defined exclusively in src/styles/base-colors.css.
 
 ---
 

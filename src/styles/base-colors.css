@@ -38,16 +38,23 @@
   @apply text-text-muted;
 }
 
+.select-input-options-container,
 .autocomplete-suggestions-container {
   @apply bg-base-light;
 }
 
+.select-input-option-item:hover,
 .autocomplete-suggestion-item:hover {
   @apply bg-base-dark;
 }
 
 .autocomplete-delete-button {
   @apply text-text hover:text-secondary;
+}
+
+.select-input-option-item.highlighted,
+.autocomplete-suggestion-item.highlighted {
+  @apply bg-slate-200;
 }
 
 /* CHIP */
@@ -92,6 +99,10 @@
   @apply text-text-muted;
 }
 
+.table-headers-cell {
+  @apply hover:bg-base-dark border-border;
+}
+
 /* FILTER */
 
 .filter-popup {
@@ -104,10 +115,4 @@
 
 .filter-footer {
   @apply border-border bg-base-dark;
-}
-
-/* TABLE */
-
-.table-headers-cell {
-  @apply hover:bg-base-dark border-border;
 }

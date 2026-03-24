@@ -7,6 +7,7 @@ import {
   ChangeEvent,
   ForwardedRef,
   forwardRef,
+  KeyboardEvent as ReactKeyboardEvent,
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -54,6 +55,8 @@ export const AutocompleteInput = forwardRef(function (
   }, [multiple, value]);
 
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [highlightedSuggestionIndex, setHighlightedSuggestionIndex] =
+    useState(-1);
 
   const suggestions = useMemo(
     () =>
@@ -77,6 +80,14 @@ export const AutocompleteInput = forwardRef(function (
     [options, value, inputValue],
   );
 
+  useEffect(() => {
+    if (!showSuggestions || !suggestions.length) {
+      setHighlightedSuggestionIndex(-1);
+      return;
+    }
+    setHighlightedSuggestionIndex(0);
+  }, [showSuggestions, suggestions]);
+
   const autocompleteRef = useRef<HTMLDivElement | null>(null);
   const localInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -93,7 +104,7 @@ export const AutocompleteInput = forwardRef(function (
       }
     };
 
-    const handleEscape = (e: KeyboardEvent) => {
+    const handleEscape = (e: globalThis.KeyboardEvent) => {
       if (e.key === "Escape") setShowSuggestions(false);
     };
 
@@ -127,6 +138,53 @@ export const AutocompleteInput = forwardRef(function (
       setShowSuggestions(false);
     },
     [multiple, onChange, value],
+  );
+
+  const handleKeyDown = useCallback(
+    (event: ReactKeyboardEvent<HTMLInputElement>) => {
+      if (!suggestions.length) {
+        if (event.key === "Escape") {
+          setShowSuggestions(false);
+        }
+        return;
+      }
+
+      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+        if (!showSuggestions) {
+          setShowSuggestions(true);
+          setHighlightedSuggestionIndex(0);
+          return;
+        }
+        setHighlightedSuggestionIndex((currentIndex) => {
+          const baseIndex = currentIndex >= 0 ? currentIndex : 0;
+          if (event.key === "ArrowDown") {
+            return (baseIndex + 1 + suggestions.length) % suggestions.length;
+          }
+          return (baseIndex - 1 + suggestions.length) % suggestions.length;
+        });
+        return;
+      }
+
+      if (event.key === "Enter" && showSuggestions) {
+        event.preventDefault();
+        const index =
+          highlightedSuggestionIndex >= 0 ? highlightedSuggestionIndex : 0;
+        handleSuggestionClick(suggestions[index]);
+        return;
+      }
+
+      if (event.key === "Escape" && showSuggestions) {
+        event.preventDefault();
+        setShowSuggestions(false);
+      }
+    },
+    [
+      handleSuggestionClick,
+      highlightedSuggestionIndex,
+      showSuggestions,
+      suggestions,
+    ],
   );
 
   const handleDeleteChip = useCallback(
@@ -168,6 +226,7 @@ export const AutocompleteInput = forwardRef(function (
           placeholder={placeholder}
           helperText={helperText}
           onFocus={() => setShowSuggestions(true)}
+          onKeyDown={handleKeyDown}
           label={label}
           containerClassName={`autocomplete-text-input ${inputContainerClassName}`}
           ref={ref ?? localInputRef}
@@ -235,7 +294,16 @@ export const AutocompleteInput = forwardRef(function (
         >
           {suggestions.map((suggestion) => (
             <li
-              className="autocomplete-suggestion-item"
+              className={`autocomplete-suggestion-item ${
+                suggestion.id === suggestions[highlightedSuggestionIndex]?.id
+                  ? "highlighted"
+                  : ""
+              }`}
+              onMouseEnter={() =>
+                setHighlightedSuggestionIndex(
+                  suggestions.findIndex((item) => item.id === suggestion.id),
+                )
+              }
               onClick={(e) => {
                 handleSuggestionClick(suggestion);
                 e.stopPropagation();

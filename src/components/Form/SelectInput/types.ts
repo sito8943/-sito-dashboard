@@ -14,4 +14,5 @@ export interface SelectInputPropsType
     Omit<HTMLProps<HTMLSelectElement>, "value" | "label">,
     BaseInputPropsType<string | number | readonly string[] | undefined> {
   options: Option[];
+  native?: boolean;
 }

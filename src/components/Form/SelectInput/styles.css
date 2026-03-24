@@ -15,3 +15,23 @@
 .select-input-helper-text {
   @apply mt-2 text-sm;
 }
+
+.select-input-native-hidden {
+  @apply absolute opacity-0 pointer-events-none w-0 h-0;
+}
+
+.select-input-text-container {
+  @apply mb-0;
+}
+
+.select-input-text {
+  @apply cursor-pointer;
+}
+
+.select-input-options-container {
+  @apply m-0 p-0 z-30 absolute w-full max-h-44 overflow-auto shadow-md;
+}
+
+.select-input-option-item {
+  @apply p-2 cursor-pointer;
+}
