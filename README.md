@@ -98,7 +98,7 @@ export function UsersTable() {
 
 | Prop                        | Type                                                              | Required | Description                                                                 |
 | --------------------------- | ----------------------------------------------------------------- | -------- | --------------------------------------------------------------------------- |
-| `entity`                    | `string`                                                          | Yes      | Entity name used by internal table state.                                   |
+| `entity`                    | `string`                                                          | No       | Optional logical entity identifier.                                         |
 | `data`                      | `TRow[]`                                                          | Yes      | Rows to render. `TRow` must extend `BaseDto` and include `id`.              |
 | `columns`                   | `ColumnType<TRow>[]`                                              | No       | Column definitions.                                                         |
 | `actions`                   | `(row: TRow) => ActionType<TRow>[]`                               | No       | Per-row action factory.                                                     |
@@ -106,6 +106,8 @@ export function UsersTable() {
 | `toolbar`                   | `ReactNode`                                                       | No       | Extra content rendered in the table header.                                 |
 | `isLoading`                 | `boolean`                                                         | No       | Loading state for table UI.                                                 |
 | `filterOptions`             | `FilterOptions`                                                   | No       | Extra options passed to filter behavior/components.                         |
+| `canHideColumns`            | `boolean`                                                         | No       | Shows column visibility menu in the header.                                 |
+| `canReset`                  | `boolean`                                                         | No       | Shows table reset button in the header.                                     |
 | `onSort`                    | `(prop: string, sortOrder: SortOrder) => void`                    | No       | Sort callback when a sortable column is toggled.                            |
 | `onRowSelect`               | `(row: TRow, selected: boolean) => void`                          | No       | Row selection callback.                                                     |
 | `onSelectedRowsChange`      | `(rows: TRow[]) => void`                                          | No       | Callback with selected rows.                                                |
@@ -121,8 +123,8 @@ export function UsersTable() {
 
 Main package exports include:
 
-- Components: `Action`, `Actions`, `ActionsDropdown`, `Badge`, `Button`, `Chip`, `Dropdown`, `Form`, `IconButton`, `Loading`, `SvgIcons`, `Table`, `Tooltip`.
-- Providers: `FiltersProvider`, `TableOptionsProvider`, `TranslationProvider` and related hooks/types.
+- Components: `Action`, `Actions`, `ActionsDropdown`, `Badge`, `Button`, `Chip`, `Dropdown`, `IconButton`, `Loading`, `SvgIcons`, `Table`, `Tooltip`, `TextInput`, `SelectInput`, `AutocompleteInput`, `CheckInput`, `FileInput`.
+- Providers: `FiltersProvider`, `TableOptionsProvider`, `TranslationProvider` and related hooks/types (`useFilters`, `useTableOptions`, `useTranslation`).
 - Utilities and models: `FilterTypes`, `SortOrder`, `BaseDto`, and query/filter helpers from `lib`.
 
 ## Development Setup
