@@ -111,6 +111,13 @@ export const WithController: Story = {
   },
 };
 
+export const Date: Story = {
+  args: {
+    type: "date",
+    label: "Date",
+  },
+};
+
 export const CustomLabel: Story = {
   args: {
     label: (

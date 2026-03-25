@@ -64,7 +64,9 @@ export const TextInput = forwardRef(function (
   const [hasBeenFocused, setHasBeenFocused] = useState(false);
 
   const hasValue = isControlled ? hasInputValue(value) : uncontrolledHasValue;
-  const keepLabelUp = Boolean(rest.placeholder) || hasBeenFocused;
+  const shouldKeepLabelUpByType = rest.type === "date";
+  const keepLabelUp =
+    Boolean(rest.placeholder) || hasBeenFocused || shouldKeepLabelUpByType;
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!isControlled) {

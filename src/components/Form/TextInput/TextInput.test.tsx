@@ -92,4 +92,14 @@ describe("TextInput", () => {
     expect(input?.className).toContain("keep-label-up");
     expect(input?.className).toContain("has-placeholder");
   });
+
+  it("keeps label up for date inputs to avoid native placeholder overlap", () => {
+    const { container } = render(
+      <TextInput label="Fecha" type="date" value={undefined} />,
+    );
+    const input = container.querySelector("input");
+
+    expect(input).toBeTruthy();
+    expect(input?.className).toContain("keep-label-up");
+  });
 });
