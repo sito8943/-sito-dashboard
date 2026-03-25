@@ -1,51 +1,20 @@
 // lib
 import { FiltersValue, SortOrder } from "lib";
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-} from "react";
+import { useCallback, useContext, useMemo, useState } from "react";
 
 // types
+import { TableFilters, TableOptionsProviderPropsType } from "./types";
+// utils
 import {
-  TableFilters,
-  TableOptionsContextType,
-  TableOptionsProviderPropsType,
-} from "./types";
-
-const pageSizes = [20, 50, 100];
-
-const TableOptionsContext = createContext<TableOptionsContextType | undefined>(
-  undefined,
-);
-
-const hasMeaningfulFilterValue = (value: unknown): boolean => {
-  if (value === null || typeof value === "undefined") return false;
-
-  if (typeof value === "string") {
-    return value.trim().length > 0;
-  }
-
-  if (Array.isArray(value)) {
-    return value.length > 0;
-  }
-
-  if (typeof value === "object") {
-    const parsedValue = value as { start?: unknown; end?: unknown };
-    if ("start" in parsedValue || "end" in parsedValue) {
-      return (
-        hasMeaningfulFilterValue(parsedValue.start) ||
-        hasMeaningfulFilterValue(parsedValue.end)
-      );
-    }
-
-    return true;
-  }
-
-  return true;
-};
+  hasMeaningfulFilterValue,
+  parseFilters,
+  parseNonNegativeInteger,
+  parsePageSizes,
+  parsePositiveInteger,
+  parseSortingBy,
+  parseSortingOrder,
+  TableOptionsContext,
+} from "./utils";
 
 /**
  * Renders the TableOptionsProvider component.
@@ -53,19 +22,60 @@ const hasMeaningfulFilterValue = (value: unknown): boolean => {
  * @returns Function result.
  */
 const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
-  const { children, defaultHiddenColumns = [] } = props;
+  const { children, defaultHiddenColumns = [], initialState } = props;
+  const {
+    currentPage: initialCurrentPageValue,
+    pageSize: initialPageSizeValue,
+    pageSizes: initialPageSizesValue,
+    sortingBy: initialSortingByValue,
+    sortingOrder: initialSortingOrderValue,
+    filters: initialFiltersValue,
+  } = initialState ?? {};
+
+  const pageSizes = useMemo(() => {
+    const parsedPageSizes = parsePageSizes(initialPageSizesValue);
+    const parsedPageSize = parsePositiveInteger(
+      initialPageSizeValue,
+      parsedPageSizes[0],
+    );
+
+    return parsedPageSizes.includes(parsedPageSize)
+      ? parsedPageSizes
+      : [parsedPageSize, ...parsedPageSizes];
+  }, [initialPageSizeValue, initialPageSizesValue]);
+
+  const initialPageSize = useMemo(() => {
+    return parsePositiveInteger(initialPageSizeValue, pageSizes[0]);
+  }, [initialPageSizeValue, pageSizes]);
+
+  const initialCurrentPage = useMemo(() => {
+    return parseNonNegativeInteger(initialCurrentPageValue, 0);
+  }, [initialCurrentPageValue]);
+
+  const initialSortingBy = useMemo(() => {
+    return parseSortingBy(initialSortingByValue);
+  }, [initialSortingByValue]);
+
+  const initialSortingOrder = useMemo(() => {
+    return parseSortingOrder(initialSortingOrderValue);
+  }, [initialSortingOrderValue]);
+
+  const initialFilters = useMemo(() => {
+    return parseFilters(initialFiltersValue);
+  }, [initialFiltersValue]);
 
   const [total, setTotalState] = useState(0);
-  const [pageSize, setPageSizeState] = useState(20);
-  const [currentPage, setCurrentPageState] = useState(0);
+  const [pageSize, setPageSizeState] = useState(initialPageSize);
+  const [currentPage, setCurrentPageState] = useState(initialCurrentPage);
 
-  const [sortingBy, setSortingBy] = useState("id");
-  const [sortingOrder, setSortingOrder] = useState(SortOrder.DESC);
+  const [sortingBy, setSortingBy] = useState(initialSortingBy);
+  const [sortingOrder, setSortingOrder] = useState(initialSortingOrder);
 
-  const [filters, setFilters] = useState<TableFilters>({});
+  const [filters, setFilters] = useState<TableFilters>(initialFilters);
 
-  const [hiddenColumns, setHiddenColumns] =
-    useState<string[]>(defaultHiddenColumns);
+  const [hiddenColumns, setHiddenColumns] = useState<string[]>([
+    ...defaultHiddenColumns,
+  ]);
 
   const getMaxPage = useCallback(
     (localTotal: number, localPageSize: number) => {
@@ -98,6 +108,13 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
     (nextCurrentPage: number) => {
       if (!Number.isFinite(nextCurrentPage)) return;
       const nextPage = Math.max(0, Math.floor(nextCurrentPage));
+
+      // When total is not known yet, allow the requested page and clamp later on setTotal.
+      if (total <= 0) {
+        setCurrentPageState(nextPage);
+        return;
+      }
+
       setCurrentPageState(Math.min(nextPage, getMaxPage(total, pageSize)));
     },
     [getMaxPage, pageSize, total],
@@ -168,12 +185,18 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
   }, []);
 
   const resetTableOptions = useCallback(() => {
-    setHiddenColumns(defaultHiddenColumns);
-    setSortingBy("id");
-    setSortingOrder(SortOrder.DESC);
-    setFilters({});
-    setCurrentPageState(0);
-  }, [defaultHiddenColumns]);
+    setHiddenColumns([...defaultHiddenColumns]);
+    setSortingBy(initialSortingBy);
+    setSortingOrder(initialSortingOrder);
+    setFilters({ ...initialFilters });
+    setCurrentPageState(initialCurrentPage);
+  }, [
+    defaultHiddenColumns,
+    initialCurrentPage,
+    initialFilters,
+    initialSortingBy,
+    initialSortingOrder,
+  ]);
 
   const value = useMemo(
     () => ({

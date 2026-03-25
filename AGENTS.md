@@ -80,11 +80,22 @@ function App() {
 Manages sorting, pagination, and filter state for a Table. One provider per table view.
 
 ```tsx
-import { TableOptionsProvider, useTableOptions } from "@sito/dashboard";
+import {
+  SortOrder,
+  TableOptionsProvider,
+  useTableOptions,
+} from "@sito/dashboard";
 
 function UsersPage() {
   return (
-    <TableOptionsProvider>
+    <TableOptionsProvider
+      initialState={{
+        pageSize: 50,
+        pageSizes: [25, 50, 100],
+        sortingBy: "createdAt",
+        sortingOrder: SortOrder.ASC,
+      }}
+    >
       <UsersTable />
     </TableOptionsProvider>
   );
@@ -109,6 +120,9 @@ function UsersTable() {
 | `sortingBy`    | `"id"`           |
 | `sortingOrder` | `SortOrder.DESC` |
 | `filters`      | `{}`             |
+
+`initialState` accepts optional overrides for:
+`currentPage`, `pageSize`, `pageSizes`, `sortingBy`, `sortingOrder`, and `filters`.
 
 ---
 
@@ -772,6 +786,7 @@ export type { ActionsContainerPropsType, ActionPropsType }; // Actions component
 export type { ButtonPropsType, ButtonBaseProps };
 export type { TextInputPropsType, BaseInputPropsType };
 export type { TooltipPropsType };
+export type { TableOptionsProviderInitialStateType };
 
 // Enums / values
 export { FilterTypes };

@@ -31,8 +31,18 @@ export type TableOptionsContextType = {
 export type TableOptionsProviderPropsType = {
   children: ReactNode;
   defaultHiddenColumns?: string[];
+  initialState?: TableOptionsProviderInitialStateType;
 };
 
 export type TableFilters = {
   [key: string]: any;
+};
+
+export type TableOptionsProviderInitialStateType = {
+  currentPage?: number;
+  pageSize?: number;
+  pageSizes?: number[];
+  sortingBy?: string;
+  sortingOrder?: SortOrder;
+  filters?: TableFilters;
 };

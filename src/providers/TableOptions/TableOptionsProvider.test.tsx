@@ -15,10 +15,12 @@ const Harness = (props: HarnessProps) => {
   const {
     countOfFilters,
     currentPage,
+    pageSizes,
     pageSize,
     filters,
     onFilterApply,
     onSort,
+    resetTableOptions,
     setCurrentPage,
     setPageSize,
     setTotal,
@@ -83,10 +85,14 @@ const Harness = (props: HarnessProps) => {
       <button data-testid="clear-all" onClick={() => clearFilters()}>
         Clear all
       </button>
+      <button data-testid="reset-options" onClick={resetTableOptions}>
+        Reset options
+      </button>
       <div data-testid="sorting-by">{sortingBy}</div>
       <div data-testid="sorting-order">{sortingOrder}</div>
       <div data-testid="current-page">{currentPage}</div>
       <div data-testid="page-size">{pageSize}</div>
+      <div data-testid="page-sizes">{pageSizes.join(",")}</div>
       <div data-testid="count-of-filters">{countOfFilters}</div>
       <pre data-testid="filters">{JSON.stringify(filters)}</pre>
     </div>
@@ -232,6 +238,94 @@ describe("TableOptionsProvider", () => {
 
     fireEvent.click(screen.getByTestId("set-total-small"));
     expect(screen.getByTestId("current-page").textContent).toBe("0");
+  });
+
+  it("accepts initial state overrides from provider props", () => {
+    render(
+      <TableOptionsProvider
+        initialState={{
+          currentPage: 2,
+          pageSize: 25,
+          pageSizes: [10, 25, 100],
+          sortingBy: "createdAt",
+          sortingOrder: SortOrder.ASC,
+          filters: { status: "archived" },
+        }}
+      >
+        <Harness />
+      </TableOptionsProvider>,
+    );
+
+    expect(screen.getByTestId("current-page").textContent).toBe("2");
+    expect(screen.getByTestId("page-size").textContent).toBe("25");
+    expect(screen.getByTestId("page-sizes").textContent).toBe("10,25,100");
+    expect(screen.getByTestId("sorting-by").textContent).toBe("createdAt");
+    expect(screen.getByTestId("sorting-order").textContent).toBe(SortOrder.ASC);
+    expect(
+      JSON.parse(screen.getByTestId("filters").textContent ?? "{}"),
+    ).toEqual({ status: "archived" });
+    expect(screen.getByTestId("count-of-filters").textContent).toBe("1");
+  });
+
+  it("normalizes invalid initial state values and keeps pageSize available in options", () => {
+    render(
+      <TableOptionsProvider
+        initialState={{
+          currentPage: -3,
+          pageSize: 30,
+          pageSizes: [10, 0, 10],
+          sortingBy: "",
+          filters: undefined,
+        }}
+      >
+        <Harness />
+      </TableOptionsProvider>,
+    );
+
+    expect(screen.getByTestId("current-page").textContent).toBe("0");
+    expect(screen.getByTestId("page-size").textContent).toBe("30");
+    expect(screen.getByTestId("page-sizes").textContent).toBe("30,10");
+    expect(screen.getByTestId("sorting-by").textContent).toBe("id");
+    expect(screen.getByTestId("sorting-order").textContent).toBe(
+      SortOrder.DESC,
+    );
+    expect(
+      JSON.parse(screen.getByTestId("filters").textContent ?? "{}"),
+    ).toEqual({});
+  });
+
+  it("resets table options to the configured initial state", () => {
+    render(
+      <TableOptionsProvider
+        initialState={{
+          currentPage: 2,
+          sortingBy: "createdAt",
+          sortingOrder: SortOrder.ASC,
+          filters: { status: "archived" },
+        }}
+      >
+        <Harness />
+      </TableOptionsProvider>,
+    );
+
+    fireEvent.click(screen.getByTestId("sort-name"));
+    fireEvent.click(screen.getByTestId("apply-camel-filters"));
+    fireEvent.click(screen.getByTestId("set-page-five"));
+
+    expect(screen.getByTestId("sorting-by").textContent).toBe("name");
+    expect(screen.getByTestId("current-page").textContent).toBe("5");
+    expect(
+      JSON.parse(screen.getByTestId("filters").textContent ?? "{}"),
+    ).toEqual({ userName: "alice" });
+
+    fireEvent.click(screen.getByTestId("reset-options"));
+
+    expect(screen.getByTestId("sorting-by").textContent).toBe("createdAt");
+    expect(screen.getByTestId("sorting-order").textContent).toBe(SortOrder.ASC);
+    expect(screen.getByTestId("current-page").textContent).toBe("2");
+    expect(
+      JSON.parse(screen.getByTestId("filters").textContent ?? "{}"),
+    ).toEqual({ status: "archived" });
   });
 
   it("throws when useTableOptions is used outside its provider", () => {
