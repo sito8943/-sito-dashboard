@@ -42,12 +42,24 @@ Supplies the `t(key)` function used internally for all labels (empty states, pag
 import { TranslationProvider } from "@sito/dashboard";
 
 const translations: Record<string, string> = {
-  "table.empty": "No records found",
-  "table.loading": "Loading…",
-  "table.rowsPerPage": "Rows per page",
-  "table.of": "of",
-  "filter.apply": "Apply",
-  "filter.clear": "Clear",
+  "_accessibility:buttons.applyFilters": "Apply filters",
+  "_accessibility:buttons.clear": "Clear",
+  "_accessibility:buttons.columns": "Columns",
+  "_accessibility:buttons.filters": "Filters",
+  "_accessibility:buttons.next": "Next",
+  "_accessibility:buttons.openActions": "Open actions",
+  "_accessibility:buttons.previous": "Previous",
+  "_accessibility:buttons.reset": "Reset",
+  "_accessibility:components.table.empty": "No results",
+  "_accessibility:components.table.filters.range.end": "To",
+  "_accessibility:components.table.filters.range.start": "From",
+  "_accessibility:components.table.jumpToPage": "Go to page",
+  "_accessibility:components.table.of": "of",
+  "_accessibility:components.table.pageSizes": "Rows per page",
+  "_accessibility:components.table.selectAllRows": "Select visible rows",
+  "_accessibility:components.table.selectRow": "Select row",
+  "_accessibility:components.table.selectedCount": "Selected {{count}} rows",
+  "_accessibility:labels.actions": "Actions",
   // add every key the library requests at runtime
 };
 
@@ -195,7 +207,7 @@ const actions = (row: User): ActionType<User>[] => [
 
 | Prop                        | Type                                | Default       | Description                                        |
 | --------------------------- | ----------------------------------- | ------------- | -------------------------------------------------- |
-| `entity`                    | `string`                            | `""`          | Singular entity name (used for aria / i18n keys)   |
+| `entity`                    | `string`                            | `""`          | Optional logical entity identifier                 |
 | `data`                      | `TRow[]`                            | —             | **Required.** Array of rows                        |
 | `columns`                   | `ColumnType<TRow>[]`                | `[]`          | Column definitions                                 |
 | `actions`                   | `(row: TRow) => ActionType<TRow>[]` | —             | Per-row action buttons                             |
@@ -203,6 +215,8 @@ const actions = (row: User): ActionType<User>[] => [
 | `title`                     | `string`                            | —             | Table header title                                 |
 | `toolbar`                   | `ReactNode`                         | —             | Slot for toolbar content (buttons, search, etc.)   |
 | `filterOptions`             | `FilterOptions`                     | —             | Global filter panel config                         |
+| `canHideColumns`            | `boolean`                           | `false`       | Enables column-visibility menu in header           |
+| `canReset`                  | `boolean`                           | `false`       | Enables reset button for table options             |
 | `softDeleteProperty`        | `keyof TRow`                        | `"deletedAt"` | Property checked for soft-delete styling           |
 | `onSort`                    | `(prop, order) => void`             | —             | Called when a sortable column header is clicked    |
 | `onRowSelect`               | `(row, selected) => void`           | —             | Called when a single row checkbox changes          |
@@ -226,6 +240,7 @@ type ColumnType<TRow extends BaseDto> = {
   };
   className?: string; // cell className
   display?: "visible" | "none";
+  hideable?: boolean; // if false, excluded from the column-visibility menu
   pos?: number; // column order (0-based)
   renderBody?: (value: unknown, row: TRow) => ReactNode; // custom cell renderer
   renderHead?: () => ReactNode; // custom header renderer
@@ -643,7 +658,7 @@ interface Product extends BaseDto {
 }
 
 const translations = {
-  "table.empty": "No products found",
+  "_accessibility:components.table.empty": "No products found",
   // …
 };
 
@@ -746,6 +761,7 @@ export type { Option }; // used by SelectInput / AutocompleteInput
 
 // Providers & hooks
 export { TranslationProvider, useTranslation };
+export { FiltersProvider, useFilters };
 export { TableOptionsProvider, useTableOptions };
 
 // Types
@@ -772,7 +788,7 @@ export type { FilterType, FiltersValue, WidgetFilterProps };
 - Dark mode is supported via the `dark` class on `<html>` or `<body>` (`darkMode: "class"` strategy).
 - All components accept `className` / `containerClassName` / `inputClassName` for overrides.
 - Custom colors are available via CSS custom properties defined in `base-colors.css` (bundled automatically).
-- Any Tailwind color @apply must be defined exclusively in src/styles/base-colors.css.
+- Keep shared semantic color rules in `src/styles/base-colors.css`; component-level styles can also use Tailwind `@apply`.
 
 ---
 
@@ -783,4 +799,4 @@ export type { FilterType, FiltersValue, WidgetFilterProps };
 
 ---
 
-_Last updated: 2026-03-11 — library version 0.0.69_
+_Last updated: 2026-03-25 — library version 0.0.72_
