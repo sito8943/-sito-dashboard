@@ -2,12 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [0.0.73] - 2026-03-25
 
 ### Added
 
 - Added `TableOptionsProvider.initialState` to allow configuring initial `currentPage`, `pageSize`, `pageSizes`, `sortingBy`, `sortingOrder`, and `filters`.
 - Added tests for `TableOptionsProvider` initial state overrides, value normalization, and reset behavior against configured defaults.
+
+### Changed
+
+- Updated consumer documentation with `TableOptionsProvider.initialState` usage and reset behavior tied to configured `initialState` defaults.
 
 ## [0.0.72] - 2026-03-25
 

@@ -814,4 +814,4 @@ export type { FilterType, FiltersValue, WidgetFilterProps };
 
 ---
 
-_Last updated: 2026-03-25 — library version 0.0.72_
+_Last updated: 2026-03-25 — library version 0.0.73_
