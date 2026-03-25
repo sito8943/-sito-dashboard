@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.72] - 2026-03-25
+
+### Fixed
+
+- Fixed `TextInput` floating label behavior for `type="date"` to keep the label elevated and avoid overlap with the browser native date placeholder.
+- Added regression test coverage for `TextInput` date inputs to ensure `keep-label-up` is applied by default.
+
 ## [0.0.71] - 2026-03-24
 
 ### Added

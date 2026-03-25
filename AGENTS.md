@@ -12,10 +12,6 @@
 This covers ESLint, Prettier, TypeScript type-checking, the Vite bundle build, and Vitest tests.
 Running it locally catches errors immediately and avoids costly follow-up fix cycles.
 
-If you prefer to run steps individually:
-
-> **Rule:** Never mark a task complete without a passing `npm run full`.
-
 ---
 
 ## 1. What This Library Is
