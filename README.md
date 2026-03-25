@@ -94,6 +94,28 @@ export function UsersTable() {
 - `CheckInput` is controlled with `checked` (not `value`).
 - `FileInput` `onChange` receives the native input event; read files from `e.currentTarget.files`.
 
+## `TableOptionsProvider` Initial State
+
+`TableOptionsProvider` supports optional `initialState` configuration:
+
+```tsx
+import { SortOrder, TableOptionsProvider } from "@sito/dashboard";
+
+<TableOptionsProvider
+  defaultHiddenColumns={["email"]}
+  initialState={{
+    currentPage: 0,
+    pageSize: 50,
+    pageSizes: [25, 50, 100],
+    sortingBy: "createdAt",
+    sortingOrder: SortOrder.ASC,
+    filters: { status: "active" },
+  }}
+>
+  <UsersTable />
+</TableOptionsProvider>;
+```
+
 ## Core `Table` Props
 
 | Prop                        | Type                                                              | Required | Description                                                                 |
