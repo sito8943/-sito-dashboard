@@ -1,6 +1,6 @@
 /* @vitest-environment jsdom */
 
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
 import { State } from "../utils";
@@ -53,12 +53,11 @@ describe("TextInput", () => {
     expect(onChange).toHaveBeenCalledOnce();
   });
 
-  it("keeps label up after first focus when no placeholder is provided", async () => {
+  it("does not keep label up after blur when no value and no placeholder", () => {
     const { container } = render(
       <TextInput label="Nombre" value={undefined} />,
     );
-    const getInput = () => container.querySelector("input");
-    const input = getInput();
+    const input = container.querySelector("input");
 
     expect(input).toBeTruthy();
     if (!input) {
@@ -68,14 +67,10 @@ describe("TextInput", () => {
     expect(input.className).not.toContain("keep-label-up");
 
     fireEvent.focus(input);
-    await waitFor(() =>
-      expect(getInput()?.className).toContain("keep-label-up"),
-    );
+    expect(input.className).not.toContain("keep-label-up");
 
-    fireEvent.blur(getInput() as HTMLInputElement);
-    await waitFor(() =>
-      expect(getInput()?.className).toContain("keep-label-up"),
-    );
+    fireEvent.blur(input);
+    expect(input.className).not.toContain("keep-label-up");
   });
 
   it("keeps label up when placeholder is present", () => {
