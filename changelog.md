@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.74] - 2026-03-27
+
+### Fixed
+
+- Fixed `TextInput` floating label behavior so `keep-label-up` is no longer forced after first focus/blur when there is no value and no placeholder.
+- Fixed `TextInput` focus/blur handling to preserve direct `onFocus`/`onBlur` passthrough without internal focus-state side effects.
+
+### Changed
+
+- Updated `TextInput` test coverage to assert that empty inputs without placeholder do not keep the floating label up after focus/blur.
+
 ## [0.0.73] - 2026-03-25
 
 ### Added
