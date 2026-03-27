@@ -13,7 +13,7 @@ All notable changes to this project will be documented in this file.
 
 - Updated `TextInput` test coverage to assert that empty inputs without placeholder do not keep the floating label up after focus/blur.
 
-## [0.0.73] - 2026-03-25
+## [0.0.74] - 2026-03-25
 
 ### Added
 
