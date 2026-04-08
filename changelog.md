@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.75] - 2026-04-08
+
+### Added
+
+- Added `classNames(...classNamesList)` utility in `lib` to compose dynamic class names while trimming whitespace, ignoring falsy values, and supporting nested arrays.
+- Added unit tests for `classNames` covering whitespace normalization, falsy filtering, nested arrays, and empty input behavior.
+
+### Changed
+
+- Exported `classNames` from `src/lib/index.ts` so it is available through the library `lib` entrypoint.
+- Updated components with dynamic `className` composition to use `classNames` (Table, Actions, Badge, Button, Chip, Form inputs, IconButton, Loading, Tooltip) for consistent class output without extra spaces.
+
 ## [0.0.74] - 2026-03-27
 
 ### Fixed
