@@ -2,7 +2,7 @@
 import { Action, ActionsDropdown, Tooltip } from "components";
 import { ChevronDown, ChevronUp } from "components/SvgIcons";
 // lib
-import { BaseDto } from "lib";
+import { BaseDto, classNames } from "lib";
 // providers
 import { useTableOptions, useTranslation } from "providers";
 import { Fragment, useMemo } from "react";
@@ -55,9 +55,13 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
     return (
       <Fragment key={row.id}>
         <tr
-          className={`table-row ${onRowExpand ? "expandable" : ""} ${
-            row[softDeleteProperty] ? "deleted-class" : ""
-          } ${isSelected ? "selected" : ""} ${isExpanded ? "expanded" : ""}`}
+          className={classNames(
+            "table-row",
+            onRowExpand ? "expandable" : "",
+            row[softDeleteProperty] ? "deleted-class" : "",
+            isSelected ? "selected" : "",
+            isExpanded ? "expanded" : "",
+          )}
           onClick={() => onRowExpand?.(row)}
         >
           <td className="table-row-cell table-row-checkbox">
@@ -111,7 +115,11 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
             return (
               <td
                 key={column.key as string}
-                className={`table-row-cell ${i === 0 ? "basic" : ""} ${column.className ?? ""}`}
+                className={classNames(
+                  "table-row-cell",
+                  i === 0 ? "basic" : "",
+                  column.className ?? "",
+                )}
               >
                 {onRowExpand && i === 0 ? (
                   <div className="table-row-expand-content">
@@ -143,9 +151,10 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
             <tr className="table-row-expanded">
               <td className="table-row-expanded-cell" colSpan={colSpan}>
                 <div
-                  className={`table-row-expanded-content ${
-                    expandedRow.isVisible ? "open" : "closed"
-                  }`}
+                  className={classNames(
+                    "table-row-expanded-content",
+                    expandedRow.isVisible ? "open" : "closed",
+                  )}
                 >
                   <div className="table-row-expanded-inner">
                     {expandedRow.content}

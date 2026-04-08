@@ -1,6 +1,9 @@
 // styles
 import "./styles.css";
 
+// lib
+import { classNames } from "lib";
+
 // types
 import { ButtonPropsType } from "./types";
 
@@ -22,7 +25,7 @@ export const Button = (props: ButtonPropsType) => {
   return (
     <button
       type={type}
-      className={`button ${variant} ${color} ${className}`}
+      className={classNames("button", variant, color, className)}
       {...rest}
     >
       {children}

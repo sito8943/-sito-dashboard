@@ -1,7 +1,7 @@
 import { Badge, Filters, IconButton } from "components";
 import { BarsStaggered } from "components/SvgIcons";
 // lib
-import { BaseDto, FilterType } from "lib";
+import { BaseDto, classNames, FilterType } from "lib";
 // providers
 import { useTableOptions, useTranslation } from "providers";
 import { useCallback, useMemo, useState } from "react";
@@ -70,7 +70,10 @@ export const TableHeader = <TRow extends BaseDto>(
 
   return (
     <div
-      className={`table-header ${isFilterDropdownOpen ? "showing-filters" : ""}`}
+      className={classNames(
+        "table-header",
+        isFilterDropdownOpen ? "showing-filters" : "",
+      )}
     >
       <div>
         {title && <h1 className="table-header-title">{title}</h1>}
@@ -105,7 +108,7 @@ export const TableHeader = <TRow extends BaseDto>(
               >
                 <Badge
                   count={countOfFilters}
-                  className={`${countOfFilters > 0 ? "show" : "hide"} `}
+                  className={classNames(countOfFilters > 0 ? "show" : "hide")}
                 />
                 <span className="table-header-sr">
                   {t("_accessibility:buttons.filters")}

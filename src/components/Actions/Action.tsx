@@ -1,5 +1,5 @@
 // lib
-import { BaseDto } from "lib";
+import { BaseDto, classNames } from "lib";
 
 // types
 import { ActionPropsType } from "./types";
@@ -39,7 +39,11 @@ export function Action<TEntity extends BaseDto>(
     <button
       type="button"
       id={id}
-      className={`action ${showText ? "text-action" : "icon-action"} ${className}`}
+      className={classNames(
+        "action",
+        showText ? "text-action" : "icon-action",
+        className,
+      )}
       disabled={disabled}
       aria-label={tooltip}
       onClick={(e) => {

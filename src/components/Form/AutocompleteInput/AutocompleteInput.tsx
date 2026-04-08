@@ -3,6 +3,8 @@ import "./styles.css";
 
 // components
 import { Chip, Close, IconButton, Option, TextInput } from "components";
+// lib
+import { classNames } from "lib";
 import {
   ChangeEvent,
   ForwardedRef,
@@ -213,7 +215,7 @@ export const AutocompleteInput = forwardRef(function (
 
   return (
     <div
-      className={`autocomplete-input-container ${containerClassName}`}
+      className={classNames("autocomplete-input-container", containerClassName)}
       ref={autocompleteRef}
     >
       <div className="autocomplete-value-input-container">
@@ -228,7 +230,10 @@ export const AutocompleteInput = forwardRef(function (
           onFocus={() => setShowSuggestions(true)}
           onKeyDown={handleKeyDown}
           label={label}
-          containerClassName={`autocomplete-text-input ${inputContainerClassName}`}
+          containerClassName={classNames(
+            "autocomplete-text-input",
+            inputContainerClassName,
+          )}
           ref={ref ?? localInputRef}
           {...rest}
         >
@@ -294,11 +299,12 @@ export const AutocompleteInput = forwardRef(function (
         >
           {suggestions.map((suggestion) => (
             <li
-              className={`autocomplete-suggestion-item ${
+              className={classNames(
+                "autocomplete-suggestion-item",
                 suggestion.id === suggestions[highlightedSuggestionIndex]?.id
                   ? "highlighted"
-                  : ""
-              }`}
+                  : "",
+              )}
               onMouseEnter={() =>
                 setHighlightedSuggestionIndex(
                   suggestions.findIndex((item) => item.id === suggestion.id),

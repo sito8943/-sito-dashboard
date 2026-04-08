@@ -2,7 +2,7 @@
 import { Button } from "components";
 import { ChevronDown, ChevronUp } from "components/SvgIcons";
 // models
-import { BaseDto, SortOrder } from "lib";
+import { BaseDto, classNames, SortOrder } from "lib";
 // providers
 import { useTableOptions, useTranslation } from "providers";
 import { useEffect, useMemo, useRef } from "react";
@@ -74,7 +74,7 @@ export function Columns<TRow extends BaseDto>(props: ColumnPropsType<TRow>) {
           <th
             key={column.id as string}
             scope="col"
-            className={`table-headers-column ${column.className}`}
+            className={classNames("table-headers-column", column.className)}
           >
             <Button
               disabled={!column.sortable}
