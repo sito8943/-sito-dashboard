@@ -1,6 +1,7 @@
 // styles
 import "./styles.css";
 
+import { classNames } from "lib";
 import { ForwardedRef, forwardRef } from "react";
 
 // utils
@@ -31,7 +32,7 @@ export const CheckInput = forwardRef(function (
   } = props;
 
   return (
-    <label className={`input-check-container ${containerClassName}`}>
+    <label className={classNames("input-check-container", containerClassName)}>
       <input
         id={id}
         ref={ref}
@@ -39,11 +40,19 @@ export const CheckInput = forwardRef(function (
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        className={`input-check ${inputStateClassName(state)} ${inputClassName}`}
+        className={classNames(
+          "input-check",
+          inputStateClassName(state),
+          inputClassName,
+        )}
         {...rest}
       />
       <span
-        className={`input-check-label ${labelStateClassName(state)} ${labelClassName}`}
+        className={classNames(
+          "input-check-label",
+          labelStateClassName(state),
+          labelClassName,
+        )}
       >
         {label}
       </span>

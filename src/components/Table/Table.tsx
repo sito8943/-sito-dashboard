@@ -6,7 +6,7 @@ import "./components/Widgets/styles.css";
 // components
 import { Loading } from "components";
 // lib
-import { BaseDto } from "lib";
+import { BaseDto, classNames } from "lib";
 // providers
 import { FiltersProvider } from "providers";
 import { useCallback, useMemo } from "react";
@@ -88,7 +88,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
 
   return (
     <FiltersProvider>
-      <div className={`${className} table-main`}>
+      <div className={classNames("table-main", className)}>
         <TableHeader columns={columns} isLoading={isLoading} {...rest} />
         {!isLoading ? (
           <>
@@ -101,7 +101,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
                     onActionClick={handleMultipleActionClick}
                   />
                 )}
-                <div className={`${contentClassName} table-body`}>
+                <div className={classNames("table-body", contentClassName)}>
                   <table className="table-content">
                     <Columns
                       entity={entity}

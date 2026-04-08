@@ -2,7 +2,7 @@
 import "./styles.css";
 
 // lib
-import { BaseDto } from "lib";
+import { BaseDto, classNames } from "lib";
 
 // components
 import { Action } from "./Action";
@@ -32,11 +32,11 @@ export function Actions<TRow extends BaseDto>(
     showActionTexts = false,
   } = props;
   return (
-    <ul className={`actions-container ${className}`}>
+    <ul className={classNames("actions-container", className)}>
       {actions.map((action) => (
         <li
           key={action.id}
-          className={`actions-container-item ${itemClassName}`}
+          className={classNames("actions-container-item", itemClassName)}
         >
           <Action
             showTooltips={showTooltips}

@@ -1,6 +1,7 @@
 // styles
 import "./styles.css";
 
+import { classNames } from "lib";
 import { ChangeEvent, ForwardedRef, forwardRef, useState } from "react";
 
 // utils
@@ -69,7 +70,7 @@ export const TextInput = forwardRef(function (
   };
 
   return (
-    <div className={`text-input-container ${containerClassName}`}>
+    <div className={classNames("text-input-container", containerClassName)}>
       <input
         ref={ref}
         defaultValue={defaultValue}
@@ -77,13 +78,24 @@ export const TextInput = forwardRef(function (
         onFocus={onFocus}
         onBlur={onBlur}
         {...(isControlled ? { value } : {})}
-        className={`text-input ${inputStateClassName(state)} ${inputClassName} ${hasValue ? "has-value" : ""} ${rest.placeholder ? "has-placeholder" : ""} ${keepLabelUp ? "keep-label-up" : ""}`}
+        className={classNames(
+          "text-input",
+          inputStateClassName(state),
+          inputClassName,
+          hasValue ? "has-value" : "",
+          rest.placeholder ? "has-placeholder" : "",
+          keepLabelUp ? "keep-label-up" : "",
+        )}
         {...rest}
       />
       {!!label && (
         <label
           htmlFor={rest.id}
-          className={`text-input-label ${labelStateClassName(state)} ${labelClassName}`}
+          className={classNames(
+            "text-input-label",
+            labelStateClassName(state),
+            labelClassName,
+          )}
         >
           {label}
           {rest.required ? " *" : ""}
@@ -92,7 +104,11 @@ export const TextInput = forwardRef(function (
       {children}
       {!!helperText && (
         <p
-          className={`text-input-helper-text ${helperTextStateClassName(state)} ${helperTextClassName}`}
+          className={classNames(
+            "text-input-helper-text",
+            helperTextStateClassName(state),
+            helperTextClassName,
+          )}
         >
           {helperText}
         </p>

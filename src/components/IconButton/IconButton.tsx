@@ -1,6 +1,9 @@
 // styles
 import "./styles.css";
 
+// lib
+import { classNames } from "lib";
+
 // types
 import { IconButtonPropsType } from "./types";
 
@@ -24,7 +27,7 @@ export const IconButton = (props: IconButtonPropsType) => {
   return (
     <button
       type={type}
-      className={`icon-button ${className} ${variant} ${color}`}
+      className={classNames("icon-button", className, variant, color)}
       {...rest}
     >
       <span className={iconClassName}>{icon}</span>

@@ -6,7 +6,7 @@ import { Dropdown, IconButton } from "components";
 // icons
 import { Ellipsis } from "components";
 // lib
-import { BaseDto } from "lib";
+import { BaseDto, classNames } from "lib";
 import { useTranslation } from "providers";
 import { useState } from "react";
 
@@ -33,7 +33,7 @@ export const ActionsDropdown = <TRow extends BaseDto>(
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   return (
-    <div className={`actions-dropdown ${className}`}>
+    <div className={classNames("actions-dropdown", className)}>
       <IconButton
         icon={<Ellipsis />}
         onClick={(e) => {

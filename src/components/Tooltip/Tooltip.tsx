@@ -2,6 +2,7 @@
 // styles
 import "./styles.css";
 
+import { classNames } from "lib";
 import {
   cloneElement,
   isValidElement,
@@ -49,7 +50,7 @@ export function Tooltip(props: TooltipPropsType) {
 
   return (
     <div
-      className={`tooltip-container ${className}`}
+      className={classNames("tooltip-container", className)}
       onMouseEnter={handleMouseEnter}
     >
       {trigger}

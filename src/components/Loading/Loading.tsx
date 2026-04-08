@@ -1,6 +1,9 @@
 // styles
 import "./styles.css";
 
+// lib
+import { classNames } from "lib";
+
 // types
 import { LoadingPropsType } from "./types";
 
@@ -19,12 +22,12 @@ export function Loading(props: LoadingPropsType) {
   } = props;
 
   return (
-    <div {...rest} className={`loading ${className}`}>
+    <div {...rest} className={classNames("loading", className)}>
       <div className="loader-container">
-        <div className={`loader ${loaderClass}`}>
+        <div className={classNames("loader", loaderClass)}>
           <svg className="circular" viewBox="25 25 50 50">
             <circle
-              className={`path ${color}`}
+              className={classNames("path", color)}
               cx="50"
               cy="50"
               r="20"

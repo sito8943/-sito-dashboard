@@ -3,6 +3,8 @@ import "./styles.css";
 
 // components
 import { Chip, Close, File, IconButton, Tooltip } from "components";
+// lib
+import { classNames } from "lib";
 import {
   ChangeEvent,
   ForwardedRef,
@@ -78,9 +80,9 @@ export const FileInput = forwardRef(function (
   );
 
   return (
-    <div className={`file-input-container ${containerClassName}`}>
+    <div className={classNames("file-input-container", containerClassName)}>
       {files.length === 0 && (
-        <label htmlFor={rest.id} className={`${labelClassName}`}>
+        <label htmlFor={rest.id} className={classNames(labelClassName)}>
           {label}
           <input
             type="file"
@@ -88,7 +90,7 @@ export const FileInput = forwardRef(function (
             multiple={multiple}
             onClick={handleInputClick}
             onChange={handleChange}
-            className={`file-input ${inputClassName}`}
+            className={classNames("file-input", inputClassName)}
             {...rest}
           />
           {rest.required ? " *" : ""}
@@ -112,7 +114,7 @@ export const FileInput = forwardRef(function (
 
       {files.length === 1 && (
         <div className="file-preview">
-          <File className={`file-icon ${iconClassName}`} />
+          <File className={classNames("file-icon", iconClassName)} />
           <Tooltip content={files[0]?.name ?? ""}>
             <span className="file-preview-name">
               {truncateFileName(files[0]?.name ?? "", 25)}
@@ -124,7 +126,9 @@ export const FileInput = forwardRef(function (
 
       {children}
       {!!helperText && (
-        <p className={`file-input-helper-text ${helperTextClassName}`}>
+        <p
+          className={classNames("file-input-helper-text", helperTextClassName)}
+        >
           {helperText}
         </p>
       )}

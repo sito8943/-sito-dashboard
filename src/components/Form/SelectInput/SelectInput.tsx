@@ -1,6 +1,7 @@
 // styles
 import "./styles.css";
 
+import { classNames } from "lib";
 import {
   ChangeEvent,
   ForwardedRef,
@@ -175,7 +176,7 @@ export const SelectInput = forwardRef(function (
     return (
       <div
         ref={containerRef}
-        className={`select-input-container ${containerClassName}`}
+        className={classNames("select-input-container", containerClassName)}
       >
         <select
           {...rest}
@@ -203,7 +204,7 @@ export const SelectInput = forwardRef(function (
           label={label}
           helperText={helperText}
           containerClassName="select-input-text-container"
-          inputClassName={`select-input-text ${inputClassName}`}
+          inputClassName={classNames("select-input-text", inputClassName)}
           labelClassName={labelClassName}
           helperTextClassName={helperTextClassName}
           placeholder={placeholder}
@@ -229,7 +230,10 @@ export const SelectInput = forwardRef(function (
                   key={option.id}
                   role="option"
                   aria-selected={isSelected}
-                  className={`select-input-option-item ${isHighlighted ? "highlighted" : ""}`}
+                  className={classNames(
+                    "select-input-option-item",
+                    isHighlighted ? "highlighted" : "",
+                  )}
                   onMouseEnter={() => setHighlightedIndex(index)}
                   onClick={(event) => {
                     selectOption(index);
@@ -247,7 +251,7 @@ export const SelectInput = forwardRef(function (
   }
 
   return (
-    <div className={`select-input-container ${containerClassName}`}>
+    <div className={classNames("select-input-container", containerClassName)}>
       <select
         {...rest}
         id={id}
@@ -255,7 +259,12 @@ export const SelectInput = forwardRef(function (
         name={name}
         value={value}
         onChange={onChange}
-        className={`select-input ${inputStateClassName(state)} peer ${inputClassName}`}
+        className={classNames(
+          "select-input",
+          inputStateClassName(state),
+          "peer",
+          inputClassName,
+        )}
       >
         {options?.map((option) => (
           <option key={option.id} value={option.id}>
@@ -265,14 +274,22 @@ export const SelectInput = forwardRef(function (
       </select>
       <label
         htmlFor={id}
-        className={`select-input-label ${labelStateClassName(state)} ${labelClassName}`}
+        className={classNames(
+          "select-input-label",
+          labelStateClassName(state),
+          labelClassName,
+        )}
       >
         {label}
       </label>
       {children}
       {helperText && (
         <p
-          className={`select-input-helper-text ${helperTextStateClassName(state)} ${helperTextClassName}`}
+          className={classNames(
+            "select-input-helper-text",
+            helperTextStateClassName(state),
+            helperTextClassName,
+          )}
         >
           {helperText}
         </p>

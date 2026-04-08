@@ -4,7 +4,7 @@ import "./styles.css";
 // components
 import { Button } from "components";
 // lib
-import { WidgetFilterProps } from "lib";
+import { classNames, WidgetFilterProps } from "lib";
 // providers
 import {
   FiltersActions,
@@ -56,7 +56,12 @@ export const FilterDropdown = (props: FilterDropdownPropsType) => {
   }, [handleShow, show]);
 
   return (
-    <div className={`filter-dropdown-backdrop ${show ? "opened" : "closed"}`}>
+    <div
+      className={classNames(
+        "filter-dropdown-backdrop",
+        show ? "opened" : "closed",
+      )}
+    >
       <div className="filter-popup" ref={dropdown}>
         <div className="filter-title">
           {t("_accessibility:buttons.filters")}
