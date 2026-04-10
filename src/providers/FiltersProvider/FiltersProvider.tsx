@@ -46,7 +46,7 @@ const FiltersProvider = (props: FiltersProviderPropsType) => {
     }
   }, [filters]);
 
-  const value = useMemo(
+  const value = useMemo<FiltersContextType>(
     () => ({
       currentFilters,
       setCurrentFilters,
@@ -61,9 +61,9 @@ const FiltersProvider = (props: FiltersProviderPropsType) => {
 
 /**
  * Provides the useFilters hook.
- * @returns Function result.
+ * @returns Filters context value with `currentFilters` and `setCurrentFilters`.
  */
-const useFilters = () => {
+const useFilters = (): FiltersContextType => {
   const context = useContext(FiltersContext);
   if (!context)
     throw new Error("filtersContext must be used within a Provider");
