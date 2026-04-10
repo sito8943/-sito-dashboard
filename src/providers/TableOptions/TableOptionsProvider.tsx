@@ -3,7 +3,11 @@ import { FiltersValue, SortOrder } from "lib";
 import { useCallback, useContext, useMemo, useState } from "react";
 
 // types
-import { TableFilters, TableOptionsProviderPropsType } from "./types";
+import {
+  TableFilters,
+  TableOptionsContextType,
+  TableOptionsProviderPropsType,
+} from "./types";
 // utils
 import {
   hasMeaningfulFilterValue,
@@ -198,7 +202,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
     initialSortingOrder,
   ]);
 
-  const value = useMemo(
+  const value = useMemo<TableOptionsContextType>(
     () => ({
       onSort,
       total,
@@ -254,9 +258,9 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
 
 /**
  * Provides the useTableOptions hook.
- * @returns Function result.
+ * @returns Table options context value with state and actions.
  */
-const useTableOptions = () => {
+const useTableOptions = (): TableOptionsContextType => {
   const context = useContext(TableOptionsContext);
   if (!context)
     throw new Error("tableOptionsContext must be used within a Provider");

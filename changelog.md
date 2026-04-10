@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.76] - 2026-04-10
+
+### Changed
+
+- Aligned version references across package metadata and documentation to `0.0.76` (`AGENTS.md`, `docs/README.md`, and this changelog).
+- Added explicit context typings for provider hooks and provider values so `useTranslation`, `useFilters`, and `useTableOptions` expose clearer return types and value properties in TypeScript IntelliSense.
+
 ## [0.0.75] - 2026-04-08
 
 ### Added

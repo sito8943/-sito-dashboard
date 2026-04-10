@@ -1,9 +1,7 @@
 import { createContext, useContext } from "react";
 
 // types
-import { TFunction, TranslationProviderPropsType } from "./types";
-
-type TranslationContextType = { t: TFunction; language: string };
+import { TranslationContextType, TranslationProviderPropsType } from "./types";
 
 const TranslationContext = createContext<TranslationContextType | undefined>(
   undefined,
@@ -16,9 +14,10 @@ const TranslationContext = createContext<TranslationContextType | undefined>(
  */
 function TranslationProvider(props: TranslationProviderPropsType) {
   const { children, t, language } = props;
+  const value: TranslationContextType = { t, language };
 
   return (
-    <TranslationContext.Provider value={{ t, language }}>
+    <TranslationContext.Provider value={value}>
       {children}
     </TranslationContext.Provider>
   );
@@ -26,9 +25,9 @@ function TranslationProvider(props: TranslationProviderPropsType) {
 
 /**
  * Provides the useTranslation hook.
- * @returns Function result.
+ * @returns Translation context value with `t` and `language`.
  */
-const useTranslation = () => {
+const useTranslation = (): TranslationContextType => {
   const context = useContext(TranslationContext);
   if (!context)
     throw new Error("translationContext must be used within a Provider");

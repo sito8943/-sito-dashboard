@@ -1,7 +1,11 @@
 @reference "../../../styles/variables.css";
 
 .text-input-container {
-  @apply relative z-0 w-full mb-5;
+  @apply w-full mb-5;
+}
+
+.text-input-field {
+  @apply relative z-0 w-full;
 }
 
 .text-input {

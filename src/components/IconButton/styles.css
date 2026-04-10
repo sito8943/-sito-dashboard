@@ -7,7 +7,7 @@
 /* ── TEXT variant ── */
 
 .icon-button.text {
-  @apply bg-base/30 enabled:hover:bg-base;
+  @apply bg-transparent enabled:hover:bg-base;
 }
 
 .icon-button.text.primary {
