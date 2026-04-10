@@ -71,37 +71,39 @@ export const TextInput = forwardRef(function (
 
   return (
     <div className={classNames("text-input-container", containerClassName)}>
-      <input
-        ref={ref}
-        defaultValue={defaultValue}
-        onChange={handleChange}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        {...(isControlled ? { value } : {})}
-        className={classNames(
-          "text-input",
-          inputStateClassName(state),
-          inputClassName,
-          hasValue ? "has-value" : "",
-          rest.placeholder ? "has-placeholder" : "",
-          keepLabelUp ? "keep-label-up" : "",
-        )}
-        {...rest}
-      />
-      {!!label && (
-        <label
-          htmlFor={rest.id}
+      <div className="text-input-field">
+        <input
+          ref={ref}
+          defaultValue={defaultValue}
+          onChange={handleChange}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          {...(isControlled ? { value } : {})}
           className={classNames(
-            "text-input-label",
-            labelStateClassName(state),
-            labelClassName,
+            "text-input",
+            inputStateClassName(state),
+            inputClassName,
+            hasValue ? "has-value" : "",
+            rest.placeholder ? "has-placeholder" : "",
+            keepLabelUp ? "keep-label-up" : "",
           )}
-        >
-          {label}
-          {rest.required ? " *" : ""}
-        </label>
-      )}
-      {children}
+          {...rest}
+        />
+        {!!label && (
+          <label
+            htmlFor={rest.id}
+            className={classNames(
+              "text-input-label",
+              labelStateClassName(state),
+              labelClassName,
+            )}
+          >
+            {label}
+            {rest.required ? " *" : ""}
+          </label>
+        )}
+        {children}
+      </div>
       {!!helperText && (
         <p
           className={classNames(

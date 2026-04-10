@@ -1,7 +1,11 @@
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelope,
+  faEye,
+  faEyeSlash,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Meta, StoryObj } from "@storybook/react";
-import { TextInput } from "components";
+import { IconButton, TextInput } from "components";
 import { State } from "components";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -156,5 +160,48 @@ export const Controlled: Story = {
   },
   args: {
     state: State.default,
+  },
+};
+
+export const PasswordWithIconError: Story = {
+  render: () => {
+    const PasswordWithIconErrorExample = () => {
+      const [value, setValue] = useState("");
+      const [showPassword, setShowPassword] = useState(false);
+
+      return (
+        <div className="max-w-sm">
+          <TextInput
+            id="password-error"
+            label="Contraseña"
+            type={showPassword ? "text" : "password"}
+            placeholder="Ingresa tu contraseña"
+            helperText="La contraseña debe tener al menos 8 caracteres."
+            state={State.error}
+            value={value}
+            onChange={(e) => setValue(e.currentTarget.value)}
+            inputClassName="pr-10"
+          >
+            <IconButton
+              type="button"
+              color="error"
+              className="absolute right-1 top-1/2 -translate-y-1/2"
+              icon={
+                <FontAwesomeIcon
+                  icon={showPassword ? faEyeSlash : faEye}
+                  className="w-3 h-3"
+                />
+              }
+              aria-label={
+                showPassword ? "Ocultar contraseña" : "Mostrar contraseña"
+              }
+              onClick={() => setShowPassword((current) => !current)}
+            />
+          </TextInput>
+        </div>
+      );
+    };
+
+    return <PasswordWithIconErrorExample />;
   },
 };
