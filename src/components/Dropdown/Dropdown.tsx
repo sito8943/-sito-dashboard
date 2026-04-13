@@ -6,38 +6,7 @@ import { createPortal } from "react-dom";
 
 // types
 import { DropdownPropsType } from "./types";
-
-const MARGIN = 8;
-
-function computePosition(
-  anchor: DOMRect,
-  dropdown: HTMLElement,
-): { top: number; left: number } {
-  const rect = dropdown.getBoundingClientRect();
-  const vw = window.innerWidth;
-  const vh = window.innerHeight;
-
-  let top = anchor.bottom + 4;
-  let left = anchor.left;
-
-  // Flip horizontally if overflows right edge
-  if (left + rect.width > vw - MARGIN) {
-    left = anchor.right - rect.width;
-  }
-
-  // Clamp to left edge
-  if (left < MARGIN) left = MARGIN;
-
-  // Flip vertically if not enough space below
-  if (top + rect.height > vh - MARGIN) {
-    top = anchor.top - rect.height - 4;
-  }
-
-  // Clamp to top edge
-  if (top < MARGIN) top = MARGIN;
-
-  return { top, left };
-}
+import { computeDropdownPosition } from "./utils";
 
 /**
  * Renders the Dropdown component.
@@ -45,7 +14,7 @@ function computePosition(
  * @returns Function result.
  */
 export const Dropdown = (props: DropdownPropsType) => {
-  const { children, open, onClose, anchorEl } = props;
+  const { children, open, onClose, anchorEl, className, ...rest } = props;
 
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -55,7 +24,7 @@ export const Dropdown = (props: DropdownPropsType) => {
     if (!open || !anchorEl || !el) return;
 
     const anchor = anchorEl.getBoundingClientRect();
-    const { top, left } = computePosition(anchor, el);
+    const { top, left } = computeDropdownPosition(anchor, el);
     el.style.top = `${top}px`;
     el.style.left = `${left}px`;
   }, [open, anchorEl]);
@@ -68,7 +37,7 @@ export const Dropdown = (props: DropdownPropsType) => {
 
     const onResize = () => {
       const anchor = anchorEl.getBoundingClientRect();
-      const { top, left } = computePosition(anchor, el);
+      const { top, left } = computeDropdownPosition(anchor, el);
       el.style.top = `${top}px`;
       el.style.left = `${left}px`;
     };
@@ -114,8 +83,9 @@ export const Dropdown = (props: DropdownPropsType) => {
       ref={containerRef}
       role="menu"
       tabIndex={-1}
-      className="dropdown-main opened"
+      className={`dropdown-main opened ${className ?? ""}`}
       onClick={(e) => e.stopPropagation()}
+      {...rest}
     >
       {children}
     </div>,

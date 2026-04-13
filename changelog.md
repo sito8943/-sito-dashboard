@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.77] - 2026-04-13
+
+### Added
+
+- Added `ARCHITECTURE_RULES.md` with mandatory component/hook file-structure rules for agent-driven refactors.
+- Added `Dropdown` support files `constants.ts` and `utils.ts` to centralize viewport margins/offsets and positioning helpers.
+
+### Changed
+
+- Refactored `Dropdown` to use extracted `computeDropdownPosition(...)` utility logic instead of keeping positioning calculations inline.
+- Updated `DropdownPropsType` to extend `HTMLProps<HTMLDivElement>`, enabling passthrough container attributes (including `className` and other native `div` props).
+- Aligned version references to `0.0.77` across package metadata and docs (`AGENTS.md`, `docs/README.md`, and this changelog).
+
 ## [0.0.76] - 2026-04-10
 
 ### Changed
