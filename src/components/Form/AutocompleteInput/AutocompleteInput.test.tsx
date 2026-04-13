@@ -64,11 +64,11 @@ describe("AutocompleteInput", () => {
     render(<Example />);
 
     const input = screen.getByRole("textbox", { name: /autocomplete/i });
-    expect(input).toBeRequired();
+    expect(input).toHaveAttribute("required");
 
     fireEvent.focus(input);
     fireEvent.click(screen.getByText("Apple"));
 
-    expect(input).not.toBeRequired();
+    expect(input).not.toHaveAttribute("required");
   });
 });
