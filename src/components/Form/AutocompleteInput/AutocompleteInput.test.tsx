@@ -42,4 +42,33 @@ describe("AutocompleteInput", () => {
 
     expect(screen.getByTestId("value")).toHaveTextContent("Banana");
   });
+
+  it("disables native required once a value is selected in multiple mode", () => {
+    const Example = () => {
+      const [value, setValue] = useState<Option[] | null>(null);
+      return (
+        <AutocompleteInput
+          id="autocomplete-required-multiple"
+          label="Autocomplete"
+          multiple
+          required
+          value={value}
+          onChange={(nextValue) =>
+            setValue(Array.isArray(nextValue) ? nextValue : null)
+          }
+          options={options}
+        />
+      );
+    };
+
+    render(<Example />);
+
+    const input = screen.getByRole("textbox", { name: /autocomplete/i });
+    expect(input).toHaveAttribute("required");
+
+    fireEvent.focus(input);
+    fireEvent.click(screen.getByText("Apple"));
+
+    expect(input).not.toHaveAttribute("required");
+  });
 });

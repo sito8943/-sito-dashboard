@@ -43,8 +43,16 @@ export const AutocompleteInput = forwardRef(function (
     helperText = "",
     placeholder = "",
     multiple = false,
+    required = false,
+    "aria-required": ariaRequired = false,
     ...rest
   } = props;
+
+  const isAriaRequired =
+    ariaRequired === true || String(ariaRequired).toLowerCase() === "true";
+  const isRequired = Boolean(required || isAriaRequired);
+  const hasMultipleValue = multiple && Array.isArray(value) && value.length > 0;
+  const shouldRequireInput = isRequired && !hasMultipleValue;
 
   const [inputValue, setInputValue] = useState("");
 
@@ -234,6 +242,8 @@ export const AutocompleteInput = forwardRef(function (
             "autocomplete-text-input",
             inputContainerClassName,
           )}
+          required={shouldRequireInput}
+          aria-required={isRequired}
           ref={ref ?? localInputRef}
           {...rest}
         >

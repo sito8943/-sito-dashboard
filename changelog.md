@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.78] - 2026-04-13
+
+### Added
+
+- Added `AutocompleteInput` Storybook scenario `MultipleWithControllerRequired` to document required validation with `react-hook-form` `Controller` in `multiple` mode.
+- Added regression tests for `AutocompleteInput` required behavior in `multiple` mode and `TextInput` label required indicator rendering with `aria-required`.
+
+### Changed
+
+- Updated `AutocompleteInput` to resolve required state from both `required` and `aria-required` props and to expose the resulting `aria-required` value on the underlying input.
+- Updated `AutocompleteInput` native `required` handling in `multiple` mode so the input is required only while no options are selected.
+- Updated `AutocompleteInput` test assertion style to use `required` attribute checks compatible with current testing environment validation APIs.
+
+### Fixed
+
+- Fixed `TextInput` required asterisk rendering to also reflect `aria-required`, not only native `required`.
+
 ## [0.0.77] - 2026-04-13
 
 ### Added
