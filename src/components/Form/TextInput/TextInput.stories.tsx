@@ -122,6 +122,39 @@ export const Date: Story = {
   },
 };
 
+export const ControlledDate: Story = {
+  render: () => {
+    const ControlledDateExample = () => {
+      const { control, handleSubmit } = useForm<{ lastPaidAt: string }>({
+        defaultValues: { lastPaidAt: "" },
+      });
+
+      const onSubmit = (data: { lastPaidAt: string }) => {
+        alert(`Last Paid at: ${data.lastPaidAt}`);
+      };
+
+      return (
+        <form onSubmit={handleSubmit(onSubmit)} className="max-w-sm space-y-4">
+          <Controller
+            control={control}
+            name="lastPaidAt"
+            render={({ field: { value, ...rest } }) => (
+              <TextInput
+                type="range"
+                value={value ?? ""}
+                label="Last paid at"
+                autoComplete="Last paid at"
+                {...rest}
+              />
+            )}
+          />
+        </form>
+      );
+    };
+    return <ControlledDateExample />;
+  },
+};
+
 export const CustomLabel: Story = {
   args: {
     label: (

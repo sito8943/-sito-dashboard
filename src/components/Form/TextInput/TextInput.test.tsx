@@ -88,15 +88,27 @@ describe("TextInput", () => {
     expect(input?.className).toContain("has-placeholder");
   });
 
-  it("keeps label up for date inputs to avoid native placeholder overlap", () => {
-    const { container } = render(
-      <TextInput label="Fecha" type="date" value={undefined} />,
-    );
-    const input = container.querySelector("input");
+  it.each([
+    "date",
+    "datetime-local",
+    "time",
+    "month",
+    "week",
+    "range",
+    "color",
+    "file",
+  ])(
+    "keeps label up for %s inputs to avoid native UI/placeholder overlap",
+    (type) => {
+      const { container } = render(
+        <TextInput label="Fecha" type={type} value={undefined} />,
+      );
+      const input = container.querySelector("input");
 
-    expect(input).toBeTruthy();
-    expect(input?.className).toContain("keep-label-up");
-  });
+      expect(input).toBeTruthy();
+      expect(input?.className).toContain("keep-label-up");
+    },
+  );
 
   it("shows required indicator when aria-required is true", () => {
     render(<TextInput id="email" label="Email" aria-required value="" />);
