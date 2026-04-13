@@ -5,6 +5,7 @@ import type { Option } from "components";
 import { AutocompleteInput, Button } from "components";
 import { State } from "components";
 import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 
 const meta: Meta<typeof AutocompleteInput> = {
   title: "Components/Form/AutocompleteInput",
@@ -94,6 +95,57 @@ export const Multiple: Story = {
     return <Example />;
   },
   args: { state: State.default },
+};
+
+export const MultipleWithControllerRequired: Story = {
+  render: () => {
+    const Example = () => {
+      const { control, handleSubmit } = useForm<{
+        fruits: Option[] | null;
+      }>({
+        defaultValues: { fruits: null },
+      });
+
+      const onSubmit = (data: { fruits: Option[] | null }) => {
+        const values = data.fruits?.map((fruit) => fruit.name).join(", ");
+        alert(`Frutas seleccionadas: ${values}`);
+      };
+
+      return (
+        <form onSubmit={handleSubmit(onSubmit)} className="max-w-sm space-y-4">
+          <Controller
+            control={control}
+            name="fruits"
+            rules={{
+              validate: (value) =>
+                (Array.isArray(value) && value.length > 0) ||
+                "Selecciona al menos una fruta",
+            }}
+            render={({ field, fieldState }) => (
+              <AutocompleteInput
+                label="Frutas favoritas"
+                placeholder="Selecciona una o varias frutas"
+                multiple
+                required
+                options={options}
+                value={field.value}
+                onChange={(nextValue) =>
+                  field.onChange(Array.isArray(nextValue) ? nextValue : null)
+                }
+                helperText={fieldState.error?.message}
+                state={fieldState.error ? State.error : State.default}
+              />
+            )}
+          />
+          <Button type="submit" variant="submit">
+            Enviar
+          </Button>
+        </form>
+      );
+    };
+
+    return <Example />;
+  },
 };
 
 export const CustomLabel: Story = {

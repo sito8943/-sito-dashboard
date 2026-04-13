@@ -1,6 +1,6 @@
 /* @vitest-environment jsdom */
 
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
 import { State } from "../utils";
@@ -96,5 +96,11 @@ describe("TextInput", () => {
 
     expect(input).toBeTruthy();
     expect(input?.className).toContain("keep-label-up");
+  });
+
+  it("shows required indicator when aria-required is true", () => {
+    render(<TextInput id="email" label="Email" aria-required value="" />);
+
+    expect(screen.getByText("Email *")).toBeInTheDocument();
   });
 });

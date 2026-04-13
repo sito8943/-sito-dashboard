@@ -60,6 +60,10 @@ export const TextInput = forwardRef(function (
   const hasValue = isControlled ? hasInputValue(value) : uncontrolledHasValue;
   const shouldKeepLabelUpByType = rest.type === "date";
   const keepLabelUp = Boolean(rest.placeholder) || shouldKeepLabelUpByType;
+  const isAriaRequired =
+    rest["aria-required"] === true ||
+    String(rest["aria-required"]).toLowerCase() === "true";
+  const isLabelRequired = Boolean(rest.required || isAriaRequired);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!isControlled) {
@@ -99,7 +103,7 @@ export const TextInput = forwardRef(function (
             )}
           >
             {label}
-            {rest.required ? " *" : ""}
+            {isLabelRequired ? " *" : ""}
           </label>
         )}
         {children}
