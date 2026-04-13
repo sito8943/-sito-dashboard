@@ -1,0 +1,2 @@
+export const DROPDOWN_VIEWPORT_MARGIN = 8;
+export const DROPDOWN_ANCHOR_OFFSET = 4;
