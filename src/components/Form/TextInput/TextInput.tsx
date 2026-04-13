@@ -26,6 +26,17 @@ const hasInputValue = (inputValue: TextInputPropsType["value"]) => {
   return `${inputValue}`.length > 0;
 };
 
+const ALWAYS_FLOATING_LABEL_INPUT_TYPES = new Set([
+  "date",
+  "datetime-local",
+  "time",
+  "month",
+  "week",
+  "range",
+  "color",
+  "file",
+]);
+
 /**
  * TextInput
  * @param {object} props
@@ -58,7 +69,9 @@ export const TextInput = forwardRef(function (
   );
 
   const hasValue = isControlled ? hasInputValue(value) : uncontrolledHasValue;
-  const shouldKeepLabelUpByType = rest.type === "date";
+  const shouldKeepLabelUpByType = ALWAYS_FLOATING_LABEL_INPUT_TYPES.has(
+    rest.type ?? "",
+  );
   const keepLabelUp = Boolean(rest.placeholder) || shouldKeepLabelUpByType;
   const isAriaRequired =
     rest["aria-required"] === true ||
