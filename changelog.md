@@ -18,6 +18,8 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 - Fixed `TextInput` required asterisk rendering to also reflect `aria-required`, not only native `required`.
+- Fixed `TextInput` floating label overlap for native input types with browser-provided UI/text (`datetime-local`, `time`, `month`, `week`, `range`, `color`, and `file`) by keeping the label elevated by default, in addition to `date`.
+- Added regression test coverage for `TextInput` floating-label behavior across all supported native overlap-prone input types.
 
 ## [0.0.77] - 2026-04-13
 
