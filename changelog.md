@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.80] - 2026-04-13
+
+### Added
+
+- Added `unstyled?: boolean` and `hiddenContainer?: boolean` (alias) to `FileInput` so consumers can render only the native `<input type="file" />` without the default dropzone container, label, and preview UI.
+- Added `FileInput` test coverage for `unstyled` and `hiddenContainer` modes to ensure input-only rendering works as expected.
+
+### Changed
+
+- Updated the `FileInput` Storybook `AsProfilePhoto` scenario to use `unstyled` mode for hidden-input profile photo flows.
+- Updated documentation to include `FileInput` input-only usage and the `hiddenContainer` alias.
+
 ## [0.0.79] - 2026-04-13
 
 ### Fixed

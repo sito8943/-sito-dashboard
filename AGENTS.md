@@ -529,6 +529,20 @@ import { FileInput } from "@sito/dashboard";
 />;
 ```
 
+For custom upload UIs where you only need the native file input, use `unstyled`:
+
+```tsx
+<FileInput
+  id="profile-photo-file-input"
+  unstyled
+  inputClassName="hidden"
+  accept="image/jpeg,image/png,image/webp"
+  onChange={(e) => setFile(e.currentTarget.files?.[0] ?? null)}
+/>
+```
+
+`hiddenContainer` is available as an alias of `unstyled`.
+
 ---
 
 ## 7. Button & IconButton
@@ -814,4 +828,4 @@ export type { FilterType, FiltersValue, WidgetFilterProps };
 
 ---
 
-_Last updated: 2026-04-13 — library version 0.0.77_
+_Last updated: 2026-04-15 — library version 0.0.80_

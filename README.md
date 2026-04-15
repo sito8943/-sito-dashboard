@@ -93,6 +93,17 @@ export function UsersTable() {
 - `SelectInput` expects `Option` items with an `id` (plus optional `value`/`name`).
 - `CheckInput` is controlled with `checked` (not `value`).
 - `FileInput` `onChange` receives the native input event; read files from `e.currentTarget.files`.
+- `FileInput` supports `unstyled` (and alias `hiddenContainer`) to render only the native file input when you provide a custom upload UI.
+
+```tsx
+<FileInput
+  id="profile-photo-file-input"
+  unstyled
+  inputClassName="hidden"
+  accept="image/jpeg,image/png,image/webp"
+  onChange={(e) => onUpload(e.currentTarget.files?.[0] ?? null)}
+/>
+```
 
 ## `TableOptionsProvider` Initial State
 
