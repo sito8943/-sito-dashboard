@@ -9,6 +9,7 @@ import {
   ChangeEvent,
   ForwardedRef,
   forwardRef,
+  MouseEvent,
   useCallback,
   useState,
 } from "react";
@@ -28,6 +29,8 @@ export const FileInput = forwardRef(function (
   const {
     children,
     label,
+    unstyled = false,
+    hiddenContainer = false,
     containerClassName = "",
     inputClassName = "",
     labelClassName = "",
@@ -39,12 +42,13 @@ export const FileInput = forwardRef(function (
     onClear,
     ...rest
   } = props;
+  const renderInputOnly = unstyled || hiddenContainer;
 
   const [files, setFiles] = useState<File[]>([]);
 
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      if (e.target.files) {
+      if (!renderInputOnly && e.target.files) {
         const selected = Array.from(e.target.files);
         setFiles((prev) =>
           multiple ? [...prev, ...selected] : selected.slice(0, 1),
@@ -52,7 +56,7 @@ export const FileInput = forwardRef(function (
       }
       onChange?.(e);
     },
-    [multiple, onChange],
+    [multiple, onChange, renderInputOnly],
   );
 
   const handleRemove = useCallback(
@@ -71,13 +75,24 @@ export const FileInput = forwardRef(function (
     onClear?.();
   }, [onClear]);
 
-  const handleInputClick = useCallback(
-    (e: React.MouseEvent<HTMLInputElement>) => {
-      // Ensure re-opening and re-selecting the same file triggers onChange
-      (e.currentTarget as HTMLInputElement).value = "";
-    },
-    [],
-  );
+  const handleInputClick = useCallback((e: MouseEvent<HTMLInputElement>) => {
+    // Ensure re-opening and re-selecting the same file triggers onChange
+    (e.currentTarget as HTMLInputElement).value = "";
+  }, []);
+
+  if (renderInputOnly) {
+    return (
+      <input
+        type="file"
+        ref={ref}
+        multiple={multiple}
+        onClick={handleInputClick}
+        onChange={handleChange}
+        className={classNames(inputClassName)}
+        {...rest}
+      />
+    );
+  }
 
   return (
     <div className={classNames("file-input-container", containerClassName)}>

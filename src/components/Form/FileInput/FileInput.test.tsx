@@ -44,4 +44,27 @@ describe("FileInput", () => {
     ).toBeTruthy();
     expect(screen.queryByText("two.txt")).toBeNull();
   });
+
+  it("renders only native input when unstyled is true", () => {
+    const { container } = render(
+      <FileInput unstyled aria-label="Archivo oculto" onChange={vi.fn()} />,
+    );
+
+    expect(container.querySelector(".file-input-container")).toBeNull();
+    expect(container.querySelector(".file-preview")).toBeNull();
+    expect(screen.getByLabelText("Archivo oculto")).toBeTruthy();
+  });
+
+  it("supports hiddenContainer as alias of unstyled", () => {
+    const { container } = render(
+      <FileInput
+        hiddenContainer
+        aria-label="Archivo oculto"
+        onChange={vi.fn()}
+      />,
+    );
+
+    expect(container.querySelector(".file-input-container")).toBeNull();
+    expect(screen.getByLabelText("Archivo oculto")).toBeTruthy();
+  });
 });
