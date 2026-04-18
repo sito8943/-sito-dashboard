@@ -33,6 +33,7 @@ export function Action<TEntity extends BaseDto>(
     showText = false,
     showTooltips = true,
     className = "",
+    stopPropagation = false,
   } = props;
 
   return !hidden ? (
@@ -47,7 +48,7 @@ export function Action<TEntity extends BaseDto>(
       disabled={disabled}
       aria-label={tooltip}
       onClick={(e) => {
-        e.stopPropagation();
+        if (stopPropagation) e.stopPropagation();
         onClick?.();
       }}
       aria-disabled={disabled}

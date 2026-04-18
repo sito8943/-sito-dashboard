@@ -474,6 +474,7 @@ function ExampleDropdown() {
         open={open}
         onClose={() => setOpen(false)}
         anchorEl={triggerRef.current}
+        closeOnClick
       >
         <ul>
           <li>Item 1</li>
