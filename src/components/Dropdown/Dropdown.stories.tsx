@@ -146,6 +146,111 @@ export const EdgeDetection: Story = {
   },
 };
 
+export const CloseOnClick: Story = {
+  render: () => {
+    const Example = () => {
+      const [open, setOpen] = useState(false);
+      const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+      const [lastAction, setLastAction] = useState<string>("(none)");
+      return (
+        <div className="p-10">
+          <Button
+            variant="outlined"
+            onClick={(e) => {
+              setAnchorEl(e.currentTarget as HTMLElement);
+              setOpen((prev) => !prev);
+            }}
+          >
+            Toggle Dropdown (auto-close)
+          </Button>
+          <p className="mt-2 text-sm text-text-muted">
+            Last action: {lastAction}
+          </p>
+          <Dropdown
+            open={open}
+            onClose={() => setOpen(false)}
+            anchorEl={anchorEl}
+          >
+            <div className="flex flex-col gap-1 p-2 justify-start items-start">
+              <Button variant="text" onClick={() => setLastAction("Edit")}>
+                Edit
+              </Button>
+              <Button
+                variant="text"
+                onClick={() => setLastAction("View Details")}
+              >
+                View Details
+              </Button>
+              <Button
+                variant="text"
+                color="error"
+                onClick={() => setLastAction("Delete")}
+              >
+                Delete
+              </Button>
+            </div>
+          </Dropdown>
+        </div>
+      );
+    };
+    return <Example />;
+  },
+  args: {
+    open: false,
+    children: null,
+    onClose: () => {},
+    anchorEl: null,
+    closeOnClick: true,
+  },
+};
+
+export const KeepOpenOnClick: Story = {
+  render: () => {
+    const Example = () => {
+      const [open, setOpen] = useState(false);
+      const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+      const [count, setCount] = useState(0);
+      return (
+        <div className="p-10">
+          <Button
+            variant="outlined"
+            onClick={(e) => {
+              setAnchorEl(e.currentTarget as HTMLElement);
+              setOpen((prev) => !prev);
+            }}
+          >
+            Toggle Dropdown (persistent)
+          </Button>
+          <Dropdown
+            open={open}
+            onClose={() => setOpen(false)}
+            anchorEl={anchorEl}
+            closeOnClick={false}
+          >
+            <div className="flex flex-col gap-1 p-2 justify-start items-start min-w-48">
+              <p className="text-sm text-text-muted">Clicks: {count}</p>
+              <Button variant="text" onClick={() => setCount((c) => c + 1)}>
+                Increment
+              </Button>
+              <Button variant="text" onClick={() => setOpen(false)}>
+                Close manually
+              </Button>
+            </div>
+          </Dropdown>
+        </div>
+      );
+    };
+    return <Example />;
+  },
+  args: {
+    open: false,
+    children: null,
+    onClose: () => {},
+    anchorEl: null,
+    closeOnClick: false,
+  },
+};
+
 export const AboveRelativeLayers: Story = {
   render: () => {
     const Example = () => {
