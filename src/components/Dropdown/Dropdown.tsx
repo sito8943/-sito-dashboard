@@ -14,7 +14,15 @@ import { computeDropdownPosition } from "./utils";
  * @returns Function result.
  */
 export const Dropdown = (props: DropdownPropsType) => {
-  const { children, open, onClose, anchorEl, className, ...rest } = props;
+  const {
+    children,
+    open,
+    onClose,
+    anchorEl,
+    className,
+    closeOnClick = true,
+    ...rest
+  } = props;
 
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -84,7 +92,10 @@ export const Dropdown = (props: DropdownPropsType) => {
       role="menu"
       tabIndex={-1}
       className={`dropdown-main opened ${className ?? ""}`}
-      onClick={(e) => e.stopPropagation()}
+      onClick={(e) => {
+        e.stopPropagation();
+        if (closeOnClick) onClose();
+      }}
       {...rest}
     >
       {children}

@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.81] - 2026-04-18
+
+### Added
+
+- Added `closeOnClick?: boolean` prop to `Dropdown` (defaults to `true`) that auto-closes the dropdown when clicking inside it.
+- Added `Dropdown` Storybook scenarios `CloseOnClick` and `KeepOpenOnClick` to document the new auto-close behavior and the opt-out via `closeOnClick={false}`.
+- Added `Dropdown` test coverage for default auto-close, explicit `closeOnClick={true}`, and persistent `closeOnClick={false}` behavior on both inner children and the menu container.
+
+### Changed
+
+- Updated `AGENTS.md` §9 Dropdown props table to document the new `closeOnClick` prop.
+
 ## [0.0.80] - 2026-04-13
 
 ### Added

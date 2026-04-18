@@ -5,9 +5,13 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { Dropdown } from "./Dropdown";
 
-const renderDropdown = (open: boolean, onClose = vi.fn()) => {
+const renderDropdown = (
+  open: boolean,
+  onClose = vi.fn(),
+  closeOnClick?: boolean,
+) => {
   render(
-    <Dropdown open={open} onClose={onClose}>
+    <Dropdown open={open} onClose={onClose} closeOnClick={closeOnClick}>
       <button type="button">Inside</button>
     </Dropdown>,
   );
@@ -61,6 +65,36 @@ describe("Dropdown", () => {
   it("does not call onClose on Escape when closed", () => {
     const { onClose } = renderDropdown(false);
     fireEvent.keyDown(document, { key: "Escape" });
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it("calls onClose when clicking inside by default (closeOnClick=true)", () => {
+    const { onClose } = renderDropdown(true);
+    fireEvent.click(screen.getByRole("button", { name: "Inside" }));
+    expect(onClose).toHaveBeenCalledOnce();
+  });
+
+  it("calls onClose on click inside when closeOnClick is explicitly true", () => {
+    const { onClose } = renderDropdown(true, vi.fn(), true);
+    fireEvent.click(screen.getByRole("button", { name: "Inside" }));
+    expect(onClose).toHaveBeenCalledOnce();
+  });
+
+  it("does not call onClose on click inside when closeOnClick is false", () => {
+    const { onClose } = renderDropdown(true, vi.fn(), false);
+    fireEvent.click(screen.getByRole("button", { name: "Inside" }));
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it("calls onClose on click on dropdown container itself when closeOnClick=true", () => {
+    const { onClose } = renderDropdown(true);
+    fireEvent.click(screen.getByRole("menu"));
+    expect(onClose).toHaveBeenCalledOnce();
+  });
+
+  it("does not call onClose on click on dropdown container when closeOnClick=false", () => {
+    const { onClose } = renderDropdown(true, vi.fn(), false);
+    fireEvent.click(screen.getByRole("menu"));
     expect(onClose).not.toHaveBeenCalled();
   });
 });

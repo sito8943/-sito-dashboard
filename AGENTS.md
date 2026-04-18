@@ -615,12 +615,13 @@ function MyMenu() {
 
 **Props:**
 
-| Prop       | Type                  | Required | Description                               |
-| ---------- | --------------------- | -------- | ----------------------------------------- |
-| `open`     | `boolean`             | Yes      | Controls visibility                       |
-| `onClose`  | `() => void`          | Yes      | Called on click-outside or Escape key     |
-| `anchorEl` | `HTMLElement \| null` | No       | Anchor element used for smart positioning |
-| `children` | `ReactNode`           | Yes      | Dropdown content                          |
+| Prop           | Type                  | Required | Description                                                       |
+| -------------- | --------------------- | -------- | ----------------------------------------------------------------- |
+| `open`         | `boolean`             | Yes      | Controls visibility                                               |
+| `onClose`      | `() => void`          | Yes      | Called on click-outside, Escape key, or click-inside (see below)  |
+| `anchorEl`     | `HTMLElement \| null` | No       | Anchor element used for smart positioning                         |
+| `closeOnClick` | `boolean`             | No       | Auto-close when clicking inside the dropdown. Defaults to `true`. |
+| `children`     | `ReactNode`           | Yes      | Dropdown content                                                  |
 
 Smart positioning: aligns below the anchor by default, flips up/left if it would overflow the viewport.
 Repositions automatically on window resize while open.
