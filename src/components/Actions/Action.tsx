@@ -17,6 +17,7 @@ import { ActionPropsType } from "./types";
  * @param props.showText - When `true`, `tooltip` is rendered as visible text next to the icon. Defaults to `false`.
  * @param props.showTooltips - When `false`, the tooltip is suppressed. Defaults to `true`.
  * @param props.className - Additional CSS class applied to the button.
+ * @param props.stopPropagation - When `true`, `event.stopPropagation()` is called on click, preventing the event from bubbling to parent handlers. Defaults to `false`.
  * @returns The action button element, or `null` when `hidden` is `true`.
  */
 export function Action<TEntity extends BaseDto>(
@@ -33,6 +34,7 @@ export function Action<TEntity extends BaseDto>(
     showText = false,
     showTooltips = true,
     className = "",
+    stopPropagation = false,
   } = props;
 
   return !hidden ? (
@@ -47,7 +49,7 @@ export function Action<TEntity extends BaseDto>(
       disabled={disabled}
       aria-label={tooltip}
       onClick={(e) => {
-        e.stopPropagation();
+        if (stopPropagation) e.stopPropagation();
         onClick?.();
       }}
       aria-disabled={disabled}

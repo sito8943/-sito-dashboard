@@ -93,8 +93,8 @@ export const Dropdown = (props: DropdownPropsType) => {
       tabIndex={-1}
       className={`dropdown-main opened ${className ?? ""}`}
       onClick={(e) => {
-        e.stopPropagation();
         if (closeOnClick) onClose();
+        e.stopPropagation();
       }}
       {...rest}
     >

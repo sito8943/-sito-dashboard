@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.82] - 2026-04-18
+
+### Added
+
+- Added `stopPropagation?: boolean` prop to `Action` (defaults to `false`) that calls `event.stopPropagation()` on click, preventing the click event from bubbling to parent handlers.
+- Added `Action` Storybook file (`Action.stories.tsx`) with scenarios `Basic`, `WithText`, `Disabled`, `WithoutTooltip`, `StopPropagation`, and `WithoutStopPropagation` to document the new prop.
+
+### Changed
+
+- Updated `Action` JSDoc and consumer `usage-guide.md` to document the new `stopPropagation` prop.
+
 ## [0.0.81] - 2026-04-18
 
 ### Added

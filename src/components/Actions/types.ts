@@ -18,4 +18,5 @@ export interface ActionPropsType<
   showText?: boolean;
   showTooltips?: boolean;
   className?: string;
+  stopPropagation?: boolean;
 }
