@@ -7,15 +7,25 @@ import { ChangeEvent, useCallback, useMemo } from "react";
 // types
 import { SelectWidgetPropsType } from "./types";
 
+const buildFilterUpdate = <TFilterKey extends string>(
+  key: TFilterKey,
+  value: string | number,
+) =>
+  ({
+    [key]: { value },
+  }) as Record<TFilterKey, { value: string | number }>;
+
 /**
  * Renders the SelectWidget component.
  * @param props - props parameter.
  * @returns Function result.
  */
-export function SelectWidget(props: SelectWidgetPropsType) {
+export function SelectWidget<TFilterKey extends string = string>(
+  props: SelectWidgetPropsType<TFilterKey>,
+) {
   const { propertyName, options, label, placeholder } = props;
 
-  const { currentFilters, setCurrentFilters } = useFilters();
+  const { currentFilters, setCurrentFilters } = useFilters<TFilterKey>();
 
   const value = useMemo(() => {
     const currentValue = currentFilters[propertyName]?.value;
@@ -28,7 +38,9 @@ export function SelectWidget(props: SelectWidgetPropsType) {
       return optionValue.id ?? optionValue.value ?? "";
     }
 
-    return currentValue;
+    return typeof currentValue === "string" || typeof currentValue === "number"
+      ? currentValue
+      : (options[0]?.id ?? "");
   }, [currentFilters, options, propertyName]);
 
   const onChange = useCallback(
@@ -39,9 +51,10 @@ export function SelectWidget(props: SelectWidgetPropsType) {
 
       setCurrentFilters({
         type: FiltersActions.update,
-        toUpdate: {
-          [propertyName]: { value: matchedOption?.id ?? e.target.value },
-        },
+        toUpdate: buildFilterUpdate(
+          propertyName,
+          matchedOption?.id ?? e.target.value,
+        ),
       });
     },
     [options, propertyName, setCurrentFilters],

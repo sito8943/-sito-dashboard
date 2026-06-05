@@ -5,14 +5,14 @@ import { ChevronDown, ChevronUp } from "components/SvgIcons";
 import { BaseDto, classNames } from "lib";
 // providers
 import { useTableOptions, useTranslation } from "providers";
-import { Fragment, useMemo } from "react";
+import { Fragment, ReactNode, useMemo } from "react";
 
 // utils
 import { getSortedVisibleColumns } from "../utils";
 // types
 import { RowsPropsType } from "./types";
 
-const baseRender = (value: any) => value;
+const baseRender = (value: unknown): ReactNode => value as ReactNode;
 
 /**
  * Renders the Rows component.
@@ -21,7 +21,10 @@ const baseRender = (value: any) => value;
  */
 export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
   const { t } = useTranslation();
-  const { hiddenColumns } = useTableOptions();
+  const { hiddenColumns } = useTableOptions<
+    string,
+    Extract<keyof TRow, string>
+  >();
   const {
     columns,
     softDeleteProperty = "deletedAt",
@@ -107,14 +110,14 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
             </td>
           ) : null}
           {visibleColumns?.map((column, i) => {
-            const columnValue = row[column.key as keyof TRow];
-            const renderedContent = column.renderBody
+            const columnValue = row[column.key];
+            const renderedContent: ReactNode = column.renderBody
               ? column.renderBody(columnValue, row)
               : baseRender(columnValue);
 
             return (
               <td
-                key={column.key as string}
+                key={column.key}
                 className={classNames(
                   "table-row-cell",
                   i === 0 ? "basic" : "",

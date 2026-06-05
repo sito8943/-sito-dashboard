@@ -26,7 +26,10 @@ export function ColumnVisibilityMenu<TRow extends BaseDto>(
   props: ColumnVisibilityMenuPropsType<TRow>,
 ) {
   const { columns } = props;
-  const { hiddenColumns, toggleColumn } = useTableOptions();
+  const { hiddenColumns, toggleColumn } = useTableOptions<
+    string,
+    Extract<keyof TRow, string>
+  >();
   const { t } = useTranslation();
 
   const [open, setOpen] = useState(false);
@@ -48,7 +51,7 @@ export function ColumnVisibilityMenu<TRow extends BaseDto>(
   }, []);
 
   const handleColumnToggle = useCallback(
-    (key: string) => {
+    (key: Extract<keyof TRow, string>) => {
       toggleColumn(key);
     },
     [toggleColumn],

@@ -21,32 +21,38 @@ import { RangeWidget } from "../../Widgets/RangeWidget";
  * @param filter - filter parameter.
  * @returns Function result.
  */
-export const renderFilterComponent = (filter: WidgetFilterProps): ReactNode => {
+export const renderFilterComponent = <TFilterKey extends string = string>(
+  filter: WidgetFilterProps<TFilterKey>,
+): ReactNode => {
   switch (filter.type) {
     case FilterTypes.text:
-      return <TextWidget {...(filter as TextWidgetPropsType)} />;
+      return <TextWidget {...(filter as TextWidgetPropsType<TFilterKey>)} />;
     case FilterTypes.number:
       return (
         <RangeWidget
-          {...(filter as unknown as RangeWidgetPropsType<number>)}
+          {...(filter as unknown as RangeWidgetPropsType<number, TFilterKey>)}
           inputType="number"
         />
       );
     case FilterTypes.date:
       return (
         <RangeWidget
-          {...(filter as unknown as RangeWidgetPropsType<Date>)}
+          {...(filter as unknown as RangeWidgetPropsType<Date, TFilterKey>)}
           inputType="date"
         />
       );
     case FilterTypes.select:
-      return <SelectWidget {...(filter as SelectWidgetPropsType)} />;
+      return (
+        <SelectWidget {...(filter as SelectWidgetPropsType<TFilterKey>)} />
+      );
     case FilterTypes.autocomplete:
       return (
-        <AutocompleteWidget {...(filter as AutocompleteWidgetPropsType)} />
+        <AutocompleteWidget
+          {...(filter as AutocompleteWidgetPropsType<TFilterKey>)}
+        />
       );
     case FilterTypes.check:
-      return <CheckWidget {...(filter as CheckWidgetPropsType)} />;
+      return <CheckWidget {...(filter as CheckWidgetPropsType<TFilterKey>)} />;
   }
   return <></>;
 };

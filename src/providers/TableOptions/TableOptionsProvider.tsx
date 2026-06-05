@@ -25,8 +25,11 @@ import {
  * @param props - props parameter.
  * @returns Function result.
  */
-const TableOptionsProvider = <TFilterKey extends string = string>(
-  props: TableOptionsProviderPropsType<TFilterKey>,
+const TableOptionsProvider = <
+  TFilterKey extends string = string,
+  TColumnKey extends string = string,
+>(
+  props: TableOptionsProviderPropsType<TFilterKey, TColumnKey>,
 ) => {
   const { children, defaultHiddenColumns = [], initialState } = props;
   const {
@@ -59,7 +62,7 @@ const TableOptionsProvider = <TFilterKey extends string = string>(
   }, [initialCurrentPageValue]);
 
   const initialSortingBy = useMemo(() => {
-    return parseSortingBy(initialSortingByValue);
+    return parseSortingBy<TColumnKey>(initialSortingByValue);
   }, [initialSortingByValue]);
 
   const initialSortingOrder = useMemo(() => {
@@ -80,7 +83,7 @@ const TableOptionsProvider = <TFilterKey extends string = string>(
   const [filters, setFilters] =
     useState<TableFilters<TFilterKey>>(initialFilters);
 
-  const [hiddenColumns, setHiddenColumns] = useState<string[]>([
+  const [hiddenColumns, setHiddenColumns] = useState<TColumnKey[]>([
     ...defaultHiddenColumns,
   ]);
 
@@ -129,8 +132,8 @@ const TableOptionsProvider = <TFilterKey extends string = string>(
 
   const onSort = useCallback(
     (
-      attribute: string,
-      onSortCallback?: (prop: string, sortOrder: SortOrder) => void,
+      attribute: TColumnKey,
+      onSortCallback?: (prop: TColumnKey, sortOrder: SortOrder) => void,
     ) => {
       let localSortingOrder = sortingOrder;
       if (sortingBy === attribute)
@@ -150,15 +153,16 @@ const TableOptionsProvider = <TFilterKey extends string = string>(
     [sortingBy, sortingOrder],
   );
 
-  const onFilterApply = useCallback((filters: FiltersValue) => {
-    const parsedFilters: TableFilters<TFilterKey> = Object.entries(
-      filters,
-    ).reduce((acc, [key, filter]) => {
+  const onFilterApply = useCallback((filters: FiltersValue<TFilterKey>) => {
+    const parsedFilters = (Object.keys(filters) as TFilterKey[]).reduce<
+      TableFilters<TFilterKey>
+    >((acc, key) => {
+      const filter = filters[key];
       if (filter && hasMeaningfulFilterValue(filter.value)) {
-        acc[key as TFilterKey] = filter.value;
+        acc[key] = filter.value;
       }
       return acc;
-    }, {} as TableFilters<TFilterKey>);
+    }, {});
 
     setFilters(parsedFilters);
     setCurrentPageState(0);
@@ -184,7 +188,7 @@ const TableOptionsProvider = <TFilterKey extends string = string>(
     return Object.keys(filters).length;
   }, [filters]);
 
-  const toggleColumn = useCallback((key: string) => {
+  const toggleColumn = useCallback((key: TColumnKey) => {
     setHiddenColumns((prev) =>
       prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key],
     );
@@ -204,7 +208,7 @@ const TableOptionsProvider = <TFilterKey extends string = string>(
     initialSortingOrder,
   ]);
 
-  const value = useMemo<TableOptionsContextType<TFilterKey>>(
+  const value = useMemo<TableOptionsContextType<TFilterKey, TColumnKey>>(
     () => ({
       onSort,
       total,
@@ -252,7 +256,9 @@ const TableOptionsProvider = <TFilterKey extends string = string>(
   );
 
   return (
-    <TableOptionsContext.Provider value={value as TableOptionsContextType}>
+    <TableOptionsContext.Provider
+      value={value as unknown as TableOptionsContextType}
+    >
       {children}
     </TableOptionsContext.Provider>
   );
@@ -264,11 +270,12 @@ const TableOptionsProvider = <TFilterKey extends string = string>(
  */
 const useTableOptions = <
   TFilterKey extends string = string,
->(): TableOptionsContextType<TFilterKey> => {
+  TColumnKey extends string = string,
+>(): TableOptionsContextType<TFilterKey, TColumnKey> => {
   const context = useContext(TableOptionsContext);
   if (!context)
     throw new Error("tableOptionsContext must be used within a Provider");
-  return context as TableOptionsContextType<TFilterKey>;
+  return context as unknown as TableOptionsContextType<TFilterKey, TColumnKey>;
 };
 
 export { TableOptionsProvider, useTableOptions };

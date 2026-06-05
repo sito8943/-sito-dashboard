@@ -8,7 +8,7 @@ import { Option } from "../../Form/";
 import { ActionType } from "../types";
 
 export type ColumnType<TRow extends BaseDto> = {
-  key: string;
+  key: Extract<keyof TRow, string>;
   label?: string;
   /** if the column can be sorted */
   sortable?: boolean;
@@ -38,7 +38,10 @@ export type ColumnPropsType<TRow extends BaseDto> = {
   entity: string;
   columns: ColumnType<TRow>[];
   hasAction: boolean;
-  onSortCallback?: (prop: string, sortOrder: SortOrder) => void;
+  onSortCallback?: (
+    prop: Extract<keyof TRow, string>,
+    sortOrder: SortOrder,
+  ) => void;
   selectionState?: {
     hasSomeSelected: boolean;
     allSelected: boolean;

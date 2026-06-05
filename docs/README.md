@@ -2,7 +2,10 @@
 
 This folder is meant to be copied into a project that consumes the library.
 
-- [Usage guide (providers, components, props, and examples)](./usage-guide.md)
+- [Usage guide index](./usage-guide.md)
+- [Getting started](./getting-started.md)
+- [Table guide](./table-guide.md)
+- [Table state](./table-state.md)
 - [Visual customization guide (CSS, theme variables, and overrides)](./style-customization.md)
 - [Translation keys reference (required i18n keys and usage map)](./translations-reference.md)
 

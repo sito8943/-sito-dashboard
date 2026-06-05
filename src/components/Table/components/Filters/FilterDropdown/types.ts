@@ -2,8 +2,8 @@
 import { FilterType } from "lib";
 import { ReactNode } from "react";
 
-export type FilterDropdownPropsType = {
-  filters?: FilterType[];
+export type FilterDropdownPropsType<TFilterKey extends string = string> = {
+  filters?: FilterType<TFilterKey>[];
   options?: FilterOptions;
   show: boolean;
   handleShow: (value: boolean) => void;

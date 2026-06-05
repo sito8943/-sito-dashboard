@@ -29,22 +29,33 @@ export const TableHeader = <TRow extends BaseDto>(
     canHideColumns = false,
     canReset = false,
   } = props;
-  const { countOfFilters, resetTableOptions } = useTableOptions();
+  const { countOfFilters, resetTableOptions } = useTableOptions<
+    string,
+    Extract<keyof TRow, string>
+  >();
 
   const { t } = useTranslation();
 
-  const parsedFilters = useMemo(() => {
+  const parsedFilters = useMemo<
+    FilterType<Extract<keyof TRow, string>>[]
+  >(() => {
     if (columns)
       return [...columns]
         .sort((colA, colB) => {
           return (colB.pos ?? 0) - (colA.pos ?? 0);
         })
-        .filter((column) => !!column.filterOptions)
-        .map((column) => ({
-          ...column.filterOptions,
-          label: column.filterOptions?.label ?? column.label,
-          propertyName: column.key,
-        }));
+        .flatMap((column) => {
+          const filterOptions = column.filterOptions;
+          if (!filterOptions) return [];
+
+          return [
+            {
+              ...filterOptions,
+              label: filterOptions.label ?? column.label,
+              propertyName: column.key,
+            },
+          ];
+        });
     return [];
   }, [columns]);
 
@@ -121,13 +132,13 @@ export const TableHeader = <TRow extends BaseDto>(
       </div>
       {hasFilters && (
         <FilterDropdown
-          filters={parsedFilters as FilterType[]}
+          filters={parsedFilters}
           show={isFilterDropdownOpen}
           handleShow={handleDropdown}
           options={filterOptions}
         />
       )}
-      <ActiveFilters filtersDefinition={parsedFilters as FilterType[]} />
+      <ActiveFilters filtersDefinition={parsedFilters} />
     </div>
   );
 };

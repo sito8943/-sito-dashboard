@@ -7,15 +7,15 @@ export enum FiltersActions {
   reset,
 }
 
-export type FiltersActionType = {
+export type FiltersActionType<TFilterKey extends string = string> = {
   type: FiltersActions;
-  filters?: FilterType[];
-  toUpdate?: FiltersValue;
+  filters?: FilterType<TFilterKey>[];
+  toUpdate?: FiltersValue<TFilterKey>;
 };
 
-export type FiltersContextType = {
-  currentFilters: FiltersValue;
-  setCurrentFilters: Dispatch<FiltersActionType>;
+export type FiltersContextType<TFilterKey extends string = string> = {
+  currentFilters: FiltersValue<TFilterKey>;
+  setCurrentFilters: Dispatch<FiltersActionType<TFilterKey>>;
 };
 
 export type FiltersProviderPropsType = {

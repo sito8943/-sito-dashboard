@@ -71,9 +71,11 @@ export const parsePageSizes = (sizes: number[] | undefined) => {
  * @param sortingBy - Optional sorting key.
  * @returns A non-empty sorting key.
  */
-export const parseSortingBy = (sortingBy: string | undefined) => {
+export const parseSortingBy = <TColumnKey extends string = string>(
+  sortingBy: TColumnKey | undefined,
+): TColumnKey => {
   if (typeof sortingBy !== "string" || !sortingBy.trim()) {
-    return defaultSortingBy;
+    return defaultSortingBy as TColumnKey;
   }
   return sortingBy;
 };

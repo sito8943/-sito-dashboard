@@ -1,20 +1,26 @@
 import { FilterType } from "lib";
 
-export type FilterChip = {
-  id: string;
+export type FilterChip<TFilterKey extends string = string> = {
+  id: TFilterKey;
   text: string;
-  onClearFilter: (key: string) => void;
+  onClearFilter: (key: TFilterKey) => void;
 };
 
-export interface ArrayChipPropsType<T> extends FilterChip {
+export interface ArrayChipPropsType<
+  T,
+  TFilterKey extends string = string,
+> extends FilterChip<TFilterKey> {
   items: T[];
 }
 
-export interface RangeChipPropsType<T> extends FilterChip {
+export interface RangeChipPropsType<
+  T,
+  TFilterKey extends string = string,
+> extends FilterChip<TFilterKey> {
   start: T;
   end: T;
 }
 
-export type ActiveFiltersPropsType = {
-  filtersDefinition: FilterType[];
+export type ActiveFiltersPropsType<TFilterKey extends string = string> = {
+  filtersDefinition: FilterType<TFilterKey>[];
 };

@@ -47,7 +47,7 @@ describe("TableHeader", () => {
 
     render(
       <Wrapper>
-        <TableHeader columns={columns} />
+        <TableHeader<Row> columns={columns} />
       </Wrapper>,
     );
 
@@ -57,7 +57,7 @@ describe("TableHeader", () => {
   it("does not render filter button when there are no filters configured", () => {
     render(
       <Wrapper>
-        <TableHeader columns={[{ key: "name", label: "Name" }]} />
+        <TableHeader<Row> columns={[{ key: "name", label: "Name" }]} />
       </Wrapper>,
     );
 
@@ -69,7 +69,7 @@ describe("TableHeader", () => {
   it("renders filter button when at least one column has filter options", () => {
     render(
       <Wrapper>
-        <TableHeader
+        <TableHeader<Row>
           columns={[
             {
               key: "name",
