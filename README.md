@@ -91,6 +91,7 @@ export function UsersTable() {
 ## Form Input Notes
 
 - `SelectInput` expects `Option` items with an `id` (plus optional `value`/`name`).
+- `AutocompleteInput` supports `autoSelectOnBlur` (`true` by default). In single-select mode, blur selects the matching option when the typed text exactly matches an option label, ignoring case and surrounding spaces.
 - `CheckInput` is controlled with `checked` (not `value`).
 - `FileInput` `onChange` receives the native input event; read files from `e.currentTarget.files`.
 - `FileInput` supports `unstyled` (and alias `hiddenContainer`) to render only the native file input when you provide a custom upload UI.

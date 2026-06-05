@@ -148,6 +148,78 @@ export const MultipleWithControllerRequired: Story = {
   },
 };
 
+export const AutoSelectOnBlur: Story = {
+  render: (args) => {
+    const Example = () => {
+      const [value, setValue] = useState<Option | Option[] | null>(null);
+
+      return (
+        <div className="max-w-sm">
+          <AutocompleteInput
+            {...args}
+            label="Fruta"
+            placeholder="Escribe una fruta exacta y sal del input"
+            options={options}
+            value={value}
+            onChange={setValue}
+          />
+          <p className="mt-2 text-sm text-gray-500">
+            Escribe por ejemplo "Mango" o "mango" y haz blur para seleccionar
+            automáticamente la opción.
+          </p>
+          {!Array.isArray(value) && (
+            <p className="mt-2 text-sm text-gray-500">
+              Valor: {value ? String(value.name ?? value.value) : "(vacío)"}
+            </p>
+          )}
+        </div>
+      );
+    };
+
+    return <Example />;
+  },
+  args: {
+    state: State.default,
+    autoSelectOnBlur: true,
+  },
+};
+
+export const AutoSelectOnBlurDisabled: Story = {
+  render: (args) => {
+    const Example = () => {
+      const [value, setValue] = useState<Option | Option[] | null>(null);
+
+      return (
+        <div className="max-w-sm">
+          <AutocompleteInput
+            {...args}
+            label="Fruta"
+            placeholder="Escribe una fruta exacta y sal del input"
+            options={options}
+            value={value}
+            onChange={setValue}
+          />
+          <p className="mt-2 text-sm text-gray-500">
+            Aunque escribas una coincidencia exacta, al hacer blur no se
+            selecciona automáticamente.
+          </p>
+          {!Array.isArray(value) && (
+            <p className="mt-2 text-sm text-gray-500">
+              Valor: {value ? String(value.name ?? value.value) : "(vacío)"}
+            </p>
+          )}
+        </div>
+      );
+    };
+
+    return <Example />;
+  },
+  args: {
+    state: State.default,
+    autoSelectOnBlur: false,
+  },
+};
+
 export const CustomLabel: Story = {
   render: (args) => {
     const Example = () => {

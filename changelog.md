@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.83] - 2026-06-05
+
+### Added
+
+- Added `autoSelectOnBlur?: boolean` prop to `AutocompleteInput` (defaults to `true`) so single-select inputs automatically select an option on blur when the typed text exactly matches an available option label.
+- Added `AutocompleteInput` Storybook scenarios `AutoSelectOnBlur` and `AutoSelectOnBlurDisabled` to document the default blur auto-selection behavior and the opt-out via `autoSelectOnBlur={false}`.
+- Added regression test coverage for `AutocompleteInput` blur auto-selection behavior with both the default enabled state and the explicit disabled state.
+
+### Changed
+
+- Updated consumer documentation (`README.md`, `docs/usage-guide.md`, and `AGENTS.md`) to document `AutocompleteInput.autoSelectOnBlur` and its default behavior.
+
 ## [0.0.82] - 2026-04-18
 
 ### Added

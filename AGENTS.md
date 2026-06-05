@@ -501,8 +501,11 @@ import { AutocompleteInput } from "@sito/dashboard";
   onChange={setCountry}
   options={countryOptions}
   placeholder="Search…"
+  autoSelectOnBlur
 />;
 ```
+
+`autoSelectOnBlur` defaults to `true`. In single-select mode, when the input loses focus and the typed text exactly matches an option label, that option is selected automatically. Matching is case-insensitive and trims surrounding spaces.
 
 ### 6.4 `CheckInput`
 
