@@ -7,6 +7,7 @@ import { Chip, Close, IconButton, Option, TextInput } from "components";
 import { classNames } from "lib";
 import {
   ChangeEvent,
+  FocusEvent as ReactFocusEvent,
   ForwardedRef,
   forwardRef,
   KeyboardEvent as ReactKeyboardEvent,
@@ -43,8 +44,11 @@ export const AutocompleteInput = forwardRef(function (
     helperText = "",
     placeholder = "",
     multiple = false,
+    autoSelectOnBlur = true,
     required = false,
     "aria-required": ariaRequired = false,
+    onBlur,
+    onFocus,
     ...rest
   } = props;
 
@@ -68,26 +72,33 @@ export const AutocompleteInput = forwardRef(function (
   const [highlightedSuggestionIndex, setHighlightedSuggestionIndex] =
     useState(-1);
 
-  const suggestions = useMemo(
+  const getOptionLabel = useCallback(
+    (option: Option) => String(option.value ?? option.name ?? ""),
+    [],
+  );
+
+  const availableOptions = useMemo(
     () =>
       options.filter((option) => {
-        const isIncluded = String(option.value ?? option.name)
-          .toLowerCase()
-          .includes(inputValue?.toLowerCase());
-
         if (Array.isArray(value) && value.length) {
-          return (
-            isIncluded && !value.some((selected) => selected.id === option.id)
-          );
+          return !value.some((selected) => selected.id === option.id);
         }
 
         if (value && !Array.isArray(value)) {
-          return isIncluded && value.id !== option.id;
+          return value.id !== option.id;
         }
 
-        return isIncluded;
+        return true;
       }),
-    [options, value, inputValue],
+    [options, value],
+  );
+
+  const suggestions = useMemo(
+    () =>
+      availableOptions.filter((option) =>
+        getOptionLabel(option).toLowerCase().includes(inputValue.toLowerCase()),
+      ),
+    [availableOptions, getOptionLabel, inputValue],
   );
 
   useEffect(() => {
@@ -148,6 +159,62 @@ export const AutocompleteInput = forwardRef(function (
       setShowSuggestions(false);
     },
     [multiple, onChange, value],
+  );
+
+  const findSuggestionMatchingInput = useCallback(
+    (searchValue: string) => {
+      const normalizedSearchValue = searchValue.trim().toLowerCase();
+
+      if (!normalizedSearchValue) return null;
+
+      return (
+        availableOptions.find(
+          (option) =>
+            getOptionLabel(option).trim().toLowerCase() ===
+            normalizedSearchValue,
+        ) ?? null
+      );
+    },
+    [availableOptions, getOptionLabel],
+  );
+
+  const handleFocus = useCallback(
+    (event: ReactFocusEvent<HTMLInputElement>) => {
+      setShowSuggestions(true);
+      onFocus?.(event);
+    },
+    [onFocus],
+  );
+
+  const handleBlur = useCallback(
+    (event: ReactFocusEvent<HTMLInputElement>) => {
+      onBlur?.(event);
+
+      if (
+        autocompleteRef.current &&
+        event.relatedTarget instanceof Node &&
+        autocompleteRef.current.contains(event.relatedTarget)
+      ) {
+        return;
+      }
+
+      const matchedSuggestion = autoSelectOnBlur
+        ? findSuggestionMatchingInput(event.currentTarget.value)
+        : null;
+
+      if (matchedSuggestion) {
+        handleSuggestionClick(matchedSuggestion);
+        return;
+      }
+
+      setShowSuggestions(false);
+    },
+    [
+      autoSelectOnBlur,
+      findSuggestionMatchingInput,
+      handleSuggestionClick,
+      onBlur,
+    ],
   );
 
   const handleKeyDown = useCallback(
@@ -235,7 +302,8 @@ export const AutocompleteInput = forwardRef(function (
           onChange={handleChange}
           placeholder={placeholder}
           helperText={helperText}
-          onFocus={() => setShowSuggestions(true)}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           onKeyDown={handleKeyDown}
           label={label}
           containerClassName={classNames(
@@ -320,6 +388,7 @@ export const AutocompleteInput = forwardRef(function (
                   suggestions.findIndex((item) => item.id === suggestion.id),
                 )
               }
+              onMouseDown={(e) => e.preventDefault()}
               onClick={(e) => {
                 handleSuggestionClick(suggestion);
                 e.stopPropagation();

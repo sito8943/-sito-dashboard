@@ -71,4 +71,61 @@ describe("AutocompleteInput", () => {
 
     expect(input).not.toHaveAttribute("required");
   });
+
+  it("selects the matching option on blur by default", () => {
+    const Example = () => {
+      const [value, setValue] = useState<Option | Option[] | null>(null);
+      return (
+        <>
+          <AutocompleteInput
+            id="autocomplete-blur"
+            label="Autocomplete blur"
+            value={value}
+            onChange={setValue}
+            options={options}
+          />
+          {!Array.isArray(value) && (
+            <p data-testid="value">{value?.name ?? ""}</p>
+          )}
+        </>
+      );
+    };
+
+    render(<Example />);
+
+    const input = screen.getByLabelText("Autocomplete blur");
+    fireEvent.change(input, { target: { value: "banana" } });
+    fireEvent.blur(input);
+
+    expect(screen.getByTestId("value")).toHaveTextContent("Banana");
+  });
+
+  it("does not select on blur when autoSelectOnBlur is false", () => {
+    const Example = () => {
+      const [value, setValue] = useState<Option | Option[] | null>(null);
+      return (
+        <>
+          <AutocompleteInput
+            id="autocomplete-blur-disabled"
+            label="Autocomplete blur disabled"
+            value={value}
+            onChange={setValue}
+            options={options}
+            autoSelectOnBlur={false}
+          />
+          {!Array.isArray(value) && (
+            <p data-testid="value">{value?.name ?? ""}</p>
+          )}
+        </>
+      );
+    };
+
+    render(<Example />);
+
+    const input = screen.getByLabelText("Autocomplete blur disabled");
+    fireEvent.change(input, { target: { value: "banana" } });
+    fireEvent.blur(input);
+
+    expect(screen.getByTestId("value")).toHaveTextContent("");
+  });
 });

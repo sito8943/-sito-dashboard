@@ -8,6 +8,7 @@ export interface AutocompleteInputPropsType extends Omit<
   value: Option | Option[] | null;
   onChange: (value: Option | Option[] | null) => void;
   multiple?: boolean;
+  autoSelectOnBlur?: boolean;
   inputContainerClassName?: string;
   options: Option[];
 }
