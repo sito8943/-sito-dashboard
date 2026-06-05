@@ -11,10 +11,12 @@ import { FiltersActions, FiltersActionType } from "./types";
  * @param filters - filters parameter.
  * @returns Function result.
  */
-export const initializer = (filters: TableFilters) => {
+export const initializer = <TFilterKey extends string = string>(
+  filters: TableFilters<TFilterKey>,
+) => {
   if (!!filters) {
     const parsed: FiltersValue = {};
-    const keys = Object.keys(filters);
+    const keys = Object.keys(filters) as TFilterKey[];
     keys?.forEach((key) => {
       parsed[key] = { value: filters[key] };
     });

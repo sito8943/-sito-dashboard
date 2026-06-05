@@ -95,7 +95,9 @@ export const parseSortingOrder = (sortingOrder: SortOrder | undefined) => {
  * @param filters - Optional table filters state.
  * @returns A shallow copy of filters, or an empty object for invalid input.
  */
-export const parseFilters = (filters: TableFilters | undefined) => {
+export const parseFilters = <TFilterKey extends string = string>(
+  filters: TableFilters<TFilterKey> | undefined,
+): TableFilters<TFilterKey> => {
   if (!filters || typeof filters !== "object") return {};
   return { ...filters };
 };

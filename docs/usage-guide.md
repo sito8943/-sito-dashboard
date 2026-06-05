@@ -87,6 +87,7 @@ import {
   type ActionType,
   type BaseDto,
   type ColumnType,
+  type TableFilters,
 } from "@sito/dashboard";
 import { useEffect, useState } from "react";
 
@@ -96,6 +97,9 @@ type User = BaseDto & {
   role: string;
   deletedAt?: string | null;
 };
+
+type UserFilterKey = "name" | "role" | "status";
+type UserFilters = TableFilters<UserFilterKey>;
 
 const columns: ColumnType<User>[] = [
   { key: "name", label: "Name", sortable: true },
@@ -119,11 +123,19 @@ export function UsersTable() {
   const [isLoading, setIsLoading] = useState(false);
 
   const { currentPage, pageSize, sortingBy, sortingOrder, filters, setTotal } =
-    useTableOptions();
+    useTableOptions<UserFilterKey>();
+
+  const typedFilters: UserFilters = filters;
 
   useEffect(() => {
     setIsLoading(true);
-    fetchUsers({ currentPage, pageSize, sortingBy, sortingOrder, filters })
+    fetchUsers({
+      currentPage,
+      pageSize,
+      sortingBy,
+      sortingOrder,
+      filters: typedFilters,
+    })
       .then(({ data, total }) => {
         setRows(data);
         setTotal(total);
@@ -186,7 +198,7 @@ export function UsersTable() {
 You can override the initial table state through `initialState`:
 
 ```tsx
-<TableOptionsProvider
+<TableOptionsProvider<UserFilterKey>
   defaultHiddenColumns={["email"]}
   initialState={{
     currentPage: 0,
@@ -203,11 +215,11 @@ You can override the initial table state through `initialState`:
 
 ### Provider Props
 
-| Prop                   | Type                                   | Description                                                                                                     |
-| ---------------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| `children`             | `ReactNode`                            | Required.                                                                                                       |
-| `defaultHiddenColumns` | `string[]`                             | Column keys hidden on mount and after reset.                                                                    |
-| `initialState`         | `TableOptionsProviderInitialStateType` | Optional initial values for `currentPage`, `pageSize`, `pageSizes`, `sortingBy`, `sortingOrder`, and `filters`. |
+| Prop                   | Type                                               | Description                                                                                                     |
+| ---------------------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `children`             | `ReactNode`                                        | Required.                                                                                                       |
+| `defaultHiddenColumns` | `string[]`                                         | Column keys hidden on mount and after reset.                                                                    |
+| `initialState`         | `TableOptionsProviderInitialStateType<TFilterKey>` | Optional initial values for `currentPage`, `pageSize`, `pageSizes`, `sortingBy`, `sortingOrder`, and `filters`. |
 
 ## 6. Key `Table` Props
 
@@ -241,6 +253,25 @@ You can override the initial table state through `initialState`:
 - `onMultipleClick(rows)`: direct bulk action handler.
 
 ## 8. Filters
+
+`TableFilters` now accepts a generic key union, so you can constrain valid filter keys instead of falling back to arbitrary strings:
+
+```ts
+import { type TableFilters, useTableOptions } from "@sito/dashboard";
+
+type UserFilterKey = "name" | "role" | "status";
+type UserFilters = TableFilters<UserFilterKey>;
+
+const initialFilters: UserFilters = {
+  status: "active",
+  role: "admin",
+};
+
+const { filters, clearFilters } = useTableOptions<UserFilterKey>();
+
+clearFilters("status");
+// clearFilters("unknown"); // TypeScript error
+```
 
 You can define filters per column with `column.filterOptions`:
 

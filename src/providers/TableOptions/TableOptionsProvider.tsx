@@ -25,7 +25,9 @@ import {
  * @param props - props parameter.
  * @returns Function result.
  */
-const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
+const TableOptionsProvider = <TFilterKey extends string = string>(
+  props: TableOptionsProviderPropsType<TFilterKey>,
+) => {
   const { children, defaultHiddenColumns = [], initialState } = props;
   const {
     currentPage: initialCurrentPageValue,
@@ -65,7 +67,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
   }, [initialSortingOrderValue]);
 
   const initialFilters = useMemo(() => {
-    return parseFilters(initialFiltersValue);
+    return parseFilters<TFilterKey>(initialFiltersValue);
   }, [initialFiltersValue]);
 
   const [total, setTotalState] = useState(0);
@@ -75,7 +77,8 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
   const [sortingBy, setSortingBy] = useState(initialSortingBy);
   const [sortingOrder, setSortingOrder] = useState(initialSortingOrder);
 
-  const [filters, setFilters] = useState<TableFilters>(initialFilters);
+  const [filters, setFilters] =
+    useState<TableFilters<TFilterKey>>(initialFilters);
 
   const [hiddenColumns, setHiddenColumns] = useState<string[]>([
     ...defaultHiddenColumns,
@@ -148,22 +151,21 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
   );
 
   const onFilterApply = useCallback((filters: FiltersValue) => {
-    const parsedFilters: TableFilters = Object.entries(filters).reduce(
-      (acc, [key, filter]) => {
-        if (filter && hasMeaningfulFilterValue(filter.value)) {
-          acc[key] = filter.value;
-        }
-        return acc;
-      },
-      {} as TableFilters,
-    );
+    const parsedFilters: TableFilters<TFilterKey> = Object.entries(
+      filters,
+    ).reduce((acc, [key, filter]) => {
+      if (filter && hasMeaningfulFilterValue(filter.value)) {
+        acc[key as TFilterKey] = filter.value;
+      }
+      return acc;
+    }, {} as TableFilters<TFilterKey>);
 
     setFilters(parsedFilters);
     setCurrentPageState(0);
   }, []);
 
   const clearFilters = useCallback(
-    (key?: string) => {
+    (key?: TFilterKey) => {
       if (key) {
         setFilters((previousFilters) => {
           const nextFilters = { ...previousFilters };
@@ -202,7 +204,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
     initialSortingOrder,
   ]);
 
-  const value = useMemo<TableOptionsContextType>(
+  const value = useMemo<TableOptionsContextType<TFilterKey>>(
     () => ({
       onSort,
       total,
@@ -250,7 +252,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
   );
 
   return (
-    <TableOptionsContext.Provider value={value}>
+    <TableOptionsContext.Provider value={value as TableOptionsContextType}>
       {children}
     </TableOptionsContext.Provider>
   );
@@ -260,11 +262,13 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
  * Provides the useTableOptions hook.
  * @returns Table options context value with state and actions.
  */
-const useTableOptions = (): TableOptionsContextType => {
+const useTableOptions = <
+  TFilterKey extends string = string,
+>(): TableOptionsContextType<TFilterKey> => {
   const context = useContext(TableOptionsContext);
   if (!context)
     throw new Error("tableOptionsContext must be used within a Provider");
-  return context;
+  return context as TableOptionsContextType<TFilterKey>;
 };
 
 export { TableOptionsProvider, useTableOptions };
