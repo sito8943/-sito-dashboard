@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.84] - 2026-06-05
+
+### Changed
+
+- Tightened the `Table` and filter TypeScript surface so filter keys and column keys can be constrained with generics instead of falling back to broad `string` keys.
+- Updated `TableFilters`, `useTableOptions`, `TableOptionsProvider`, `ColumnType`, filter widgets, active filter chips, and related table helpers to preserve typed filter and column keys across sorting, hidden columns, and filter state.
+- Enabled type-aware ESLint rules for the TypeScript codebase and aligned table/filter components with the stricter checks.
+- Reorganized consumer docs by splitting the previous `docs/usage-guide.md` into focused guides: `docs/getting-started.md`, `docs/table-guide.md`, and `docs/table-state.md`, while keeping `docs/usage-guide.md` as the lightweight entry point.
+
+### Fixed
+
+- Fixed multiple table/filter typing mismatches surfaced by `tsc` after the generic key changes, including `ActiveFilters`, `Rows`, `TableHeader`, filter widgets, and `TableOptionsProvider`.
+- Fixed unsafe filter value formatting in active filter chips to avoid stringifying arbitrary objects as `"[object Object]"`.
+- Fixed Storybook and lint integration issues introduced by type-aware ESLint, including `.storybook` project-service parsing and non-awaited `viteFinal` configuration.
+
 ## [0.0.83] - 2026-06-05
 
 ### Added
