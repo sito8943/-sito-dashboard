@@ -8,16 +8,24 @@ import {
 } from "lib";
 import { HTMLInputTypeAttribute } from "react";
 
-export type SelectWidgetPropsType = SelectFilterType;
+export type SelectWidgetPropsType<TFilterKey extends string = string> =
+  SelectFilterType<TFilterKey>;
 
-export interface RangeWidgetPropsType<T> extends RangeFilterType<T> {
+export interface RangeWidgetPropsType<
+  T,
+  TFilterKey extends string = string,
+> extends RangeFilterType<T, TFilterKey> {
   inputType: HTMLInputTypeAttribute;
 }
 
-export interface AutocompleteWidgetPropsType extends AutocompleteFilterType {
+export interface AutocompleteWidgetPropsType<
+  TFilterKey extends string = string,
+> extends AutocompleteFilterType<TFilterKey> {
   multiple?: boolean;
 }
 
-export type CheckWidgetPropsType = CheckFilterType;
+export type CheckWidgetPropsType<TFilterKey extends string = string> =
+  CheckFilterType<TFilterKey>;
 
-export type TextWidgetPropsType = TextFilterType;
+export type TextWidgetPropsType<TFilterKey extends string = string> =
+  TextFilterType<TFilterKey>;

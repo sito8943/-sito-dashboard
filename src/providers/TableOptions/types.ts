@@ -2,15 +2,18 @@
 import { FiltersValue, SortOrder } from "lib";
 import { ReactNode } from "react";
 
-export type TableOptionsContextType = {
+export type TableOptionsContextType<
+  TFilterKey extends string = string,
+  TColumnKey extends string = string,
+> = {
   onSort: (
-    column: string,
-    onSortCallback?: (prop: string, sortOrder: SortOrder) => void,
+    column: TColumnKey,
+    onSortCallback?: (prop: TColumnKey, sortOrder: SortOrder) => void,
   ) => void;
   total: number;
   setTotal: (total: number) => void;
-  sortingBy: string;
-  setSortingBy: (property: string) => void;
+  sortingBy: TColumnKey;
+  setSortingBy: (property: TColumnKey) => void;
   sortingOrder: SortOrder;
   setSortingOrder: (sortOrder: SortOrder) => void;
   pageSize: number;
@@ -18,31 +21,37 @@ export type TableOptionsContextType = {
   setPageSize: (pageSize: number) => void;
   currentPage: number;
   setCurrentPage: (currentPage: number) => void;
-  onFilterApply: (filters: FiltersValue) => void;
-  filters: TableFilters;
-  clearFilters: (key?: string) => void;
+  onFilterApply: (filters: FiltersValue<TFilterKey>) => void;
+  filters: TableFilters<TFilterKey>;
+  clearFilters: (key?: TFilterKey) => void;
   countOfFilters: number;
-  hiddenColumns: string[];
-  toggleColumn: (key: string) => void;
-  setHiddenColumns: (keys: string[]) => void;
+  hiddenColumns: TColumnKey[];
+  toggleColumn: (key: TColumnKey) => void;
+  setHiddenColumns: (keys: TColumnKey[]) => void;
   resetTableOptions: () => void;
 };
 
-export type TableOptionsProviderPropsType = {
+export type TableOptionsProviderPropsType<
+  TFilterKey extends string = string,
+  TColumnKey extends string = string,
+> = {
   children: ReactNode;
-  defaultHiddenColumns?: string[];
-  initialState?: TableOptionsProviderInitialStateType;
+  defaultHiddenColumns?: TColumnKey[];
+  initialState?: TableOptionsProviderInitialStateType<TFilterKey, TColumnKey>;
 };
 
-export type TableFilters = {
-  [key: string]: any;
-};
+export type TableFilters<TFilterKey extends string = string> = Partial<
+  Record<TFilterKey, unknown>
+>;
 
-export type TableOptionsProviderInitialStateType = {
+export type TableOptionsProviderInitialStateType<
+  TFilterKey extends string = string,
+  TColumnKey extends string = string,
+> = {
   currentPage?: number;
   pageSize?: number;
   pageSizes?: number[];
-  sortingBy?: string;
+  sortingBy?: TColumnKey;
   sortingOrder?: SortOrder;
-  filters?: TableFilters;
+  filters?: TableFilters<TFilterKey>;
 };

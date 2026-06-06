@@ -5,7 +5,7 @@ import { filtersReducer, initializer } from "./utils";
 
 describe("filters utils", () => {
   it("initializer returns empty object when filters are not provided", () => {
-    expect(initializer(undefined as any)).toEqual({});
+    expect(initializer<string>({})).toEqual({});
   });
 
   it("initializer maps table filters into filters state format", () => {

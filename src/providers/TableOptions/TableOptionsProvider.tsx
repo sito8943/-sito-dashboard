@@ -25,7 +25,12 @@ import {
  * @param props - props parameter.
  * @returns Function result.
  */
-const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
+const TableOptionsProvider = <
+  TFilterKey extends string = string,
+  TColumnKey extends string = string,
+>(
+  props: TableOptionsProviderPropsType<TFilterKey, TColumnKey>,
+) => {
   const { children, defaultHiddenColumns = [], initialState } = props;
   const {
     currentPage: initialCurrentPageValue,
@@ -57,7 +62,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
   }, [initialCurrentPageValue]);
 
   const initialSortingBy = useMemo(() => {
-    return parseSortingBy(initialSortingByValue);
+    return parseSortingBy<TColumnKey>(initialSortingByValue);
   }, [initialSortingByValue]);
 
   const initialSortingOrder = useMemo(() => {
@@ -65,7 +70,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
   }, [initialSortingOrderValue]);
 
   const initialFilters = useMemo(() => {
-    return parseFilters(initialFiltersValue);
+    return parseFilters<TFilterKey>(initialFiltersValue);
   }, [initialFiltersValue]);
 
   const [total, setTotalState] = useState(0);
@@ -75,9 +80,10 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
   const [sortingBy, setSortingBy] = useState(initialSortingBy);
   const [sortingOrder, setSortingOrder] = useState(initialSortingOrder);
 
-  const [filters, setFilters] = useState<TableFilters>(initialFilters);
+  const [filters, setFilters] =
+    useState<TableFilters<TFilterKey>>(initialFilters);
 
-  const [hiddenColumns, setHiddenColumns] = useState<string[]>([
+  const [hiddenColumns, setHiddenColumns] = useState<TColumnKey[]>([
     ...defaultHiddenColumns,
   ]);
 
@@ -126,8 +132,8 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
 
   const onSort = useCallback(
     (
-      attribute: string,
-      onSortCallback?: (prop: string, sortOrder: SortOrder) => void,
+      attribute: TColumnKey,
+      onSortCallback?: (prop: TColumnKey, sortOrder: SortOrder) => void,
     ) => {
       let localSortingOrder = sortingOrder;
       if (sortingBy === attribute)
@@ -147,23 +153,23 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
     [sortingBy, sortingOrder],
   );
 
-  const onFilterApply = useCallback((filters: FiltersValue) => {
-    const parsedFilters: TableFilters = Object.entries(filters).reduce(
-      (acc, [key, filter]) => {
-        if (filter && hasMeaningfulFilterValue(filter.value)) {
-          acc[key] = filter.value;
-        }
-        return acc;
-      },
-      {} as TableFilters,
-    );
+  const onFilterApply = useCallback((filters: FiltersValue<TFilterKey>) => {
+    const parsedFilters = (Object.keys(filters) as TFilterKey[]).reduce<
+      TableFilters<TFilterKey>
+    >((acc, key) => {
+      const filter = filters[key];
+      if (filter && hasMeaningfulFilterValue(filter.value)) {
+        acc[key] = filter.value;
+      }
+      return acc;
+    }, {});
 
     setFilters(parsedFilters);
     setCurrentPageState(0);
   }, []);
 
   const clearFilters = useCallback(
-    (key?: string) => {
+    (key?: TFilterKey) => {
       if (key) {
         setFilters((previousFilters) => {
           const nextFilters = { ...previousFilters };
@@ -182,7 +188,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
     return Object.keys(filters).length;
   }, [filters]);
 
-  const toggleColumn = useCallback((key: string) => {
+  const toggleColumn = useCallback((key: TColumnKey) => {
     setHiddenColumns((prev) =>
       prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key],
     );
@@ -202,7 +208,7 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
     initialSortingOrder,
   ]);
 
-  const value = useMemo<TableOptionsContextType>(
+  const value = useMemo<TableOptionsContextType<TFilterKey, TColumnKey>>(
     () => ({
       onSort,
       total,
@@ -250,7 +256,9 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
   );
 
   return (
-    <TableOptionsContext.Provider value={value}>
+    <TableOptionsContext.Provider
+      value={value as unknown as TableOptionsContextType}
+    >
       {children}
     </TableOptionsContext.Provider>
   );
@@ -260,11 +268,14 @@ const TableOptionsProvider = (props: TableOptionsProviderPropsType) => {
  * Provides the useTableOptions hook.
  * @returns Table options context value with state and actions.
  */
-const useTableOptions = (): TableOptionsContextType => {
+const useTableOptions = <
+  TFilterKey extends string = string,
+  TColumnKey extends string = string,
+>(): TableOptionsContextType<TFilterKey, TColumnKey> => {
   const context = useContext(TableOptionsContext);
   if (!context)
     throw new Error("tableOptionsContext must be used within a Provider");
-  return context;
+  return context as unknown as TableOptionsContextType<TFilterKey, TColumnKey>;
 };
 
 export { TableOptionsProvider, useTableOptions };

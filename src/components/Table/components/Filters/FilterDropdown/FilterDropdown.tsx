@@ -24,11 +24,13 @@ import { renderFilterComponent } from "./utils";
  * @param props - props parameter.
  * @returns Function result.
  */
-export const FilterDropdown = (props: FilterDropdownPropsType) => {
+export const FilterDropdown = <TFilterKey extends string = string>(
+  props: FilterDropdownPropsType<TFilterKey>,
+) => {
   const { filters = [], show, handleShow } = props;
 
-  const { onFilterApply } = useTableOptions();
-  const { currentFilters, setCurrentFilters } = useFilters();
+  const { onFilterApply } = useTableOptions<TFilterKey>();
+  const { currentFilters, setCurrentFilters } = useFilters<TFilterKey>();
 
   const { t } = useTranslation();
 
@@ -69,7 +71,7 @@ export const FilterDropdown = (props: FilterDropdownPropsType) => {
         <ul className="filter-container">
           {filters.map((filter) => (
             <li key={filter.propertyName} className="filter-container-item">
-              {renderFilterComponent(filter as WidgetFilterProps)}
+              {renderFilterComponent(filter as WidgetFilterProps<TFilterKey>)}
             </li>
           ))}
         </ul>

@@ -1,12 +1,18 @@
+import { BaseDto } from "lib";
 import { describe, expect, it } from "vitest";
 
 import { ColumnType } from "./components/types";
 import { getSortedVisibleColumns } from "./utils";
 
-type Row = { id: number; deletedAt: null };
+type Row = BaseDto & {
+  a?: string;
+  b?: string;
+  c?: string;
+  d?: string;
+};
 
 const col = (
-  key: string,
+  key: Extract<keyof Row, string>,
   overrides: Partial<ColumnType<Row>> = {},
 ): ColumnType<Row> => ({ key, ...overrides });
 

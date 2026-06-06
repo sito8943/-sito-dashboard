@@ -24,12 +24,14 @@ const FiltersContext = createContext<FiltersContextType | undefined>(undefined);
  * @param props - props parameter.
  * @returns Function result.
  */
-const FiltersProvider = (props: FiltersProviderPropsType) => {
+const FiltersProvider = <TFilterKey extends string = string>(
+  props: FiltersProviderPropsType,
+) => {
   const { children } = props;
-  const { filters } = useTableOptions();
+  const { filters } = useTableOptions<TFilterKey>();
 
   const [currentFilters, setCurrentFilters] = useReducer(
-    filtersReducer,
+    filtersReducer<TFilterKey>,
     initializer(filters),
   );
 
@@ -46,7 +48,7 @@ const FiltersProvider = (props: FiltersProviderPropsType) => {
     }
   }, [filters]);
 
-  const value = useMemo<FiltersContextType>(
+  const value = useMemo<FiltersContextType<TFilterKey>>(
     () => ({
       currentFilters,
       setCurrentFilters,
@@ -55,7 +57,9 @@ const FiltersProvider = (props: FiltersProviderPropsType) => {
   );
 
   return (
-    <FiltersContext.Provider value={value}>{children}</FiltersContext.Provider>
+    <FiltersContext.Provider value={value as FiltersContextType}>
+      {children}
+    </FiltersContext.Provider>
   );
 };
 
@@ -63,11 +67,13 @@ const FiltersProvider = (props: FiltersProviderPropsType) => {
  * Provides the useFilters hook.
  * @returns Filters context value with `currentFilters` and `setCurrentFilters`.
  */
-const useFilters = (): FiltersContextType => {
+const useFilters = <
+  TFilterKey extends string = string,
+>(): FiltersContextType<TFilterKey> => {
   const context = useContext(FiltersContext);
   if (!context)
     throw new Error("filtersContext must be used within a Provider");
-  return context;
+  return context as FiltersContextType<TFilterKey>;
 };
 
 export { FiltersProvider, useFilters };

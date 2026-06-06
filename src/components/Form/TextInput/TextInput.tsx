@@ -23,7 +23,7 @@ const hasInputValue = (inputValue: TextInputPropsType["value"]) => {
     return inputValue.length > 0;
   }
 
-  return `${inputValue}`.length > 0;
+  return String(inputValue).length > 0;
 };
 
 const ALWAYS_FLOATING_LABEL_INPUT_TYPES = new Set([
@@ -65,7 +65,7 @@ export const TextInput = forwardRef(function (
 
   const isControlled = value !== undefined;
   const [uncontrolledHasValue, setUncontrolledHasValue] = useState(() =>
-    hasInputValue(defaultValue as TextInputPropsType["value"]),
+    hasInputValue(defaultValue),
   );
 
   const hasValue = isControlled ? hasInputValue(value) : uncontrolledHasValue;

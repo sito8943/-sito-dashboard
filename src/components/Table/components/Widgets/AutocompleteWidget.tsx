@@ -7,31 +7,46 @@ import { useCallback, useMemo } from "react";
 // types
 import { AutocompleteWidgetPropsType } from "./types";
 
+const buildFilterUpdate = <TFilterKey extends string>(
+  key: TFilterKey,
+  value: Option | Option[] | null,
+) =>
+  ({
+    [key]: {
+      value,
+    },
+  }) as Record<TFilterKey, { value: Option | Option[] | null }>;
+
 /**
  * Renders the AutocompleteWidget component.
  * @param props - props parameter.
  * @returns Function result.
  */
-export function AutocompleteWidget(props: AutocompleteWidgetPropsType) {
+export function AutocompleteWidget<TFilterKey extends string = string>(
+  props: AutocompleteWidgetPropsType<TFilterKey>,
+) {
   const { propertyName, label, placeholder, options, multiple = true } = props;
 
-  const { currentFilters, setCurrentFilters } = useFilters();
+  const { currentFilters, setCurrentFilters } = useFilters<TFilterKey>();
 
   const value = useMemo(() => {
     const currentValue = currentFilters[propertyName]?.value;
     if (typeof currentValue === "undefined") return null;
-    return currentValue as Option | Option[] | null;
+    if (
+      currentValue === null ||
+      Array.isArray(currentValue) ||
+      typeof currentValue === "object"
+    ) {
+      return currentValue as Option | Option[] | null;
+    }
+    return null;
   }, [currentFilters, propertyName]);
 
   const onChange = useCallback(
     (value: Option | Option[] | null) => {
       setCurrentFilters({
         type: FiltersActions.update,
-        toUpdate: {
-          [propertyName]: {
-            value,
-          },
-        },
+        toUpdate: buildFilterUpdate(propertyName, value),
       });
     },
     [propertyName, setCurrentFilters],

@@ -12,7 +12,7 @@ import { ColumnType } from "./components/types";
  */
 export function getSortedVisibleColumns<TRow extends BaseDto>(
   columns: ColumnType<TRow>[],
-  hiddenColumns: string[] = [],
+  hiddenColumns: Extract<keyof TRow, string>[] = [],
 ): ColumnType<TRow>[] {
   return [...columns]
     .sort((colA, colB) => (colB.pos ?? 0) - (colA.pos ?? 0))

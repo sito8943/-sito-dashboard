@@ -1,9 +1,18 @@
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+
 import tsPlugin from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
 import prettierConfig from "eslint-config-prettier";
 import jsdoc from "eslint-plugin-jsdoc";
 import prettierPlugin from "eslint-plugin-prettier";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
+
+const tsconfigRootDir = dirname(fileURLToPath(import.meta.url));
+const typeCheckedRules =
+  tsPlugin.configs["recommended-type-checked"]?.rules ??
+  tsPlugin.configs.recommendedTypeChecked?.rules ??
+  {};
 
 export default [
   {
@@ -25,9 +34,16 @@ export default [
     },
     languageOptions: {
       parser: tsParser,
+      parserOptions: {
+        projectService: {
+          allowDefaultProject: [".storybook/*.ts", ".storybook/*.tsx"],
+        },
+        tsconfigRootDir,
+      },
     },
     rules: {
       ...tsPlugin.configs.recommended.rules,
+      ...typeCheckedRules,
       ...jsdoc.configs["flat/recommended"].rules,
       ...prettierConfig.rules,
       "prettier/prettier": "warn",
@@ -58,6 +74,20 @@ export default [
         ignoreInternal: true,
         ignorePrivate: true,
       },
+    },
+  },
+  {
+    files: [
+      ".storybook/**/*.{ts,tsx}",
+      "**/*.stories.{ts,tsx}",
+      "**/*.test.{ts,tsx}",
+    ],
+    rules: {
+      "@typescript-eslint/no-misused-promises": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-return": "off",
+      "@typescript-eslint/no-unsafe-argument": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
     },
   },
 ];

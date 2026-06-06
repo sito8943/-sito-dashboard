@@ -11,10 +11,12 @@ import { FiltersActions, FiltersActionType } from "./types";
  * @param filters - filters parameter.
  * @returns Function result.
  */
-export const initializer = (filters: TableFilters) => {
+export const initializer = <TFilterKey extends string = string>(
+  filters: TableFilters<TFilterKey>,
+): FiltersValue<TFilterKey> => {
   if (!!filters) {
-    const parsed: FiltersValue = {};
-    const keys = Object.keys(filters);
+    const parsed: FiltersValue<TFilterKey> = {};
+    const keys = Object.keys(filters) as TFilterKey[];
     keys?.forEach((key) => {
       parsed[key] = { value: filters[key] };
     });
@@ -29,7 +31,10 @@ export const initializer = (filters: TableFilters) => {
  * @param action - action parameter.
  * @returns Function result.
  */
-export function filtersReducer(state: FiltersValue, action: FiltersActionType) {
+export function filtersReducer<TFilterKey extends string = string>(
+  state: FiltersValue<TFilterKey>,
+  action: FiltersActionType<TFilterKey>,
+): FiltersValue<TFilterKey> {
   const { type } = action;
   switch (type) {
     case FiltersActions.reset: {

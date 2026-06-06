@@ -20,55 +20,83 @@ const isRangeValue = (
   !Array.isArray(value) &&
   ("start" in value || "end" in value);
 
+const isFilterValueContainer = (
+  value: unknown,
+): value is { value?: unknown; name?: unknown } =>
+  typeof value === "object" && value !== null && !Array.isArray(value);
+
+const formatPrimitiveValue = (value: unknown) => {
+  if (typeof value === "string") return value;
+  if (typeof value === "number" || typeof value === "boolean")
+    return String(value);
+  if (value instanceof Date) return value.toISOString();
+  return "";
+};
+
+const formatFilterValue = (value: unknown) => {
+  if (isFilterValueContainer(value)) {
+    if ("value" in value && typeof value.value !== "undefined") {
+      return formatPrimitiveValue(value.value);
+    }
+
+    if ("name" in value && typeof value.name !== "undefined") {
+      return formatPrimitiveValue(value.name);
+    }
+  }
+
+  return formatPrimitiveValue(value);
+};
 /**
- * Renders the ActiveFilters component.
+ *
  * @param props - props parameter.
  * @returns Function result.
  */
-export const ActiveFilters = (props: ActiveFiltersPropsType) => {
+export const ActiveFilters = <TFilterKey extends string = string>(
+  props: ActiveFiltersPropsType<TFilterKey>,
+) => {
   const { filtersDefinition } = props;
 
   const filterLabels = useMemo(() => {
-    const dict: { [key: string]: string } = {};
+    const dict: Partial<Record<TFilterKey, string>> = {};
     filtersDefinition.forEach((value) => {
       dict[value.propertyName] = value.label ?? value.propertyName;
     });
     return dict;
   }, [filtersDefinition]);
 
-  const { filters, clearFilters } = useTableOptions();
+  const { filters, clearFilters } = useTableOptions<TFilterKey>();
 
   const filtersAsList = useMemo(() => {
-    return Object.keys(filters);
+    return Object.keys(filters) as TFilterKey[];
   }, [filters]);
 
   const parseFilters = useCallback(
-    (key: string) => {
+    (key: TFilterKey) => {
       const filterValue = filters[key];
 
       if (isRangeValue(filterValue))
         return (
-          <RangeChip
+          <RangeChip<unknown, TFilterKey>
             id={key}
-            text={filterLabels[key]}
+            text={filterLabels[key] ?? key}
             start={filterValue.start}
             end={filterValue.end}
-            onClearFilter={clearFilters}
+            onClearFilter={(filterKey) => clearFilters(filterKey)}
           />
         );
       else if (Array.isArray(filterValue))
         return (
-          <ArrayChip
+          <ArrayChip<unknown, TFilterKey>
             id={key}
-            text={filterLabels[key]}
+            text={filterLabels[key] ?? key}
             items={filterValue}
-            onClearFilter={clearFilters}
+            onClearFilter={(filterKey) => clearFilters(filterKey)}
           />
         );
       else
         return (
           <Chip
-            text={`${filterLabels[key]}: ${filterValue?.value ?? filterValue?.name ?? filterValue}`}
+            text={`${filterLabels[key] ?? key}: ${formatFilterValue(filterValue)}`}
             onDelete={() => clearFilters(key)}
           />
         );

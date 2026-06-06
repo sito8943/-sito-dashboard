@@ -71,9 +71,11 @@ export const parsePageSizes = (sizes: number[] | undefined) => {
  * @param sortingBy - Optional sorting key.
  * @returns A non-empty sorting key.
  */
-export const parseSortingBy = (sortingBy: string | undefined) => {
+export const parseSortingBy = <TColumnKey extends string = string>(
+  sortingBy: TColumnKey | undefined,
+): TColumnKey => {
   if (typeof sortingBy !== "string" || !sortingBy.trim()) {
-    return defaultSortingBy;
+    return defaultSortingBy as TColumnKey;
   }
   return sortingBy;
 };
@@ -95,7 +97,9 @@ export const parseSortingOrder = (sortingOrder: SortOrder | undefined) => {
  * @param filters - Optional table filters state.
  * @returns A shallow copy of filters, or an empty object for invalid input.
  */
-export const parseFilters = (filters: TableFilters | undefined) => {
+export const parseFilters = <TFilterKey extends string = string>(
+  filters: TableFilters<TFilterKey> | undefined,
+): TableFilters<TFilterKey> => {
   if (!filters || typeof filters !== "object") return {};
   return { ...filters };
 };

@@ -38,7 +38,10 @@ export function Columns<TRow extends BaseDto>(props: ColumnPropsType<TRow>) {
     );
   }, [selectionState]);
 
-  const { onSort, sortingOrder, sortingBy, hiddenColumns } = useTableOptions();
+  const { onSort, sortingOrder, sortingBy, hiddenColumns } = useTableOptions<
+    string,
+    Extract<keyof TRow, string>
+  >();
 
   const parsedColumns = useMemo(() => {
     return getSortedVisibleColumns(columns, hiddenColumns).map((column) => ({
@@ -72,13 +75,13 @@ export function Columns<TRow extends BaseDto>(props: ColumnPropsType<TRow>) {
         )}
         {parsedColumns.map((column) => (
           <th
-            key={column.id as string}
+            key={column.id}
             scope="col"
             className={classNames("table-headers-column", column.className)}
           >
             <Button
               disabled={!column.sortable}
-              onClick={() => onSort(column.id as string, onSortCallback)}
+              onClick={() => onSort(column.id, onSortCallback)}
               className="table-headers-cell"
             >
               {column.renderHead ? (

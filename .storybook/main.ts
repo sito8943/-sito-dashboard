@@ -12,7 +12,7 @@ const config: StorybookConfig = {
     options: {},
   },
   docs: {},
-  viteFinal: async (config) => {
+  viteFinal: (config) => {
     config.resolve = config.resolve || {};
     config.resolve.alias = {
       ...(config.resolve?.alias || {}),
