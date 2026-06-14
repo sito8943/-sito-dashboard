@@ -10,6 +10,9 @@ export type ActionType<TRow extends BaseDto> = {
   onClick: (entity?: TRow) => void;
   icon: ReactNode;
   tooltip: string;
+  className?: string;
+  iconClassName?: string;
+  labelClassName?: string;
   disabled?: boolean;
   hidden?: boolean;
   multiple?: boolean;

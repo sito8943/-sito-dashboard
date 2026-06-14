@@ -151,6 +151,13 @@ import { useRef, useState } from "react";
   ]}
 />;
 
+<Actions
+  showTooltips={false}
+  actions={[
+    { id: "edit", tooltip: "Edit", icon: <span>E</span>, onClick: () => {} },
+  ]}
+/>;
+
 <ActionsDropdown
   actions={[
     {

@@ -16,6 +16,14 @@
   @apply bg-base hover:bg-base-light text-text flex items-center justify-center gap-2 transition;
 }
 
+.action-icon {
+  @apply inline-flex items-center justify-center;
+}
+
+.action-label {
+  @apply inline-flex items-center;
+}
+
 .icon-action {
   @apply rounded-full w-8 h-8;
 }

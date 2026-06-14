@@ -15,8 +15,9 @@ import { ActionPropsType } from "./types";
  * @param props.hidden - When `true`, the button is not rendered. Defaults to `false`.
  * @param props.disabled - When `true`, the button is disabled. Defaults to `false`.
  * @param props.showText - When `true`, `tooltip` is rendered as visible text next to the icon. Defaults to `false`.
- * @param props.showTooltips - When `false`, the tooltip is suppressed. Defaults to `true`.
  * @param props.className - Additional CSS class applied to the button.
+ * @param props.iconClassName - Additional CSS class applied to the icon wrapper.
+ * @param props.labelClassName - Additional CSS class applied to the visible label wrapper.
  * @param props.stopPropagation - When `true`, `event.stopPropagation()` is called on click, preventing the event from bubbling to parent handlers. Defaults to `false`.
  * @returns The action button element, or `null` when `hidden` is `true`.
  */
@@ -32,9 +33,11 @@ export function Action<TEntity extends BaseDto>(
     hidden = false,
     disabled = false,
     showText = false,
-    showTooltips = true,
     className = "",
+    iconClassName = "",
+    labelClassName = "",
     stopPropagation = false,
+    "aria-describedby": ariaDescribedBy,
   } = props;
 
   return !hidden ? (
@@ -48,15 +51,19 @@ export function Action<TEntity extends BaseDto>(
       )}
       disabled={disabled}
       aria-label={tooltip}
+      aria-describedby={ariaDescribedBy}
       onClick={(e) => {
         if (stopPropagation) e.stopPropagation();
         onClick?.();
       }}
       aria-disabled={disabled}
-      data-tooltip-id="tooltip"
-      data-tooltip-content={showTooltips ? tooltip : ""}
     >
-      {icon} {showText && tooltip}
+      <span className={classNames("action-icon", iconClassName)}>{icon}</span>
+      {showText && (
+        <span className={classNames("action-label", labelClassName)}>
+          {tooltip}
+        </span>
+      )}
       {children}
     </button>
   ) : null;

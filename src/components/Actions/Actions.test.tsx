@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
 import { Actions } from "./Actions";
@@ -69,5 +69,49 @@ describe("Actions", () => {
     expect(
       screen.getByRole("button", { name: "Delete record" }),
     ).toBeInTheDocument();
+  });
+
+  it("shows a tooltip for icon-only actions by default", () => {
+    render(<Actions actions={[makeAction({ tooltip: "Delete record" })]} />);
+    fireEvent.mouseEnter(screen.getByRole("button", { name: "Delete record" }));
+    expect(screen.getByRole("tooltip")).toHaveTextContent("Delete record");
+  });
+
+  it("does not render tooltips when showTooltips is false", () => {
+    render(
+      <Actions
+        actions={[makeAction({ tooltip: "Delete record" })]}
+        showTooltips={false}
+      />,
+    );
+    fireEvent.mouseEnter(screen.getByRole("button", { name: "Delete record" }));
+    expect(screen.queryByRole("tooltip")).toBeNull();
+  });
+
+  it("supports per-action button, icon, and label classes", () => {
+    render(
+      <Actions
+        showActionTexts
+        actionClassName="global-action"
+        actions={[
+          makeAction({
+            tooltip: "Styled action",
+            className: "per-action",
+            iconClassName: "per-icon",
+            labelClassName: "per-label",
+          }),
+        ]}
+      />,
+    );
+
+    const button = screen.getByRole("button", { name: "Styled action" });
+    expect(button.classList.contains("global-action")).toBe(true);
+    expect(button.classList.contains("per-action")).toBe(true);
+    expect(
+      button.querySelector(".action-icon")?.classList.contains("per-icon"),
+    ).toBe(true);
+    expect(
+      button.querySelector(".action-label")?.classList.contains("per-label"),
+    ).toBe(true);
   });
 });

@@ -96,7 +96,10 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
                           <Action
                             {...action}
                             onClick={() => action.onClick(row)}
-                            className="row-table-action"
+                            className={classNames(
+                              "row-table-action",
+                              action.className ?? "",
+                            )}
                           />
                         </Tooltip>
                       ))}
