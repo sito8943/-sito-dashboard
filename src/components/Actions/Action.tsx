@@ -16,6 +16,8 @@ import { ActionPropsType } from "./types";
  * @param props.disabled - When `true`, the button is disabled. Defaults to `false`.
  * @param props.showText - When `true`, `tooltip` is rendered as visible text next to the icon. Defaults to `false`.
  * @param props.className - Additional CSS class applied to the button.
+ * @param props.iconClassName - Additional CSS class applied to the icon wrapper.
+ * @param props.labelClassName - Additional CSS class applied to the visible label wrapper.
  * @param props.stopPropagation - When `true`, `event.stopPropagation()` is called on click, preventing the event from bubbling to parent handlers. Defaults to `false`.
  * @returns The action button element, or `null` when `hidden` is `true`.
  */
@@ -32,6 +34,8 @@ export function Action<TEntity extends BaseDto>(
     disabled = false,
     showText = false,
     className = "",
+    iconClassName = "",
+    labelClassName = "",
     stopPropagation = false,
     "aria-describedby": ariaDescribedBy,
   } = props;
@@ -54,7 +58,12 @@ export function Action<TEntity extends BaseDto>(
       }}
       aria-disabled={disabled}
     >
-      {icon} {showText && tooltip}
+      <span className={classNames("action-icon", iconClassName)}>{icon}</span>
+      {showText && (
+        <span className={classNames("action-label", labelClassName)}>
+          {tooltip}
+        </span>
+      )}
       {children}
     </button>
   ) : null;

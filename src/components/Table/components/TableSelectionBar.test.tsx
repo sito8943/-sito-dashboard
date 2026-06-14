@@ -176,4 +176,25 @@ describe("TableSelectionBar", () => {
 
     expect(screen.getByRole("button").hasAttribute("disabled")).toBe(false);
   });
+
+  it("supports per-action button and icon classes", () => {
+    const action = makeAction({
+      className: "custom-multi-action",
+      iconClassName: "custom-multi-icon",
+    });
+
+    render(
+      <Wrapper>
+        <TableSelectionBar
+          count={1}
+          multiActions={[action]}
+          onActionClick={vi.fn()}
+        />
+      </Wrapper>,
+    );
+
+    const button = screen.getByRole("button", { name: "Delete" });
+    expect(button.classList.contains("custom-multi-action")).toBe(true);
+    expect(button.querySelector(".custom-multi-icon")).toBeTruthy();
+  });
 });

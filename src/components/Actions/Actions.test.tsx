@@ -87,4 +87,31 @@ describe("Actions", () => {
     fireEvent.mouseEnter(screen.getByRole("button", { name: "Delete record" }));
     expect(screen.queryByRole("tooltip")).toBeNull();
   });
+
+  it("supports per-action button, icon, and label classes", () => {
+    render(
+      <Actions
+        showActionTexts
+        actionClassName="global-action"
+        actions={[
+          makeAction({
+            tooltip: "Styled action",
+            className: "per-action",
+            iconClassName: "per-icon",
+            labelClassName: "per-label",
+          }),
+        ]}
+      />,
+    );
+
+    const button = screen.getByRole("button", { name: "Styled action" });
+    expect(button.classList.contains("global-action")).toBe(true);
+    expect(button.classList.contains("per-action")).toBe(true);
+    expect(
+      button.querySelector(".action-icon")?.classList.contains("per-icon"),
+    ).toBe(true);
+    expect(
+      button.querySelector(".action-label")?.classList.contains("per-label"),
+    ).toBe(true);
+  });
 });

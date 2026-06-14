@@ -34,28 +34,36 @@ export function Actions<TRow extends BaseDto>(
   } = props;
   return (
     <ul className={classNames("actions-container", className)}>
-      {actions.map((action) => (
-        <li
-          key={action.id}
-          className={classNames("actions-container-item", itemClassName)}
-        >
-          {showTooltips && !showActionTexts && !action.hidden ? (
-            <Tooltip content={action.tooltip}>
+      {actions.map((action) => {
+        const { className: perActionClassName, ...actionProps } = action;
+        const mergedActionClassName = classNames(
+          actionClassName,
+          perActionClassName,
+        );
+
+        return (
+          <li
+            key={action.id}
+            className={classNames("actions-container-item", itemClassName)}
+          >
+            {showTooltips && !showActionTexts && !action.hidden ? (
+              <Tooltip content={action.tooltip}>
+                <Action
+                  showText={showActionTexts}
+                  className={mergedActionClassName}
+                  {...actionProps}
+                />
+              </Tooltip>
+            ) : (
               <Action
                 showText={showActionTexts}
-                className={actionClassName}
-                {...action}
+                className={mergedActionClassName}
+                {...actionProps}
               />
-            </Tooltip>
-          ) : (
-            <Action
-              showText={showActionTexts}
-              className={actionClassName}
-              {...action}
-            />
-          )}
-        </li>
-      ))}
+            )}
+          </li>
+        );
+      })}
     </ul>
   );
 }

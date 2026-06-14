@@ -88,7 +88,7 @@ The library defines these base tokens:
 | ------------------- | ------------------------------------------------------------------------------------------------ |
 | `Table`             | `className`, `contentClassName`, `columns[].className`                                           |
 | `Actions`           | `className`, `itemClassName`, `actionClassName`                                                  |
-| `Action`            | `className`                                                                                      |
+| `Action`            | `className`, `iconClassName`, `labelClassName`                                                   |
 | `ActionsDropdown`   | `className`                                                                                      |
 | `Button`            | `className`                                                                                      |
 | `IconButton`        | `className`, `iconClassName`                                                                     |
@@ -157,6 +157,8 @@ If you need high granularity, you can override internal library classes.
 - `.tooltip-text`
 - `.actions-container`
 - `.action`
+- `.action-icon`
+- `.action-label`
 - `.icon-action`
 - `.text-action`
 

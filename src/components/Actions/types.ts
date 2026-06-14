@@ -17,6 +17,5 @@ export interface ActionPropsType<
   children?: ReactNode;
   showText?: boolean;
   "aria-describedby"?: string;
-  className?: string;
   stopPropagation?: boolean;
 }

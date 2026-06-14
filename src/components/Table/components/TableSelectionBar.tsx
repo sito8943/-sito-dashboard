@@ -1,7 +1,7 @@
 // components
 import { IconButton, Tooltip } from "components";
 // lib
-import { BaseDto } from "lib";
+import { BaseDto, classNames } from "lib";
 // providers
 import { useTranslation } from "providers";
 
@@ -41,7 +41,8 @@ export function TableSelectionBar<TRow extends BaseDto>({
             <Tooltip key={action.id} content={action.tooltip}>
               <IconButton
                 icon={action.icon}
-                className="multi-table-action"
+                className={classNames("multi-table-action", action.className)}
+                iconClassName={action.iconClassName}
                 onClick={() => onActionClick(action)}
                 disabled={action.disabled}
                 aria-label={action.tooltip}

@@ -29,6 +29,15 @@ export const Disabled: Story = {
   args: { disabled: true },
 };
 
+export const StyledParts: Story = {
+  args: {
+    showText: true,
+    className: "border border-red-500",
+    iconClassName: "text-red-500",
+    labelClassName: "uppercase tracking-wide",
+  },
+};
+
 export const StopPropagation: Story = {
   args: {
     stopPropagation: true,
