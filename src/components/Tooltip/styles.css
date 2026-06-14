@@ -1,28 +1,36 @@
-.tooltip-container {
-  position: relative;
+.tooltip-trigger {
   display: inline-block;
   cursor: pointer;
 }
 
 .tooltip-text {
-  visibility: hidden;
-  background-color: black;
-  color: #fff;
+  position: fixed;
+  z-index: 9999;
+  max-width: 280px;
+  width: max-content;
+
+  background-color: var(--tooltip-bg, #1a1a1a);
+  color: var(--tooltip-color, #fff);
   text-align: center;
   padding: 5px 10px;
   border-radius: 5px;
+  font-size: 0.8125rem;
+  pointer-events: none;
 
-  position: absolute;
-  z-index: 9999;
-  bottom: 125%;
-  left: 50%;
-  transform: translateX(-50%);
-
-  opacity: 0;
-  transition: opacity 0.3s;
+  animation: tooltip-fade 0.15s ease-in;
 }
 
-.tooltip-container:hover .tooltip-text {
-  visibility: visible;
-  opacity: 1;
+@keyframes tooltip-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tooltip-text {
+    animation: none;
+  }
 }

@@ -16,7 +16,7 @@ export interface ActionPropsType<
 > extends ActionType<TRow> {
   children?: ReactNode;
   showText?: boolean;
-  showTooltips?: boolean;
+  "aria-describedby"?: string;
   className?: string;
   stopPropagation?: boolean;
 }

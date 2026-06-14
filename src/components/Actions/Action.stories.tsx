@@ -29,10 +29,6 @@ export const Disabled: Story = {
   args: { disabled: true },
 };
 
-export const WithoutTooltip: Story = {
-  args: { showTooltips: false },
-};
-
 export const StopPropagation: Story = {
   args: {
     stopPropagation: true,

@@ -1,10 +1,11 @@
 // styles
 import "./styles.css";
 
+// components
+import { Tooltip } from "components";
 // lib
 import { BaseDto, classNames } from "lib";
 
-// components
 import { Action } from "./Action";
 // types
 import { ActionsContainerPropsType } from "./types";
@@ -16,7 +17,7 @@ import { ActionsContainerPropsType } from "./types";
  * @param props.className - Additional CSS class applied to the `<ul>` container.
  * @param props.itemClassName - Additional CSS class applied to each `<li>` item.
  * @param props.actionClassName - Additional CSS class applied to each `Action` button.
- * @param props.showTooltips - Whether to show tooltips on each action. Defaults to `true`.
+ * @param props.showTooltips - Whether to wrap icon-only actions with a `Tooltip`. Defaults to `true`.
  * @param props.showActionTexts - Whether to render the action label as visible text. Defaults to `false`.
  * @returns A `<ul>` element containing one `<li>` per action.
  */
@@ -38,12 +39,21 @@ export function Actions<TRow extends BaseDto>(
           key={action.id}
           className={classNames("actions-container-item", itemClassName)}
         >
-          <Action
-            showTooltips={showTooltips}
-            showText={showActionTexts}
-            className={actionClassName}
-            {...action}
-          />
+          {showTooltips && !showActionTexts && !action.hidden ? (
+            <Tooltip content={action.tooltip}>
+              <Action
+                showText={showActionTexts}
+                className={actionClassName}
+                {...action}
+              />
+            </Tooltip>
+          ) : (
+            <Action
+              showText={showActionTexts}
+              className={actionClassName}
+              {...action}
+            />
+          )}
         </li>
       ))}
     </ul>

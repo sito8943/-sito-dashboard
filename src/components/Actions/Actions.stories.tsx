@@ -41,3 +41,7 @@ export const Basic: Story = {};
 export const WithText: Story = {
   args: { showActionTexts: true },
 };
+
+export const WithoutTooltips: Story = {
+  args: { showTooltips: false },
+};

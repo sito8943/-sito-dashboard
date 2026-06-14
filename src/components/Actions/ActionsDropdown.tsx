@@ -45,8 +45,6 @@ export const ActionsDropdown = <TRow extends BaseDto>(
         className="actions-dropdown-trigger"
         aria-label={t("_accessibility:buttons.openActions")}
         name={t("_accessibility:buttons.openActions")}
-        data-tooltip-id="tooltip"
-        data-tooltip-content={t("_accessibility:buttons.openActions")}
       />
       <Dropdown
         open={openMenu}
