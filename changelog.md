@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.86] - 2026-06-15
+
+### Changed
+
+- Added package manager overrides for `lodash` and `esbuild`, pinning them to `4.18.0` and `0.28.1` respectively, and refreshed the lockfile to match.
+
+### Fixed
+
+- Wrapped the component-level rules in `src/styles/base-colors.css` inside `@layer components` so consumer builds using Tailwind v4 keep the library styles instead of dropping selectors that overlap with utility-layer output.
+
 ## [0.0.85] - 2026-06-14
 
 ### Added
