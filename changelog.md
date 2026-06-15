@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.86] - 2026-06-15
+
+### Changed
+
+- Added package manager overrides for `lodash` and `esbuild`, pinning them to `4.18.0` and `0.28.1` respectively, and refreshed the lockfile to match.
+
+### Fixed
+
+- Wrapped the component-level rules in `src/styles/base-colors.css` inside `@layer components` so consumer builds using Tailwind v4 keep the library styles instead of dropping selectors that overlap with utility-layer output.
+
+## [0.0.85] - 2026-06-14
+
+### Added
+
+- Added `className`, `iconClassName`, and `labelClassName` to `ActionType` so consumers can style action buttons, icon wrappers, and visible labels more precisely.
+- Added support for passing action-level button/icon classes through table row sticky actions and selection-bar multi actions.
+- Added Storybook and test coverage for `Actions.showTooltips={false}` and for the new action-part class hooks.
+
+### Changed
+
+- Updated `Actions` so icon-only actions use the library `Tooltip` component by default instead of relying on tooltip-specific data attributes on `Action`.
+- Updated consumer docs (`docs/usage-guide.md`, `docs/style-customization.md`, and `docs/translations-reference.md`) to document tooltip behavior and the new action styling hooks.
+
+### Fixed
+
+- Fixed tooltip rendering and positioning by moving `Tooltip` to a portal-based implementation that supports hover and focus triggers, closes on `Escape`, clamps horizontally to the viewport, and flips below the trigger when there is no room above.
+- Fixed standalone and grouped action tooltip support so `Actions` shows accessible tooltips for icon-only actions by default, while still allowing an opt-out via `showTooltips={false}`.
+
 ## [0.0.84] - 2026-06-05
 
 ### Changed
