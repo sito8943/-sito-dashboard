@@ -1,7 +1,9 @@
 // Global styles (Tailwind + project tokens)
+// dashboard is headless (no colors). Storybook acts as the consumer app and
+// provides the color layer locally (mirrors @sito/dashboard-app/theme.css).
 import "./styles.css";
 import "../src/index.css";
-import "../src/styles/base-colors.css";
+import "./theme.css";
 
 import type { Preview } from "@storybook/react";
 import type { Decorator } from "@storybook/react";
