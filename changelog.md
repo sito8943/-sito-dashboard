@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.87] - 2026-06-16
+
+### Changed
+
+- Converted the library theme layer to a headless model by removing the bundled `src/styles/base-colors.css` import from the public entrypoint. Components now ship structure and behavior styles only, while consumer apps are responsible for providing their own color/theme CSS for semantic classes such as table, input, badge, and filter surfaces.
+- Added Storybook-local `theme.css` so the component docs/demo keep rendering with a consumer-style color layer after the headless theme change.
+
+### Fixed
+
+- Extended `ButtonBaseProps` to accept arbitrary `data-*` attributes, avoiding TypeScript errors in consumer apps that attach tooltip, analytics, or testing attributes to `Button` and `IconButton`, especially in linked installs where React type augmentations may not be shared.
+
 ## [0.0.86] - 2026-06-15
 
 ### Changed
