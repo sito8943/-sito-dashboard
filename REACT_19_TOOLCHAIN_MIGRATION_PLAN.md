@@ -186,9 +186,9 @@ pnpm run build-storybook
 ## Checkpoint 6: TypeScript 7 y Oxlint
 
 - [x] Decidir la versión objetivo después de estabilizar Vite 8.
-- [x] Revisar el alias `@typescript/typescript6` de `@sito/ui`: solo expone el
-      comando alternativo `tsc6` y dashboard no lo consume, por lo que no se
-      copia como dependencia sin uso.
+- [x] Añadir `@typescript/typescript6` como fallback de la API JavaScript que
+      `vite-plugin-dts`/`unplugin-dts` necesita cuando el compilador principal es
+      TypeScript 7.
 - [x] Revisar `target`, `moduleResolution`, aliases y generación de declaraciones.
 - [x] Actualizar TypeScript a `7.0.2`.
 - [x] Sustituir ESLint por Oxlint type-aware usando `@sito/ui` como referencia.
