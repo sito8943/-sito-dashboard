@@ -153,11 +153,11 @@ const TableOptionsProvider = <
     [sortingBy, sortingOrder],
   );
 
-  const onFilterApply = useCallback((filters: FiltersValue<TFilterKey>) => {
-    const parsedFilters = (Object.keys(filters) as TFilterKey[]).reduce<
+  const onFilterApply = useCallback((nextFilters: FiltersValue<TFilterKey>) => {
+    const parsedFilters = (Object.keys(nextFilters) as TFilterKey[]).reduce<
       TableFilters<TFilterKey>
     >((acc, key) => {
-      const filter = filters[key];
+      const filter = nextFilters[key];
       if (filter && hasMeaningfulFilterValue(filter.value)) {
         acc[key] = filter.value;
       }

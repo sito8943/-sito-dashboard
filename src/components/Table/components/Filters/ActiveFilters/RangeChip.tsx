@@ -4,6 +4,12 @@ import { Chip } from "components";
 // types
 import { RangeChipPropsType } from "./types";
 
+const hasValue = (value: unknown) => {
+  return value !== null && typeof value !== "undefined" && value !== "";
+};
+
+const formatValue = (value: unknown) => String(value);
+
 /**
  * Renders the RangeChip component.
  * @param props - props parameter.
@@ -13,12 +19,6 @@ export const RangeChip = <T, TFilterKey extends string = string>(
   props: RangeChipPropsType<T, TFilterKey>,
 ) => {
   const { end, start, text, id, onClearFilter } = props;
-
-  const hasValue = (value: unknown) => {
-    return value !== null && typeof value !== "undefined" && value !== "";
-  };
-
-  const formatValue = (value: T | "♾️") => String(value);
 
   return (
     <Chip

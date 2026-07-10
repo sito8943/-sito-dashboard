@@ -5,14 +5,10 @@ import { ReactNode } from "react";
 // widgets
 import {
   AutocompleteWidget,
-  AutocompleteWidgetPropsType,
   CheckWidget,
-  CheckWidgetPropsType,
   RangeWidgetPropsType,
   SelectWidget,
-  SelectWidgetPropsType,
   TextWidget,
-  TextWidgetPropsType,
 } from "../../Widgets";
 import { RangeWidget } from "../../Widgets/RangeWidget";
 
@@ -26,7 +22,7 @@ export const renderFilterComponent = <TFilterKey extends string = string>(
 ): ReactNode => {
   switch (filter.type) {
     case FilterTypes.text:
-      return <TextWidget {...(filter as TextWidgetPropsType<TFilterKey>)} />;
+      return <TextWidget {...filter} />;
     case FilterTypes.number:
       return (
         <RangeWidget
@@ -42,17 +38,11 @@ export const renderFilterComponent = <TFilterKey extends string = string>(
         />
       );
     case FilterTypes.select:
-      return (
-        <SelectWidget {...(filter as SelectWidgetPropsType<TFilterKey>)} />
-      );
+      return <SelectWidget {...filter} />;
     case FilterTypes.autocomplete:
-      return (
-        <AutocompleteWidget
-          {...(filter as AutocompleteWidgetPropsType<TFilterKey>)}
-        />
-      );
+      return <AutocompleteWidget {...filter} />;
     case FilterTypes.check:
-      return <CheckWidget {...(filter as CheckWidgetPropsType<TFilterKey>)} />;
+      return <CheckWidget {...filter} />;
   }
   return <></>;
 };

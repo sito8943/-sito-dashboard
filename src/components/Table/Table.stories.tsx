@@ -150,7 +150,7 @@ export const WithControlledFiltersDropdown: Story = {
 
       return (
         <Table<Row>
-          {...(args as any)}
+          {...args}
           onExpandedRowChange={null}
           toolbar={
             <button
@@ -307,7 +307,7 @@ export const WithExpandableRows: Story = {
 
       return (
         <Table<Row>
-          {...(args as any)}
+          {...args}
           expandedRowId={expandedRowId}
           onExpandedRowChange={(expandedRow) =>
             setExpandedRowId(expandedRow?.id ?? null)
@@ -345,7 +345,7 @@ export const WithExpandableRows: Story = {
 export const WithMultipleExpandableRows: Story = {
   render: (args) => (
     <Table<Row>
-      {...(args as any)}
+      {...args}
       allowMultipleExpandedRows
       onRowExpand={(expandedRow, collapsedRow) => (
         <div className="flex items-center justify-between gap-4">
@@ -396,7 +396,7 @@ export const WithPagination: Story = {
         return paginationData.slice(start, start + pageSize);
       }, [currentPage, pageSize]);
 
-      return <Table<Row> {...(args as any)} data={paginatedRows} />;
+      return <Table<Row> {...args} data={paginatedRows} />;
     };
 
     return <Example />;
@@ -432,8 +432,7 @@ export const WithCompleteFeatures: Story = {
           }
 
           const ageFilter = filters.age as
-            | { start?: string | number; end?: string | number }
-            | undefined;
+            { start?: string | number; end?: string | number } | undefined;
 
           const minAge =
             ageFilter?.start !== null &&
@@ -488,7 +487,7 @@ export const WithCompleteFeatures: Story = {
 
       return (
         <Table<Row>
-          {...(args as any)}
+          {...args}
           data={paginatedRows}
           expandedRowId={expandedRowId}
           onExpandedRowChange={(expandedRow) =>

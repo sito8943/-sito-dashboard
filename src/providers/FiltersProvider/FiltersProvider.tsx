@@ -73,7 +73,7 @@ const useFilters = <
   const context = useContext(FiltersContext);
   if (!context)
     throw new Error("filtersContext must be used within a Provider");
-  return context as FiltersContextType<TFilterKey>;
+  return context;
 };
 
 export { FiltersProvider, useFilters };

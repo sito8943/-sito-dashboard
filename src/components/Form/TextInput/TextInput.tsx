@@ -76,7 +76,7 @@ export const TextInput = forwardRef(function (
   const isAriaRequired =
     rest["aria-required"] === true ||
     String(rest["aria-required"]).toLowerCase() === "true";
-  const isLabelRequired = Boolean(rest.required || isAriaRequired);
+  const isLabelRequired = rest.required === true || isAriaRequired;
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!isControlled) {

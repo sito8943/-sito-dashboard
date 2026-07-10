@@ -14,7 +14,7 @@ import { FiltersActions, FiltersActionType } from "./types";
 export const initializer = <TFilterKey extends string = string>(
   filters: TableFilters<TFilterKey>,
 ): FiltersValue<TFilterKey> => {
-  if (!!filters) {
+  if (filters) {
     const parsed: FiltersValue<TFilterKey> = {};
     const keys = Object.keys(filters) as TFilterKey[];
     keys?.forEach((key) => {

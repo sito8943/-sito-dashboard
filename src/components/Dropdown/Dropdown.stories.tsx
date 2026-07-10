@@ -22,7 +22,7 @@ export const Basic: Story = {
           <Button
             variant="outlined"
             onClick={(e) => {
-              setAnchorEl(e.currentTarget as HTMLElement);
+              setAnchorEl(e.currentTarget);
               setOpen((prev) => !prev);
             }}
           >
@@ -58,7 +58,7 @@ export const ActionDropdown: Story = {
           <IconButton
             icon={<ChevronDown className="w-3 h-3" />}
             onClick={(e) => {
-              setAnchorEl(e.currentTarget as HTMLElement);
+              setAnchorEl(e.currentTarget);
               setOpen((prev) => !prev);
             }}
           />
@@ -106,7 +106,7 @@ export const EdgeDetection: Story = {
           <Button
             variant="outlined"
             onClick={(e) => {
-              setAnchorEl(e.currentTarget as HTMLElement);
+              setAnchorEl(e.currentTarget);
               setOpen((prev) => !prev);
             }}
           >
@@ -157,7 +157,7 @@ export const CloseOnClick: Story = {
           <Button
             variant="outlined"
             onClick={(e) => {
-              setAnchorEl(e.currentTarget as HTMLElement);
+              setAnchorEl(e.currentTarget);
               setOpen((prev) => !prev);
             }}
           >
@@ -215,7 +215,7 @@ export const KeepOpenOnClick: Story = {
           <Button
             variant="outlined"
             onClick={(e) => {
-              setAnchorEl(e.currentTarget as HTMLElement);
+              setAnchorEl(e.currentTarget);
               setOpen((prev) => !prev);
             }}
           >
@@ -279,7 +279,7 @@ export const AboveRelativeLayers: Story = {
                 <Button
                   variant="outlined"
                   onClick={(e) => {
-                    setAnchorEl(e.currentTarget as HTMLElement);
+                    setAnchorEl(e.currentTarget);
                     setOpen((prev) => !prev);
                   }}
                 >

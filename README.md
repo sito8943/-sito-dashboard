@@ -177,41 +177,44 @@ nvm install
 nvm use
 ```
 
-Current `.nvmrc`: `20.19.0`
+Current `.nvmrc`: `22.18.0`
 
 3. Install dependencies.
 
 ```bash
-npm install
+pnpm install
 ```
 
 4. Start development.
 
 ```bash
 # Vite dev server
-npm run dev
+pnpm run dev
 
 # Storybook (recommended for component work)
-npm run storybook
+pnpm run storybook
 ```
 
 ## Scripts
 
 ```bash
-npm run build            # Build library (types + bundles)
-npm run test             # Run tests once with Vitest
-npm run lint             # ESLint + Prettier + depcheck
-npm run format           # Prettier on src files
-npm run build-storybook  # Build static Storybook
-npm run preview          # Preview Vite build
-npm run full             # lint + build + test
+pnpm run build            # Build library (types + bundles)
+pnpm run test             # Run tests once with Vitest
+pnpm run lint             # Type-aware Oxlint validation
+pnpm run lint:fix         # Apply safe Oxlint fixes
+pnpm run deps:check       # Find unused dependencies
+pnpm run format           # Format the repository with Prettier
+pnpm run format:check     # Check formatting without writing
+pnpm run build-storybook  # Build static Storybook
+pnpm run preview          # Preview Vite build
+pnpm run full             # lint + build + test
 ```
 
 ## Contributing
 
 1. Create a branch from `main`.
 2. Add or update tests for your changes.
-3. Run `npm run full`.
+3. Run `pnpm run full`.
 4. Open a pull request with a clear summary.
 
 ## License

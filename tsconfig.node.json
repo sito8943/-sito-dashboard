@@ -1,11 +1,20 @@
 {
   "compilerOptions": {
     "composite": true,
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": ["node", "vite/client"],
+    "paths": {
+      "components": ["./src/components/index.ts"],
+      "components/*": ["./src/components/*"],
+      "lib": ["./src/lib/index.ts"],
+      "lib/*": ["./src/lib/*"],
+      "providers": ["./src/providers/index.ts"],
+      "providers/*": ["./src/providers/*"]
+    }
   },
-  "include": ["vite.config.ts", "package.json"]
+  "include": ["vite.config.ts", ".storybook/main.ts", ".storybook/preview.tsx"]
 }
