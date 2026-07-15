@@ -1,0 +1,5 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema-jsonc.json",
+  // Compiler fallback and browser data loaded indirectly by their owning tools.
+  "ignoreDependencies": ["@typescript/typescript6", "baseline-browser-mapping"],
+}

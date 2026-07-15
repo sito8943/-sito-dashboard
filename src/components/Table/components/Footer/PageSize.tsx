@@ -27,9 +27,7 @@ export function PageSize() {
         inputClassName="page-size-input"
         containerClassName="page-size-input-container"
         helperTextClassName="hidden"
-        onChange={(e) =>
-          setPageSize(Number((e.target as HTMLInputElement).value))
-        }
+        onChange={(e) => setPageSize(Number(e.currentTarget.value))}
       />
     </div>
   );

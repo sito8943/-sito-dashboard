@@ -192,7 +192,7 @@ pnpm run build-storybook
 - [x] Revisar `target`, `moduleResolution`, aliases y generación de declaraciones.
 - [x] Actualizar TypeScript a `7.0.2`.
 - [x] Sustituir ESLint por Oxlint type-aware usando `@sito/ui` como referencia.
-- [x] Mantener Prettier y `depcheck` como validaciones separadas.
+- [x] Mantener Prettier y Knip como validaciones separadas.
 
 Verificación del desarrollador:
 
@@ -211,7 +211,7 @@ Se mantienen porque responden a necesidades propias de dashboard:
 - `vite-plugin-lib-inject-css`.
 - React Hook Form.
 - FontAwesome.
-- `depcheck`.
+- Knip.
 
 ESLint y sus plugins se eliminaron en el checkpoint final. Oxlint es ahora el
 linter type-aware y Prettier sigue siendo el propietario exclusivo del formato.

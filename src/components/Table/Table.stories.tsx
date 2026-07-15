@@ -91,7 +91,7 @@ export const Basic: Story = {
   args: {
     entity: "users",
     title: "Usuarios",
-    onExpandedRowChange: null,
+    onExpandedRowChange: undefined,
     data,
     columns: [
       { key: "id", label: "ID", sortable: true },
@@ -115,7 +115,7 @@ export const WithAutocompleteFilter: Story = {
   args: {
     entity: "users",
     title: "Usuarios",
-    onExpandedRowChange: null,
+    onExpandedRowChange: undefined,
     data,
     columns: [
       { key: "id", label: "ID", sortable: true },
@@ -151,7 +151,7 @@ export const WithControlledFiltersDropdown: Story = {
       return (
         <Table<Row>
           {...args}
-          onExpandedRowChange={null}
+          onExpandedRowChange={undefined}
           toolbar={
             <button
               type="button"
@@ -260,7 +260,7 @@ export const WithSimpleActions: Story = {
   args: {
     entity: "users",
     title: "Users with actions",
-    onExpandedRowChange: null,
+    onExpandedRowChange: undefined,
     data,
     columns: [
       { key: "name", label: "Name", sortable: true },
@@ -273,7 +273,7 @@ export const WithSimpleActions: Story = {
 export const WithMultipleActions: Story = {
   args: {
     entity: "users",
-    onExpandedRowChange: null,
+    onExpandedRowChange: undefined,
     title: "Users with bulk actions",
     data,
     columns: [
@@ -288,7 +288,7 @@ export const WithStickyAndDropdownActions: Story = {
   args: {
     entity: "users",
     title: "Users — sticky + dropdown actions",
-    onExpandedRowChange: null,
+    onExpandedRowChange: undefined,
     data,
     columns: [
       { key: "name", label: "Name", sortable: true },
@@ -537,7 +537,7 @@ export const WithColumnVisibility: Story = {
   args: {
     entity: "users",
     title: "Users — hide/show columns",
-    onExpandedRowChange: null,
+    onExpandedRowChange: undefined,
     data,
     canHideColumns: true,
     canReset: true,
@@ -553,7 +553,7 @@ export const WithColumnVisibilityAndFilters: Story = {
   args: {
     entity: "users",
     title: "Users — columns + filters + reset",
-    onExpandedRowChange: null,
+    onExpandedRowChange: undefined,
     data,
     canHideColumns: true,
     canReset: true,

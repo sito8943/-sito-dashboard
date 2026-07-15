@@ -1,13 +1,12 @@
 /*
- * @sito/dashboard-app — theme.css
+ * Dashboard application theme layer.
  *
  * Color/theme layer for @sito/dashboard's HEADLESS components. The dashboard
  * package ships structure + geometry only (no colors); consumer apps own the
  * palette. Import this file into your app's main CSS (the one with
  * `@import "tailwindcss"`) so it is processed by YOUR Tailwind build:
  *
- *   @import "tailwindcss";
- *   @import "@sito/dashboard-app/theme.css";
+ * Import it after Tailwind in the consuming application's main stylesheet.
  *
  * Plain CSS using the design tokens (`--color-*`), so it survives any
  * consumer build (the lib's own prebuilt CSS does not — that's why these
