@@ -12,8 +12,8 @@ importers:
   .:
     dependencies:
       "@sito/ui":
-        specifier: 0.3.0
-        version: 0.3.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        specifier: 0.3.1
+        version: 0.3.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
     devDependencies:
       "@fortawesome/free-solid-svg-icons":
         specifier: ^7.2.0
@@ -2105,10 +2105,10 @@ packages:
         integrity: sha512-fwI076HYknC0IrMXdY6UmjDv+PH7NHhNJX3/pY2UblSE5XrXgndXZPiOe/6ZtuFpn6DvVDVNhtkIzQ+Qu/MhVQ==,
       }
 
-  "@sito/ui@0.3.0":
+  "@sito/ui@0.3.1":
     resolution:
       {
-        integrity: sha512-1beOqxw5q0yX26HF3DflWB5l93Scf+5oTSx4W+CT59qx4ZounaoWM5IRJT6+4s87rDHdxoPgnjqKE8SZZ/UAHQ==,
+        integrity: sha512-ys2HDPs5KBgOSTtSLQcCKuj2iTbsUK59HzL8WPvGMfXW7dNrmByiBbH0jHt8CJAsaC8Ml1H7ewIYKChxMWIp8A==,
       }
     engines: { node: ^20.19.0 || ^22.13.0 || >=24 }
     peerDependencies:
@@ -5592,7 +5592,7 @@ snapshots:
       - "@types/node"
     optional: true
 
-  "@sito/ui@0.3.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)":
+  "@sito/ui@0.3.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)":
     dependencies:
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)

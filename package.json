@@ -128,7 +128,7 @@
     "react-dom": "^19.0.0"
   },
   "dependencies": {
-    "@sito/ui": "0.3.0"
+    "@sito/ui": "0.3.1"
   },
   "overrides": {
     "lodash": "4.18.1",
@@ -137,8 +137,7 @@
   "pnpm": {
     "overrides": {
       "lodash": "4.18.1",
-      "esbuild": "0.28.1",
-      "@sito/ui": "link:../lib/ui"
+      "esbuild": "0.28.1"
     }
   },
   "lint-staged": {
