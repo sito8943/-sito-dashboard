@@ -25,6 +25,7 @@ export const IconButton = (props: IconButtonPropsType) => {
     className = "",
     variant = "text",
     color = "default",
+    size = "sm",
     iconClassName = "",
     ...rest
   } = props;
@@ -34,7 +35,7 @@ export const IconButton = (props: IconButtonPropsType) => {
     type,
     variant,
     color,
-    size: "sm",
+    size,
     icon,
     iconClassName,
     className: classNames("icon-button", className, variant, color),
