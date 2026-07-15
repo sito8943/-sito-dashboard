@@ -38,7 +38,7 @@ export const ActionsDropdown = <TRow extends BaseDto>(
         icon={<Ellipsis />}
         onClick={(e) => {
           e.stopPropagation();
-          setAnchorEl(e.currentTarget as HTMLElement);
+          setAnchorEl(e.currentTarget);
           setOpenMenu((prev) => !prev);
         }}
         onMouseDown={(e) => e.stopPropagation()}

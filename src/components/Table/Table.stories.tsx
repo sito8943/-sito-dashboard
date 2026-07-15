@@ -91,7 +91,7 @@ export const Basic: Story = {
   args: {
     entity: "users",
     title: "Usuarios",
-    onExpandedRowChange: null,
+    onExpandedRowChange: undefined,
     data,
     columns: [
       { key: "id", label: "ID", sortable: true },
@@ -115,7 +115,7 @@ export const WithAutocompleteFilter: Story = {
   args: {
     entity: "users",
     title: "Usuarios",
-    onExpandedRowChange: null,
+    onExpandedRowChange: undefined,
     data,
     columns: [
       { key: "id", label: "ID", sortable: true },
@@ -150,8 +150,8 @@ export const WithControlledFiltersDropdown: Story = {
 
       return (
         <Table<Row>
-          {...(args as any)}
-          onExpandedRowChange={null}
+          {...args}
+          onExpandedRowChange={undefined}
           toolbar={
             <button
               type="button"
@@ -260,7 +260,7 @@ export const WithSimpleActions: Story = {
   args: {
     entity: "users",
     title: "Users with actions",
-    onExpandedRowChange: null,
+    onExpandedRowChange: undefined,
     data,
     columns: [
       { key: "name", label: "Name", sortable: true },
@@ -273,7 +273,7 @@ export const WithSimpleActions: Story = {
 export const WithMultipleActions: Story = {
   args: {
     entity: "users",
-    onExpandedRowChange: null,
+    onExpandedRowChange: undefined,
     title: "Users with bulk actions",
     data,
     columns: [
@@ -288,7 +288,7 @@ export const WithStickyAndDropdownActions: Story = {
   args: {
     entity: "users",
     title: "Users — sticky + dropdown actions",
-    onExpandedRowChange: null,
+    onExpandedRowChange: undefined,
     data,
     columns: [
       { key: "name", label: "Name", sortable: true },
@@ -307,7 +307,7 @@ export const WithExpandableRows: Story = {
 
       return (
         <Table<Row>
-          {...(args as any)}
+          {...args}
           expandedRowId={expandedRowId}
           onExpandedRowChange={(expandedRow) =>
             setExpandedRowId(expandedRow?.id ?? null)
@@ -345,7 +345,7 @@ export const WithExpandableRows: Story = {
 export const WithMultipleExpandableRows: Story = {
   render: (args) => (
     <Table<Row>
-      {...(args as any)}
+      {...args}
       allowMultipleExpandedRows
       onRowExpand={(expandedRow, collapsedRow) => (
         <div className="flex items-center justify-between gap-4">
@@ -396,7 +396,7 @@ export const WithPagination: Story = {
         return paginationData.slice(start, start + pageSize);
       }, [currentPage, pageSize]);
 
-      return <Table<Row> {...(args as any)} data={paginatedRows} />;
+      return <Table<Row> {...args} data={paginatedRows} />;
     };
 
     return <Example />;
@@ -432,8 +432,7 @@ export const WithCompleteFeatures: Story = {
           }
 
           const ageFilter = filters.age as
-            | { start?: string | number; end?: string | number }
-            | undefined;
+            { start?: string | number; end?: string | number } | undefined;
 
           const minAge =
             ageFilter?.start !== null &&
@@ -488,7 +487,7 @@ export const WithCompleteFeatures: Story = {
 
       return (
         <Table<Row>
-          {...(args as any)}
+          {...args}
           data={paginatedRows}
           expandedRowId={expandedRowId}
           onExpandedRowChange={(expandedRow) =>
@@ -538,7 +537,7 @@ export const WithColumnVisibility: Story = {
   args: {
     entity: "users",
     title: "Users — hide/show columns",
-    onExpandedRowChange: null,
+    onExpandedRowChange: undefined,
     data,
     canHideColumns: true,
     canReset: true,
@@ -554,7 +553,7 @@ export const WithColumnVisibilityAndFilters: Story = {
   args: {
     entity: "users",
     title: "Users — columns + filters + reset",
-    onExpandedRowChange: null,
+    onExpandedRowChange: undefined,
     data,
     canHideColumns: true,
     canReset: true,

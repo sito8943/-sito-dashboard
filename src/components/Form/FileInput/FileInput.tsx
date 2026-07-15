@@ -77,7 +77,7 @@ export const FileInput = forwardRef(function (
 
   const handleInputClick = useCallback((e: MouseEvent<HTMLInputElement>) => {
     // Ensure re-opening and re-selecting the same file triggers onChange
-    (e.currentTarget as HTMLInputElement).value = "";
+    e.currentTarget.value = "";
   }, []);
 
   if (renderInputOnly) {

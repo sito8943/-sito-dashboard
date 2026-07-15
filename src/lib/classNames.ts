@@ -1,9 +1,5 @@
 export type ClassNameValue =
-  | string
-  | null
-  | undefined
-  | boolean
-  | ClassNameValue[];
+  string | null | undefined | boolean | ClassNameValue[];
 
 const appendClassName = (
   classNameValue: ClassNameValue,

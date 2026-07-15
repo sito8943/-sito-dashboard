@@ -1,6 +1,7 @@
 import type { StorybookConfig } from "@storybook/react-vite";
 import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
+import { mergeAlias } from "vite";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -12,19 +13,18 @@ const config: StorybookConfig = {
     options: {},
   },
   docs: {},
-  viteFinal: (config) => {
-    config.resolve = config.resolve || {};
-    config.resolve.alias = {
-      ...(config.resolve?.alias || {}),
+  viteFinal: (viteConfig) => {
+    viteConfig.resolve = viteConfig.resolve || {};
+    viteConfig.resolve.alias = mergeAlias(viteConfig.resolve.alias, {
       components: resolve(__dirname, "../src/components"),
       providers: resolve(__dirname, "../src/providers"),
       lib: resolve(__dirname, "../src/lib"),
       hooks: resolve(__dirname, "../src/hooks"),
-    };
+    });
 
     // Remove library-only plugins that break Storybook's Vite build
-    if (Array.isArray(config.plugins)) {
-      config.plugins = config.plugins.filter((p: any) => {
+    if (Array.isArray(viteConfig.plugins)) {
+      viteConfig.plugins = viteConfig.plugins.filter((p: any) => {
         const name = (p && (p.name || p?.api?.name)) || "";
         return !(
           typeof name === "string" &&
@@ -32,7 +32,7 @@ const config: StorybookConfig = {
         );
       });
     }
-    return config;
+    return viteConfig;
   },
 };
 

@@ -9,7 +9,7 @@
 
 **After every change, run the full validation suite before finishing:**
 
-This covers ESLint, Prettier, TypeScript type-checking, the Vite bundle build, and Vitest tests.
+This covers Oxlint, Prettier, TypeScript type-checking, the Vite bundle build, and Vitest tests.
 Running it locally catches errors immediately and avoids costly follow-up fix cycles.
 
 ---

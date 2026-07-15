@@ -43,10 +43,10 @@ export function AutocompleteWidget<TFilterKey extends string = string>(
   }, [currentFilters, propertyName]);
 
   const onChange = useCallback(
-    (value: Option | Option[] | null) => {
+    (nextValue: Option | Option[] | null) => {
       setCurrentFilters({
         type: FiltersActions.update,
-        toUpdate: buildFilterUpdate(propertyName, value),
+        toUpdate: buildFilterUpdate(propertyName, nextValue),
       });
     },
     [propertyName, setCurrentFilters],

@@ -1,6 +1,11 @@
 // styles
 import "./styles.css";
 
+import {
+  IconButton as UiIconButton,
+  type IconButtonProps as UiIconButtonProps,
+} from "@sito/ui";
+
 // lib
 import { classNames } from "lib";
 
@@ -24,14 +29,17 @@ export const IconButton = (props: IconButtonPropsType) => {
     ...rest
   } = props;
 
-  return (
-    <button
-      type={type}
-      className={classNames("icon-button", className, variant, color)}
-      {...rest}
-    >
-      <span className={iconClassName}>{icon}</span>
-      {children}
-    </button>
-  );
+  const uiProps = {
+    ...rest,
+    type,
+    variant,
+    color,
+    size: "sm",
+    icon,
+    iconClassName,
+    className: classNames("icon-button", className, variant, color),
+    children,
+  } as UiIconButtonProps;
+
+  return <UiIconButton {...uiProps} />;
 };

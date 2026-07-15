@@ -91,10 +91,13 @@ export function Tooltip(props: TooltipPropsType) {
       onBlur={hide}
       onKeyDown={handleKeyDown}
     >
-      {cloneElement(children as React.ReactElement, {
-        // describedby goes on the focused child so screen readers announce it.
-        "aria-describedby": visible ? tooltipId : undefined,
-      })}
+      {cloneElement(
+        children as React.ReactElement<React.HTMLAttributes<HTMLElement>>,
+        {
+          // describedby goes on the focused child so screen readers announce it.
+          "aria-describedby": visible ? tooltipId : undefined,
+        },
+      )}
     </span>
   ) : (
     children

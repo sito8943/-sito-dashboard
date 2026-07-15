@@ -325,12 +325,12 @@ export function useExpandedRows<TRow extends BaseDto>({
           return nextExpandedRows;
         });
 
-        const expandedRowContent = onRowExpand?.(row, null) ?? null;
+        const nextExpandedRowContent = onRowExpand?.(row, null) ?? null;
         if (
-          expandedRowContent !== null &&
-          typeof expandedRowContent !== "undefined"
+          nextExpandedRowContent !== null &&
+          typeof nextExpandedRowContent !== "undefined"
         ) {
-          expandRenderedRow(row.id, expandedRowContent);
+          expandRenderedRow(row.id, nextExpandedRowContent);
         } else {
           clearExpandedRowsAnimationTimeout(row.id);
           setRenderedExpandedRows((prevRows) =>

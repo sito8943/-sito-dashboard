@@ -54,7 +54,6 @@ export const parsePageSizes = (sizes: number[] | undefined) => {
   const parsedSizes = Array.from(
     new Set(
       sizes
-        .map((size) => Number(size))
         .filter((size) => Number.isFinite(size) && size > 0)
         .map((size) => Math.floor(size)),
     ),

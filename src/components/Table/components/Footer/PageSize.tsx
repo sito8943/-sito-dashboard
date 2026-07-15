@@ -1,5 +1,5 @@
 // components
-import { Option, SelectInput } from "components";
+import { SelectInput } from "components";
 // providers
 import { useTableOptions, useTranslation } from "providers";
 import { useMemo } from "react";
@@ -23,13 +23,11 @@ export function PageSize() {
       <p>{t("_accessibility:components.table.pageSizes")}</p>
       <SelectInput
         value={pageSize}
-        options={optionPageSize as Option[]}
+        options={optionPageSize}
         inputClassName="page-size-input"
         containerClassName="page-size-input-container"
         helperTextClassName="hidden"
-        onChange={(e) =>
-          setPageSize(Number((e.target as HTMLInputElement).value))
-        }
+        onChange={(e) => setPageSize(Number(e.currentTarget.value))}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import { IconProps } from "main";
+import type { IconProps } from "./types";
 
 /**
  * Staggered bars icon — used in the Table reset button to restore default filters, sort, and column visibility.

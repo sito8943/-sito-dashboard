@@ -76,7 +76,7 @@ export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
               aria-label={t("_accessibility:components.table.selectRow")}
             />
           </td>
-          {!!actions ? (
+          {actions ? (
             <td className="w-px">
               <div className="table-row-cell-action">
                 {(() => {

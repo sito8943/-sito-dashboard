@@ -54,7 +54,7 @@ export const AutocompleteInput = forwardRef(function (
 
   const isAriaRequired =
     ariaRequired === true || String(ariaRequired).toLowerCase() === "true";
-  const isRequired = Boolean(required || isAriaRequired);
+  const isRequired = required || isAriaRequired;
   const hasMultipleValue = multiple && Array.isArray(value) && value.length > 0;
   const shouldRequireInput = isRequired && !hasMultipleValue;
 

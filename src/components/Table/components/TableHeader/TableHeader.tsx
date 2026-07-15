@@ -45,13 +45,13 @@ export const TableHeader = <TRow extends BaseDto>(
           return (colB.pos ?? 0) - (colA.pos ?? 0);
         })
         .flatMap((column) => {
-          const filterOptions = column.filterOptions;
-          if (!filterOptions) return [];
+          const columnFilterOptions = column.filterOptions;
+          if (!columnFilterOptions) return [];
 
           return [
             {
-              ...filterOptions,
-              label: filterOptions.label ?? column.label,
+              ...columnFilterOptions,
+              label: columnFilterOptions.label ?? column.label,
               propertyName: column.key,
             },
           ];
