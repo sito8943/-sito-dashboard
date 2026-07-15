@@ -62,6 +62,7 @@ export default defineConfig({
     },
     rollupOptions: {
       external: [
+        "@sito/ui",
         "react",
         "react-dom",
         "react/jsx-runtime",

@@ -1,0 +1,82 @@
+@import "@sito/ui/styles.css";
+
+:root {
+  --sito-ui-color-text: var(--color-text, #0d0d0d);
+  --sito-ui-color-surface: var(--color-base-light, hsl(0 0% 100%));
+  --sito-ui-color-border: var(--color-border, hsl(0 0% 80%));
+
+  --sito-ui-color-default-text: var(--color-text, #0d0d0d);
+  --sito-ui-color-default-light: var(--color-base, hsl(0 0% 95%));
+  --sito-ui-color-default-default: var(--color-base, hsl(0 0% 95%));
+  --sito-ui-color-default-hover: var(--color-base-dark, hsl(0 0% 90%));
+
+  --sito-ui-color-primary-text: var(--color-base-light, hsl(0 0% 100%));
+  --sito-ui-color-primary-light: color-mix(
+    in srgb,
+    var(--color-primary, #041e42) 10%,
+    transparent
+  );
+  --sito-ui-color-primary-default: var(--color-primary, #041e42);
+  --sito-ui-color-primary-hover: var(--color-hover-primary, #0a2f66);
+
+  --sito-ui-color-secondary-text: var(--color-base-light, hsl(0 0% 100%));
+  --sito-ui-color-secondary-light: color-mix(
+    in srgb,
+    var(--color-secondary, #cd212a) 10%,
+    transparent
+  );
+  --sito-ui-color-secondary-default: var(--color-secondary, #cd212a);
+  --sito-ui-color-secondary-hover: var(--color-hover-secondary, #e03a42);
+
+  --sito-ui-color-error-text: var(--color-error, #fbfbfb);
+  --sito-ui-color-error-light: color-mix(
+    in srgb,
+    var(--color-bg-error, hsl(0 50% 51%)) 10%,
+    transparent
+  );
+  --sito-ui-color-error-default: var(--color-bg-error, hsl(0 50% 51%));
+  --sito-ui-color-error-hover: color-mix(
+    in srgb,
+    var(--color-bg-error, hsl(0 50% 51%)) 80%,
+    transparent
+  );
+
+  --sito-ui-color-warning-text: var(--color-warning, #000000);
+  --sito-ui-color-warning-light: color-mix(
+    in srgb,
+    var(--color-bg-warning, #ffa500) 10%,
+    transparent
+  );
+  --sito-ui-color-warning-default: var(--color-bg-warning, #ffa500);
+  --sito-ui-color-warning-hover: color-mix(
+    in srgb,
+    var(--color-bg-warning, #ffa500) 80%,
+    transparent
+  );
+
+  --sito-ui-color-success-text: var(--color-success, #fbfbfb);
+  --sito-ui-color-success-light: color-mix(
+    in srgb,
+    var(--color-bg-success, hsl(149.76 68% 36%)) 10%,
+    transparent
+  );
+  --sito-ui-color-success-default: var(--color-bg-success, hsl(149.76 68% 36%));
+  --sito-ui-color-success-hover: color-mix(
+    in srgb,
+    var(--color-bg-success, hsl(149.76 68% 36%)) 80%,
+    transparent
+  );
+
+  --sito-ui-color-info-text: var(--color-info, #fbfbfb);
+  --sito-ui-color-info-light: color-mix(
+    in srgb,
+    var(--color-bg-info, #0070ba) 10%,
+    transparent
+  );
+  --sito-ui-color-info-default: var(--color-bg-info, #0070ba);
+  --sito-ui-color-info-hover: color-mix(
+    in srgb,
+    var(--color-bg-info, #0070ba) 80%,
+    transparent
+  );
+}

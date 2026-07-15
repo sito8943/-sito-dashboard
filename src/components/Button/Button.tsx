@@ -1,6 +1,8 @@
 // styles
 import "./styles.css";
 
+import { Button as UiButton } from "@sito/ui";
+
 // lib
 import { classNames } from "lib";
 
@@ -23,12 +25,14 @@ export const Button = (props: ButtonPropsType) => {
   } = props;
 
   return (
-    <button
+    <UiButton
       type={type}
       className={classNames("button", variant, color, className)}
+      variant={variant}
+      color={color}
       {...rest}
     >
       {children}
-    </button>
+    </UiButton>
   );
 };
