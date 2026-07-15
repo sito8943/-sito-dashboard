@@ -2,6 +2,46 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.0] - 2026-07-17
+
+### Added
+
+- Added `@sito/ui@0.3.0` as the shared primitive dependency for dashboard controls.
+- Added `src/styles/ui.css` as a compatibility bridge that imports the shared UI styles and maps the existing dashboard semantic color variables to the `--sito-ui-*` token contract.
+- Added a staged React 19 and toolchain migration plan documenting the upgrade decisions, checkpoints, and developer verification commands.
+- Added type-aware Oxlint configuration and dedicated `lint`, `lint:fix`, `format`, and `format:check` commands.
+- Added Knip dependency analysis through `deps:check`, including documented exceptions for the TypeScript compiler fallback and Browserslist data package.
+- Added `@typescript/typescript6` as the JavaScript Compiler API fallback required by `vite-plugin-dts`/`unplugin-dts` when the primary compiler is TypeScript 7.
+
+### Changed
+
+- Updated `Button` and `IconButton` to delegate their base behavior to the `@sito/ui` primitives while preserving the existing `@sito/dashboard` props, class hooks, variants, colors, and dashboard-specific submit styles. Buttons now also inherit the shared pressed-state interaction, including the subtle active scale effect.
+- Updated the runtime baseline to React and React DOM `19.2.7`, with React peer dependencies now requiring `^19.0.0`, and aligned the React type packages with React 19.
+- Updated the development runtime to Node `22.18.0` and pnpm `10.34.4`, replaced the npm lockfile with `pnpm-lock.yaml`, and documented pnpm-based development commands.
+- Updated the compiler and build stack to TypeScript `7.0.2`, Vite `8.1.4`, `@vitejs/plugin-react` `6.0.3`, and `vite-plugin-dts` `5.0.3`.
+- Updated Storybook to `10.4.6`, Vitest to `4.1.10`, jsdom to `29.1.1`, Testing Library packages to their React 19-compatible releases, and Prettier to `3.9.5`.
+- Updated the TypeScript output target from ES5 to ES2020, made the internal `components`, `lib`, and `providers` aliases explicit, and aligned the Node configuration with `NodeNext` module resolution.
+- Externalized `@sito/ui` and both React JSX runtimes from the Vite library bundle so consumers share a single runtime and primitive implementation.
+- Replaced the previous ESLint/Prettier/Depcheck lint chain with separate Oxlint, Prettier, Knip, TypeScript/Vite build, and Vitest validation stages in `pnpm run full`.
+- Updated CI to Node 22 and pnpm with frozen-lockfile installs, current checkout/setup actions, pnpm caching, and a pnpm-based consumer type smoke test.
+- Updated the dependency overrides to `lodash@4.18.1` and `esbuild@0.28.1` for both package-manager-compatible override formats.
+
+### Fixed
+
+- Fixed Storybook's Vite alias composition by using `mergeAlias`, preserving aliases supplied as either arrays or objects while continuing to remove library-only plugins from the Storybook build.
+- Fixed React 19 compatibility in `Tooltip` by tightening the cloned child element type used to inject `aria-describedby`.
+- Fixed TypeScript 7 compatibility in table stories by using `undefined` for optional expansion callbacks instead of `null`.
+- Fixed table pagination select handlers to read from the correctly typed `HTMLSelectElement.currentTarget` without unsafe input-element casts.
+- Fixed the `BarsStaggered` icon type import so it resolves from the local icon types module instead of the invalid `main` package alias.
+- Fixed type-aware lint findings across table filters, expanded-row handling, providers, stories, form controls, and utility helpers without changing their public APIs.
+- Fixed Knip false positives caused by stale ESLint configuration, TypeScript path aliases, and a package-like reference inside Storybook's local theme comments.
+
+### Removed
+
+- Removed ESLint, its legacy configuration files, and the obsolete ESLint/Prettier/JSDoc/import-sort plugin dependencies after migrating to Oxlint.
+- Removed Depcheck and its ignore configuration after migrating dependency validation to Knip.
+- Removed `package-lock.json` after standardizing local development and CI on pnpm.
+
 ## [0.0.87] - 2026-06-16
 
 ### Changed
