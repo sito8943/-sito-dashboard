@@ -72,6 +72,39 @@ describe("AutocompleteInput", () => {
     expect(input).not.toHaveAttribute("required");
   });
 
+  it("allows selecting consecutive suggestions in multiple mode", () => {
+    const Example = () => {
+      const [value, setValue] = useState<Option[] | null>(null);
+      return (
+        <>
+          <AutocompleteInput
+            id="autocomplete-multiple"
+            label="Autocomplete multiple"
+            multiple
+            value={value}
+            onChange={(nextValue) =>
+              setValue(Array.isArray(nextValue) ? nextValue : null)
+            }
+            options={options}
+          />
+          <p data-testid="value">
+            {value?.map((option) => option.name).join(", ") ?? ""}
+          </p>
+        </>
+      );
+    };
+
+    render(<Example />);
+
+    const input = screen.getByLabelText("Autocomplete multiple");
+    fireEvent.focus(input);
+    fireEvent.click(screen.getByText("Apple"));
+    fireEvent.click(screen.getByText("Banana"));
+
+    expect(screen.getByTestId("value")).toHaveTextContent("Apple, Banana");
+    expect(screen.getByText("Cherry")).toBeInTheDocument();
+  });
+
   it("selects the matching option on blur by default", () => {
     const Example = () => {
       const [value, setValue] = useState<Option | Option[] | null>(null);

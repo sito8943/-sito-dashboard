@@ -114,6 +114,8 @@ export const AutocompleteInput = forwardRef(function (
 
   const [threeDots, setThreeDots] = useState(false);
   const multipleValueRef = useRef<HTMLUListElement | null>(null);
+  const measuredValueRef = useRef(value);
+  const hasMeasuredValueRef = useRef(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -143,7 +145,7 @@ export const AutocompleteInput = forwardRef(function (
   }, []);
 
   const handleSuggestionClick = useCallback(
-    (suggestion?: Option) => {
+    (suggestion?: Option, keepSuggestionsOpen = false) => {
       if (!suggestion) onChange(null);
       else {
         if (multiple) {
@@ -156,7 +158,7 @@ export const AutocompleteInput = forwardRef(function (
           onChange(suggestion);
         }
       }
-      setShowSuggestions(false);
+      setShowSuggestions(multiple && keepSuggestionsOpen);
     },
     [multiple, onChange, value],
   );
@@ -247,7 +249,7 @@ export const AutocompleteInput = forwardRef(function (
         event.preventDefault();
         const index =
           highlightedSuggestionIndex >= 0 ? highlightedSuggestionIndex : 0;
-        handleSuggestionClick(suggestions[index]);
+        handleSuggestionClick(suggestions[index], true);
         return;
       }
 
@@ -283,10 +285,22 @@ export const AutocompleteInput = forwardRef(function (
   }, [onChange, value]);
 
   useLayoutEffect(() => {
-    const valueWidth = multipleValueRef.current?.offsetWidth ?? 0;
+    if (hasMeasuredValueRef.current && measuredValueRef.current === value) {
+      return;
+    }
+
+    if (threeDots) {
+      setThreeDots(false);
+      return;
+    }
+
+    const valueWidth = multipleValueRef.current?.scrollWidth ?? 0;
     const parentWidth = autocompleteRef.current?.offsetWidth ?? 0;
+
+    measuredValueRef.current = value;
+    hasMeasuredValueRef.current = true;
     setThreeDots(valueWidth > parentWidth * 0.4);
-  }, [value]);
+  }, [threeDots, value]);
 
   return (
     <div
@@ -390,7 +404,7 @@ export const AutocompleteInput = forwardRef(function (
               }
               onMouseDown={(e) => e.preventDefault()}
               onClick={(e) => {
-                handleSuggestionClick(suggestion);
+                handleSuggestionClick(suggestion, true);
                 e.stopPropagation();
               }}
               key={suggestion.id ?? suggestion.value ?? suggestion.name}
