@@ -2,7 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.1.0] - 2026-07-17
+## [0.1.2] - 2026-07-16
+
+### Fixed
+
+- Fixed `AutocompleteInput` in multiple mode so selecting an option with the mouse or keyboard keeps the suggestions open, allowing consecutive selections without refocusing the input.
+- Fixed long selected values overlapping the input label or wrapping onto multiple lines by constraining the chip container, truncating oversized labels, and keeping additional chips on a single line.
+- Fixed the selected-value overflow measurement so the compact first-chip plus `+N` summary is recalculated from the complete selection whenever the value changes.
+- Added regression coverage for selecting multiple suggestions consecutively.
+
+## [0.1.1] - 2026-07-15
+
+## [0.1.0] - 2026-07-15
 
 ### Added
 
