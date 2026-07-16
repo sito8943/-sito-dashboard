@@ -31,5 +31,24 @@
 .autocomplete-value-container {
   top: 50%;
   transform: translateY(-50%);
-  @apply flex items-center justify-start flex-wrap gap-2 absolute right-2;
+  max-width: 40%;
+  @apply flex items-center justify-start flex-nowrap gap-2 absolute right-2;
+}
+
+.autocomplete-value-container > li:first-child,
+.autocomplete-value-container .chip-main,
+.autocomplete-value-container .chip-main-text {
+  @apply min-w-0;
+}
+
+.autocomplete-value-container > li:not(:first-child) {
+  @apply shrink-0;
+}
+
+.autocomplete-value-container .chip-main {
+  @apply max-w-full;
+}
+
+.autocomplete-value-container .chip-main-text {
+  @apply truncate;
 }
