@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+### Changed
+
+- Moved `@sito/ui` to peer dependencies with the compatible range `>=0.3.2 <0.4.0`, while keeping `0.3.3` as the development version, so consumers provide one shared primitive instance without requiring a Dashboard release for every compatible UI patch.
+
 ## [0.1.2] - 2026-07-16
 
 ### Fixed

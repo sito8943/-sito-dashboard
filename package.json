@@ -124,11 +124,9 @@
   "author": "sito8943",
   "license": "MIT",
   "peerDependencies": {
+    "@sito/ui": ">=0.3.2 <0.4.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
-  },
-  "dependencies": {
-    "@sito/ui": "0.3.2"
   },
   "overrides": {
     "lodash": "4.18.1",
@@ -148,6 +146,7 @@
     "*.{js,jsx,css,json,md}": "prettier --write"
   },
   "devDependencies": {
+    "@sito/ui": "0.3.3",
     "@fortawesome/free-solid-svg-icons": "^7.2.0",
     "@fortawesome/react-fontawesome": "^3.2.0",
     "@storybook/addon-a11y": "10.4.6",

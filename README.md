@@ -24,6 +24,7 @@ pnpm add @sito/dashboard
 
 ### Peer dependency
 
+- `@sito/ui` (`>=0.3.2 <0.4.0`)
 - `react` (`>=18.2 <20`)
 - `react-dom` (`>=18.2 <20`)
 

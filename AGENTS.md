@@ -26,7 +26,7 @@ needed to wire them together.
 npm install @sito/dashboard
 ```
 
-**Peer dependency:** `react` and `react-dom` ≥ 18.2.
+**Peer dependencies:** `@sito/ui` ≥ 0.3.2 and < 0.4.0, plus `react` and `react-dom` ≥ 18.2.
 
 ---
 
