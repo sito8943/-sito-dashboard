@@ -45,6 +45,7 @@ export const AutocompleteInput = forwardRef(function (
     placeholder = "",
     multiple = false,
     autoSelectOnBlur = true,
+    createOption,
     required = false,
     "aria-required": ariaRequired = false,
     onBlur,
@@ -101,13 +102,29 @@ export const AutocompleteInput = forwardRef(function (
     [availableOptions, getOptionLabel, inputValue],
   );
 
+  const trimmedInputValue = inputValue.trim();
+  const canCreateOption = useMemo(() => {
+    if (!createOption || !trimmedInputValue) return false;
+
+    const normalizedInputValue = trimmedInputValue.toLowerCase();
+    const selectedOptions = Array.isArray(value) ? value : value ? [value] : [];
+    const knownOptions = [...options, ...selectedOptions];
+
+    return !knownOptions.some(
+      (option) =>
+        getOptionLabel(option).trim().toLowerCase() === normalizedInputValue,
+    );
+  }, [createOption, getOptionLabel, options, trimmedInputValue, value]);
+
+  const suggestionCount = suggestions.length + (canCreateOption ? 1 : 0);
+
   useEffect(() => {
-    if (!showSuggestions || !suggestions.length) {
+    if (!showSuggestions || !suggestionCount) {
       setHighlightedSuggestionIndex(-1);
       return;
     }
     setHighlightedSuggestionIndex(0);
-  }, [showSuggestions, suggestions]);
+  }, [showSuggestions, suggestionCount, suggestions]);
 
   const autocompleteRef = useRef<HTMLDivElement | null>(null);
   const localInputRef = useRef<HTMLInputElement | null>(null);
@@ -162,6 +179,13 @@ export const AutocompleteInput = forwardRef(function (
     },
     [multiple, onChange, value],
   );
+
+  const handleCreateOption = useCallback(() => {
+    if (!createOption || !canCreateOption) return;
+
+    createOption.onCreate(trimmedInputValue);
+    setShowSuggestions(false);
+  }, [canCreateOption, createOption, trimmedInputValue]);
 
   const findSuggestionMatchingInput = useCallback(
     (searchValue: string) => {
@@ -221,7 +245,7 @@ export const AutocompleteInput = forwardRef(function (
 
   const handleKeyDown = useCallback(
     (event: ReactKeyboardEvent<HTMLInputElement>) => {
-      if (!suggestions.length) {
+      if (!suggestionCount) {
         if (event.key === "Escape") {
           setShowSuggestions(false);
         }
@@ -238,9 +262,9 @@ export const AutocompleteInput = forwardRef(function (
         setHighlightedSuggestionIndex((currentIndex) => {
           const baseIndex = currentIndex >= 0 ? currentIndex : 0;
           if (event.key === "ArrowDown") {
-            return (baseIndex + 1 + suggestions.length) % suggestions.length;
+            return (baseIndex + 1 + suggestionCount) % suggestionCount;
           }
-          return (baseIndex - 1 + suggestions.length) % suggestions.length;
+          return (baseIndex - 1 + suggestionCount) % suggestionCount;
         });
         return;
       }
@@ -249,6 +273,10 @@ export const AutocompleteInput = forwardRef(function (
         event.preventDefault();
         const index =
           highlightedSuggestionIndex >= 0 ? highlightedSuggestionIndex : 0;
+        if (canCreateOption && index === suggestions.length) {
+          handleCreateOption();
+          return;
+        }
         handleSuggestionClick(suggestions[index], true);
         return;
       }
@@ -260,8 +288,11 @@ export const AutocompleteInput = forwardRef(function (
     },
     [
       handleSuggestionClick,
+      handleCreateOption,
+      canCreateOption,
       highlightedSuggestionIndex,
       showSuggestions,
+      suggestionCount,
       suggestions,
     ],
   );
@@ -412,6 +443,27 @@ export const AutocompleteInput = forwardRef(function (
               {suggestion.value ?? suggestion.name}
             </li>
           ))}
+          {canCreateOption && createOption ? (
+            <li
+              className={classNames(
+                "autocomplete-suggestion-item",
+                "autocomplete-create-option",
+                highlightedSuggestionIndex === suggestions.length
+                  ? "highlighted"
+                  : "",
+              )}
+              onMouseEnter={() =>
+                setHighlightedSuggestionIndex(suggestions.length)
+              }
+              onMouseDown={(event) => event.preventDefault()}
+              onClick={(event) => {
+                handleCreateOption();
+                event.stopPropagation();
+              }}
+            >
+              {createOption.renderLabel(trimmedInputValue)}
+            </li>
+          ) : null}
         </ul>
       )}
     </div>

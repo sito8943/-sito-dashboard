@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.0]
+
+### Added
+
+- Added optional `AutocompleteInput.createOption` support so consumers can render and select a localized creation row when the typed value has no exact option match.
+- Added mouse and keyboard regression coverage plus a `Creatable` Storybook scenario for the new autocomplete flow.
+
 ## [0.1.3] - 2026-07-16
 
 ### Changed

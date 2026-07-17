@@ -3,7 +3,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Option } from "components";
 import { useState } from "react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { AutocompleteInput } from "./AutocompleteInput";
 
@@ -160,5 +160,100 @@ describe("AutocompleteInput", () => {
     fireEvent.blur(input);
 
     expect(screen.getByTestId("value")).toHaveTextContent("");
+  });
+
+  it("offers creation when the typed value has no exact option match", () => {
+    const onCreate = vi.fn();
+
+    render(
+      <AutocompleteInput
+        id="autocomplete-create"
+        label="Autocomplete create"
+        value={null}
+        onChange={() => undefined}
+        options={options}
+        createOption={{
+          onCreate,
+          renderLabel: (inputValue) => `Create "${inputValue}"`,
+        }}
+      />,
+    );
+
+    const input = screen.getByLabelText("Autocomplete create");
+    fireEvent.focus(input);
+    fireEvent.change(input, { target: { value: "  Dragon fruit  " } });
+
+    fireEvent.click(screen.getByText('Create "Dragon fruit"'));
+
+    expect(onCreate).toHaveBeenCalledOnce();
+    expect(onCreate).toHaveBeenCalledWith("Dragon fruit");
+  });
+
+  it("does not offer creation when an exact option already exists", () => {
+    render(
+      <AutocompleteInput
+        id="autocomplete-create-existing"
+        label="Autocomplete create existing"
+        value={null}
+        onChange={() => undefined}
+        options={options}
+        createOption={{
+          onCreate: () => undefined,
+          renderLabel: (inputValue) => `Create "${inputValue}"`,
+        }}
+      />,
+    );
+
+    const input = screen.getByLabelText("Autocomplete create existing");
+    fireEvent.focus(input);
+    fireEvent.change(input, { target: { value: " apple " } });
+
+    expect(screen.queryByText('Create "apple"')).not.toBeInTheDocument();
+  });
+
+  it("creates the typed option with Enter when no suggestion matches", () => {
+    const onCreate = vi.fn();
+
+    render(
+      <AutocompleteInput
+        id="autocomplete-create-keyboard"
+        label="Autocomplete create keyboard"
+        value={null}
+        onChange={() => undefined}
+        options={options}
+        createOption={{
+          onCreate,
+          renderLabel: (inputValue) => `Create "${inputValue}"`,
+        }}
+      />,
+    );
+
+    const input = screen.getByLabelText("Autocomplete create keyboard");
+    fireEvent.focus(input);
+    fireEvent.change(input, { target: { value: "Dragon fruit" } });
+    fireEvent.keyDown(input, { key: "Enter" });
+
+    expect(onCreate).toHaveBeenCalledWith("Dragon fruit");
+  });
+
+  it("does not offer creation for a selected value missing from options", () => {
+    render(
+      <AutocompleteInput
+        id="autocomplete-create-selected"
+        label="Autocomplete create selected"
+        value={{ id: 4, name: "Dragon fruit" }}
+        onChange={() => undefined}
+        options={options}
+        createOption={{
+          onCreate: () => undefined,
+          renderLabel: (inputValue) => `Create "${inputValue}"`,
+        }}
+      />,
+    );
+
+    const input = screen.getByLabelText("Autocomplete create selected");
+    fireEvent.focus(input);
+
+    expect(screen.queryByText('Create "Dragon fruit"')).not.toBeInTheDocument();
   });
 });

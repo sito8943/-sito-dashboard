@@ -66,6 +66,23 @@ const options: Option[] = [
 
 `autoSelectOnBlur` defaults to `true`. In single-select mode, blur selects the matching option when the typed text exactly matches an option label, ignoring case and surrounding spaces.
 
+To let consumers create missing options, pass both the action and its localized label through `createOption`:
+
+```tsx
+<AutocompleteInput
+  value={country}
+  onChange={setCountry}
+  options={countries}
+  label="Country"
+  createOption={{
+    onCreate: (inputValue) => openCreateCountryDialog(inputValue),
+    renderLabel: (inputValue) => `Create "${inputValue}"`,
+  }}
+/>
+```
+
+The creation row appears only for a non-empty value without an exact option match. Matching is case-insensitive and ignores surrounding spaces. The consumer remains responsible for persistence and for updating `options` or `value` after creation.
+
 For custom upload UIs (for example profile photo pickers), render only the native input:
 
 ```tsx
