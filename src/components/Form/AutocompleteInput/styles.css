@@ -28,6 +28,10 @@
   @apply p-2 cursor-pointer;
 }
 
+.autocomplete-create-option {
+  @apply font-semibold text-bg-primary;
+}
+
 .autocomplete-value-container {
   top: 50%;
   transform: translateY(-50%);

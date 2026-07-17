@@ -507,6 +507,21 @@ import { AutocompleteInput } from "@sito/dashboard";
 
 `autoSelectOnBlur` defaults to `true`. In single-select mode, when the input loses focus and the typed text exactly matches an option label, that option is selected automatically. Matching is case-insensitive and trims surrounding spaces.
 
+Use `createOption` when the consumer must offer creation for a missing value. The consumer supplies both the localized row label and the creation callback; `AutocompleteInput` only detects the missing exact match and emits the trimmed input value.
+
+```tsx
+<AutocompleteInput
+  label="Country"
+  value={country}
+  onChange={setCountry}
+  options={countryOptions}
+  createOption={{
+    onCreate: (inputValue) => openCreateCountryDialog(inputValue),
+    renderLabel: (inputValue) => `Create "${inputValue}"`,
+  }}
+/>
+```
+
 ### 6.4 `CheckInput`
 
 ```tsx

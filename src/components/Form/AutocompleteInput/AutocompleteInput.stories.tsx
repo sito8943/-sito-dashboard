@@ -220,6 +220,57 @@ export const AutoSelectOnBlurDisabled: Story = {
   },
 };
 
+export const Creatable: Story = {
+  render: (args) => {
+    const Example = () => {
+      const [availableOptions, setAvailableOptions] =
+        useState<Option[]>(options);
+      const [value, setValue] = useState<Option | Option[] | null>(null);
+
+      const handleCreate = (inputValue: string) => {
+        const createdOption: Option = {
+          id: `created-${inputValue.toLowerCase()}`,
+          name: inputValue,
+        };
+
+        setAvailableOptions((currentOptions) => [
+          ...currentOptions,
+          createdOption,
+        ]);
+        setValue(createdOption);
+      };
+
+      return (
+        <div className="max-w-sm">
+          <AutocompleteInput
+            {...args}
+            label="Fruta"
+            placeholder="Busca o crea una fruta"
+            options={availableOptions}
+            value={value}
+            onChange={setValue}
+            createOption={{
+              onCreate: handleCreate,
+              renderLabel: (inputValue) => `Crear "${inputValue}"`,
+            }}
+          />
+          <p className="mt-2 text-sm text-gray-500">
+            Escribe una fruta que no exista y selecciona la opción de creación.
+          </p>
+          {!Array.isArray(value) && (
+            <p className="mt-2 text-sm text-gray-500">
+              Valor: {value ? String(value.name ?? value.value) : "(vacío)"}
+            </p>
+          )}
+        </div>
+      );
+    };
+
+    return <Example />;
+  },
+  args: { state: State.default },
+};
+
 export const CustomLabel: Story = {
   render: (args) => {
     const Example = () => {
