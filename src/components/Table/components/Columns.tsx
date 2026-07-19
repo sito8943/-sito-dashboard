@@ -5,6 +5,7 @@ import { ChevronDown, ChevronUp } from "components/SvgIcons";
 import { BaseDto, classNames, SortOrder } from "lib";
 // providers
 import { useTableOptions, useTranslation } from "providers";
+import { getNextSortingOrder } from "providers/TableOptions/utils";
 import { useEffect, useMemo, useRef } from "react";
 
 // utils
@@ -24,6 +25,7 @@ export function Columns<TRow extends BaseDto>(props: ColumnPropsType<TRow>) {
     entity = "",
     columns = [],
     hasAction = true,
+    showSortPreviewOnHover = false,
     onSortCallback,
     selectionState,
     onToggleAllRows,
@@ -73,46 +75,71 @@ export function Columns<TRow extends BaseDto>(props: ColumnPropsType<TRow>) {
             <span>{t("_accessibility:labels.actions")}</span>
           </th>
         )}
-        {parsedColumns.map((column) => (
-          <th
-            key={column.id}
-            scope="col"
-            className={classNames("table-headers-column", column.className)}
-          >
-            <Button
-              disabled={!column.sortable}
-              onClick={() => onSort(column.id, onSortCallback)}
-              className="table-headers-cell"
+        {parsedColumns.map((column) => {
+          const isActiveSort = sortingBy === column.id;
+          const displayedSortOrder = isActiveSort
+            ? sortingOrder
+            : getNextSortingOrder(sortingBy, sortingOrder, column.id);
+          const canShowSortPreview = showSortPreviewOnHover && !isActiveSort;
+          let sortStateClassName = "table-headers-sort-placeholder";
+          if (isActiveSort) {
+            sortStateClassName = "table-headers-sort-current";
+          } else if (canShowSortPreview) {
+            sortStateClassName = "table-headers-sort-preview";
+          }
+
+          return (
+            <th
+              key={column.id}
+              scope="col"
+              className={classNames("table-headers-column", column.className)}
             >
-              {column.renderHead ? (
-                column.renderHead()
-              ) : (
-                <span className="table-headers-label">{column.label}</span>
-              )}
-              {column.sortable && sortingBy === column.id && (
-                <span>
-                  {sortingOrder === SortOrder.ASC
-                    ? (column.sortOptions?.icons?.asc ?? (
-                        <ChevronUp
-                          className={
-                            column.sortOptions?.icons?.className ??
-                            "table-headers-sort-indicator"
-                          }
-                        />
-                      ))
-                    : (column.sortOptions?.icons?.desc ?? (
-                        <ChevronDown
-                          className={
-                            column.sortOptions?.icons?.className ??
-                            "table-headers-sort-indicator"
-                          }
-                        />
-                      ))}
-                </span>
-              )}
-            </Button>
-          </th>
-        ))}
+              <Button
+                disabled={!column.sortable}
+                onClick={() => onSort(column.id, onSortCallback)}
+                className={classNames(
+                  "table-headers-cell",
+                  column.sortable &&
+                    canShowSortPreview &&
+                    "table-headers-sort-preview-trigger",
+                )}
+              >
+                {column.renderHead ? (
+                  column.renderHead()
+                ) : (
+                  <span className="table-headers-label">{column.label}</span>
+                )}
+                {column.sortable && (
+                  <span
+                    className={classNames(
+                      "table-headers-sort-state",
+                      sortStateClassName,
+                    )}
+                    data-sort-order={displayedSortOrder}
+                  >
+                    {displayedSortOrder === SortOrder.ASC
+                      ? (column.sortOptions?.icons?.asc ?? (
+                          <ChevronUp
+                            className={
+                              column.sortOptions?.icons?.className ??
+                              "table-headers-sort-indicator"
+                            }
+                          />
+                        ))
+                      : (column.sortOptions?.icons?.desc ?? (
+                          <ChevronDown
+                            className={
+                              column.sortOptions?.icons?.className ??
+                              "table-headers-sort-indicator"
+                            }
+                          />
+                        ))}
+                  </span>
+                )}
+              </Button>
+            </th>
+          );
+        })}
       </tr>
     </thead>
   );

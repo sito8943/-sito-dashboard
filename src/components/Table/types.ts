@@ -28,6 +28,8 @@ export interface TablePropsType<
   actions?: (row: TRow) => ActionType<TRow>[];
   contentClassName?: string;
   className?: string;
+  /** Previews the next order while hovering an inactive sortable header. */
+  showSortPreviewOnHover?: boolean;
   softDeleteProperty?: keyof TRow;
   onSort?: (prop: Extract<keyof TRow, string>, sortOrder: SortOrder) => void;
   onRowSelect?: (row: TRow, selected: boolean) => void;

@@ -38,6 +38,7 @@ export type ColumnPropsType<TRow extends BaseDto> = {
   entity: string;
   columns: ColumnType<TRow>[];
   hasAction: boolean;
+  showSortPreviewOnHover?: boolean;
   onSortCallback?: (
     prop: Extract<keyof TRow, string>,
     sortOrder: SortOrder,

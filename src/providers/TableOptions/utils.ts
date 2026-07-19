@@ -92,6 +92,25 @@ export const parseSortingOrder = (sortingOrder: SortOrder | undefined) => {
 };
 
 /**
+ * Returns the order that will be applied by the next sort interaction.
+ *
+ * Selecting a different column preserves the current order. Selecting the
+ * active column toggles it.
+ * @param sortingBy - Currently active sorting key.
+ * @param sortingOrder - Currently active sorting order.
+ * @param nextSortingBy - Column targeted by the next interaction.
+ * @returns The order that the next sort interaction will apply.
+ */
+export const getNextSortingOrder = <TColumnKey extends string>(
+  sortingBy: TColumnKey,
+  sortingOrder: SortOrder,
+  nextSortingBy: TColumnKey,
+) => {
+  if (sortingBy !== nextSortingBy) return sortingOrder;
+  return sortingOrder === SortOrder.ASC ? SortOrder.DESC : SortOrder.ASC;
+};
+
+/**
  * Clones the filters object when it is valid.
  * @param filters - Optional table filters state.
  * @returns A shallow copy of filters, or an empty object for invalid input.

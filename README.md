@@ -145,6 +145,7 @@ import { SortOrder, TableOptionsProvider } from "@sito/dashboard";
 | `canHideColumns`            | `boolean`                                                         | No       | Shows column visibility menu in the header.                                 |
 | `canReset`                  | `boolean`                                                         | No       | Shows table reset button in the header.                                     |
 | `onSort`                    | `(prop: string, sortOrder: SortOrder) => void`                    | No       | Sort callback when a sortable column is toggled.                            |
+| `showSortPreviewOnHover`    | `boolean`                                                         | No       | Previews the next order while hovering an inactive sortable header.         |
 | `onRowSelect`               | `(row: TRow, selected: boolean) => void`                          | No       | Row selection callback.                                                     |
 | `onSelectedRowsChange`      | `(rows: TRow[]) => void`                                          | No       | Callback with selected rows.                                                |
 | `softDeleteProperty`        | `keyof TRow`                                                      | No       | Property name used to determine soft-deleted rows. Defaults to `deletedAt`. |

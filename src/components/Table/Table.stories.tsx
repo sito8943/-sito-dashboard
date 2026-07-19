@@ -111,6 +111,14 @@ export const Basic: Story = {
   } as any,
 };
 
+export const WithSortPreviewOnHover: Story = {
+  args: {
+    ...Basic.args,
+    title: "Usuarios — sort preview on hover",
+    showSortPreviewOnHover: true,
+  },
+};
+
 export const WithAutocompleteFilter: Story = {
   args: {
     entity: "users",

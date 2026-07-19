@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0]
+
+### Added
+
+- Added the optional `Table.showSortPreviewOnHover` prop, disabled by default, so inactive sortable headers can preview the order that the next click will apply.
+- Added a reserved sort-indicator state to prevent header content from shifting when the current or preview chevron becomes visible.
+- Added regression coverage, a Storybook scenario, and consumer documentation for sortable-header hover previews.
+
+### Changed
+
+- Reused a shared next-sort-order helper for both hover previews and sort interactions, keeping the displayed preview aligned with the order applied on click.
+
+### Fixed
+
+- Limited sortable-header hover background styles to inactive headers with previews enabled, preventing normal and active header hover styles from being overridden.
+
 ## [0.2.0]
 
 ### Added
