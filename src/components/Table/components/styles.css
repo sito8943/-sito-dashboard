@@ -31,6 +31,23 @@
   @apply whitespace-nowrap;
 }
 
+.table-headers-cell {
+  @apply transition-colors duration-200;
+}
+
+.table-headers-sort-state {
+  @apply inline-flex opacity-0 transition-opacity duration-200;
+}
+
+.table-headers-sort-current,
+.table-headers-sort-preview-trigger:hover .table-headers-sort-preview {
+  @apply opacity-100;
+}
+
+.table-headers-sort-preview-trigger:hover {
+  @apply bg-base-dark;
+}
+
 .table-headers-sort-indicator {
   @apply w-3;
 }

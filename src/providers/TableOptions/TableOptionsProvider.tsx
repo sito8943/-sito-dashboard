@@ -10,6 +10,7 @@ import {
 } from "./types";
 // utils
 import {
+  getNextSortingOrder,
   hasMeaningfulFilterValue,
   parseFilters,
   parseNonNegativeInteger,
@@ -135,16 +136,11 @@ const TableOptionsProvider = <
       attribute: TColumnKey,
       onSortCallback?: (prop: TColumnKey, sortOrder: SortOrder) => void,
     ) => {
-      let localSortingOrder = sortingOrder;
-      if (sortingBy === attribute)
-        switch (sortingOrder) {
-          case SortOrder.ASC:
-            localSortingOrder = SortOrder.DESC;
-            break;
-          default:
-            localSortingOrder = SortOrder.ASC;
-            break;
-        }
+      const localSortingOrder = getNextSortingOrder(
+        sortingBy,
+        sortingOrder,
+        attribute,
+      );
       setSortingBy(attribute);
       setSortingOrder(localSortingOrder);
 

@@ -113,10 +113,7 @@
 .table-navigation-buttons:disabled {
   color: var(--color-text-muted);
 }
-.table-headers-cell {
-  border-color: var(--color-border);
-}
-.table-headers-cell:hover {
+.table-headers-sort-preview-trigger:hover {
   background-color: var(--color-base-dark);
 }
 

@@ -44,6 +44,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
     columns = [],
     contentClassName = "",
     className = "",
+    showSortPreviewOnHover = false,
     softDeleteProperty = "deletedAt",
     onRowSelect,
     onSelectedRowsChange,
@@ -107,6 +108,7 @@ export function Table<TRow extends BaseDto>(props: TablePropsType<TRow>) {
                       entity={entity}
                       columns={columns}
                       onSortCallback={onSort}
+                      showSortPreviewOnHover={showSortPreviewOnHover}
                       hasAction={!!actions}
                       selectionState={selectionState}
                       onToggleAllRows={onToggleAllRows}
