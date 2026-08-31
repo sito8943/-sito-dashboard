@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.1]
+
+### Fixed
+
+- Fixed the `AutocompleteInput` first selected chip collapsing to an empty pill in multiple mode by giving the chip and its text a minimum width and widening the selected-value container, so long labels truncate with an ellipsis instead of shrinking to zero.
+
 ## [0.3.0]
 
 ### Added

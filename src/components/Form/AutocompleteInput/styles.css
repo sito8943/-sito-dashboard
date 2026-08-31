@@ -35,7 +35,7 @@
 .autocomplete-value-container {
   top: 50%;
   transform: translateY(-50%);
-  max-width: 40%;
+  max-width: 60%;
   @apply flex items-center justify-start flex-nowrap gap-2 absolute right-2;
 }
 
@@ -43,6 +43,14 @@
 .autocomplete-value-container .chip-main,
 .autocomplete-value-container .chip-main-text {
   @apply min-w-0;
+}
+
+.autocomplete-value-container > li:first-child {
+  min-width: 5rem;
+}
+
+.autocomplete-value-container .chip-main-text {
+  min-width: 2.5rem;
 }
 
 .autocomplete-value-container > li:not(:first-child) {
