@@ -247,6 +247,7 @@ export const AutocompleteInput = forwardRef(function (
     (event: ReactKeyboardEvent<HTMLInputElement>) => {
       if (!suggestionCount) {
         if (event.key === "Escape") {
+          event.stopPropagation();
           setShowSuggestions(false);
         }
         return;
@@ -283,6 +284,7 @@ export const AutocompleteInput = forwardRef(function (
 
       if (event.key === "Escape" && showSuggestions) {
         event.preventDefault();
+        event.stopPropagation();
         setShowSuggestions(false);
       }
     },

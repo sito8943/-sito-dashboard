@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.3]
+
+### Fixed
+
+- Stopped the Escape key from propagating past `AutocompleteInput`, `SelectInput`, `Dropdown`, `Tooltip`, and `FilterDropdown` once it closes their own popup/suggestions/options list, so pressing Escape inside one of these components nested in another closeable container (e.g. a filter dropdown, or a future dialog) no longer also closes the parent.
+
 ## [0.3.1]
 
 ### Fixed
