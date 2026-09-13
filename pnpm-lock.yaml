@@ -20,8 +20,8 @@ importers:
         specifier: ^3.2.0
         version: 3.4.0(@fortawesome/fontawesome-svg-core@7.3.0)(react@19.2.7)
       '@sito/ui':
-        specifier: 0.3.3
-        version: 0.3.3(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        specifier: 0.4.1
+        version: 0.4.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@storybook/addon-a11y':
         specifier: 10.4.6
         version: 10.4.6(storybook@10.4.6(@testing-library/dom@10.4.1)(@types/react@19.2.17)(prettier@3.9.5)(react@19.2.7))
@@ -1405,8 +1405,8 @@ packages:
   '@rushstack/ts-command-line@5.3.10':
     resolution: {integrity: sha512-fwI076HYknC0IrMXdY6UmjDv+PH7NHhNJX3/pY2UblSE5XrXgndXZPiOe/6ZtuFpn6DvVDVNhtkIzQ+Qu/MhVQ==}
 
-  '@sito/ui@0.3.3':
-    resolution: {integrity: sha512-kItJChJetoXH4eCjkgSyPwv2wrFkoofpN2T+wVXTEtiuR0P6QxkAUR6XZE6DGq22iR4RX6Qh8InoXCq9EVykCw==}
+  '@sito/ui@0.4.1':
+    resolution: {integrity: sha512-X2vJv/s29NkTdj2I8JCTM5f4BXKY9YJqW4U3zV+Ex0/tD2Z1UDbO0GgS5Xk2pMX7h7OEVLrpR/Q3gjufRHTNMw==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
     peerDependencies:
       react: ^19.0.0
@@ -3912,7 +3912,7 @@ snapshots:
       - '@types/node'
     optional: true
 
-  '@sito/ui@0.3.3(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
+  '@sito/ui@0.4.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     dependencies:
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
