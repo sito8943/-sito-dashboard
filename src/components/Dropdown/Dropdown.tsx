@@ -68,7 +68,10 @@ export const Dropdown = (props: DropdownPropsType) => {
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (!open) return;
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        e.stopPropagation();
+        onClose();
+      }
     },
     [open, onClose],
   );

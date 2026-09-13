@@ -166,6 +166,7 @@ export const SelectInput = forwardRef(function (
 
       if (event.key === "Escape" && showOptions) {
         event.preventDefault();
+        event.stopPropagation();
         setShowOptions(false);
       }
     },

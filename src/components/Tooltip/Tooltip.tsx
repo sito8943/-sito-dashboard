@@ -39,7 +39,10 @@ export function Tooltip(props: TooltipPropsType) {
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent) => {
-      if (event.key === "Escape") hide();
+      if (event.key === "Escape") {
+        event.stopPropagation();
+        hide();
+      }
     },
     [hide],
   );

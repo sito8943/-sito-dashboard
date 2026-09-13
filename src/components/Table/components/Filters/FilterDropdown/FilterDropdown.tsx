@@ -45,8 +45,9 @@ export const FilterDropdown = <TFilterKey extends string = string>(
       if (!show || dropdown.current.contains(target as Node)) return;
       handleShow(false);
     };
-    const keyHandler = ({ code }: KeyboardEvent) => {
-      if (!show || code !== "Escape") return;
+    const keyHandler = (event: KeyboardEvent) => {
+      if (!show || event.code !== "Escape") return;
+      event.stopPropagation();
       handleShow(false);
     };
     document.addEventListener("click", clickHandler);
