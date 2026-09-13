@@ -1,7 +1,7 @@
 {
   "name": "@sito/dashboard",
   "private": false,
-  "version": "0.3.1",
+  "version": "0.3.2",
   "type": "module",
   "packageManager": "pnpm@10.34.4",
   "engines": {
@@ -124,7 +124,7 @@
   "author": "sito8943",
   "license": "MIT",
   "peerDependencies": {
-    "@sito/ui": ">=0.3.2 <0.4.0",
+    "@sito/ui": ">=0.3.2 <0.4.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -138,7 +138,10 @@
       "lodash": "4.18.1",
       "esbuild": "0.28.1",
       "undici": "7.29.0"
-    }
+    },
+    "ignoredBuiltDependencies": [
+      "esbuild"
+    ]
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -148,9 +151,9 @@
     "*.{js,jsx,css,json,md}": "prettier --write"
   },
   "devDependencies": {
-    "@sito/ui": "0.3.3",
     "@fortawesome/free-solid-svg-icons": "^7.2.0",
     "@fortawesome/react-fontawesome": "^3.2.0",
+    "@sito/ui": "0.4.1",
     "@storybook/addon-a11y": "10.4.6",
     "@storybook/addon-docs": "10.4.6",
     "@storybook/react": "10.4.6",
