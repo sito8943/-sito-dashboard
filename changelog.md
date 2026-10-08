@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [0.3.4]
 
+### Added
+
+- Added `useOptionalTableOptions()`: same value as `useTableOptions()`, but returns `undefined` instead of throwing when there is no `TableOptionsProvider`. Lets components that can render with or without a table (such as `@sito/dashboard-app`'s `Page`) read the filter count without forcing apps to mount the provider (sito8943/-sito-dashboard-app#86).
+
 ### Fixed
 
 - Widened the `@sito/ui` peer dependency range from `>=0.3.2 <0.4.1` to `>=0.3.2 <0.5.0`. `@sito/dashboard-app@0.2.4` depends on `@sito/ui@0.4.1`, which fell outside the old range, so consumers had to pin `@sito/dashboard` to `0.3.1` with a package-manager override. The library is already developed and tested against `@sito/ui@0.4.1` (devDependency). Closes #67.

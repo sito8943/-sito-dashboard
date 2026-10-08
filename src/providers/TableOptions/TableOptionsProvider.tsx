@@ -274,4 +274,20 @@ const useTableOptions = <
   return context as unknown as TableOptionsContextType<TFilterKey, TColumnKey>;
 };
 
-export { TableOptionsProvider, useTableOptions };
+/**
+ * Like `useTableOptions`, but returns `undefined` instead of throwing when there
+ * is no `TableOptionsProvider` above. For components that can render with or
+ * without a table (e.g. a page header showing the active filter count).
+ * @returns Table options context value, or `undefined` outside the provider.
+ */
+const useOptionalTableOptions = <
+  TFilterKey extends string = string,
+  TColumnKey extends string = string,
+>(): TableOptionsContextType<TFilterKey, TColumnKey> | undefined => {
+  const context = useContext(TableOptionsContext);
+  return context
+    ? (context as unknown as TableOptionsContextType<TFilterKey, TColumnKey>)
+    : undefined;
+};
+
+export { TableOptionsProvider, useOptionalTableOptions, useTableOptions };

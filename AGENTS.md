@@ -342,6 +342,8 @@ useEffect(() => {
 Filters can be defined per-column (`filterOptions` on `ColumnType`) or globally via `filterOptions` prop
 on the `Table`. Both connect to the same `FiltersProvider` managed internally by `Table`.
 
+Outside a `TableOptionsProvider`, `useTableOptions()` throws. Components that may render without a table (for example a page header that shows the active filter count) should use `useOptionalTableOptions()`, which returns `undefined` instead.
+
 Consume applied filter values through `useTableOptions`:
 
 ```tsx

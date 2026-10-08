@@ -161,7 +161,7 @@ import { SortOrder, TableOptionsProvider } from "@sito/dashboard";
 Main package exports include:
 
 - Components: `Action`, `Actions`, `ActionsDropdown`, `Badge`, `Button`, `Chip`, `Dropdown`, `IconButton`, `Loading`, `SvgIcons`, `Table`, `Tooltip`, `TextInput`, `SelectInput`, `AutocompleteInput`, `CheckInput`, `FileInput`.
-- Providers: `FiltersProvider`, `TableOptionsProvider`, `TranslationProvider` and related hooks/types (`useFilters`, `useTableOptions`, `useTranslation`).
+- Providers: `FiltersProvider`, `TableOptionsProvider`, `TranslationProvider` and related hooks/types (`useFilters`, `useTableOptions`, `useOptionalTableOptions`, `useTranslation`).
 - Utilities and models: `FilterTypes`, `SortOrder`, `BaseDto`, and query/filter helpers from `lib`.
 
 ## Development Setup
