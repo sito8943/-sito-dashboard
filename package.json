@@ -124,7 +124,7 @@
   "author": "sito8943",
   "license": "MIT",
   "peerDependencies": {
-    "@sito/ui": ">=0.3.2 <0.4.1",
+    "@sito/ui": ">=0.3.2 <0.5.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.4]
+
+### Fixed
+
+- Widened the `@sito/ui` peer dependency range from `>=0.3.2 <0.4.1` to `>=0.3.2 <0.5.0`. `@sito/dashboard-app@0.2.4` depends on `@sito/ui@0.4.1`, which fell outside the old range, so consumers had to pin `@sito/dashboard` to `0.3.1` with a package-manager override. The library is already developed and tested against `@sito/ui@0.4.1` (devDependency). Closes #67.
+
 ## [0.3.3]
 
 ### Fixed
