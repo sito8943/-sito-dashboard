@@ -8,6 +8,11 @@ All notable changes to this project will be documented in this file.
 
 - Widened the `@sito/ui` peer dependency range from `>=0.3.2 <0.4.1` to `>=0.3.2 <0.5.0`. `@sito/dashboard-app@0.2.4` depends on `@sito/ui@0.4.1`, which fell outside the old range, so consumers had to pin `@sito/dashboard` to `0.3.1` with a package-manager override. The library is already developed and tested against `@sito/ui@0.4.1` (devDependency). Closes #67.
 
+### Security
+
+- Raised pnpm/npm overrides for vulnerable transitive **development** dependencies flagged by Dependabot (none of them ship in the published package): `undici` 7.29.0 → 7.29.1 (via `jsdom`/`vitest`), `smol-toml` 1.7.0 → 1.9.0 (via `knip`), `source-map-js` 1.2.1 → 1.2.2 (via Tailwind/PostCSS/`jsdom`), `browserslist` 4.28.5 → 4.28.7 (via Babel/Storybook docgen) and `brace-expansion@5` → 5.0.12 (via `minimatch`). Overrides are kept identical in `package.json` (`overrides` and `pnpm.overrides`) and `pnpm-workspace.yaml`.
+- `sprintf-js` 1.0.3 (via `argparse` ← `@microsoft/api-extractor`, build-time only) has no patched release yet and is not overridden.
+
 ## [0.3.3]
 
 ### Fixed
