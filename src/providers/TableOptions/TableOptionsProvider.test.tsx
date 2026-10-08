@@ -4,7 +4,20 @@ import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { SortOrder } from "lib";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { TableOptionsProvider, useTableOptions } from "./TableOptionsProvider";
+import {
+  TableOptionsProvider,
+  useOptionalTableOptions,
+  useTableOptions,
+} from "./TableOptionsProvider";
+
+const OptionalConsumer = () => {
+  const options = useOptionalTableOptions();
+  return (
+    <span data-testid="optional">
+      {options ? String(options.countOfFilters) : "none"}
+    </span>
+  );
+};
 
 type HarnessProps = {
   onSortCallback?: (prop: string, sortOrder: SortOrder) => void;
@@ -332,5 +345,18 @@ describe("TableOptionsProvider", () => {
     expect(() => render(<HookConsumer />)).toThrow(
       "tableOptionsContext must be used within a Provider",
     );
+  });
+
+  it("useOptionalTableOptions returns undefined outside its provider", () => {
+    render(<OptionalConsumer />);
+    expect(screen.getByTestId("optional").textContent).toBe("none");
+    cleanup();
+
+    render(
+      <TableOptionsProvider>
+        <OptionalConsumer />
+      </TableOptionsProvider>,
+    );
+    expect(screen.getByTestId("optional").textContent).toBe("0");
   });
 });

@@ -4,8 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [0.3.4]
 
+### Added
+
+- Added `useOptionalTableOptions()`: same value as `useTableOptions()`, but returns `undefined` instead of throwing when there is no `TableOptionsProvider`. Lets components that can render with or without a table (such as `@sito/dashboard-app`'s `Page`) read the filter count without forcing apps to mount the provider (sito8943/-sito-dashboard-app#86).
+
 ### Fixed
 
+- `Chip` variants had no colors anywhere: the variant was only added as a bare class (`success`, `info`, …) that nothing styled, so every chip looked the same unless the app defined global classes with those names. The package stays headless; `Chip` now also adds a namespaced `chip-<variant>` class for theme layers to target without clashing with global classes (the bare class is kept for compatibility). `.storybook/theme.css` styles every variant from the theme tokens, and `@sito/dashboard-app/theme.css` does the same for apps. Added `"default"` (the actual default value) to the `variant` type, exported the list as `CHIP_VARIANTS`, a Storybook `Variants` story, and tests for the classes and for theme coverage of every variant. Closes #68.
 - Widened the `@sito/ui` peer dependency range from `>=0.3.2 <0.4.1` to `>=0.3.2 <0.5.0`. `@sito/dashboard-app@0.2.4` depends on `@sito/ui@0.4.1`, which fell outside the old range, so consumers had to pin `@sito/dashboard` to `0.3.1` with a package-manager override. The library is already developed and tested against `@sito/ui@0.4.1` (devDependency). Closes #67.
 
 ### Security

@@ -28,7 +28,9 @@ export function Chip(props: ChipPropsType) {
     <div
       className={classNames(
         "chip-main",
+        // Bare class kept for compatibility; themes should target `chip-<variant>`.
         variant,
+        `chip-${variant}`,
         onDelete ? "deletable" : "",
         className,
       )}

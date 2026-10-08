@@ -152,6 +152,7 @@ If you need high granularity, you can override internal library classes.
 
 - `.badge-main`
 - `.chip-main`
+- `.chip-main.chip-<variant>` (`default`, `primary`, `secondary`, `success`, `danger`, `warning`, `info`, `light`, `dark`, `none`; see `CHIP_VARIANTS`)
 - `.chip-delete-button`
 - `.dropdown-main`
 - `.tooltip-text`
