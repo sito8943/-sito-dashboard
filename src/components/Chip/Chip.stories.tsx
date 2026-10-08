@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import {
   ArrayChip as SArrayChip,
+  CHIP_VARIANTS,
   Chip,
   Option,
   RangeChip as SRangeChip,
@@ -23,6 +24,16 @@ type Story = StoryObj<typeof Chip>;
 
 export const Default: Story = {
   args: { text: "Etiqueta" },
+};
+
+export const Variants: Story = {
+  render: (args) => (
+    <div className="flex flex-wrap gap-2">
+      {CHIP_VARIANTS.map((variant) => (
+        <Chip key={variant} {...args} variant={variant} text={variant} />
+      ))}
+    </div>
+  ),
 };
 
 export const Deletable: Story = {

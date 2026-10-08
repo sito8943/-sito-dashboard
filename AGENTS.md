@@ -596,7 +596,10 @@ All native `<button>` HTML attributes are supported (they are spread through).
 import { Chip } from "@sito/dashboard";
 
 <Chip text={tag.label} onDelete={() => removeTag(tag)} />;
+<Chip text="Active" variant="success" />;
 ```
+
+`variant` is one of `CHIP_VARIANTS` (`default`, `primary`, `secondary`, `success`, `danger`, `warning`, `info`, `light`, `dark`, `none`; default `default`). The chip gets both the bare class (`success`, kept for compatibility) and the namespaced `chip-<variant>` class. Like every component here, `Chip` ships **no colors**: style `.chip-main.chip-<variant>` in the app theme layer. `@sito/dashboard-app/theme.css` already does (mirrored in `.storybook/theme.css` for stories). Prefer `chip-<variant>` over the bare class to avoid clashing with global classes such as `.success`.
 
 ---
 
