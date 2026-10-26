@@ -37,14 +37,16 @@ export function Tooltip(props: TooltipPropsType) {
   const show = useCallback(() => setVisible(true), []);
   const hide = useCallback(() => setVisible(false), []);
 
+  // Only swallow Escape while the tooltip is showing: when it is hidden the
+  // key must reach outer handlers (e.g. a dialog opened from this trigger).
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent) => {
-      if (event.key === "Escape") {
+      if (event.key === "Escape" && visible) {
         event.stopPropagation();
         hide();
       }
     },
-    [hide],
+    [hide, visible],
   );
 
   // Measure trigger + tooltip once visible, then center / clamp / flip.

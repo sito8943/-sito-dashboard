@@ -1,7 +1,7 @@
 {
   "name": "@sito/dashboard",
   "private": false,
-  "version": "0.3.4",
+  "version": "0.3.5",
   "type": "module",
   "packageManager": "pnpm@10.34.4",
   "engines": {

@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.5]
+
+### Fixed
+
+- `Tooltip` and `AutocompleteInput` no longer swallow the Escape key when they have nothing open. Since 0.3.3 the tooltip trigger stopped Escape even while the tooltip was hidden, and `AutocompleteInput` did the same when it had no suggestions, so a dialog opened from a button with a tooltip (such as the add button in `@sito/dashboard-app`'s `Page` header, which keeps focus after the click) could not be closed with Escape. Escape is now only consumed while the tooltip is visible or the suggestions list is open. Closes #74.
+
 ## [0.3.4]
 
 ### Added
