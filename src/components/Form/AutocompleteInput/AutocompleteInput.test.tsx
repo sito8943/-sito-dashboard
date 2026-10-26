@@ -256,4 +256,25 @@ describe("AutocompleteInput", () => {
 
     expect(screen.queryByText('Create "Dragon fruit"')).not.toBeInTheDocument();
   });
+
+  it("lets Escape propagate when there is nothing to close", () => {
+    const onParentKeyDown = vi.fn();
+    render(
+      <div onKeyDown={onParentKeyDown}>
+        <AutocompleteInput
+          id="autocomplete"
+          label="Autocomplete"
+          value={null}
+          onChange={() => {}}
+          options={[]}
+        />
+      </div>,
+    );
+
+    fireEvent.keyDown(screen.getByLabelText("Autocomplete"), {
+      key: "Escape",
+    });
+
+    expect(onParentKeyDown).toHaveBeenCalledTimes(1);
+  });
 });

@@ -246,7 +246,7 @@ export const AutocompleteInput = forwardRef(function (
   const handleKeyDown = useCallback(
     (event: ReactKeyboardEvent<HTMLInputElement>) => {
       if (!suggestionCount) {
-        if (event.key === "Escape") {
+        if (event.key === "Escape" && showSuggestions) {
           event.stopPropagation();
           setShowSuggestions(false);
         }
