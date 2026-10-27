@@ -1,10 +1,6 @@
-// styles
-import "./styles.css";
-
-import {
-  IconButton as UiIconButton,
-  type IconButtonProps as UiIconButtonProps,
-} from "@sito/ui";
+// @sito/ui (brings its stylesheet)
+import type { IconButtonProps as UiIconButtonProps } from "@sito/ui";
+import { UiIconButton } from "../../styles/sitoUi";
 
 // lib
 import { classNames } from "lib";
