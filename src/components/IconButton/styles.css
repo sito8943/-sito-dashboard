@@ -1,7 +1,3 @@
-@import "../../styles/ui.css";
-
-@reference "../../styles/variables.css";
-
 .icon-button.submit.primary {
   @apply bg-bg-primary text-base-light enabled:hover:bg-hover-primary;
 }

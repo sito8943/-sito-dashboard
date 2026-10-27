@@ -1,7 +1,5 @@
-// styles
-import "./styles.css";
-
-import { Button as UiButton } from "@sito/ui";
+// @sito/ui (brings its stylesheet)
+import { UiButton } from "../../styles/sitoUi";
 
 // lib
 import { classNames } from "lib";

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.7]
+
+### Fixed
+
+- `@sito/ui`'s stylesheet (~28 KB) was inlined twice: once in `Button.css` and once in `IconButton.css`, so apps using both components shipped it twice. `Button` and `IconButton` now reach `@sito/ui` through one shared module (`src/styles/sitoUi.ts`) whose stylesheet (`sitoUi.css`: `@sito/ui` styles, the `--sito-ui-*` token mapping and both components' overrides, in that order) is emitted once. The CSS content and cascade order are unchanged; total CSS in `dist` drops from ~107 KB to ~78 KB.
+- `@sito/ui` and `react`/`react-dom` subpath imports (e.g. `react/jsx-runtime`, `@sito/ui/styles.css`) are now always external in the build, so peers are never inlined.
+
 ## [0.3.6]
 
 ### Changed

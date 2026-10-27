@@ -61,13 +61,11 @@ export default defineConfig({
       formats: ["es", "cjs"],
     },
     rollupOptions: {
-      external: [
-        "@sito/ui",
-        "react",
-        "react-dom",
-        "react/jsx-runtime",
-        "react/jsx-dev-runtime",
-      ],
+      // Subpaths included (e.g. "@sito/ui/styles.css"), so peers are never inlined.
+      external: (id) =>
+        ["@sito/ui", "react", "react-dom"].some(
+          (name) => id === name || id.startsWith(`${name}/`),
+        ),
     },
   },
 });
