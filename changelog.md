@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.6]
+
+### Changed
+
+- Widened the `@sito/ui` peer dependency range from `>=0.3.2 <0.5.0` to `>=0.3.2 <0.10.0`, so apps can use `@sito/ui@0.9.x` (sticky dialog header/actions and `dvh` sizing, sito8943/ui#61) together with `@sito/dashboard`. The library is now developed and tested against `@sito/ui@0.9.1` (devDependency); it only uses `Button`, `IconButton`, the `IconButtonSize` type and `@sito/ui/styles.css`, which have no breaking changes for it across 0.4 → 0.9.
+
 ## [0.3.5]
 
 ### Fixed
