@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 
 - Widened the `@sito/ui` peer dependency range from `>=0.3.2 <0.5.0` to `>=0.3.2 <0.10.0`, so apps can use `@sito/ui@0.9.x` (sticky dialog header/actions and `dvh` sizing, sito8943/ui#61) together with `@sito/dashboard`. The library is now developed and tested against `@sito/ui@0.9.1` (devDependency); it only uses `Button`, `IconButton`, the `IconButtonSize` type and `@sito/ui/styles.css`, which have no breaking changes for it across 0.4 → 0.9.
 
+### Security
+
+- Raised `undici` (via `jsdom`/`vitest`) from 7.29.1 to 7.30.1 (GHSA-xjj6-f33q-929c, high) and `vitest` from 4.1.11 to 4.1.12, which brings `@vitest/mocker` 4.1.12 (GHSA-qxg6-89mg-rqv8, GHSA-xp26-3454-mjgp). All are **development** dependencies and do not ship in the published package. The `undici` override is kept identical in `package.json` (`overrides` and `pnpm.overrides`) and `pnpm-workspace.yaml`.
+
 ## [0.3.5]
 
 ### Fixed
