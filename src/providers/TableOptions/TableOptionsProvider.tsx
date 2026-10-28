@@ -1,5 +1,5 @@
 // lib
-import { FiltersValue, SortOrder } from "lib";
+import { FiltersValue, SortOrder } from "@/lib";
 import { useCallback, useContext, useMemo, useState } from "react";
 
 // types

@@ -1,7 +1,7 @@
 // lib
-import { FiltersValue } from "lib";
+import { FiltersValue } from "@/lib";
 // providers
-import { TableFilters } from "providers";
+import { TableFilters } from "@/providers/TableOptions";
 
 // types
 import { FiltersActions, FiltersActionType } from "./types";

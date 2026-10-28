@@ -1,4 +1,4 @@
-import { Option } from "components";
+import { Option } from "@/components/atoms/SelectInput";
 
 export enum FilterTypes {
   text,

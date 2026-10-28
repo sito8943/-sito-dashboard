@@ -9,10 +9,7 @@ const srcPath = resolve(__dirname, "src");
 export default defineConfig({
   resolve: {
     alias: {
-      components: resolve(srcPath, "components"),
-      providers: resolve(srcPath, "providers"),
-      lib: resolve(srcPath, "lib"),
-      hooks: resolve(srcPath, "hooks"),
+      "@": srcPath,
     },
     dedupe: ["react", "react-dom"],
   },
@@ -20,7 +17,10 @@ export default defineConfig({
     react(),
     dts({
       insertTypesEntry: true,
+      entryRoot: "src",
       exclude: [
+        "tests/**",
+        "stories/**",
         "**/*.test.ts",
         "**/*.test.tsx",
         "**/*.stories.ts",
@@ -32,7 +32,8 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     globals: true,
-    setupFiles: ["src/setupTests.ts"],
+    include: ["tests/**/*.test.{ts,tsx}"],
+    setupFiles: ["tests/setup.ts"],
   },
   build: {
     copyPublicDir: false,
@@ -40,16 +41,16 @@ export default defineConfig({
       entry: {
         index: resolve(srcPath, "main.ts"),
         // Components
-        Badge: resolve(srcPath, "components/Badge/index.ts"),
-        Button: resolve(srcPath, "components/Button/index.ts"),
-        Chip: resolve(srcPath, "components/Chip/index.ts"),
-        Dropdown: resolve(srcPath, "components/Dropdown/index.ts"),
-        Form: resolve(srcPath, "components/Form/index.ts"),
-        IconButton: resolve(srcPath, "components/IconButton/index.ts"),
-        Loading: resolve(srcPath, "components/Loading/index.ts"),
-        SvgIcons: resolve(srcPath, "components/SvgIcons/index.ts"),
-        Table: resolve(srcPath, "components/Table/index.ts"),
-        Tooltip: resolve(srcPath, "components/Tooltip/index.ts"),
+        Badge: resolve(srcPath, "components/atoms/Badge/index.ts"),
+        Button: resolve(srcPath, "components/atoms/Button/index.ts"),
+        Chip: resolve(srcPath, "components/atoms/Chip/index.ts"),
+        Dropdown: resolve(srcPath, "components/molecules/Dropdown/index.ts"),
+        Form: resolve(srcPath, "entries/Form.ts"),
+        IconButton: resolve(srcPath, "components/atoms/IconButton/index.ts"),
+        Loading: resolve(srcPath, "components/atoms/Loading/index.ts"),
+        SvgIcons: resolve(srcPath, "components/atoms/SvgIcons/index.ts"),
+        Table: resolve(srcPath, "components/organisms/Table/index.ts"),
+        Tooltip: resolve(srcPath, "components/atoms/Tooltip/index.ts"),
         // Providers
         FiltersProvider: resolve(srcPath, "providers/FiltersProvider/index.ts"),
         TableOptions: resolve(srcPath, "providers/TableOptions/index.ts"),

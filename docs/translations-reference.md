@@ -103,16 +103,16 @@ const translations: Record<string, string> = {
 
 For fast maintenance, these keys are currently referenced in:
 
-- `src/components/Actions/ActionsDropdown.tsx`
-- `src/components/Table/components/Columns.tsx`
-- `src/components/Table/components/ColumnVisibilityMenu.tsx`
-- `src/components/Table/components/Filters/FilterDropdown/FilterDropdown.tsx`
-- `src/components/Table/components/Footer/CountOfTotal.tsx`
-- `src/components/Table/components/Footer/JumpToPage.tsx`
-- `src/components/Table/components/Footer/Navigation.tsx`
-- `src/components/Table/components/Footer/PageSize.tsx`
-- `src/components/Table/components/Rows.tsx`
-- `src/components/Table/components/TableEmpty.tsx`
-- `src/components/Table/components/TableHeader/TableHeader.tsx`
-- `src/components/Table/components/TableSelectionBar.tsx`
-- `src/components/Table/components/Widgets/RangeWidget.tsx`
+- `src/components/molecules/Actions/ActionsDropdown.tsx`
+- `src/components/organisms/Table/components/Columns.tsx`
+- `src/components/organisms/Table/components/ColumnVisibilityMenu.tsx`
+- `src/components/organisms/Table/components/Filters/FilterDropdown/FilterDropdown.tsx`
+- `src/components/organisms/Table/components/Footer/CountOfTotal.tsx`
+- `src/components/organisms/Table/components/Footer/JumpToPage.tsx`
+- `src/components/organisms/Table/components/Footer/Navigation.tsx`
+- `src/components/organisms/Table/components/Footer/PageSize.tsx`
+- `src/components/organisms/Table/components/Rows.tsx`
+- `src/components/organisms/Table/components/TableEmpty.tsx`
+- `src/components/organisms/Table/components/TableHeader/TableHeader.tsx`
+- `src/components/organisms/Table/components/TableSelectionBar.tsx`
+- `src/components/organisms/Table/components/Widgets/RangeWidget.tsx`

@@ -1,5 +1,5 @@
 // lib
-import { FiltersValue, SortOrder } from "lib";
+import { FiltersValue, SortOrder } from "@/lib";
 import { ReactNode } from "react";
 
 export type TableOptionsContextType<

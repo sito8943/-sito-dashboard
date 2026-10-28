@@ -1,4 +1,4 @@
-import { SortOrder } from "lib";
+import { SortOrder } from "@/lib";
 import { createContext } from "react";
 
 // types

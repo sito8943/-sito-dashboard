@@ -1,0 +1,177 @@
+// components
+import { Action, ActionsDropdown } from "@/components/molecules/Actions";
+import { Tooltip } from "@/components/atoms/Tooltip";
+import { ChevronDown, ChevronUp } from "@/components/atoms/SvgIcons";
+// lib
+import { BaseDto, classNames } from "@/lib";
+// providers
+import { useTableOptions } from "@/providers/TableOptions";
+import { useTranslation } from "@/providers/Translation";
+import { Fragment, ReactNode, useMemo } from "react";
+
+// utils
+import { getSortedVisibleColumns } from "@/components/organisms/Table/utils";
+// types
+import { RowsPropsType } from "./types";
+
+const baseRender = (value: unknown): ReactNode => value as ReactNode;
+
+/**
+ * Renders the Rows component.
+ * @param props - props parameter.
+ * @returns Function result.
+ */
+export const Rows = <TRow extends BaseDto>(props: RowsPropsType<TRow>) => {
+  const { t } = useTranslation();
+  const { hiddenColumns } = useTableOptions<
+    string,
+    Extract<keyof TRow, string>
+  >();
+  const {
+    columns,
+    softDeleteProperty = "deletedAt",
+    data,
+    actions,
+    selectedRows,
+    expandedRows = [],
+    onRowSelectionChange,
+    onRowExpand,
+  } = props;
+
+  const visibleColumns = useMemo(
+    () => getSortedVisibleColumns(columns, hiddenColumns),
+    [columns, hiddenColumns],
+  );
+
+  const expandedRowsMap = useMemo(
+    () =>
+      new Map(
+        expandedRows.map((expandedRow) => [expandedRow.rowId, expandedRow]),
+      ),
+    [expandedRows],
+  );
+
+  return data?.map((row) => {
+    const isSelected = selectedRows.has(row.id);
+    const expandedRow = expandedRowsMap.get(row.id);
+    const isExpanded = !!expandedRow;
+    const colSpan = visibleColumns.length + 1 + (actions ? 1 : 0);
+
+    return (
+      <Fragment key={row.id}>
+        <tr
+          className={classNames(
+            "table-row",
+            onRowExpand ? "expandable" : "",
+            row[softDeleteProperty] ? "deleted-class" : "",
+            isSelected ? "selected" : "",
+            isExpanded ? "expanded" : "",
+          )}
+          onClick={() => onRowExpand?.(row)}
+        >
+          <td className="table-row-cell table-row-checkbox">
+            <input
+              type="checkbox"
+              checked={isSelected}
+              onClick={(e) => e.stopPropagation()}
+              onChange={() => onRowSelectionChange(row)}
+              aria-label={t("_accessibility:components.table.selectRow")}
+            />
+          </td>
+          {actions ? (
+            <td className="w-px">
+              <div className="table-row-cell-action">
+                {(() => {
+                  const visibleActions = actions(row).filter(
+                    (action) => !action.hidden,
+                  );
+                  const stickyActions = visibleActions.filter(
+                    (action) => action.sticky,
+                  );
+                  const nonStickyActions = visibleActions.filter(
+                    (action) => !action.sticky,
+                  );
+                  return (
+                    <>
+                      {stickyActions.map((action) => (
+                        <Tooltip key={action.id} content={action.tooltip}>
+                          <Action
+                            {...action}
+                            onClick={() => action.onClick(row)}
+                            className={classNames(
+                              "row-table-action",
+                              action.className ?? "",
+                            )}
+                          />
+                        </Tooltip>
+                      ))}
+                      {nonStickyActions.length > 0 && (
+                        <ActionsDropdown actions={nonStickyActions} />
+                      )}
+                    </>
+                  );
+                })()}
+              </div>
+            </td>
+          ) : null}
+          {visibleColumns?.map((column, i) => {
+            const columnValue = row[column.key];
+            const renderedContent: ReactNode = column.renderBody
+              ? column.renderBody(columnValue, row)
+              : baseRender(columnValue);
+
+            return (
+              <td
+                key={column.key}
+                className={classNames(
+                  "table-row-cell",
+                  i === 0 ? "basic" : "",
+                  column.className ?? "",
+                )}
+              >
+                {onRowExpand && i === 0 ? (
+                  <div className="table-row-expand-content">
+                    <span
+                      className="table-row-expand-indicator"
+                      aria-hidden
+                      data-state={isExpanded ? "expanded" : "collapsed"}
+                    >
+                      {isExpanded ? (
+                        <ChevronUp className="table-row-expand-chevron" />
+                      ) : (
+                        <ChevronDown className="table-row-expand-chevron" />
+                      )}
+                    </span>
+                    <div className="table-row-expand-value">
+                      {renderedContent}
+                    </div>
+                  </div>
+                ) : (
+                  renderedContent
+                )}
+              </td>
+            );
+          })}
+        </tr>
+        {isExpanded &&
+          expandedRow?.content !== null &&
+          typeof expandedRow?.content !== "undefined" && (
+            <tr className="table-row-expanded">
+              <td className="table-row-expanded-cell" colSpan={colSpan}>
+                <div
+                  className={classNames(
+                    "table-row-expanded-content",
+                    expandedRow.isVisible ? "open" : "closed",
+                  )}
+                >
+                  <div className="table-row-expanded-inner">
+                    {expandedRow.content}
+                  </div>
+                </div>
+              </td>
+            </tr>
+          )}
+      </Fragment>
+    );
+  });
+};

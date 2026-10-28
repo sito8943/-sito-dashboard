@@ -1,11 +1,20 @@
-export * from "./Actions";
-export * from "./Badge";
-export * from "./Button";
-export * from "./Chip";
-export * from "./Dropdown";
-export * from "./Form";
-export * from "./IconButton";
-export * from "./Loading";
-export * from "./SvgIcons";
-export * from "./Table";
-export * from "./Tooltip";
+// Atoms
+export * from "./atoms/Badge";
+export * from "./atoms/Button";
+export * from "./atoms/CheckInput";
+export * from "./atoms/Chip";
+export * from "./atoms/FileInput";
+export * from "./atoms/IconButton";
+export * from "./atoms/Loading";
+export * from "./atoms/SelectInput";
+export * from "./atoms/SvgIcons";
+export * from "./atoms/TextInput";
+export * from "./atoms/Tooltip";
+
+// Molecules
+export * from "./molecules/Actions";
+export * from "./molecules/AutocompleteInput";
+export * from "./molecules/Dropdown";
+
+// Organisms
+export * from "./organisms/Table";

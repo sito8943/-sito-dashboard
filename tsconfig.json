@@ -18,15 +18,10 @@
     "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "components": ["./src/components/index.ts"],
-      "components/*": ["./src/components/*"],
-      "lib": ["./src/lib/index.ts"],
-      "lib/*": ["./src/lib/*"],
-      "providers": ["./src/providers/index.ts"],
-      "providers/*": ["./src/providers/*"]
+      "@/*": ["./src/*"]
     },
     "types": ["vite/client", "node"]
   },
-  "include": ["src"],
+  "include": ["src", "tests", "stories"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

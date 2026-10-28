@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 
 - `AutocompleteInput`'s `createOption` accepts an optional `isExisting(inputValue)` callback. When it returns `true` the creation row is hidden, in addition to the built-in exact label match. Lets consumers with composite labels (for example `alias (name)`) hide "Create" when the typed value matches part of an existing option.
 
+### Changed
+
+- Reorganized the source tree: components are grouped into `src/components/atoms`, `molecules` and `organisms`; the former `components/Form` group is gone (its shared types and state helpers live in `src/lib/form`, and the `./Form` subpath is built from `src/entries/Form.ts`); tests moved to `tests/` and stories to `stories/`, both mirroring the levels; the bare `components` / `lib` / `providers` / `hooks` import aliases were replaced by a single `@/` alias for `src/`. No change to the public API: export names, props and package subpath exports (`.`, `./Form`, `./Table`, ...) are the same, with the same emitted JS filenames. Only the internal `.d.ts` locations behind the `types` conditions moved (e.g. `dist/components/atoms/Badge/index.d.ts`, `dist/entries/Form.d.ts`).
+
 ### Fixed
 
 - `AutocompleteInput` search is now accent-insensitive: suggestions, the exact-match check that hides the creation row, and `autoSelectOnBlur` ignore diacritics as well as case, so typing `arros` finds `ARRÒS AMB VERDURES` and `cafe` no longer offers to create an existing `Café`. Closes #78.

@@ -1,0 +1,110 @@
+@reference "../../../../styles/variables.css";
+
+.jump-to-page,
+.page-size {
+  @apply flex gap-2 items-center justify-start;
+}
+
+.jump-to-page-input,
+.page-size-input {
+  @apply py-0! pl-2! pr-7! border-none! font-bold;
+}
+
+.jump-to-page-input-container,
+.page-size-input-container {
+  @apply w-auto! mb-0! border-none!;
+}
+
+.table-headers-column {
+  @apply px-3 py-2 sticky top-0 z-20 bg-base;
+}
+
+.table-headers-checkbox {
+  @apply w-12 text-center;
+}
+
+.table-headers-checkbox input {
+  @apply cursor-pointer;
+}
+
+.table-headers-label {
+  @apply whitespace-nowrap;
+}
+
+.table-headers-cell {
+  @apply transition-colors duration-200;
+}
+
+.table-headers-sort-state {
+  @apply inline-flex opacity-0 transition-opacity duration-200;
+}
+
+.table-headers-sort-current,
+.table-headers-sort-preview-trigger:hover .table-headers-sort-preview {
+  @apply opacity-100;
+}
+
+.table-headers-sort-preview-trigger:hover {
+  @apply bg-base-dark;
+}
+
+.table-headers-sort-indicator {
+  @apply w-3;
+}
+
+.table-headers-action {
+  @apply text-text font-medium px-6 py-3 text-center sticky top-0 z-20 bg-base w-px;
+  white-space: nowrap;
+}
+
+.table-empty {
+  @apply w-full flex items-center justify-center py-2 border-t;
+}
+
+.table-footer {
+  @apply flex w-full items-center justify-end gap-5 mt-5 px-5;
+}
+
+.table-navigation-sizes {
+  @apply flex items-center justify-start gap-1;
+}
+
+.table-navigation-pages {
+  @apply flex gap-5 items-center justify-end;
+}
+
+.table-navigation-icon {
+  @apply w-2.5;
+}
+
+.table-header-sr {
+  @apply sr-only;
+}
+
+.column-visibility-menu {
+  @apply relative;
+}
+
+.column-visibility-icon {
+  @apply w-4 h-4;
+}
+
+.column-visibility-trigger {
+  @apply flex items-center;
+}
+
+.column-visibility-backdrop {
+  @apply fixed inset-0 z-30;
+}
+
+.column-visibility-dropdown {
+  @apply absolute right-0 top-full mt-1 z-40 bg-base border border-border rounded shadow-lg p-2 min-w-48 max-h-64 overflow-y-auto;
+}
+
+.column-visibility-item {
+  @apply px-2 py-1 rounded hover:bg-base cursor-pointer;
+}
+
+.reset-table-icon {
+  @apply w-4 h-4;
+}

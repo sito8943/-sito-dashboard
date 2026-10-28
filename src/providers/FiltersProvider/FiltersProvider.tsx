@@ -1,5 +1,5 @@
 // providers
-import { useTableOptions } from "providers";
+import { useTableOptions } from "@/providers/TableOptions";
 import {
   createContext,
   useContext,

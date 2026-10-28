@@ -8,12 +8,7 @@
     "esModuleInterop": true,
     "types": ["node", "vite/client"],
     "paths": {
-      "components": ["./src/components/index.ts"],
-      "components/*": ["./src/components/*"],
-      "lib": ["./src/lib/index.ts"],
-      "lib/*": ["./src/lib/*"],
-      "providers": ["./src/providers/index.ts"],
-      "providers/*": ["./src/providers/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["vite.config.ts", ".storybook/main.ts", ".storybook/preview.tsx"]

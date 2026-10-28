@@ -6,7 +6,7 @@ import { mergeAlias } from "vite";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const config: StorybookConfig = {
-  stories: ["../src/**/*.stories.@(ts|tsx)"],
+  stories: ["../stories/**/*.stories.@(ts|tsx)"],
   addons: ["@storybook/addon-docs", "@storybook/addon-a11y"],
   framework: {
     name: "@storybook/react-vite",
@@ -16,10 +16,7 @@ const config: StorybookConfig = {
   viteFinal: (viteConfig) => {
     viteConfig.resolve = viteConfig.resolve || {};
     viteConfig.resolve.alias = mergeAlias(viteConfig.resolve.alias, {
-      components: resolve(__dirname, "../src/components"),
-      providers: resolve(__dirname, "../src/providers"),
-      lib: resolve(__dirname, "../src/lib"),
-      hooks: resolve(__dirname, "../src/hooks"),
+      "@": resolve(__dirname, "../src"),
     });
 
     // Remove library-only plugins that break Storybook's Vite build
