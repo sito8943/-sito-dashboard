@@ -1,7 +1,7 @@
 {
   "name": "@sito/dashboard",
   "private": false,
-  "version": "0.4.0",
+  "version": "0.4.1",
   "type": "module",
   "packageManager": "pnpm@10.34.4",
   "engines": {
@@ -124,7 +124,7 @@
   "author": "sito8943",
   "license": "MIT",
   "peerDependencies": {
-    "@sito/ui": ">=0.3.2 <0.10.0",
+    "@sito/ui": ">=0.3.2 <0.11.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -161,7 +161,7 @@
   "devDependencies": {
     "@fortawesome/free-solid-svg-icons": "^7.2.0",
     "@fortawesome/react-fontawesome": "^3.2.0",
-    "@sito/ui": "0.9.1",
+    "@sito/ui": "0.10.0",
     "@storybook/addon-a11y": "10.4.6",
     "@storybook/addon-docs": "10.4.6",
     "@storybook/react": "10.4.6",

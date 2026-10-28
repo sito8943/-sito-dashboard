@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.1]
+
+### Changed
+
+- Widened the `@sito/ui` peer dependency range from `>=0.3.2 <0.10.0` to `>=0.3.2 <0.11.0`, so apps can use `@sito/ui@0.10.x` (`Icon` atom with blur swap used by `IconButton`, `sito-ui-pressable`) together with `@sito/dashboard`. The library is now developed and tested against `@sito/ui@0.10.0` (devDependency); 0.10.0 keeps the public exports, class names and built `styles.css` rules it uses (`Button`, `IconButton`, `IconButtonSize`, `@sito/ui/styles.css`).
+
 ## [0.4.0]
 
 ### Added
