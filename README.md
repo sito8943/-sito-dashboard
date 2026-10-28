@@ -210,7 +210,8 @@ pnpm run format           # Format the repository with Prettier
 pnpm run format:check     # Check formatting without writing
 pnpm run build-storybook  # Build static Storybook
 pnpm run preview          # Preview Vite build
-pnpm run full             # lint + build + test
+pnpm run dist:check       # Verify built entries and CommonJS output
+pnpm run full             # lint + build + dist:check + test
 ```
 
 ## Contributing

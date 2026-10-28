@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.2]
+
+### Fixed
+
+- CommonJS build: `.cjs` chunks no longer start with an ESM `import "./X.css"` (injected by `vite-plugin-lib-inject-css`), which made `require("@sito/dashboard")` and 10 of the subpath `.cjs` files throw `SyntaxError: Cannot use import statement outside a module`. They now use `require("./X.css")`; consumers loading them outside a bundler must handle `.css` the usual way (e.g. Jest `moduleNameMapper`). Closes #82.
+- Type declarations: relative specifiers in the emitted `.d.ts` files now carry explicit `.js` extensions (`export * from './components/index.js'`), so consumers with `moduleResolution: "node16"` / `"nodenext"` see the exports instead of `TS2305: Module '"@sito/dashboard"' has no exported member ...`. `"bundler"` resolution is unaffected. Closes #83.
+
+### Added
+
+- `dist:check` script (part of `full`): verifies every path in `package.json` entry fields exists and every `dist/*.cjs` file parses as CommonJS.
+
 ## [0.4.1]
 
 ### Changed

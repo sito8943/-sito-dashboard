@@ -1,7 +1,7 @@
 {
   "name": "@sito/dashboard",
   "private": false,
-  "version": "0.4.1",
+  "version": "0.4.2",
   "type": "module",
   "packageManager": "pnpm@10.34.4",
   "engines": {
@@ -105,6 +105,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "dist:check": "node ./scripts/check-dist.mjs",
     "lint": "oxlint --type-aware --max-warnings 0",
     "lint:fix": "oxlint --type-aware --fix --max-warnings 0",
     "deps:check": "knip --dependencies",
@@ -115,7 +116,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "prepare": "husky",
-    "full": "pnpm run lint && pnpm run format:check && pnpm run deps:check && pnpm run build && pnpm run test"
+    "full": "pnpm run lint && pnpm run format:check && pnpm run deps:check && pnpm run build && pnpm run dist:check && pnpm run test"
   },
   "keywords": [
     "sito",

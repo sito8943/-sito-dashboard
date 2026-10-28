@@ -9,7 +9,8 @@
 
 **After every change, run the full validation suite before finishing:**
 
-This covers Oxlint, Prettier, TypeScript type-checking, the Vite bundle build, and Vitest tests.
+This covers Oxlint, Prettier, TypeScript type-checking, the Vite bundle build, the `dist:check`
+build verification (entry paths exist, `.cjs` files are valid CommonJS), and Vitest tests.
 Running it locally catches errors immediately and avoids costly follow-up fix cycles.
 
 ---
@@ -89,6 +90,9 @@ Rules:
 - Public exports go through local `index.ts` files, then `src/components/index.ts` / `src/main.ts`.
 - Every package subpath export (`./Badge`, `./Form`, `./Table`, ...) maps to a `build.lib.entry`
   in `vite.config.ts`; keep the entry name stable when moving source files.
+- Emitted `.d.ts` files get `.js` extensions on relative specifiers (`dts` `beforeWriteFile` in
+  `vite.config.ts`) so `moduleResolution: node16`/`nodenext` consumers resolve them; `.cjs`
+  chunks `require()` their CSS instead of `import`ing it.
 
 ---
 
