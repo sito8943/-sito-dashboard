@@ -13,6 +13,10 @@ All notable changes to this project will be documented in this file.
 
 - `dist:check` script (part of `full`): verifies every path in `package.json` entry fields exists and every `dist/*.cjs` file parses as CommonJS.
 
+### Changed
+
+- Developed and tested against `@sito/ui@0.10.1` (devDependency), whose `.d.ts` files also carry explicit extensions, so a `node16`/`nodenext` consumer type-checks `@sito/dashboard` and `@sito/ui` imports cleanly. Peer range unchanged (`>=0.3.2 <0.11.0`).
+
 ## [0.4.1]
 
 ### Changed

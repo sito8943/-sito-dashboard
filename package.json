@@ -162,7 +162,7 @@
   "devDependencies": {
     "@fortawesome/free-solid-svg-icons": "^7.2.0",
     "@fortawesome/react-fontawesome": "^3.2.0",
-    "@sito/ui": "0.10.0",
+    "@sito/ui": "0.10.1",
     "@storybook/addon-a11y": "10.4.6",
     "@storybook/addon-docs": "10.4.6",
     "@storybook/react": "10.4.6",
