@@ -23,6 +23,16 @@ import {
 import { AutocompleteInputPropsType } from "./types";
 
 /**
+ * Normalizes text for search comparisons: strips diacritics and lowercases.
+ * @param text - Text to normalize
+ */
+const normalizeSearch = (text: string) =>
+  text
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase();
+
+/**
  * Text input with autocomplete suggestions, supporting single and multiple selection.
  * @param props - Component props
  * @param ref - Forwarded ref to the underlying input element
@@ -94,25 +104,26 @@ export const AutocompleteInput = forwardRef(function (
     [options, value],
   );
 
-  const suggestions = useMemo(
-    () =>
-      availableOptions.filter((option) =>
-        getOptionLabel(option).toLowerCase().includes(inputValue.toLowerCase()),
-      ),
-    [availableOptions, getOptionLabel, inputValue],
-  );
+  const suggestions = useMemo(() => {
+    const normalizedInputValue = normalizeSearch(inputValue);
+    return availableOptions.filter((option) =>
+      normalizeSearch(getOptionLabel(option)).includes(normalizedInputValue),
+    );
+  }, [availableOptions, getOptionLabel, inputValue]);
 
   const trimmedInputValue = inputValue.trim();
   const canCreateOption = useMemo(() => {
     if (!createOption || !trimmedInputValue) return false;
 
-    const normalizedInputValue = trimmedInputValue.toLowerCase();
+    if (createOption.isExisting?.(trimmedInputValue)) return false;
+
+    const normalizedInputValue = normalizeSearch(trimmedInputValue);
     const selectedOptions = Array.isArray(value) ? value : value ? [value] : [];
     const knownOptions = [...options, ...selectedOptions];
 
     return !knownOptions.some(
       (option) =>
-        getOptionLabel(option).trim().toLowerCase() === normalizedInputValue,
+        normalizeSearch(getOptionLabel(option).trim()) === normalizedInputValue,
     );
   }, [createOption, getOptionLabel, options, trimmedInputValue, value]);
 
@@ -189,14 +200,14 @@ export const AutocompleteInput = forwardRef(function (
 
   const findSuggestionMatchingInput = useCallback(
     (searchValue: string) => {
-      const normalizedSearchValue = searchValue.trim().toLowerCase();
+      const normalizedSearchValue = normalizeSearch(searchValue.trim());
 
       if (!normalizedSearchValue) return null;
 
       return (
         availableOptions.find(
           (option) =>
-            getOptionLabel(option).trim().toLowerCase() ===
+            normalizeSearch(getOptionLabel(option).trim()) ===
             normalizedSearchValue,
         ) ?? null
       );

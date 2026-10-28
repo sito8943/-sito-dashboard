@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.0]
+
+### Added
+
+- `AutocompleteInput`'s `createOption` accepts an optional `isExisting(inputValue)` callback. When it returns `true` the creation row is hidden, in addition to the built-in exact label match. Lets consumers with composite labels (for example `alias (name)`) hide "Create" when the typed value matches part of an existing option.
+
+### Fixed
+
+- `AutocompleteInput` search is now accent-insensitive: suggestions, the exact-match check that hides the creation row, and `autoSelectOnBlur` ignore diacritics as well as case, so typing `arros` finds `ARRÒS AMB VERDURES` and `cafe` no longer offers to create an existing `Café`. Closes #78.
+
 ## [0.3.7]
 
 ### Fixed

@@ -5,6 +5,11 @@ import { ReactNode } from "react";
 export interface AutocompleteCreateOptionConfig {
   onCreate: (inputValue: string) => void;
   renderLabel: (inputValue: string) => ReactNode;
+  /**
+   * Returns true when the typed value already exists, hiding the create option.
+   * Runs in addition to the built-in exact label match.
+   */
+  isExisting?: (inputValue: string) => boolean;
 }
 
 export interface AutocompleteInputPropsType extends Omit<

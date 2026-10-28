@@ -507,9 +507,9 @@ import { AutocompleteInput } from "@sito/dashboard";
 />;
 ```
 
-`autoSelectOnBlur` defaults to `true`. In single-select mode, when the input loses focus and the typed text exactly matches an option label, that option is selected automatically. Matching is case-insensitive and trims surrounding spaces.
+`autoSelectOnBlur` defaults to `true`. In single-select mode, when the input loses focus and the typed text exactly matches an option label, that option is selected automatically. Matching ignores case and accents (diacritics) and trims surrounding spaces. Suggestion filtering is accent-insensitive too.
 
-Use `createOption` when the consumer must offer creation for a missing value. The consumer supplies both the localized row label and the creation callback; `AutocompleteInput` only detects the missing exact match and emits the trimmed input value.
+Use `createOption` when the consumer must offer creation for a missing value. The consumer supplies both the localized row label and the creation callback; `AutocompleteInput` only detects the missing exact match and emits the trimmed input value. Pass `createOption.isExisting(inputValue)` to also hide the row when the consumer knows the value exists (e.g. composite labels); it runs in addition to the exact match.
 
 ```tsx
 <AutocompleteInput

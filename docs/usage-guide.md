@@ -64,7 +64,7 @@ const options: Option[] = [
 />;
 ```
 
-`autoSelectOnBlur` defaults to `true`. In single-select mode, blur selects the matching option when the typed text exactly matches an option label, ignoring case and surrounding spaces.
+`autoSelectOnBlur` defaults to `true`. In single-select mode, blur selects the matching option when the typed text exactly matches an option label, ignoring case, accents and surrounding spaces.
 
 To let consumers create missing options, pass both the action and its localized label through `createOption`:
 
@@ -81,7 +81,7 @@ To let consumers create missing options, pass both the action and its localized 
 />
 ```
 
-The creation row appears only for a non-empty value without an exact option match. Matching is case-insensitive and ignores surrounding spaces. The consumer remains responsible for persistence and for updating `options` or `value` after creation.
+The creation row appears only for a non-empty value without an exact option match. Matching ignores case, accents and surrounding spaces. To hide the row in other cases (for example when options use composite labels such as `alias (name)`), pass `createOption.isExisting: (inputValue) => boolean`; returning `true` hides it. The consumer remains responsible for persistence and for updating `options` or `value` after creation.
 
 For custom upload UIs (for example profile photo pickers), render only the native input:
 

@@ -277,4 +277,98 @@ describe("AutocompleteInput", () => {
 
     expect(onParentKeyDown).toHaveBeenCalledTimes(1);
   });
+  it("matches suggestions ignoring accents and case", () => {
+    render(
+      <AutocompleteInput
+        id="autocomplete-accents"
+        label="Autocomplete accents"
+        value={null}
+        onChange={() => undefined}
+        options={[
+          { id: 1, name: "ARRÒS AMB VERDURES" },
+          { id: 2, name: "Café" },
+        ]}
+      />,
+    );
+
+    const input = screen.getByLabelText("Autocomplete accents");
+    fireEvent.focus(input);
+    fireEvent.change(input, { target: { value: "arros" } });
+
+    expect(screen.getByText("ARRÒS AMB VERDURES")).toBeInTheDocument();
+    expect(screen.queryByText("Café")).not.toBeInTheDocument();
+  });
+
+  it("does not offer creation when an option matches ignoring accents", () => {
+    render(
+      <AutocompleteInput
+        id="autocomplete-create-accents"
+        label="Autocomplete create accents"
+        value={null}
+        onChange={() => undefined}
+        options={[{ id: 1, name: "Café" }]}
+        createOption={{
+          onCreate: () => undefined,
+          renderLabel: (inputValue) => `Create "${inputValue}"`,
+        }}
+      />,
+    );
+
+    const input = screen.getByLabelText("Autocomplete create accents");
+    fireEvent.focus(input);
+    fireEvent.change(input, { target: { value: "cafe" } });
+
+    expect(screen.queryByText('Create "cafe"')).not.toBeInTheDocument();
+  });
+
+  it("auto-selects on blur when the input matches ignoring accents", () => {
+    const onChange = vi.fn();
+
+    render(
+      <AutocompleteInput
+        id="autocomplete-blur-accents"
+        label="Autocomplete blur accents"
+        value={null}
+        onChange={onChange}
+        options={[{ id: 1, name: "Café" }]}
+      />,
+    );
+
+    const input = screen.getByLabelText("Autocomplete blur accents");
+    fireEvent.focus(input);
+    fireEvent.change(input, { target: { value: "cafe" } });
+    fireEvent.blur(input);
+
+    expect(onChange).toHaveBeenCalledWith({ id: 1, name: "Café" });
+  });
+
+  it("hides the create option when isExisting returns true", () => {
+    const isExisting = vi.fn((inputValue: string) => inputValue === "rice");
+
+    render(
+      <AutocompleteInput
+        id="autocomplete-create-is-existing"
+        label="Autocomplete create is existing"
+        value={null}
+        onChange={() => undefined}
+        options={[{ id: 1, name: "rice (Arròs)" }]}
+        createOption={{
+          onCreate: () => undefined,
+          renderLabel: (inputValue) => `Create "${inputValue}"`,
+          isExisting,
+        }}
+      />,
+    );
+
+    const input = screen.getByLabelText("Autocomplete create is existing");
+    fireEvent.focus(input);
+    fireEvent.change(input, { target: { value: " rice " } });
+
+    expect(isExisting).toHaveBeenCalledWith("rice");
+    expect(screen.queryByText('Create "rice"')).not.toBeInTheDocument();
+
+    fireEvent.change(input, { target: { value: "pasta" } });
+
+    expect(screen.getByText('Create "pasta"')).toBeInTheDocument();
+  });
 });
