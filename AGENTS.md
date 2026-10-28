@@ -14,6 +14,84 @@ Running it locally catches errors immediately and avoids costly follow-up fix cy
 
 ---
 
+## 0.1 Folder Structure (library source)
+
+Components are grouped by atomic design level, decided by what they compose:
+
+- `atoms/`: standalone primitives (`Badge`, `Button`, `IconButton`, `Chip`, `Loading`, `Tooltip`,
+  `SvgIcons`, `TextInput`, `CheckInput`, `FileInput`, `SelectInput`). An atom may build on another
+  atom (`Chip` renders `IconButton`, `SelectInput` renders `TextInput`, `FileInput` renders `Chip`).
+- `molecules/`: primitives composed from atoms (`Dropdown`, `AutocompleteInput`, `Actions` with
+  `Action` / `Actions` / `ActionsDropdown`).
+- `organisms/`: full interaction surfaces that compose molecules and atoms (`Table`, with its
+  internal `components/`, `hooks/` and `utils.ts` kept inside `organisms/Table/`).
+
+Imports only point down or sideways: organisms may import molecules and atoms, molecules may import
+atoms, atoms never import molecules or organisms.
+
+```txt
+src/
+  components/
+    atoms/
+      Button/
+        Button.tsx
+        styles.css
+        types.ts
+        index.ts
+      Badge/ Chip/ CheckInput/ FileInput/ IconButton/ Loading/
+      SelectInput/ SvgIcons/ TextInput/ Tooltip/
+    molecules/
+      Actions/ AutocompleteInput/ Dropdown/
+    organisms/
+      Table/
+        components/
+        hooks/
+        Table.tsx
+        types.ts
+        utils.ts
+        index.ts
+    index.ts          # re-exports by level (// Atoms, // Molecules, // Organisms)
+  entries/
+    Form.ts           # `@sito/dashboard/Form` subpath entry (inputs + shared form types)
+  lib/
+    form/             # BaseInputPropsType, State and input state class helpers
+    models/
+    index.ts
+  providers/
+    FiltersProvider/ TableOptions/ Translation/
+  styles/
+  main.ts
+tests/
+  components/<level>/...   # Table tests live in tests/components/organisms/Table/...
+  lib/
+  providers/
+  setup.ts
+stories/
+  atoms/ molecules/ organisms/
+```
+
+Rules:
+
+- A new component goes in the lowest level that fits what it composes.
+- Imports that leave the current folder use the `@/` alias for `src/` with a specific path
+  (`@/lib`, `@/components/atoms/Button`, `@/providers/Translation`); same-folder imports stay `./`.
+  Do not import the `@/components` barrel from inside `src/` (it creates cycles).
+- The alias is set in `tsconfig.json` (and `tsconfig.node.json`), `vite.config.ts` (also used by
+  Vitest) and `.storybook/main.ts`; the emitted `.d.ts` files get relative paths.
+- CSS `@import` / `@reference` paths stay relative.
+- Tests and stories live outside `src/` and mirror the levels: `tests/components/<level>/`,
+  `stories/<level>/`, with story titles `Atoms/…`, `Molecules/…`, `Organisms/…`. They import the
+  public API from `@/main`; internals not exported from `main.ts` are imported by their specific
+  `@/...` path.
+- One component per file (tightly coupled subcomponents may share the component folder).
+- One hook per file.
+- Types go in `types.ts`, constants in `constants.ts`, helpers in `utils.ts`.
+- Public exports go through local `index.ts` files, then `src/components/index.ts` / `src/main.ts`.
+- Every package subpath export (`./Badge`, `./Form`, `./Table`, ...) maps to a `build.lib.entry`
+  in `vite.config.ts`; keep the entry name stable when moving source files.
+
+---
+
 ## 1. What This Library Is
 
 `@sito/dashboard` is a **React 18/19 TypeScript component library** for building dashboard and admin UIs.
@@ -507,9 +585,9 @@ import { AutocompleteInput } from "@sito/dashboard";
 />;
 ```
 
-`autoSelectOnBlur` defaults to `true`. In single-select mode, when the input loses focus and the typed text exactly matches an option label, that option is selected automatically. Matching is case-insensitive and trims surrounding spaces.
+`autoSelectOnBlur` defaults to `true`. In single-select mode, when the input loses focus and the typed text exactly matches an option label, that option is selected automatically. Matching ignores case and accents (diacritics) and trims surrounding spaces. Suggestion filtering is accent-insensitive too.
 
-Use `createOption` when the consumer must offer creation for a missing value. The consumer supplies both the localized row label and the creation callback; `AutocompleteInput` only detects the missing exact match and emits the trimmed input value.
+Use `createOption` when the consumer must offer creation for a missing value. The consumer supplies both the localized row label and the creation callback; `AutocompleteInput` only detects the missing exact match and emits the trimmed input value. Pass `createOption.isExisting(inputValue)` to also hide the row when the consumer knows the value exists (e.g. composite labels); it runs in addition to the exact match.
 
 ```tsx
 <AutocompleteInput

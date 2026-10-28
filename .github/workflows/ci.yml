@@ -36,7 +36,7 @@ jobs:
         run: |
           TMP_DIR="$(mktemp -d)"
           cat > "$TMP_DIR/consumer.ts" <<EOF
-          import type { FileInputPropsType } from '${GITHUB_WORKSPACE}/dist/components/Form/FileInput/types';
+          import type { FileInputPropsType } from '${GITHUB_WORKSPACE}/dist/components/atoms/FileInput/types';
           const value: FileInputPropsType | null = null;
           console.log(value);
           EOF

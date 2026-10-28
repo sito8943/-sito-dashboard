@@ -8,7 +8,7 @@ import "./theme.css";
 import type { Preview } from "@storybook/react";
 import type { Decorator } from "@storybook/react";
 // Providers
-import { TableOptionsProvider, TranslationProvider } from "providers";
+import { TableOptionsProvider, TranslationProvider } from "@/main";
 
 const translations: Record<string, string> = {
   // Labels
@@ -53,22 +53,23 @@ const preview: Preview = {
     options: {
       storySort: {
         order: [
-          "Components",
+          "Atoms",
           [
-            "Form",
-            [
-              "TextInput",
-              "FileInput",
-              "SelectInput",
-              "CheckInput",
-              "AutocompleteInput",
-            ],
+            "Button",
+            "IconButton",
+            "TextInput",
+            "FileInput",
+            "SelectInput",
+            "CheckInput",
             "Chip",
             "Badge",
             "Tooltip",
             "Loading",
-            "Table",
           ],
+          "Molecules",
+          ["AutocompleteInput", "Dropdown", "Actions"],
+          "Organisms",
+          ["Table"],
         ],
       },
     },

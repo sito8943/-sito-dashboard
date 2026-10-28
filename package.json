@@ -1,7 +1,7 @@
 {
   "name": "@sito/dashboard",
   "private": false,
-  "version": "0.3.7",
+  "version": "0.4.0",
   "type": "module",
   "packageManager": "pnpm@10.34.4",
   "engines": {
@@ -29,52 +29,52 @@
       "require": "./dist/index.cjs"
     },
     "./Badge": {
-      "types": "./dist/components/Badge/index.d.ts",
+      "types": "./dist/components/atoms/Badge/index.d.ts",
       "import": "./dist/Badge.js",
       "require": "./dist/Badge.cjs"
     },
     "./Button": {
-      "types": "./dist/components/Button/index.d.ts",
+      "types": "./dist/components/atoms/Button/index.d.ts",
       "import": "./dist/Button.js",
       "require": "./dist/Button.cjs"
     },
     "./Chip": {
-      "types": "./dist/components/Chip/index.d.ts",
+      "types": "./dist/components/atoms/Chip/index.d.ts",
       "import": "./dist/Chip.js",
       "require": "./dist/Chip.cjs"
     },
     "./Dropdown": {
-      "types": "./dist/components/Dropdown/index.d.ts",
+      "types": "./dist/components/molecules/Dropdown/index.d.ts",
       "import": "./dist/Dropdown.js",
       "require": "./dist/Dropdown.cjs"
     },
     "./Form": {
-      "types": "./dist/components/Form/index.d.ts",
+      "types": "./dist/entries/Form.d.ts",
       "import": "./dist/Form.js",
       "require": "./dist/Form.cjs"
     },
     "./IconButton": {
-      "types": "./dist/components/IconButton/index.d.ts",
+      "types": "./dist/components/atoms/IconButton/index.d.ts",
       "import": "./dist/IconButton.js",
       "require": "./dist/IconButton.cjs"
     },
     "./Loading": {
-      "types": "./dist/components/Loading/index.d.ts",
+      "types": "./dist/components/atoms/Loading/index.d.ts",
       "import": "./dist/Loading.js",
       "require": "./dist/Loading.cjs"
     },
     "./SvgIcons": {
-      "types": "./dist/components/SvgIcons/index.d.ts",
+      "types": "./dist/components/atoms/SvgIcons/index.d.ts",
       "import": "./dist/SvgIcons.js",
       "require": "./dist/SvgIcons.cjs"
     },
     "./Table": {
-      "types": "./dist/components/Table/index.d.ts",
+      "types": "./dist/components/organisms/Table/index.d.ts",
       "import": "./dist/Table.js",
       "require": "./dist/Table.cjs"
     },
     "./Tooltip": {
-      "types": "./dist/components/Tooltip/index.d.ts",
+      "types": "./dist/components/atoms/Tooltip/index.d.ts",
       "import": "./dist/Tooltip.js",
       "require": "./dist/Tooltip.cjs"
     },

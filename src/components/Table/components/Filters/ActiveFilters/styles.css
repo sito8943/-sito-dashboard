@@ -1,5 +1,0 @@
-@reference "../../../../../styles/variables.css";
-
-.active-filters-main {
-  @apply flex items-center justify-start flex-wrap gap-2;
-}

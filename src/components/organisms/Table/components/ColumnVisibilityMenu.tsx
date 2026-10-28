@@ -1,0 +1,97 @@
+// components
+import { IconButton } from "@/components/atoms/IconButton";
+import { CheckInput } from "@/components/atoms/CheckInput";
+import { TableColumns } from "@/components/atoms/SvgIcons";
+// lib
+import { BaseDto } from "@/lib";
+// providers
+import { useTableOptions } from "@/providers/TableOptions";
+import { useTranslation } from "@/providers/Translation";
+import { useCallback, useMemo, useRef, useState } from "react";
+
+// utils
+import { getSortedVisibleColumns } from "@/components/organisms/Table/utils";
+// types
+import { ColumnType } from "./types";
+
+type ColumnVisibilityMenuPropsType<TRow extends BaseDto> = {
+  columns: ColumnType<TRow>[];
+};
+
+/**
+ * Renders the ColumnVisibilityMenu component.
+ * @param props - props parameter.
+ * @returns Function result.
+ */
+export function ColumnVisibilityMenu<TRow extends BaseDto>(
+  props: ColumnVisibilityMenuPropsType<TRow>,
+) {
+  const { columns } = props;
+  const { hiddenColumns, toggleColumn } = useTableOptions<
+    string,
+    Extract<keyof TRow, string>
+  >();
+  const { t } = useTranslation();
+
+  const [open, setOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  const hideableColumns = useMemo(
+    () =>
+      getSortedVisibleColumns(
+        columns.filter(
+          (col) => col.hideable !== false && col.display !== "none",
+        ),
+        [],
+      ),
+    [columns],
+  );
+
+  const handleToggle = useCallback(() => {
+    setOpen((prev) => !prev);
+  }, []);
+
+  const handleColumnToggle = useCallback(
+    (key: Extract<keyof TRow, string>) => {
+      toggleColumn(key);
+    },
+    [toggleColumn],
+  );
+
+  if (hideableColumns.length === 0) return null;
+
+  return (
+    <div className="column-visibility-menu" ref={menuRef}>
+      <IconButton
+        icon={<TableColumns className="column-visibility-icon" />}
+        className="normal column-visibility-trigger"
+        aria-haspopup="true"
+        aria-expanded={open}
+        onClick={handleToggle}
+      >
+        <span className="table-header-sr">
+          {t("_accessibility:buttons.columns")}
+        </span>
+      </IconButton>
+      {open && (
+        <>
+          <div
+            className="column-visibility-backdrop"
+            onClick={() => setOpen(false)}
+          />
+          <div className="column-visibility-dropdown" role="menu">
+            {hideableColumns.map((column) => (
+              <CheckInput
+                key={column.key}
+                checked={!hiddenColumns.includes(column.key)}
+                onChange={() => handleColumnToggle(column.key)}
+                label={column.label ?? column.key}
+                containerClassName="column-visibility-item"
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
