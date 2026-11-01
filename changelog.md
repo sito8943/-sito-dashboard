@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.3]
+
+### Fixed
+
+- Dropdown lists no longer get cut off by scrolling containers such as dialogs. A new internal `useDropdownPlacement` hook measures the space left inside the nearest clipping ancestor: when the list does not fit below the input it opens on the side with more room, and when it fits nowhere its height is capped so it scrolls. Applies to `AutocompleteInput` suggestions and the custom (non-native) `SelectInput` options. Opened-up lists get the `dropdown-opens-up` class.
+- `AutocompleteInput`: typed text no longer runs under the clear (X) button. The input gets `autocomplete-input-clearable` (right padding) while the button shows.
+
+### Changed
+
+- `.autocomplete-input-container` is now `position: relative`, so upward suggestion lists anchor to the input.
+
 ## [0.4.2]
 
 ### Fixed
