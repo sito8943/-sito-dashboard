@@ -1,6 +1,7 @@
 // styles
 import "./styles.css";
 
+import { useDropdownPlacement } from "@/hooks/useDropdownPlacement";
 import { classNames } from "@/lib";
 import {
   ChangeEvent,
@@ -59,6 +60,14 @@ export const SelectInput = forwardRef(function (
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [showOptions, setShowOptions] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const optionsRef = useRef<HTMLUListElement | null>(null);
+
+  const optionsPlacement = useDropdownPlacement({
+    anchorRef: containerRef,
+    listRef: optionsRef,
+    open: !native && showOptions,
+    contentKey: options.length,
+  });
 
   const selectedIndex = useMemo(
     () =>
@@ -222,7 +231,15 @@ export const SelectInput = forwardRef(function (
           {children}
         </TextInput>
         {showOptions && (
-          <ul className="select-input-options-container" role="listbox">
+          <ul
+            ref={optionsRef}
+            className={classNames(
+              "select-input-options-container",
+              optionsPlacement.side === "top" && "dropdown-opens-up",
+            )}
+            style={optionsPlacement.style}
+            role="listbox"
+          >
             {options.map((option, index) => {
               const isSelected = String(option.id) === String(value);
               const isHighlighted = index === highlightedIndex;

@@ -369,4 +369,29 @@ describe("AutocompleteInput", () => {
 
     expect(screen.getByText('Create "pasta"')).toBeInTheDocument();
   });
+
+  it("leaves room for the delete button when a value is selected", () => {
+    const { rerender } = render(
+      <AutocompleteInput
+        id="clearable"
+        label="Clearable"
+        value={null}
+        onChange={() => {}}
+        options={options}
+      />,
+    );
+    const input = screen.getByLabelText("Clearable");
+    expect(input.className).not.toContain("autocomplete-input-clearable");
+
+    rerender(
+      <AutocompleteInput
+        id="clearable"
+        label="Clearable"
+        value={options[0]}
+        onChange={() => {}}
+        options={options}
+      />,
+    );
+    expect(input.className).toContain("autocomplete-input-clearable");
+  });
 });

@@ -1,7 +1,7 @@
 @reference "../../../styles/variables.css";
 
 .autocomplete-input-container {
-  @apply w-full mb-5;
+  @apply relative w-full mb-5;
 }
 
 .autocomplete-value-input-container {
@@ -14,6 +14,11 @@
 
 .autocomplete-delete-button {
   @apply flex items-center justify-center absolute right-2 top-[50%] translate-y-[-50%];
+}
+
+/* Keeps typed text clear of the delete button. */
+.text-input.autocomplete-input-clearable {
+  @apply pr-8;
 }
 
 .autocomplete-delete-button svg {
