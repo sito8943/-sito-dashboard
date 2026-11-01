@@ -7,6 +7,8 @@ import { Close } from "@/components/atoms/SvgIcons";
 import { IconButton } from "@/components/atoms/IconButton";
 import { Option } from "@/components/atoms/SelectInput";
 import { TextInput } from "@/components/atoms/TextInput";
+// hooks
+import { useDropdownPlacement } from "@/hooks/useDropdownPlacement";
 // lib
 import { classNames } from "@/lib";
 import {
@@ -55,6 +57,7 @@ export const AutocompleteInput = forwardRef(function (
     label = "",
     containerClassName = "",
     inputContainerClassName = "",
+    inputClassName = "",
     helperText = "",
     placeholder = "",
     multiple = false,
@@ -142,7 +145,22 @@ export const AutocompleteInput = forwardRef(function (
   }, [showSuggestions, suggestionCount, suggestions]);
 
   const autocompleteRef = useRef<HTMLDivElement | null>(null);
+  const valueInputRef = useRef<HTMLDivElement | null>(null);
+  const suggestionsRef = useRef<HTMLUListElement | null>(null);
   const localInputRef = useRef<HTMLInputElement | null>(null);
+
+  const suggestionsPlacement = useDropdownPlacement({
+    anchorRef: valueInputRef,
+    listRef: suggestionsRef,
+    open: showSuggestions,
+    contentKey: suggestionCount,
+  });
+
+  const showDeleteButton =
+    !multiple &&
+    !!value &&
+    !Array.isArray(value) &&
+    !!(value.value || value.name);
 
   const [threeDots, setThreeDots] = useState(false);
   const multipleValueRef = useRef<HTMLUListElement | null>(null);
@@ -355,7 +373,7 @@ export const AutocompleteInput = forwardRef(function (
       className={classNames("autocomplete-input-container", containerClassName)}
       ref={autocompleteRef}
     >
-      <div className="autocomplete-value-input-container">
+      <div className="autocomplete-value-input-container" ref={valueInputRef}>
         <TextInput
           state={state}
           name={name}
@@ -372,24 +390,25 @@ export const AutocompleteInput = forwardRef(function (
             "autocomplete-text-input",
             inputContainerClassName,
           )}
+          inputClassName={classNames(
+            showDeleteButton && "autocomplete-input-clearable",
+            inputClassName,
+          )}
           required={shouldRequireInput}
           aria-required={isRequired}
           ref={ref ?? localInputRef}
           {...rest}
         >
-          {!multiple &&
-            value &&
-            !Array.isArray(value) &&
-            (value.value || value.name) && (
-              <IconButton
-                icon={<Close />}
-                className="autocomplete-delete-button"
-                onClick={(e) => {
-                  handleSuggestionClick();
-                  e.stopPropagation();
-                }}
-              />
-            )}
+          {showDeleteButton && (
+            <IconButton
+              icon={<Close />}
+              className="autocomplete-delete-button"
+              onClick={(e) => {
+                handleSuggestionClick();
+                e.stopPropagation();
+              }}
+            />
+          )}
         </TextInput>
         {multiple && Array.isArray(value) && value.length ? (
           <ul ref={multipleValueRef} className="autocomplete-value-container">
@@ -434,8 +453,15 @@ export const AutocompleteInput = forwardRef(function (
       </div>
       {showSuggestions && (
         <ul
-          className="autocomplete-suggestions-container"
-          style={{ width: autocompleteRef.current?.offsetWidth }}
+          ref={suggestionsRef}
+          className={classNames(
+            "autocomplete-suggestions-container",
+            suggestionsPlacement.side === "top" && "dropdown-opens-up",
+          )}
+          style={{
+            width: autocompleteRef.current?.offsetWidth,
+            ...suggestionsPlacement.style,
+          }}
         >
           {suggestions.map((suggestion) => (
             <li
