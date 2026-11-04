@@ -78,13 +78,19 @@ export const AutocompleteInput = forwardRef(function (
 
   const [inputValue, setInputValue] = useState("");
 
+  // Sync the text from what the value shows, not from its identity: a parent
+  // rebuilding an equal value object on every render must not wipe the text
+  // the user is typing.
+  const singleValue =
+    !multiple && value && !Array.isArray(value) ? value : null;
+  const selectedId = singleValue?.id;
+  const selectedLabel = singleValue
+    ? String(singleValue.value ?? singleValue.name ?? "")
+    : "";
+
   useEffect(() => {
-    if (!multiple && value && !Array.isArray(value)) {
-      setInputValue(String(value.value ?? value.name ?? ""));
-      return;
-    }
-    setInputValue("");
-  }, [multiple, value]);
+    setInputValue(selectedLabel);
+  }, [selectedId, selectedLabel]);
 
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [highlightedSuggestionIndex, setHighlightedSuggestionIndex] =

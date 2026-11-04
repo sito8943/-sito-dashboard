@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.4]
+
+### Fixed
+
+- `AutocompleteInput`: typed text is no longer wiped when the parent re-renders. The input text synced from `value` whenever its object identity changed, so a consumer passing an equal but rebuilt value (e.g. `value={{ ...value, name: label }}`) lost what the user was typing on every render and saw the selected option's label come back. The text now resyncs only when the selected option's `id` or label changes.
+
 ## [0.4.3]
 
 ### Fixed

@@ -394,4 +394,62 @@ describe("AutocompleteInput", () => {
     );
     expect(input.className).toContain("autocomplete-input-clearable");
   });
+
+  it("keeps the typed text when the parent rebuilds an equal value", () => {
+    const Example = () => {
+      const [value, setValue] = useState<Option | null>(options[0]);
+      const [, setTick] = useState(0);
+      return (
+        <>
+          <AutocompleteInput
+            id="autocomplete-rebuilt-value"
+            label="Autocomplete"
+            // New object with the same content on every render.
+            value={value && { ...value }}
+            onChange={(next) => setValue(Array.isArray(next) ? null : next)}
+            options={options}
+          />
+          <button type="button" onClick={() => setTick((n) => n + 1)}>
+            rerender
+          </button>
+        </>
+      );
+    };
+
+    render(<Example />);
+
+    const input = screen.getByLabelText("Autocomplete");
+    fireEvent.change(input, { target: { value: "Appl" } });
+    fireEvent.click(screen.getByText("rerender"));
+
+    expect(input).toHaveValue("Appl");
+  });
+
+  it("shows the new label when the selected value changes", () => {
+    const Example = () => {
+      const [value, setValue] = useState<Option | null>(options[0]);
+      return (
+        <>
+          <AutocompleteInput
+            id="autocomplete-changed-value"
+            label="Autocomplete"
+            value={value}
+            onChange={(next) => setValue(Array.isArray(next) ? null : next)}
+            options={options}
+          />
+          <button type="button" onClick={() => setValue(options[2])}>
+            pick cherry
+          </button>
+        </>
+      );
+    };
+
+    render(<Example />);
+
+    const input = screen.getByLabelText("Autocomplete");
+    fireEvent.change(input, { target: { value: "Appl" } });
+    fireEvent.click(screen.getByText("pick cherry"));
+
+    expect(input).toHaveValue("Cherry");
+  });
 });
