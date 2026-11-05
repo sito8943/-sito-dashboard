@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.5]
+
+### Fixed
+
+- Pressed buttons keep their own `transform`. The bundled `@sito/ui` styles (`dist/sitoUi.css`) now come from `@sito/ui` 0.10.2, whose `Button` press feedback uses the standalone `scale` property instead of `transform`. With 0.10.1, an icon button centred with `translateY(-50%)` (e.g. a password toggle) dropped half its height while pressed, also with reduced motion.
+
 ## [0.4.4]
 
 ### Fixed
