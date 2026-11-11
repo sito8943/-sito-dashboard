@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.6]
+
+### Fixed
+
+- Tapping an input's label now focuses the field (mobile). `TextInput` and `SelectInput` only linked the label with `htmlFor` when the consumer passed an `id`; without one (the default in `AutocompleteInput`, many forms) the floating label, which sits over the field, swallowed the tap. Both now fall back to a `useId()` id.
+- Non-native `SelectInput`: the label points to the visible field. The hidden `<select>` no longer repeats the `id`, which was duplicated in the DOM and made the label target the hidden, non-focusable element.
+
 ## [0.4.5]
 
 ### Fixed

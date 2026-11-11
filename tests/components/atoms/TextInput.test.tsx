@@ -114,4 +114,18 @@ describe("TextInput", () => {
 
     expect(screen.getByText("Email *")).toBeInTheDocument();
   });
+
+  it("links the label to the input when no id is given", () => {
+    render(<TextInput label="Nombre" value="" />);
+
+    const input = screen.getByLabelText("Nombre");
+    expect(input.tagName).toBe("INPUT");
+    expect(input.id).not.toBe("");
+  });
+
+  it("keeps a given id on the input and the label", () => {
+    render(<TextInput id="name" label="Nombre" value="" />);
+
+    expect(screen.getByLabelText("Nombre")).toHaveAttribute("id", "name");
+  });
 });
