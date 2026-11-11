@@ -57,4 +57,35 @@ describe("SelectInput", () => {
 
     expect(screen.getByTestId("value")).toHaveTextContent("2");
   });
+
+  it("links the label to the native select when no id is given", () => {
+    render(
+      <SelectInput
+        label="Moneda"
+        value={1}
+        onChange={() => undefined}
+        options={options}
+      />,
+    );
+
+    expect(screen.getByLabelText("Moneda").tagName).toBe("SELECT");
+  });
+
+  it("links the label to the visible field in non-native mode", () => {
+    render(
+      <SelectInput
+        id="custom"
+        label="Moneda"
+        native={false}
+        value={1}
+        onChange={() => undefined}
+        options={options}
+      />,
+    );
+
+    const field = screen.getByLabelText("Moneda");
+    expect(field.tagName).toBe("INPUT");
+    expect(field).toHaveAttribute("id", "custom");
+    expect(document.querySelectorAll("#custom")).toHaveLength(1);
+  });
 });

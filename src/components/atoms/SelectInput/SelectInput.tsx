@@ -10,6 +10,7 @@ import {
   KeyboardEvent,
   useCallback,
   useEffect,
+  useId,
   useMemo,
   useRef,
   useState,
@@ -47,7 +48,7 @@ export const SelectInput = forwardRef(function (
     label = "",
     placeholder = "",
     name = "",
-    id = "",
+    id: idProp = "",
     state = State.default,
     native = true,
     disabled,
@@ -56,6 +57,10 @@ export const SelectInput = forwardRef(function (
     children,
     ...rest
   } = props;
+
+  // Fallback id so the label is always linked to its field.
+  const generatedId = useId();
+  const id = idProp || generatedId;
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [showOptions, setShowOptions] = useState(false);
@@ -192,7 +197,6 @@ export const SelectInput = forwardRef(function (
           {...rest}
           ref={syncForwardedRef}
           name={name}
-          id={id}
           value={value}
           onChange={onChange}
           className="select-input-native-hidden"

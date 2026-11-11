@@ -2,7 +2,7 @@
 import "./styles.css";
 
 import { classNames } from "@/lib";
-import { ChangeEvent, ForwardedRef, forwardRef, useState } from "react";
+import { ChangeEvent, ForwardedRef, forwardRef, useId, useState } from "react";
 
 // utils
 import {
@@ -63,6 +63,11 @@ export const TextInput = forwardRef(function (
     ...rest
   } = props;
 
+  // Without an id the label is not linked to the input, so tapping the
+  // label (which sits over the field) would not focus it.
+  const generatedId = useId();
+  const inputId = rest.id || generatedId;
+
   const isControlled = value !== undefined;
   const [uncontrolledHasValue, setUncontrolledHasValue] = useState(() =>
     hasInputValue(defaultValue),
@@ -105,10 +110,11 @@ export const TextInput = forwardRef(function (
             keepLabelUp ? "keep-label-up" : "",
           )}
           {...rest}
+          id={inputId}
         />
         {!!label && (
           <label
-            htmlFor={rest.id}
+            htmlFor={inputId}
             className={classNames(
               "text-input-label",
               labelStateClassName(state),
