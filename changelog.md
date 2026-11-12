@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.7]
+
+### Changed
+
+- Accepts `@sito/ui` 0.11 (peer `>=0.3.2 <0.12.0`, was `<0.11.0`). The bundled `@sito/ui` styles (`dist/sitoUi.css`) now come from 0.11.0: toasts have an `info` color, are filled by default (no accent stripe), fade to a new color when updated in place, and a removed icon such as a spinner shrinks out while the message slides in.
+
 ## [0.4.6]
 
 ### Fixed
