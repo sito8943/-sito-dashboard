@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.8]
+
+### Fixed
+
+- `AutocompleteInput` with `multiple` and `helperText`: the selected-value chips sat below the input, over the helper text (66099d9). They were centered on the container that also holds the helper text; they now render inside the text input field, like the clear button.
+
 ## [0.4.7]
 
 ### Changed
