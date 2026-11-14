@@ -415,47 +415,48 @@ export const AutocompleteInput = forwardRef(function (
               }}
             />
           )}
-        </TextInput>
-        {multiple && Array.isArray(value) && value.length ? (
-          <ul ref={multipleValueRef} className="autocomplete-value-container">
-            {!threeDots ? (
-              value.map((selected: Option, i: number) => (
-                <li key={selected.id ?? selected.value ?? selected.name}>
-                  <Chip
-                    text={String(selected.value ?? selected.name)}
-                    onDelete={(e) => {
-                      handleDeleteChip(i);
-                      e.stopPropagation();
-                    }}
-                  />
-                </li>
-              ))
-            ) : (
-              <>
-                <li>
-                  <Chip
-                    text={value[0]?.value ?? value[0]?.name}
-                    onDelete={(e) => {
-                      handleDeleteChip(0);
-                      e.stopPropagation();
-                    }}
-                  />
-                </li>
-                {value.length > 1 && (
-                  <li>
+          {/* Inside the field so chips center on the input, not on input + helper text */}
+          {multiple && Array.isArray(value) && value.length ? (
+            <ul ref={multipleValueRef} className="autocomplete-value-container">
+              {!threeDots ? (
+                value.map((selected: Option, i: number) => (
+                  <li key={selected.id ?? selected.value ?? selected.name}>
                     <Chip
-                      text={`+${value.length - 1}`}
+                      text={String(selected.value ?? selected.name)}
                       onDelete={(e) => {
-                        handleTrimToFirst();
+                        handleDeleteChip(i);
                         e.stopPropagation();
                       }}
                     />
                   </li>
-                )}
-              </>
-            )}
-          </ul>
-        ) : null}
+                ))
+              ) : (
+                <>
+                  <li>
+                    <Chip
+                      text={value[0]?.value ?? value[0]?.name}
+                      onDelete={(e) => {
+                        handleDeleteChip(0);
+                        e.stopPropagation();
+                      }}
+                    />
+                  </li>
+                  {value.length > 1 && (
+                    <li>
+                      <Chip
+                        text={`+${value.length - 1}`}
+                        onDelete={(e) => {
+                          handleTrimToFirst();
+                          e.stopPropagation();
+                        }}
+                      />
+                    </li>
+                  )}
+                </>
+              )}
+            </ul>
+          ) : null}
+        </TextInput>
       </div>
       {showSuggestions && (
         <ul

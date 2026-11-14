@@ -452,4 +452,25 @@ describe("AutocompleteInput", () => {
 
     expect(input).toHaveValue("Cherry");
   });
+
+  it("renders multiple-value chips inside the input field, not next to the helper text", () => {
+    const { container } = render(
+      <AutocompleteInput
+        id="autocomplete-chips"
+        label="Fruits"
+        helperText="Pick some fruits"
+        multiple
+        value={[options[0]]}
+        onChange={vi.fn()}
+        options={options}
+      />,
+    );
+
+    const chips = container.querySelector(".autocomplete-value-container");
+    expect(chips).not.toBeNull();
+    expect(chips?.closest(".text-input-field")).not.toBeNull();
+    expect(
+      screen.getByText("Pick some fruits").closest(".text-input-field"),
+    ).toBeNull();
+  });
 });
